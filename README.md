@@ -2,7 +2,7 @@
 
 <p align="center">
 
-[![Build Status](https://travis-ci.com/gilbertronaldo/ekspedisi-app.svg?branch=master)](https://travis-ci.com/gilbertronaldo/ekspedisi-app) [![Gitter](https://img.shields.io/gitter/room/gilbertronaldo/ekspedisi-app.svg)](https://gitter.im/gilbertronaldo/ekspedisi-app) [![GitHub stars](https://img.shields.io/github/stars/gilbertronaldo/ekspedisi-app.svg)](https://github.com/gilbertronaldo/ekspedisi-app/stargazers) [![GitHub license](https://img.shields.io/github/license/gilbertronaldo/ekspedisi-app.svg)](https://raw.githubusercontent.com/gilbertronaldo/ekspedisi-app/LICENSE)
+[![Build Status](https://travis-ci.com/gilbertronaldo/gilbertronaldo.com.svg?branch=master)](https://travis-ci.com/gilbertronaldo/gilbertronaldo.com) [![GitHub stars](https://img.shields.io/github/stars/gilbertronaldo/gilbertronaldo.com.svg)](https://github.com/gilbertronaldo/gilbertronaldo.com/stargazers) [![GitHub license](https://img.shields.io/github/license/gilbertronaldo/gilbertronaldo.com.svg)](https://raw.githubusercontent.com/gilbertronaldo/gilbertronaldo.com/master/LICENSE)
 
 </p>
 
