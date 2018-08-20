@@ -23,15 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (app()->environment('local')) {
-            // register the service provider
-            app()->register('Barryvdh\Debugbar\ServiceProvider');
-
-            // register an alias
-            app()->booting(function () {
-                $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-                $loader->alias('Debugbar', 'Barryvdh\Debugbar\Facade');
-            });
-        }
     }
 }
