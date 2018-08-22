@@ -6,15 +6,13 @@ build:
     node-that-needs-postgresql:
       environment:
         postgresql: true
-      dependencies:
-        before:
-        - psql -c "CREATE DATABASE scrutinizer_ci_test WITH OWNER = scrutinizer ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' TEMPLATE template0"
     analysis:
       project_setup:
         override:
         - 'true'
       tests:
         override:
+        - command: psql -c "CREATE DATABASE scrutinizer_ci_test WITH OWNER = scrutinizer ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' TEMPLATE template0"
         - command: cp .env.scrutinizer .env
         - command: composer self-update
         - command: composer install --prefer-source --no-interaction --dev
