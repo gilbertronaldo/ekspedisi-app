@@ -14,7 +14,7 @@ build:
         - command: composer install --prefer-source --no-interaction --dev
         - command: php artisan key:generate
         - command: php artisan route:list
-    tests: true
+        - php-scrutinizer-run
 filter:
   paths:
   - 'app/*'
