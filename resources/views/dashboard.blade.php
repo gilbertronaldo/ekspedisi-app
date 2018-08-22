@@ -9,15 +9,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Dashboard</title>
+    <title>404</title>
 </head>
 <body>
-
-<app class="flex-center">
-    <div class="title m-b-md">
-        Loading App Component...
-    </div>
-</app>
 
 <script src="{{ url('js/app.js') }}" type="application/javascript"></script>
 </body>
