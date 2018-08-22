@@ -2,14 +2,7 @@ build:
   environment:
     php: 7.2.0
     redis: true
-    postgresql: true
   nodes:
-    node-that-needs-postgresql:
-      environment:
-        postgresql: true
-      dependencies:
-        before:
-        - psql -c "CREATE DATABASE scrutinizer_ci_test WITH OWNER = scrutinizer ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' TEMPLATE template0"
     analysis:
       project_setup:
         override:
@@ -20,12 +13,7 @@ build:
         - command: composer self-update
         - command: composer install --prefer-source --no-interaction --dev
         - command: php artisan key:generate
-        - command: php artisan migrate
         - command: php artisan route:list
-        - php-scrutinizer-run
-        - command: phpcs-run
-          use_website_config: true
-        - js-scrutinizer-run
     tests: true
 filter:
   paths:
