@@ -9,9 +9,9 @@ sudo: true
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 - cp .env.travis .env
-- php artisan key:generate
 - composer self-update
 - composer install --prefer-source --no-interaction --dev
+- php artisan key:generate
 - php artisan migrate
 - php artisan route:list
 - nvm install node
