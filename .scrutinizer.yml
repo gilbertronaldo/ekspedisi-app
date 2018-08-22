@@ -1,8 +1,7 @@
 build:
-  build:
-    environment:
-      php: 7.2.0
-      redis: true
+  environment:
+    php: 7.2.0
+    redis: true
   nodes:
     node-that-needs-postgresql:
       environment:
