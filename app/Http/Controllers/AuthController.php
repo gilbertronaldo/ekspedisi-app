@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers
+ */
 class AuthController extends Controller
 {
 
@@ -29,12 +33,21 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (!$token = JWTAuth::attempt($credentials)) {
             return response([
+                'name' => 'HttpException',
                 'status' => 'error',
                 'error' => 'invalid.credentials',
-                'msg' => 'Invalid Credentials.'
-            ], 400);
+                'message' => [
+                    [
+                        "field" => "password",
+                        "message" => "Incorrect password."
+                    ]
+                ]
+            ], 422);
         }
         return response([
+            'user' => [
+                'email' => $request->input('email')
+            ],
             'status' => 'success',
             'token' => $token
         ]);
