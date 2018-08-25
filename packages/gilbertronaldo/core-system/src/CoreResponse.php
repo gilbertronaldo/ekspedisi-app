@@ -10,22 +10,22 @@ namespace GilbertRonaldo\CoreSystem;
  */
 
 /**
- * Class Response
+ * Class CoreResponse
  * @package GilbertRonaldo\CoreSystem
  */
-class Response
+class CoreResponse
 {
     /**
      * @param array $data
      * @return array
      */
-    static public function ok(array $data)
+    static public function ok($data = null)
     {
         return [
             'result' => [
                 'status' => _RESPONSE_OK,
                 'status_code' => 200,
-                'data' => $data
+                'data' => $data == null ? new \stdClass() : $data
             ]
         ];
     }

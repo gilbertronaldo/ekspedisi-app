@@ -6,6 +6,6 @@
  * Time: 6:38 PM
  */
 
-// Response constants
+// CoreResponse constants
 IF (!defined("_RESPONSE_OK")) define("_RESPONSE_OK","OK");
 IF (!defined("_RESPONSE_FAIL")) define("_RESPONSE_FAIL","FAIL");

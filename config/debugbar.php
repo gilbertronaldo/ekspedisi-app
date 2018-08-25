@@ -9,7 +9,7 @@ return [
      |
      | Debugbar is enabled by default, when debug is set to true in app.php.
      | You can override the value by setting enable to true or false instead of null.
-     | 
+     |
      | You can provide an array of URI's that must be ignored (eg. 'api/*')
      |
      */
@@ -79,7 +79,7 @@ return [
      |
      */
     'error_handler' => false,
-    
+
     /*
      |--------------------------------------------------------------------------
      | Clockwork integration
@@ -166,11 +166,11 @@ return [
 
     /*
      |--------------------------------------------------------------------------
-     | Inject Debugbar in Response
+     | Inject Debugbar in CoreResponse
      |--------------------------------------------------------------------------
      |
      | Usually, the debugbar is added just before </body>, by listening to the
-     | Response after the App is done. If you disable this, you have to add them
+     | CoreResponse after the App is done. If you disable this, you have to add them
      | in your template yourself. See http://phpdebugbar.com/docs/rendering.html
      |
      */
