@@ -1,7 +1,10 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -12,7 +15,7 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1",
-        "tymon/jwt-auth": "^0.5.12"
+        "tymon/jwt-auth": "1.0.*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
@@ -27,7 +30,9 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "GilbertRonaldo\\CoreSystem\\": "packages/gilbertronaldo/core-system/src",
+            "GilbertRonaldo\\CoreSystem\\Providers\\": "packages/gilbertronaldo/core-system/src/Providers"
         }
     },
     "autoload-dev": {
