@@ -116,7 +116,7 @@ class AuthController extends Controller
      * @param $token
      * @return array
      */
-    public function responseWithToken($token)
+    private function responseWithToken($token)
     {
         return [
             'access_token' => $token,
