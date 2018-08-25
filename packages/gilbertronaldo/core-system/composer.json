@@ -1,0 +1,24 @@
+{
+  "name": "gilbertronaldo/core-system",
+  "description": "PHP Core System Library For Laravel",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gilbert Ronaldo",
+      "email": "me@gilbertronaldo.com"
+    }
+  ],
+  "require": {},
+  "minimum-stability": "dev",
+  "version": "0.0.1",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "GilbertRonaldo\\CoreSystem\\Providers"
+      ],
+      "aliases": {
+      }
+    }
+  }
+}

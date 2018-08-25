@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use GilbertRonaldo\CoreSystem\CoreHandler;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        /**
+         * Custom Handler
+         */
+        $this->app->bind(
+            ExceptionHandler::class,
+            CoreHandler::class
+        );
     }
 
     /**
