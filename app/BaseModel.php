@@ -10,8 +10,12 @@ namespace App;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 abstract class BaseModel extends Model
 {
+    use SoftDeletes;
     use Cachable;
+
+    public $timestamps = true;
 }
