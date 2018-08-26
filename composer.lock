@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7aa4baa8cc2e072e03de5df9d21ba0fe",
+    "content-hash": "42e7c45c318622ad8dffb9638f993bfb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -495,23 +495,24 @@
         },
         {
             "name": "fico7489/laravel-pivot",
-            "version": "2.2.7",
+            "version": "2.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fico7489/laravel-pivot.git",
-                "reference": "8f83c60874afd4ac7f2f2265416495e9c4986ba3"
+                "reference": "a7807b7f9a875f188553069484a23a547291a18c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fico7489/laravel-pivot/zipball/8f83c60874afd4ac7f2f2265416495e9c4986ba3",
-                "reference": "8f83c60874afd4ac7f2f2265416495e9c4986ba3",
+                "url": "https://api.github.com/repos/fico7489/laravel-pivot/zipball/a7807b7f9a875f188553069484a23a547291a18c",
+                "reference": "a7807b7f9a875f188553069484a23a547291a18c",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "5.6.*"
+                "illuminate/database": "5.*"
             },
             "require-dev": {
-                "orchestra/testbench": "~3.6.0"
+                "friendsofphp/php-cs-fixer": "2.*",
+                "orchestra/testbench": "3.*"
             },
             "type": "library",
             "autoload": {
@@ -540,7 +541,7 @@
                 "laravel pivot events",
                 "laravel sync events"
             ],
-            "time": "2018-07-28T05:39:32+00:00"
+            "time": "2018-08-26T09:23:13+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -658,6 +659,57 @@
             ],
             "description": "Automatic caching for Eloquent models.",
             "time": "2018-07-26T02:45:40+00:00"
+        },
+        {
+            "name": "gilbertronaldo/core-system",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gilbertronaldo/core-system.git",
+                "reference": "90136d7f73d75a20008841216e958dba1cf8e92a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gilbertronaldo/core-system/zipball/90136d7f73d75a20008841216e958dba1cf8e92a",
+                "reference": "90136d7f73d75a20008841216e958dba1cf8e92a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.6.*",
+                "illuminate/http": "5.6.*",
+                "illuminate/support": "5.6.*",
+                "php": "^7.2",
+                "tymon/jwt-auth": "1.0.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GilbertRonaldo\\CoreSystem\\Providers\\PackageServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GilbertRonaldo\\CoreSystem\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gilbert Ronaldo",
+                    "email": "me@gilbertronaldo.com"
+                }
+            ],
+            "description": "PHP Core System Library For Laravel",
+            "support": {
+                "source": "https://github.com/gilbertronaldo/core-system/tree/master",
+                "issues": "https://github.com/gilbertronaldo/core-system/issues"
+            },
+            "time": "2018-08-26T13:25:53+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -4701,7 +4753,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "barryvdh/laravel-debugbar": 20
+        "barryvdh/laravel-debugbar": 20,
+        "gilbertronaldo/core-system": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
