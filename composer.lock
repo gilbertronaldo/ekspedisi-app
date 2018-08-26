@@ -666,17 +666,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gilbertronaldo/core-system.git",
-                "reference": "90136d7f73d75a20008841216e958dba1cf8e92a"
+                "reference": "6985ac26fce7933f334a343edcb2234b6cb2651b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gilbertronaldo/core-system/zipball/90136d7f73d75a20008841216e958dba1cf8e92a",
-                "reference": "90136d7f73d75a20008841216e958dba1cf8e92a",
+                "url": "https://api.github.com/repos/gilbertronaldo/core-system/zipball/6985ac26fce7933f334a343edcb2234b6cb2651b",
+                "reference": "6985ac26fce7933f334a343edcb2234b6cb2651b",
                 "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "5.6.*",
                 "illuminate/http": "5.6.*",
+                "illuminate/routing": "5.6.*",
                 "illuminate/support": "5.6.*",
                 "php": "^7.2",
                 "tymon/jwt-auth": "1.0.*"
@@ -709,7 +710,7 @@
                 "source": "https://github.com/gilbertronaldo/core-system/tree/master",
                 "issues": "https://github.com/gilbertronaldo/core-system/issues"
             },
-            "time": "2018-08-26T13:25:53+00:00"
+            "time": "2018-08-26T14:04:33+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
