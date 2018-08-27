@@ -7,12 +7,14 @@
 
     LoginController.$inject = [
         '$localStorage',
-        '$location'
+        '$location',
+        '$state'
     ];
 
     function LoginController(
         $localStorage,
-        $location
+        $location,
+        $state
     ) {
         console.log(this)
         let ctrl = this;
@@ -22,7 +24,7 @@
             $localStorage.currentUser = {
                 token: '1234'
             }
-            $location.path('/admin/home');
+            $state.go('admin.home');
         }
     }
 })();

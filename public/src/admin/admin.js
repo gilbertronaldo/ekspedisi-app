@@ -9,9 +9,9 @@
         ]).config(($stateProvider) => {
         $stateProvider
             .state('admin', {
-                url: 'admin',
+                url: '',
                 templateUrl: '/admin',
-                controller: 'AdminController as adminController',
+                abstract:true
             })
     });
 })();
