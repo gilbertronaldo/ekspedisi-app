@@ -7,10 +7,10 @@
             'ui.bootstrap',
         ]).config(($stateProvider) => {
         $stateProvider
-            .state('home', {
+            .state('admin.home', {
                 url: '/home',
                 templateUrl: '/home/dashboard',
-                controller: 'HomeController as homeController'
+                controller: 'HomeController as homeController',
             })
     });
 })();
