@@ -9,8 +9,11 @@
                 'Ekspedisi.login'
             ],
             [
-                '$interpolateProvider',
-                function ($interpolateProvider) {
+                '$interpolateProvider', '$urlRouterProvider',
+                function ($interpolateProvider, $urlRouterProvider) {
+                    $urlRouterProvider.otherwise(function ($injector) {
+                        return '/admin/home';
+                    });
                     $interpolateProvider.startSymbol('<%').endSymbol('%>');
                 }])
         .run(run);
@@ -28,6 +31,7 @@
             var publicPages = ['/login'];
             var restrictedPage = publicPages.indexOf($location.path()) === -1;
             if (restrictedPage && !$localStorage.currentUser) {
+                event.preventDefault();
                 $location.path('/login');
             }
         });

@@ -8,7 +8,7 @@
         ]).config(($stateProvider) => {
         $stateProvider
             .state('admin.home', {
-                url: '',
+                url: '/home',
                 templateUrl: '/home/dashboard',
                 controller: 'HomeController as homeController',
             })

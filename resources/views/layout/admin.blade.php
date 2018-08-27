@@ -1,4 +1,4 @@
-<div id="main-wrapper">
+<div id="main-wrapper" data-layout='vertical'>
     <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-dark">
             <div class="navbar-header">

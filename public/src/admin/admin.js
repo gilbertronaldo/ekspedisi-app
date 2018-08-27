@@ -9,7 +9,7 @@
         ]).config(($stateProvider) => {
         $stateProvider
             .state('admin', {
-                url: '',
+                url: '/admin',
                 templateUrl: '/admin',
                 abstract:true
             })
