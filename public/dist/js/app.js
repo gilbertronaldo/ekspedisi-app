@@ -1,20 +1,20 @@
 // Admin Panel settings
 $.fn.AdminSettings = function (settings) {
     var myid = this.attr("id");
-    // General option for vertical header 
+    // General option for vertical header
     var defaults = {
         Theme: true, // this can be true or false ( true means dark and false means light ),
-        Layout: 'vertical', // 
-        LogoBg: 'skin1', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6 
-        NavbarBg: 'skin6', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6 
+        Layout: 'vertical', //
+        LogoBg: 'skin1', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+        NavbarBg: 'skin6', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
         SidebarType: 'full', // You can change it full / mini-sidebar
         SidebarColor: 'skin1', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
         SidebarPosition: false, // it can be true / false
         HeaderPosition: false, // it can be true / false
-        BoxedLayout: false, // it can be true / false 
+        BoxedLayout: false, // it can be true / false
     };
     var settings = $.extend({}, defaults, settings);
-    // Attribute functions 
+    // Attribute functions
     var AdminSettings = {
         // Settings INIT
         AdminSettingsInit: function () {
@@ -42,7 +42,7 @@ $.fn.AdminSettings = function (settings) {
                     $("body").prop("checked", !1);
                 }
                 break;
-                   
+
             default:
             }
         }
@@ -62,7 +62,7 @@ $.fn.AdminSettings = function (settings) {
             }
         }
         , //****************************
-        // ManageSidebarType functions 
+        // ManageSidebarType functions
         //****************************
         ManageThemeBackground: function () {
             // Logo bg attribute
@@ -99,12 +99,12 @@ $.fn.AdminSettings = function (settings) {
             switch (settings.SidebarType) {
                 //****************************
                 // If the sidebar type has full
-                //****************************     
+                //****************************
             case 'full':
                 $('#' + myid).attr("data-sidebartype", "full");
                 //****************************
                 /* This is for the mini-sidebar if width is less then 1170*/
-                //**************************** 
+                //****************************
                 var setsidebartype = function () {
                     var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
                     if (width < 1170) {
@@ -133,7 +133,7 @@ $.fn.AdminSettings = function (settings) {
                 break;
                 //****************************
                 // If the sidebar type has mini-sidebar
-                //****************************       
+                //****************************
             case 'mini-sidebar':
                 $('#' + myid).attr("data-sidebartype", "mini-sidebar");
                 //****************************
@@ -153,12 +153,12 @@ $.fn.AdminSettings = function (settings) {
                 break;
                 //****************************
                 // If the sidebar type has iconbar
-                //****************************       
+                //****************************
             case 'iconbar':
                 $('#' + myid).attr("data-sidebartype", "iconbar");
                 //****************************
                 /* This is for the mini-sidebar if width is less then 1170*/
-                //**************************** 
+                //****************************
                 var setsidebartype = function () {
                     var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
                     if (width < 1170) {
@@ -189,7 +189,7 @@ $.fn.AdminSettings = function (settings) {
                 break;
                 //****************************
                 // If the sidebar type has overlay
-                //****************************       
+                //****************************
             case 'overlay':
                 $('#' + myid).attr("data-sidebartype", "overlay");
                 var setsidebartype = function () {
@@ -224,7 +224,7 @@ $.fn.AdminSettings = function (settings) {
             }
         }
         , //****************************
-        // ManageSidebarColor functions 
+        // ManageSidebarColor functions
         //****************************
         ManageSidebarColor: function () {
             // Logo bg attribute
@@ -292,7 +292,7 @@ $.fn.AdminSettings = function (settings) {
                     $('#' + myid).attr("data-boxed-layout", 'full');
                     $("#boxed-layout").prop("checked", !1);
                 }
-                break;        
+                break;
             default:
             }
         }
