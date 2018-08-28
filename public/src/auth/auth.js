@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('Ekspedisi.login', [
+        .module('Ekspedisi.auth', [
             'ui.router',
             'ui.bootstrap',
             'ngStorage',

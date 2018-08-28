@@ -74,7 +74,8 @@
 <script src="{{ URL::asset('src/admin/adminController.js') }}"></script>
 <script src="{{ URL::asset('src/home/home.js') }}"></script>
 <script src="{{ URL::asset('src/home/homeController.js') }}"></script>
-<script src="{{ URL::asset('src/login/login.js') }}"></script>
-<script src="{{ URL::asset('src/login/loginController.js') }}"></script>
+<script src="{{ URL::asset('src/auth/auth.js') }}"></script>
+<script src="{{ URL::asset('src/auth/loginController.js') }}"></script>
+<script src="{{ URL::asset('src/auth/authService.js') }}"></script>
 </body>
 </html>

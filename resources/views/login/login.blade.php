@@ -18,15 +18,15 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
                                 </div>
-                                <input type="text" name="username" class="form-control form-control-lg"
-                                       placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" name="email" class="form-control form-control-lg"
+                                       placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" ng-model="ctrl.input.email">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
                                 </div>
                                 <input type="password" name="password" class="form-control form-control-lg"
-                                       placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                                       placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" ng-model="ctrl.input.password">
                             </div>
                             <div class="form-group text-center">
                                 <div class="col-xs-12 p-b-20">
