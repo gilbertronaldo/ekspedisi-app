@@ -40,4 +40,20 @@
             </div>
         </div>
     </div>
+
+    {{--apps--}}
+    <script src="{{ URL::asset('dist/js/app.min.js') }}"></script>
+    <script src="{{ URL::asset('dist/js/app.init.js') }}"></script>
+    <script src="{{ URL::asset('dist/js/app-style-switcher.js') }}"></script>
+
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="../../dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../dist/js/custom.min.js"></script>
+    <!--This page JavaScript -->
 </data>
