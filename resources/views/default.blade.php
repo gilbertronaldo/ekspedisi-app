@@ -54,16 +54,5 @@
 <ui-view></ui-view>
 
 <script src="{{  URL::asset('js/app.js') }}"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
-
-<script src="{{ URL::asset('src/main/app.js') }}"></script>
-<script src="{{ URL::asset('src/admin/admin.js') }}"></script>
-<script src="{{ URL::asset('src/admin/adminController.js') }}"></script>
-<script src="{{ URL::asset('src/home/home.js') }}"></script>
-<script src="{{ URL::asset('src/home/homeController.js') }}"></script>
-<script src="{{ URL::asset('src/auth/auth.js') }}"></script>
-<script src="{{ URL::asset('src/auth/loginController.js') }}"></script>
-<script src="{{ URL::asset('src/auth/authService.js') }}"></script>
 </body>
 </html>
