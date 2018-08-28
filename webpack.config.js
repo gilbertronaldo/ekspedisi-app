@@ -5,7 +5,7 @@ module.exports = {
     devtool: "inline-source-map",
     entry: {
         app: [
-            './resources/assets/js/app.js',
+            './resources/assets/js/app.js'
         ]
     },
     output: {
