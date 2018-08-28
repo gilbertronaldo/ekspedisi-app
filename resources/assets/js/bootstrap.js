@@ -12,5 +12,10 @@ try {
 
     require('bootstrap');
     require('tether');
+
+    require('angular');
+    require('angular-ui-router');
+    require('ngstorage');
+    require('angular-ui-bootstrap');
 } catch (e) {
 }
