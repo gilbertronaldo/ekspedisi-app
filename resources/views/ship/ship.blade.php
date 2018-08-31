@@ -1,4 +1,4 @@
-
+<data ng-init="ctrl = shipController">
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <!-- ============================================================== -->
@@ -14,7 +14,10 @@
             <div class="d-flex no-block justify-content-end align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Master</li>
+                        <li class="breadcrumb-item">
+                            <a ui-sref="admin.home">Master</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Kapal</li>
                     </ol>
                 </nav>
             </div>
@@ -26,5 +29,25 @@
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 <div class="container-fluid">
-
+    <div class="row">
+        <div class="col-lg-12 col-xlg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="button-group">
+                        <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.ship.add">
+                            TAMBAH KAPAL
+                        </button>
+                        <button type="button" class="btn waves-effect waves-light btn-primary" ng-click="ctrl.exportToExcel()">
+                            EXPORT EXCEL
+                        </button>
+                    </div>
+                    <table datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.dtColumns"
+                           dt-instance="ctrl.dtInstance" class="row-border hover" width="100%" cellspacing="0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+</data>

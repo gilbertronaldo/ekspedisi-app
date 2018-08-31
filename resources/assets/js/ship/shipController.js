@@ -1,5 +1,5 @@
 ;(() => {
-    'use strict'
+    'use strict';
 
     angular
         .module('Ekspedisi.ship')
@@ -10,7 +10,5 @@
     ];
 
     function ShipController(swangular) {
-        console.log(this)
-        swangular.success("Great job!");
     }
 })();
