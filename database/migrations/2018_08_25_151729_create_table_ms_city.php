@@ -19,6 +19,7 @@ class CreateTableMsCity extends Migration
             $table->string('city_code', 10);
             $table->string('city_name');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('country_id','ms_city_country_id_fk')->references('country_id')->on('ms_country');
         });
