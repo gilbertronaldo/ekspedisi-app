@@ -7,14 +7,14 @@ module.exports = {
         app: [
             './resources/assets/js/app.js',
 
-            './public/src/main/app.js',
-            './public/src/admin/admin.js',
-            './public/src/admin/adminController.js',
-            './public/src/home/home.js',
-            './public/src/home/homeController.js',
-            './public/src/auth/auth.js',
-            './public/src/auth/authService.js',
-            './public/src/auth/loginController.js',
+            './resources/assets/js/main/app.js',
+            './resources/assets/js/admin/admin.js',
+            './resources/assets/js/admin/adminController.js',
+            './resources/assets/js/home/home.js',
+            './resources/assets/js/home/homeController.js',
+            './resources/assets/js/auth/auth.js',
+            './resources/assets/js/auth/authService.js',
+            './resources/assets/js/auth/loginController.js',
         ]
     },
     output: {
