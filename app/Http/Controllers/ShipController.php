@@ -47,4 +47,18 @@ class ShipController extends Controller
 
         return $response;
     }
+
+    public function destroy($shipId)
+    {
+        try {
+            $ship = MsShip::findOrFail($shipId);
+            $ship->delete();
+
+            $response = CoreResponse::ok($ship);
+        } catch (CoreException $e) {
+            $response = CoreResponse::fail($e);
+        }
+
+        return $response;
+    }
 }
