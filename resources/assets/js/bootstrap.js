@@ -20,5 +20,9 @@ try {
 
     window.swal = require('sweetalert2');
     require('swangular');
+
+    require('datatables.net');
+    require('datatables.net-dt');
+    require('angular-datatables');
 } catch (e) {
 }
