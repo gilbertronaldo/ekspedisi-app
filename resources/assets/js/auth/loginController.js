@@ -9,14 +9,16 @@
         '$localStorage',
         '$location',
         '$state',
-        'AuthService'
+        'AuthService',
+        'swangular'
     ];
 
     function LoginController(
         $localStorage,
         $location,
         $state,
-        AuthService
+        AuthService,
+        swangular
     ) {
         console.log(this);
         let ctrl = this;
@@ -25,15 +27,18 @@
         ctrl.doLogin = () => {
             AuthService.login(ctrl.input)
                 .then(res => {
-                    if (res.status === 'FAIL') {
-
+                    if (res.status === 'FAIL' && res.status_code === 401) {
+                        swangular.alert("Email atau Password salah !");
                     } else if (res.status === 'OK' && res.status_code === 200) {
                         $localStorage.currentUser = res.data;
                         $state.go('admin.home');
+                    } else {
+                        swangular.alert("Error");
                     }
                 })
                 .catch(err => {
                     console.log(err)
+                    swangular.alert("Error");
                 })
         }
     }
