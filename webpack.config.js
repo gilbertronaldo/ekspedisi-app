@@ -15,6 +15,11 @@ module.exports = {
             './resources/assets/js/auth/auth.js',
             './resources/assets/js/auth/authService.js',
             './resources/assets/js/auth/loginController.js',
+            './resources/assets/js/ship/ship.js',
+            './resources/assets/js/ship/shipService.js',
+            './resources/assets/js/ship/shipController.js',
+            './resources/assets/js/ship/editShipController.js',
+            './resources/assets/js/ship/addShipController.js',
         ]
     },
     output: {

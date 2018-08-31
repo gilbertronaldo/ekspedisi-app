@@ -6,7 +6,8 @@
                 'ui.router',
                 'ngStorage',
                 'Ekspedisi.admin',
-                'Ekspedisi.auth'
+                'Ekspedisi.auth',
+                'Ekspedisi.ship'
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider',

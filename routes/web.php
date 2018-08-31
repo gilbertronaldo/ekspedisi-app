@@ -29,6 +29,10 @@ Route::get('login', function () {
     return view('login.login');
 });
 
+Route::get('ship', function () {
+    return view('ship.ship');
+});
+
 
 Route::prefix('home')->group(function () {
     Route::get('dashboard', function () {

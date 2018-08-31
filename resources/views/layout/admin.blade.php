@@ -102,7 +102,7 @@
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" ui-sref="ship">
+                                <a class="sidebar-link" ui-sref="admin.ship">
                                     <i class="icon-Record"></i>
                                     <span class="hide-menu">Kapal</span>
                                 </a>
