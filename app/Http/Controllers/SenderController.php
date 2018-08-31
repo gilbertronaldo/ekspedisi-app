@@ -9,17 +9,20 @@
 namespace App\Http\Controllers;
 
 
+use App\MsSender;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
 
 class SenderController
 {
-    public function get(Request $request)
+    public function paginate(Request $request)
     {
         try {
 
-            $response = CoreResponse::ok();
+            $senderList = MsSender::paginate();
+
+            $response = CoreResponse::ok($senderList);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }
