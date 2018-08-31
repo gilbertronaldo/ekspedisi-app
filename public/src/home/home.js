@@ -5,6 +5,7 @@
         .module('Ekspedisi.home', [
             'ui.router',
             'ui.bootstrap',
+            'swangular'
         ]).config(($stateProvider) => {
         $stateProvider
             .state('admin.home', {

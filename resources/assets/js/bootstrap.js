@@ -17,5 +17,8 @@ try {
     require('angular-ui-router');
     require('ngstorage');
     require('angular-ui-bootstrap');
+
+    window.swal = require('sweetalert2');
+    require('swangular');
 } catch (e) {
 }
