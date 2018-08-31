@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="button-group">
-                        <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.ship.add">
+                        <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.ship-add">
                             TAMBAH KAPAL
                         </button>
                         <button type="button" class="btn waves-effect waves-light btn-primary" ng-click="vm.exportToExcel()">
