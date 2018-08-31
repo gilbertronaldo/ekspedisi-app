@@ -10,7 +10,8 @@
         '$location',
         '$state',
         'AuthService',
-        'swangular'
+        'swangular',
+        '$http'
     ];
 
     function LoginController(
@@ -18,7 +19,8 @@
         $location,
         $state,
         AuthService,
-        swangular
+        swangular,
+        $http
     ) {
         console.log(this);
         let ctrl = this;

@@ -87,7 +87,7 @@
                 <ul id="sidebarnav">
 
                     <li class="sidebar-item" ui-sref-active='selected'>
-                        <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="home"
+                        <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.home"
                            aria-expanded="false">
                             <i class="mdi mdi-border-top"></i>
                             <span class="hide-menu">Home</span>
