@@ -18,15 +18,15 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
                                 </div>
-                                <input type="text" name="username" class="form-control form-control-lg"
-                                       placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" name="email" class="form-control form-control-lg"
+                                       placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" ng-model="ctrl.input.email">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
                                 </div>
                                 <input type="password" name="password" class="form-control form-control-lg"
-                                       placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                                       placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" ng-model="ctrl.input.password">
                             </div>
                             <div class="form-group text-center">
                                 <div class="col-xs-12 p-b-20">
@@ -40,4 +40,20 @@
             </div>
         </div>
     </div>
+
+    {{--apps--}}
+    <script src="{{ URL::asset('dist/js/app.min.js') }}"></script>
+    <script src="{{ URL::asset('dist/js/app.init.js') }}"></script>
+    <script src="{{ URL::asset('dist/js/app-style-switcher.js') }}"></script>
+
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="../../dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../dist/js/custom.min.js"></script>
+    <!--This page JavaScript -->
 </data>
