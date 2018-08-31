@@ -1,4 +1,4 @@
-<data ng-init="ctrl = shipController">
+<data ng-init="vm = shipController">
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <!-- ============================================================== -->
@@ -37,12 +37,12 @@
                         <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.ship.add">
                             TAMBAH KAPAL
                         </button>
-                        <button type="button" class="btn waves-effect waves-light btn-primary" ng-click="ctrl.exportToExcel()">
+                        <button type="button" class="btn waves-effect waves-light btn-primary" ng-click="vm.exportToExcel()">
                             EXPORT EXCEL
                         </button>
                     </div>
-                    <table datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.dtColumns"
-                           dt-instance="ctrl.dtInstance" class="row-border hover" width="100%" cellspacing="0">
+                    <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
+                           dt-instance="vm.dtInstance" class="row-border hover" width="100%" cellspacing="0">
                     </table>
                 </div>
             </div>

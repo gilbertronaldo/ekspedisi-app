@@ -5,7 +5,8 @@
         .module('Ekspedisi.ship', [
             'ui.router',
             'ui.bootstrap',
-            'swangular'
+            'swangular',
+            'datatables',
         ]).config(($stateProvider) => {
         $stateProvider
             .state('admin.ship', {
