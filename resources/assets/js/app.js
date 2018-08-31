@@ -20,11 +20,11 @@ require('./sender/senderController.js');
 require('./sender/addSenderController.js');
 require('./sender/editSenderController.js');
 
-require('./recipiet/recipient.js');
-require('./recipiet/recipientService.js');
-require('./recipiet/recipientController.js');
-require('./recipiet/addRecipientController.js');
-require('./recipiet/editRecipientController.js');
+require('./recipient/recipient.js');
+require('./recipient/recipientService.js');
+require('./recipient/recipientController.js');
+require('./recipient/addRecipientController.js');
+require('./recipient/editRecipientController.js');
 
 require('./bapb/bapb.js');
 require('./bapb/bapbService.js');
