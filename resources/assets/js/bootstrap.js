@@ -24,5 +24,7 @@ try {
     require('datatables.net');
     require('datatables.net-dt');
     require('angular-datatables');
+
+    require('angular-moment');
 } catch (e) {
 }
