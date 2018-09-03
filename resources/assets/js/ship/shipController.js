@@ -12,10 +12,11 @@
         'DTOptionsBuilder',
         'DTColumnBuilder',
         '$localStorage',
-        '$compile'
+        '$compile',
+        'ShipService'
     ];
 
-    function ShipController($scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile) {
+    function ShipController($scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, ShipService) {
         let vm = this;
 
         vm.dtInstance = {};
@@ -53,12 +54,33 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<button class="btn btn-info btn-xs" ng-click="ctrl.editShip(' + data.ship_id + ')">' +
+            return '<button class="btn btn-info btn-xs" ng-click="vm.editShip(' + data.ship_id + ')">' +
                 '   <i class="fa fa-edit"></i>' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-danger btn-xs" ng-click="ctrl.deleteShip(' + data.ship_id + ')">' +
-                '   <i class="fa fa-trash-o"></i>' +
+                '<button class="btn btn-danger btn-xs" ng-click="vm.deleteShip(' + data.ship_id + ')">' +
+                '   <i class="fa fa-trash"></i>' +
                 '</button>';
+        }
+
+        vm.editShip = shipId => {
+            $state.go('ship.edit', { shipId: shipId });
+        }
+
+        vm.deleteShip = shipId => {
+            swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
+                showCancelButton: true,
+                preConfirm: () => {
+                    ShipService.delete(shipId)
+                        .then(res => {
+                            swangular.success("Berhasil Menghapus Kapal");
+                            vm.dtInstance.rerender();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            swangular.alert("Error");
+                        })
+                },
+            })
         }
     }
 })();

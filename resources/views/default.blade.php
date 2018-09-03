@@ -17,6 +17,8 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"/>
 
+    <link rel="stylesheet" href="{{ URL::asset('assets/libs/datatables/media/css/jquery.dataTables.min.css') }}">
+
     <link rel="stylesheet" href="{{ URL::asset('dist/css/style.min.css') }}">
 
     <style>
