@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::prefix('master')->group(function () {
+        Route::get('/city', 'MasterController@cityList');
+        Route::get('/country', 'MasterController@countryList');
+    });
+
     Route::prefix('ship')->group(function () {
         Route::get('/', 'ShipController@get');
         Route::post('/', 'ShipController@store');
