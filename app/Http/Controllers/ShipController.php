@@ -14,19 +14,40 @@ use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Contracts\DataTable;
 
 class ShipController extends Controller
 {
     public function all(Request $request)
     {
-        return datatables(MsShip::all())->toJson();
+        $query = DB::TABLE(DB::RAW("(
+            SELECT 
+              A.ship_id, 
+              A.ship_name,
+              A.ship_description,
+              to_char(A.sailing_date, 'DD FMMonth YYYY') AS sailing_date,
+              A.no_voyage,
+              B.city_code || ' - ' || C.city_code AS destination
+            FROM ms_ship A
+            LEFT OUTER JOIN ms_city B 
+             ON A.city_id_from = B.city_id
+             AND B.deleted_at IS NULL
+            LEFT OUTER JOIN ms_city C
+             ON A.city_id_to = C.city_id
+             AND C.deleted_at IS NULL
+            WHERE A.deleted_at IS NULL
+        ) AS X"));
+        return datatables()->query($query)->toJson();
     }
 
     public function get($id)
     {
         try {
             $ship = MsShip::findOrFail($id);
+            if ($ship->sailing_date != null) {
+                $ship->sailing_date = Carbon::parse($ship->sailing_date)->format('m-d-Y');
+            }
             $response = CoreResponse::ok($ship);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
@@ -38,7 +59,12 @@ class ShipController extends Controller
     public function store(Request $request)
     {
         try {
-            $ship = new MsShip();
+            if ($request->has('ship_id')) {
+                $ship = MsShip::findOrFail($request->input('ship_id'));
+            } else {
+                $ship = new MsShip();
+            }
+
             $ship->no_voyage = $request->input('no_voyage');
             $ship->ship_name = $request->input('ship_name');
             $ship->ship_description = $request->input('ship_description');

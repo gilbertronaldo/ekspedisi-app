@@ -63,6 +63,9 @@
         function getShip() {
             ShipService.get($stateParams.id)
                 .then(res => {
+                    if (res.data.sailing_date) {
+                        res.data.sailing_date = new Date(res.data.sailing_date);
+                    }
                     ctrl.input = res.data;
                 })
                 .catch(err => {
@@ -80,14 +83,13 @@
         };
 
         ctrl.changeCity = () => {
-            console.log(ctrl.input);
+
         }
 
         function getCityList() {
             MasterService.cityList()
                 .then(res => {
                     ctrl.cityList = res.data;
-                    console.log(res)
                 })
                 .catch(err => {
                     console.log(err.data);
