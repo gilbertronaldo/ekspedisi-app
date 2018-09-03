@@ -18,9 +18,21 @@ use Yajra\DataTables\Contracts\DataTable;
 
 class ShipController extends Controller
 {
-    public function get(Request $request)
+    public function all(Request $request)
     {
         return datatables(MsShip::all())->toJson();
+    }
+
+    public function get($id)
+    {
+        try {
+            $ship = MsShip::findOrFail($id);
+            $response = CoreResponse::ok($ship);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
     }
 
     public function store(Request $request)

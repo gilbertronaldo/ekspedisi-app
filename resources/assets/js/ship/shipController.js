@@ -6,6 +6,7 @@
         .controller('ShipController', ShipController);
 
     ShipController.$inject = [
+        '$state',
         '$scope',
         'swangular',
         '$q',
@@ -16,7 +17,7 @@
         'ShipService'
     ];
 
-    function ShipController($scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, ShipService) {
+    function ShipController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, ShipService) {
         let vm = this;
 
         vm.dtInstance = {};
@@ -63,7 +64,7 @@
         }
 
         vm.editShip = shipId => {
-            $state.go('ship.edit', { shipId: shipId });
+            $state.go('admin.ship-edit', { id: shipId });
         }
 
         vm.deleteShip = shipId => {

@@ -12,8 +12,8 @@
             delete: _delete,
         };
 
-        function get() {
-            return $http.get(`/api/ship/`)
+        function get(id = '') {
+            return $http.get(`/api/ship/${id}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

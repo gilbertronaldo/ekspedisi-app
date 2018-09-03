@@ -38,6 +38,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/add', function () {
             return view('ship.shipAdd');
         });
+        Route::get('/edit', function () {
+            return view('ship.shipEdit');
+        });
     });
 
 
