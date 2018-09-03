@@ -21,17 +21,29 @@ Route::get('backend', function () {
     return view('default');
 });
 
-Route::get('admin', function () {
-    return view('layout.admin');
-});
-
 Route::get('login', function () {
     return view('login.login');
 });
 
+Route::middleware('auth:api')->group(function () {
+    Route::get('admin', function () {
+        return view('layout.admin');
+    });
 
-Route::prefix('home')->group(function () {
-    Route::get('dashboard', function () {
-        return view('home.dashboard');
+
+    Route::prefix('ship')->group(function () {
+        Route::get('/', function () {
+            return view('ship.ship');
+        });
+        Route::get('/add', function () {
+            return view('ship.shipAdd');
+        });
+    });
+
+
+    Route::prefix('home')->group(function () {
+        Route::get('dashboard', function () {
+            return view('home.dashboard');
+        });
     });
 });

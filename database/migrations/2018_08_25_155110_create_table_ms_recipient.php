@@ -23,6 +23,7 @@ class CreateTableMsRecipient extends Migration
             $table->text('recipient_address')->nullable();
             $table->bigInteger('city_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('city_id','ms_recipient_city_id_fk')->references('city_id')->on('ms_city');
         });

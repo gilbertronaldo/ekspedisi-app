@@ -22,6 +22,7 @@ class CreateTableMsShip extends Migration
             $table->bigInteger('city_id_from');
             $table->bigInteger('city_id_to');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('city_id_from','ms_ship_city_id_from_fk')->references('city_id')->on('ms_city');
             $table->foreign('city_id_to','ms_ship_city_id_to_fk')->references('city_id')->on('ms_city');

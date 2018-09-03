@@ -23,6 +23,7 @@ class CreateTableMsSender extends Migration
             $table->text('sender_address')->nullable();
             $table->bigInteger('city_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('city_id','ms_sender_city_id_fk')->references('city_id')->on('ms_city');
         });
