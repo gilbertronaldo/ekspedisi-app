@@ -18,7 +18,7 @@
         vm.dtInstance = {};
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
-                url: '/api/ship/get-ship-list',
+                url: '/api/ship/',
                 type: 'GET',
                 dataSrc: json => {
                     vm.shipList = json.data

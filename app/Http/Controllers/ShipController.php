@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\MsShip;
+use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class ShipController extends Controller
             $ship->no_voyage = $request->input('no_voyage');
             $ship->ship_name = $request->input('ship_name');
             $ship->ship_description = $request->input('ship_description');
+            $ship->sailing_date = Carbon::parse($request->input('sailing_date'));
             $ship->city_id_from = $request->input('city_id_from');
             $ship->city_id_to = $request->input('city_id_to');
             $ship->save();
