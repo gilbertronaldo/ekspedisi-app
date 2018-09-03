@@ -42,11 +42,17 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Tanggal Keberangkatan</label>
-                                <input type="date" class="form-control" uib-datepicker-popup="<% format %>"
+                                {{--<input type="date" class="form-control" uib-datepicker-popup="<% format %>"--}}
+                                       {{--ng-model="ctrl.input.sailing_date"--}}
+                                       {{--is-open="ctrl.periodDatePickerOpened[0]"--}}
+                                       {{--close-text="Close"--}}
+                                       {{--ng-click="ctrl.openPeriodDatePicker($event,0)">--}}
+
+                                <input class="form-control"
                                        ng-model="ctrl.input.sailing_date"
-                                       is-open="ctrl.periodDatePickerOpened[0]"
-                                       close-text="Close"
-                                       ng-click="ctrl.openPeriodDatePicker($event,0)">
+                                       ng-model-options="{ updateOn: 'blur' }"
+                                       placeholder="Select a date..."
+                                       moment-picker="ctrl.input.sailing_date">
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12">

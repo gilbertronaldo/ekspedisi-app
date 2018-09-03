@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Tanggal Keberangkatan</label>
-                                <input type="date" class="form-control" uib-datepicker-popup="<% format %>"
+                                <input type="date" class="form-control" ="<% format %>"
                                        ng-model="ctrl.input.sailing_date"
                                        is-open="ctrl.periodDatePickerOpened[0]"
                                        close-text="Close"

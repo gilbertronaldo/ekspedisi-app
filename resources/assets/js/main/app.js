@@ -5,7 +5,7 @@
         .module('Ekspedisi.app', [
                 'ui.router',
                 'ngStorage',
-                'angularMoment',
+                'moment-picker',
                 'Ekspedisi.admin',
                 'Ekspedisi.auth',
                 'Ekspedisi.ship',
