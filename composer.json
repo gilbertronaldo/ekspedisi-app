@@ -13,11 +13,12 @@
         "barryvdh/laravel-debugbar": "dev-master",
         "fideloper/proxy": "^4.0",
         "genealabs/laravel-model-caching": "^0.2.64",
+        "gilbertronaldo/core-system": "dev-master",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1",
         "tymon/jwt-auth": "1.0.*",
-        "gilbertronaldo/core-system": "dev-master"
+        "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
