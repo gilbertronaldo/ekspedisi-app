@@ -14,20 +14,13 @@ use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Contracts\DataTable;
 
 class ShipController extends Controller
 {
     public function get(Request $request)
     {
-        try {
-
-            $shipList = MsShip::all();
-            $response = CoreResponse::ok($shipList);
-        } catch (CoreException $e) {
-            $response = CoreResponse::fail($e);
-        }
-
-        return $response;
+        return datatables(MsShip::all())->toJson();
     }
 
     public function store(Request $request)
