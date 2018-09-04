@@ -12,21 +12,21 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/', 'ShipController@all');
         Route::get('/{id}', 'ShipController@get');
         Route::post('/', 'ShipController@store');
-        Route::delete('/{shipId}', 'ShipController@destroy');
+        Route::delete('/{id}', 'ShipController@destroy');
     });
 
     Route::prefix('sender')->group(function () {
         Route::get('/', 'SenderController@all');
         Route::get('/{id}', 'SenderController@get');
         Route::post('/', 'SenderController@store');
-        Route::delete('/{shipId}', 'SenderController@destroy');
+        Route::delete('/{id}', 'SenderController@destroy');
     });
 
     Route::prefix('recipient')->group(function () {
         Route::get('/', 'RecipientController@all');
         Route::get('/{id}', 'RecipientController@get');
         Route::post('/', 'RecipientController@store');
-        Route::delete('/{shipId}', 'RecipientController@destroy');
+        Route::delete('/{id}', 'RecipientController@destroy');
     });
 
     Route::prefix('bapb')->group(function () {

@@ -61,4 +61,16 @@ Route::middleware('auth:api')->group(function () {
             return view('recipient.recipientEdit');
         });
     });
+
+    Route::prefix('sender')->group(function () {
+        Route::get('/', function () {
+            return view('sender.sender');
+        });
+        Route::get('/add', function () {
+            return view('sender.senderAdd');
+        });
+        Route::get('/edit', function () {
+            return view('sender.senderEdit');
+        });
+    });
 });

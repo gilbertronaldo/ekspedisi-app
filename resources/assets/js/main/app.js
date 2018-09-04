@@ -10,7 +10,8 @@
                 'Ekspedisi.auth',
                 'Ekspedisi.master',
                 'Ekspedisi.ship',
-                'Ekspedisi.recipient'
+                'Ekspedisi.recipient',
+                'Ekspedisi.sender'
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

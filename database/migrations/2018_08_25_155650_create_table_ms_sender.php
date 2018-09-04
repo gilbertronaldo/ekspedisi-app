@@ -22,6 +22,9 @@ class CreateTableMsSender extends Migration
             $table->string('sender_phone', 20);
             $table->text('sender_address')->nullable();
             $table->bigInteger('city_id')->nullable();
+            $table->bigInteger('price_ton')->nullable();
+            $table->bigInteger('price_meter')->nullable();
+            $table->bigInteger('minimum_charge')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

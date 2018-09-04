@@ -114,7 +114,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#/ship/view-ship-listl" class="sidebar-link">
+                                <a class="sidebar-link" ui-sref="admin.sender">
                                     <i class="icon-Record"></i>
                                     <span class="hide-menu">Pengirim</span>
                                 </a>
