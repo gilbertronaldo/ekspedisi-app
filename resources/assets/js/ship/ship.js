@@ -19,5 +19,10 @@
                 templateUrl: '/ship/add',
                 controller: 'AddShipController as addShipController',
             })
+            .state('admin.ship-edit', {
+                url: '/ship/edit/:id',
+                templateUrl: '/ship/edit',
+                controller: 'EditShipController as editShipController',
+            })
     });
 })();

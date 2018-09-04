@@ -42,21 +42,44 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Tanggal Keberangkatan</label>
-                                <input type="date" class="form-control" uib-datepicker-popup="<% format %>"
+                                {{--<input type="date" class="form-control" uib-datepicker-popup="<% format %>"--}}
+                                       {{--ng-model="ctrl.input.sailing_date"--}}
+                                       {{--is-open="ctrl.periodDatePickerOpened[0]"--}}
+                                       {{--close-text="Close"--}}
+                                       {{--ng-click="ctrl.openPeriodDatePicker($event,0)">--}}
+
+                                <input class="form-control"
                                        ng-model="ctrl.input.sailing_date"
-                                       is-open="ctrl.periodDatePickerOpened[0]"
-                                       close-text="Close"
-                                       ng-click="ctrl.openPeriodDatePicker($event,0)">
+                                       ng-model-options="{ updateOn: 'blur' }"
+                                       placeholder="Select a date..."
+                                       moment-picker="ctrl.input.sailing_date">
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Tujuan</label>
-                                <select class="form-control custom-select" data-placeholder="Choose a Category"
-                                        tabindex="1"
-                                        ng-options="item.ship_destination_id as item.destination_name for item in ctrl.destinationList"
-                                        ng-model="ctrl.input.ship_destination_id"
-                                        ng-change="ctrl.changeDestination()">
-                                    <option value="">Pilih Tujuan</option>
-                                </select>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label class="control-label">Tujuan</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control custom-select" data-placeholder="Choose a Category"
+                                                tabindex="1"
+                                                ng-options="item.city_id as item.city_code + ' - ' + item.city_name for item in ctrl.cityList"
+                                                ng-model="ctrl.input.city_id_from"
+                                                ng-change="ctrl.changeCity()">
+                                            <option value="">Dari</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control custom-select" data-placeholder="Choose a Category"
+                                                tabindex="1"
+                                                ng-options="item.city_id as item.city_code + ' - ' + item.city_name for item in ctrl.cityList"
+                                                ng-model="ctrl.input.city_id_to"
+                                                ng-change="ctrl.changeCity()">
+                                            <option value="">Menuju</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Deskripsi</label>
@@ -64,7 +87,7 @@
                                           placeholder="Masukkan Deskripsi Kapal"></textarea>
                                 <small class="form-text text-muted"></small>
                             </div>
-                            <button type="submit" class="btn btn-dark" ui-sref="ship.view">Batal</button>
+                            <button type="submit" class="btn btn-dark" ui-sref="admin.ship">Batal</button>
                             <button type="submit" class="btn btn-primary" ng-click="ctrl.saveShip()">Simpan</button>
                         </form>
                     </div>

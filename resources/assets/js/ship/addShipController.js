@@ -12,7 +12,8 @@
         '$q',
         '$http',
         'ShipService',
-        'swangular'
+        'swangular',
+        'MasterService'
     ];
 
     function AddShipController(
@@ -21,7 +22,8 @@
         $q,
         $http,
         ShipService,
-        swangular
+        swangular,
+        MasterService
     ) {
         let ctrl = this;
 
@@ -32,7 +34,7 @@
         init();
 
         function init() {
-            getDestination();
+            getCityList();
         }
 
         ctrl.saveShip = () => {
@@ -64,15 +66,20 @@
             });
         };
 
-        function getDestination() {
-            // ShipService.getDestination()
-            //     .then(res => {
-            //         ctrl.destinationList = res.destinationList;
-            //     })
-            //     .catch(err => {
-            //         console.log(err.data);
-            //         $uiPopup.error('An Application Error Has Occurred');
-            //     });
+        ctrl.changeCity = () => {
+            console.log(ctrl.input);
+        }
+
+        function getCityList() {
+            MasterService.cityList()
+                .then(res => {
+                    ctrl.cityList = res.data;
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.log(err.data);
+                    $uiPopup.error('An Application Error Has Occurred');
+                });
         }
 
     }

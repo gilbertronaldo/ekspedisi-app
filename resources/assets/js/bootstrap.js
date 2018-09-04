@@ -10,6 +10,8 @@ window.Popper = require('popper.js').default;
 try {
     window.$ = window.jQuery = require('jquery');
 
+    window.moment = require('moment');
+
     require('bootstrap');
     require('tether');
 
@@ -20,6 +22,8 @@ try {
 
     window.swal = require('sweetalert2');
     require('swangular');
+
+    require('angular-moment-picker');
 
     require('datatables.net');
     require('datatables.net-dt');

@@ -6,23 +6,31 @@
         .controller('ShipController', ShipController);
 
     ShipController.$inject = [
+        '$state',
+        '$scope',
         'swangular',
         '$q',
         'DTOptionsBuilder',
-        'DTColumnBuilder'
+        'DTColumnBuilder',
+        '$localStorage',
+        '$compile',
+        'ShipService'
     ];
 
-    function ShipController(swangular, $q, DTOptionsBuilder, DTColumnBuilder) {
+    function ShipController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, ShipService) {
         let vm = this;
 
         vm.dtInstance = {};
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
-                url: '/api/ship/get-ship-list',
+                url: '/api/ship/',
                 type: 'GET',
+                'beforeSend': function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + $localStorage.currentUser.access_token);
+                },
                 dataSrc: json => {
-                    vm.shipList = json.data
-                    return []
+                    vm.shipList = json.data;
+                    return vm.shipList;
                 }
             })
             .withOption('order', [0, 'desc'])
@@ -36,21 +44,44 @@
             DTColumnBuilder.newColumn('no_voyage').withTitle('No. Voyage'),
             DTColumnBuilder.newColumn('ship_name').withTitle('Nama Kapal').withOption('width', '25%'),
             DTColumnBuilder.newColumn('ship_description').withTitle('Deskripsi'),
-            DTColumnBuilder.newColumn('destination_name').withTitle('Tujuan'),
-            DTColumnBuilder.newColumn('_sailing_date').withTitle('Tanggal Keberangkatan').withOption('width', '15%'),
+            DTColumnBuilder.newColumn('destination').withTitle('Tujuan'),
+            DTColumnBuilder.newColumn('sailing_date').withTitle('Tanggal Keberangkatan').withOption('width', '15%'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
+
         function createdRow(row, data, dataIndex) {
             $compile(angular.element(row).contents())($scope);
         }
+
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<button class="btn btn-info btn-xs" ng-click="ctrl.editShip(' + data.ship_id + ')">' +
+            return '<button class="btn btn-info btn-xs" ng-click="vm.editShip(' + data.ship_id + ')">' +
                 '   <i class="fa fa-edit"></i>' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-danger btn-xs" ng-click="ctrl.deleteShip(' + data.ship_id + ')">' +
-                '   <i class="fa fa-trash-o"></i>' +
+                '<button class="btn btn-danger btn-xs" ng-click="vm.deleteShip(' + data.ship_id + ')">' +
+                '   <i class="fa fa-trash"></i>' +
                 '</button>';
+        }
+
+        vm.editShip = shipId => {
+            $state.go('admin.ship-edit', { id: shipId });
+        }
+
+        vm.deleteShip = shipId => {
+            swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
+                showCancelButton: true,
+                preConfirm: () => {
+                    ShipService.delete(shipId)
+                        .then(res => {
+                            swangular.success("Berhasil Menghapus Kapal");
+                            vm.dtInstance.rerender();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            swangular.alert("Error");
+                        })
+                },
+            })
         }
     }
 })();

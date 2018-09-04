@@ -37,9 +37,9 @@
                         <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.ship-add">
                             TAMBAH KAPAL
                         </button>
-                        <button type="button" class="btn waves-effect waves-light btn-primary" ng-click="vm.exportToExcel()">
-                            EXPORT EXCEL
-                        </button>
+                        {{--<button type="button" class="btn waves-effect waves-light btn-primary" ng-click="vm.exportToExcel()">--}}
+                            {{--EXPORT EXCEL--}}
+                        {{--</button>--}}
                     </div>
                     <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
                            dt-instance="vm.dtInstance" class="row-border hover" width="100%" cellspacing="0">

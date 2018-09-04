@@ -5,9 +5,11 @@
         .module('Ekspedisi.app', [
                 'ui.router',
                 'ngStorage',
+                'moment-picker',
                 'Ekspedisi.admin',
                 'Ekspedisi.auth',
-                'Ekspedisi.ship'
+                'Ekspedisi.ship',
+                'Ekspedisi.master'
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

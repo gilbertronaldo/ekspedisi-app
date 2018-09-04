@@ -18,7 +18,7 @@ class CreateTableMsShip extends Migration
             $table->string('no_voyage', 20);
             $table->string('ship_name');
             $table->text('ship_description')->nullable();
-            $table->date('sailing_date');
+            $table->timestamp('sailing_date');
             $table->bigInteger('city_id_from');
             $table->bigInteger('city_id_to');
             $table->timestamps();

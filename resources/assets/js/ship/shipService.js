@@ -8,11 +8,12 @@
     function ShipService($http, $q) {
         return {
             get: get,
-            store: store
+            store: store,
+            delete: _delete,
         };
 
-        function get() {
-            return $http.get(`/api/ship/`)
+        function get(id = '') {
+            return $http.get(`/api/ship/${id}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
@@ -20,6 +21,13 @@
 
         function store(input) {
             return $http.post(`/api/ship/`, input)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function _delete(id) {
+            return $http.delete(`/api/ship/${id}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
