@@ -45,9 +45,6 @@ class ShipController extends Controller
     {
         try {
             $ship = MsShip::findOrFail($id);
-            if ($ship->sailing_date != null) {
-                $ship->sailing_date = Carbon::parse($ship->sailing_date)->format('m-d-Y');
-            }
             $response = CoreResponse::ok($ship);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);

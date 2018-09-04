@@ -1,3 +1,5 @@
+import style from '../css/app.css';
+
 require('./bootstrap');
 
 require('./main/app.js');

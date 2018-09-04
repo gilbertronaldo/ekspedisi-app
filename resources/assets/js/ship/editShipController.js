@@ -64,7 +64,7 @@
             ShipService.get($stateParams.id)
                 .then(res => {
                     if (res.data.sailing_date) {
-                        res.data.sailing_date = new Date(res.data.sailing_date);
+                        res.data.sailing_date = moment(res.data.sailing_date);
                     }
                     ctrl.input = res.data;
                 })
