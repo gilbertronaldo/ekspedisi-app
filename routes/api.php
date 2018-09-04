@@ -16,13 +16,15 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::prefix('sender')->group(function () {
-        Route::get('/', 'SenderController@get');
+        Route::get('/', 'SenderController@all');
+        Route::get('/{id}', 'SenderController@get');
         Route::post('/', 'SenderController@store');
         Route::delete('/{shipId}', 'SenderController@destroy');
     });
 
     Route::prefix('recipient')->group(function () {
-        Route::get('/', 'RecipientController@get');
+        Route::get('/', 'RecipientController@all');
+        Route::get('/{id}', 'RecipientController@get');
         Route::post('/', 'RecipientController@store');
         Route::delete('/{shipId}', 'RecipientController@destroy');
     });

@@ -108,7 +108,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#/recipient/view-recipient-list" class="sidebar-link">
+                                <a class="sidebar-link" ui-sref="admin.recipient">
                                     <i class="icon-Record"></i>
                                     <span class="hide-menu">Penerima</span>
                                 </a>

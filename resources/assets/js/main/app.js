@@ -8,8 +8,9 @@
                 'moment-picker',
                 'Ekspedisi.admin',
                 'Ekspedisi.auth',
+                'Ekspedisi.master',
                 'Ekspedisi.ship',
-                'Ekspedisi.master'
+                'Ekspedisi.recipient'
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

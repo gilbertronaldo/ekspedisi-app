@@ -49,4 +49,16 @@ Route::middleware('auth:api')->group(function () {
             return view('home.dashboard');
         });
     });
+
+    Route::prefix('recipient')->group(function () {
+        Route::get('/', function () {
+            return view('recipient.recipient');
+        });
+        Route::get('/add', function () {
+            return view('recipient.recipientAdd');
+        });
+        Route::get('/edit', function () {
+            return view('recipient.recipientEdit');
+        });
+    });
 });
