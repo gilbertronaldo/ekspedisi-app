@@ -73,4 +73,10 @@ Route::middleware('auth:api')->group(function () {
             return view('sender.senderEdit');
         });
     });
+
+    Route::prefix('bapb')->group(function () {
+        Route::get('/input', function () {
+            return view('bapb.bapbInput');
+        });
+    });
 });

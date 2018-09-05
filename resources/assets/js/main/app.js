@@ -11,7 +11,8 @@
                 'Ekspedisi.master',
                 'Ekspedisi.ship',
                 'Ekspedisi.recipient',
-                'Ekspedisi.sender'
+                'Ekspedisi.sender',
+                'Ekspedisi.bapb'
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

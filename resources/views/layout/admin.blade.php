@@ -121,6 +121,14 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="sidebar-item" ui-sref-active='selected'>
+                        <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.bapb-input"
+                           aria-expanded="false">
+                            <i class="mdi mdi-border-top"></i>
+                            <span class="hide-menu">Input Bapb</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->
