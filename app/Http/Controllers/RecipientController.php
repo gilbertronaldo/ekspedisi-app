@@ -20,14 +20,11 @@ class RecipientController
 
     public function all(Request $request)
     {
-        $query = DB::TABLE(DB::RAW("(
-            SELECT A.*, B.city_name
-            FROM ms_recipient A 
-            LEFT JOIN ms_city B
-            ON A.city_id = B.city_id
-            WHERE A.deleted_at IS NULL
-        ) AS X"));
-        return datatables()->query($query)->toJson();
+        $query = MsRecipient::get();
+        foreach ($query as $q) {
+            $q->city_name = $q->city->city_name;
+        }
+        return datatables()->of($query)->toJson();
     }
 
     public function get($id)
