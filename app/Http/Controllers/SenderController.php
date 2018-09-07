@@ -38,6 +38,30 @@ class SenderController
         return $response;
     }
 
+    public function search(Request $request)
+    {
+        try {
+            $text = (string)$request->input('text');
+            $page = (int)$request->input('page') || 0;
+            $limit = (int)$request->input('limit') || 10;
+
+            $senderList = MsSender::where('sender_name', 'ilike', "%$text%")
+                ->orWhere('sender_code', 'ilike', "%$text%")
+                ->leftjoin('ms_city', 'ms_city.city_id', '=', 'ms_sender.city_id')
+                ->offset($page - 1)
+                ->limit($limit)
+                ->get();
+            $count = MsSender::where('sender_name', 'ilike', "%$text%")
+                ->orWhere('sender_code', 'ilike', "%$text%")
+                ->count();
+            $response = CoreResponse::ok(compact('senderList', 'count'));
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
     public function store(Request $request)
     {
         try {
