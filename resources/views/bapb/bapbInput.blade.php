@@ -130,6 +130,108 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-body  bg-light">
+                            <h4 class="card-title m-t-10 p-b-20">Detail Penerima</h4>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
+                                        <div class="col-sm-9">
+                                            <sc-select
+                                            id="approver-1"
+                                            ng-model="vm.input.recipient_id"
+                                            sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientList(searchText, page)"
+                                            page-limit="vm.recipientAsyncPageLimit"
+                                            total-items="vm.recipientTotalResults"
+                                            ng-change="vm.getRecipientDetail()"
+                                            placeholder="Cari Penerima">
+                                            </sc-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Kode Penerima
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.recipient.recipient_code"
+                                                   placeholder="" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row p-t-15">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Telepon</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.recipient.recipient_phone"
+                                                   placeholder="" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.recipient.recipient_name"
+                                                   placeholder="" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row p-t-15">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Alamat</label>
+                                        <div class="col-sm-9">
+                                            <textarea type="text" class="form-control"
+                                                      ng-model="vm.detail.recipient.recipient_address"
+                                                      placeholder="" ng-disabled="true"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
+                                            di
+                                            BAPB
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.recipient.recipient_name_bapb"
+                                                   placeholder="" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row p-t-15">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Kota</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.recipient.city_name"
+                                                   placeholder="" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <h4 class="card-title m-t-10 p-b-20">Detail Pengirim</h4>
                             <div class="row">
@@ -232,108 +334,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body  bg-light">
-                            <h4 class="card-title m-t-10 p-b-20">Detail Penerima</h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
-                                        <div class="col-sm-9">
-                                            {{--<sc-select--}}
-                                            {{--id="approver-1"--}}
-                                            {{--ng-model="vm.input.recipient_id"--}}
-                                            {{--sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientListAsync(searchText, page)"--}}
-                                            {{--page-limit="vm.recipientAsyncPageLimit"--}}
-                                            {{--total-items="vm.recipientTotalResults"--}}
-                                            {{--ng-change="vm.getRecipientDetail()"--}}
-                                            {{--placeholder="Cari Penerima">--}}
-                                            {{--</sc-select>--}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
 
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kode Penerima
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_code"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row p-t-15">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Telepon</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_phone"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_name"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row p-t-15">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Alamat</label>
-                                        <div class="col-sm-9">
-                                            <textarea type="text" class="form-control"
-                                                      ng-model="vm.detail.recipient.recipient_address"
-                                                      placeholder="" ng-disabled="true"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
-                                            di
-                                            BAPB
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_name_bapb"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row p-t-15">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kota</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.city_name"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card-body">
                             {{--<h4 class="card-title m-t-10 p-b-20">Detail Kapal</h4>--}}
                             <div class="row">

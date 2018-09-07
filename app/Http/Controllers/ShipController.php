@@ -87,11 +87,15 @@ class ShipController extends Controller
                 ->orWhere('no_voyage', 'ilike', "%$text%")
                 ->offset($page - 1)
                 ->limit($limit)
-                ->select('ship_id', 'no_voyage', 'ship_name')
                 ->get();
             $count = MsShip::where('ship_name', 'ilike', "%$text%")
                 ->orWhere('no_voyage', 'ilike', "%$text%")
                 ->count();
+
+            foreach ($shipList as $ship) {
+                $ship->city_code_from = $ship->cityFrom->city_code;
+                $ship->city_code_to = $ship->cityTo->city_code;
+            }
             $response = CoreResponse::ok(compact('shipList', 'count'));
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
