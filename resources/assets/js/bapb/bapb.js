@@ -7,6 +7,9 @@
             'ui.bootstrap',
             'swangular',
             'datatables',
+            'ngSanitize',
+            'ui.select',
+            'sc.select'
         ]).config(($stateProvider) => {
         $stateProvider
             .state('admin.bapb-input', {

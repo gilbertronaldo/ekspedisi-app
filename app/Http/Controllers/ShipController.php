@@ -36,7 +36,7 @@ class ShipController extends Controller
         }
 
 
-            $query = DB::TABLE(DB::RAW("(
+        $query = DB::TABLE(DB::RAW("(
             SELECT 
               A.ship_id, 
               A.ship_name,
@@ -56,11 +56,43 @@ class ShipController extends Controller
         return datatables()->of($ships)->toJson();
     }
 
-    public function get($id)
+    public function get($id = -99)
     {
         try {
-            $ship = MsShip::findOrFail($id);
+            if ($id == -99) {
+                $ship = MsShip::get();
+                foreach ($ship as $s) {
+                    $s->city_code_from = $s->cityFrom->city_code;
+                    $s->city_code_to = $s->cityTo->city_code;
+                }
+            } else {
+                $ship = MsShip::findOrFail($id);
+            }
             $response = CoreResponse::ok($ship);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    public function search(Request $request)
+    {
+        try {
+            $text = (string)$request->input('text');
+            $page = (int)$request->input('page') || 0;
+            $limit = (int)$request->input('limit') || 10;
+
+            $shipList = MsShip::where('ship_name', 'ilike', "%$text%")
+                ->orWhere('no_voyage', 'ilike', "%$text%")
+                ->offset($page - 1)
+                ->limit($limit)
+                ->select('ship_id', 'no_voyage', 'ship_name')
+                ->get();
+            $count = MsShip::where('ship_name', 'ilike', "%$text%")
+                ->orWhere('no_voyage', 'ilike', "%$text%")
+                ->count();
+            $response = CoreResponse::ok(compact('shipList', 'count'));
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }

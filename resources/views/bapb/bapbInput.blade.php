@@ -67,7 +67,7 @@
                                             <sc-select
                                                     id="approver-1"
                                                     ng-model="vm.input.ship_id"
-                                                    sc-options="ship.ship_id as ship.no_voyage + ' - ' + ship.ship_name for ship in vm.searchShipListAsync(searchText, page)"
+                                                    sc-options="ship.ship_id as ship.no_voyage + ' - ' + ship.ship_name for ship in vm.searchShipList(searchText, page)"
                                                     page-limit="vm.shipAsyncPageLimit"
                                                     total-items="vm.shipTotalResults"
                                                     ng-change="vm.getShipDetail()"
@@ -98,7 +98,7 @@
                                                 class="col-sm-3 text-right control-label col-form-label">Tujuan</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
-                                                   ng-model="vm.detail.ship.destination_name"
+                                                   value="{{  '{{'. 'vm.detail.ship.city_code_from' .'}'.'}' . ' - ' .'{{'. 'vm.detail.ship.city_code_to' .'}'.'}' }}"
                                                    placeholder="" ng-disabled="true">
                                         </div>
                                     </div>
@@ -138,15 +138,15 @@
                                         <label
                                                 class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                         <div class="col-sm-9">
-                                            <sc-select
-                                                    id="approver-1"
-                                                    ng-model="vm.input.sender_id"
-                                                    sc-options="sender.sender_id as ship.sender_code + ' - ' + sender.sender_name for sender in vm.searchSenderListAsync(searchText, page)"
-                                                    page-limit="vm.senderAsyncPageLimit"
-                                                    total-items="vm.senderTotalResults"
-                                                    ng-change="vm.getSenderDetail()"
-                                                    placeholder="Cari Pengirim">
-                                            </sc-select>
+                                            {{--<sc-select--}}
+                                            {{--id="approver-1"--}}
+                                            {{--ng-model="vm.input.sender_id"--}}
+                                            {{--sc-options="sender.sender_id as ship.sender_code + ' - ' + sender.sender_name for sender in vm.searchSenderListAsync(searchText, page)"--}}
+                                            {{--page-limit="vm.senderAsyncPageLimit"--}}
+                                            {{--total-items="vm.senderTotalResults"--}}
+                                            {{--ng-change="vm.getSenderDetail()"--}}
+                                            {{--placeholder="Cari Pengirim">--}}
+                                            {{--</sc-select>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -240,15 +240,15 @@
                                         <label
                                                 class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                         <div class="col-sm-9">
-                                            <sc-select
-                                                    id="approver-1"
-                                                    ng-model="vm.input.recipient_id"
-                                                    sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientListAsync(searchText, page)"
-                                                    page-limit="vm.recipientAsyncPageLimit"
-                                                    total-items="vm.recipientTotalResults"
-                                                    ng-change="vm.getRecipientDetail()"
-                                                    placeholder="Cari Penerima">
-                                            </sc-select>
+                                            {{--<sc-select--}}
+                                            {{--id="approver-1"--}}
+                                            {{--ng-model="vm.input.recipient_id"--}}
+                                            {{--sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientListAsync(searchText, page)"--}}
+                                            {{--page-limit="vm.recipientAsyncPageLimit"--}}
+                                            {{--total-items="vm.recipientTotalResults"--}}
+                                            {{--ng-change="vm.getRecipientDetail()"--}}
+                                            {{--placeholder="Cari Penerima">--}}
+                                            {{--</sc-select>--}}
                                         </div>
                                     </div>
                                 </div>

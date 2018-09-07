@@ -10,6 +10,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::prefix('ship')->group(function () {
         Route::get('/', 'ShipController@all');
+        Route::get('/search', 'ShipController@search');
         Route::get('/{id}', 'ShipController@get');
         Route::post('/', 'ShipController@store');
         Route::delete('/{id}', 'ShipController@destroy');
