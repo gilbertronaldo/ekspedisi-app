@@ -108,18 +108,26 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#/recipient/view-recipient-list" class="sidebar-link">
+                                <a class="sidebar-link" ui-sref="admin.recipient">
                                     <i class="icon-Record"></i>
                                     <span class="hide-menu">Penerima</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#/ship/view-ship-listl" class="sidebar-link">
+                                <a class="sidebar-link" ui-sref="admin.sender">
                                     <i class="icon-Record"></i>
                                     <span class="hide-menu">Pengirim</span>
                                 </a>
                             </li>
                         </ul>
+                    </li>
+
+                    <li class="sidebar-item" ui-sref-active='selected'>
+                        <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.bapb-input"
+                           aria-expanded="false">
+                            <i class="mdi mdi-border-top"></i>
+                            <span class="hide-menu">Input Bapb</span>
+                        </a>
                     </li>
                 </ul>
             </nav>

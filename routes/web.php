@@ -49,4 +49,34 @@ Route::middleware('auth:api')->group(function () {
             return view('home.dashboard');
         });
     });
+
+    Route::prefix('recipient')->group(function () {
+        Route::get('/', function () {
+            return view('recipient.recipient');
+        });
+        Route::get('/add', function () {
+            return view('recipient.recipientAdd');
+        });
+        Route::get('/edit', function () {
+            return view('recipient.recipientEdit');
+        });
+    });
+
+    Route::prefix('sender')->group(function () {
+        Route::get('/', function () {
+            return view('sender.sender');
+        });
+        Route::get('/add', function () {
+            return view('sender.senderAdd');
+        });
+        Route::get('/edit', function () {
+            return view('sender.senderEdit');
+        });
+    });
+
+    Route::prefix('bapb')->group(function () {
+        Route::get('/input', function () {
+            return view('bapb.bapbInput');
+        });
+    });
 });

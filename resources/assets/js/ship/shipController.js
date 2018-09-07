@@ -44,7 +44,8 @@
             DTColumnBuilder.newColumn('no_voyage').withTitle('No. Voyage'),
             DTColumnBuilder.newColumn('ship_name').withTitle('Nama Kapal').withOption('width', '25%'),
             DTColumnBuilder.newColumn('ship_description').withTitle('Deskripsi'),
-            DTColumnBuilder.newColumn('destination').withTitle('Tujuan'),
+            DTColumnBuilder.newColumn('city_code_from').withTitle('Dari'),
+            DTColumnBuilder.newColumn('city_code_to').withTitle('Ke'),
             DTColumnBuilder.newColumn('sailing_date').withTitle('Tanggal Keberangkatan').withOption('width', '15%'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];

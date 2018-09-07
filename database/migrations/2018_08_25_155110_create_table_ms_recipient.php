@@ -22,6 +22,9 @@ class CreateTableMsRecipient extends Migration
             $table->string('recipient_phone', 20);
             $table->text('recipient_address')->nullable();
             $table->bigInteger('city_id')->nullable();
+            $table->bigInteger('price_ton')->nullable();
+            $table->bigInteger('price_meter')->nullable();
+            $table->bigInteger('minimum_charge')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

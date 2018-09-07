@@ -3,13 +3,19 @@
 
     angular
         .module('Ekspedisi.app', [
+                require('angular-sc-select'),
+                'ngSanitize',
+                require('ui-select'),
                 'ui.router',
                 'ngStorage',
                 'moment-picker',
                 'Ekspedisi.admin',
                 'Ekspedisi.auth',
+                'Ekspedisi.master',
                 'Ekspedisi.ship',
-                'Ekspedisi.master'
+                'Ekspedisi.recipient',
+                'Ekspedisi.sender',
+                'Ekspedisi.bapb'
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

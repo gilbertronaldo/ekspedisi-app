@@ -31,4 +31,14 @@ class MsShip extends BaseModel
 {
     protected $table = 'ms_ship';
     protected $primaryKey = 'ship_id';
+
+    public function cityFrom()
+    {
+        return $this->belongsTo(MsCity::class, 'city_id_from')->select('city_code');
+    }
+
+    public function cityTo()
+    {
+        return $this->belongsTo(MsCity::class, 'city_id_to')->select('city_code');
+    }
 }

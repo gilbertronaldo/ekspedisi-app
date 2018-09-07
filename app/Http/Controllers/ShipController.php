@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\MsCity;
 use App\MsShip;
 use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
@@ -21,7 +22,21 @@ class ShipController extends Controller
 {
     public function all(Request $request)
     {
-        $query = DB::TABLE(DB::RAW("(
+//        $data = MsShip::select('ms_ship.ship_id', 'ms_ship.ship_name', 'ms_ship.ship_description',  'ms_ship.no_voyage',
+//            'B.city_code AS city_code_from', 'C.city_code AS city_code_to',
+//            DB::raw("to_char(ms_ship.sailing_date, 'DD FMMonth YYYY') as sailing_date"))
+//            ->join('ms_city as B', 'B.city_id', '=', 'ms_ship.city_id_from', 'left outer')
+//            ->join('ms_city as C', 'C.city_id', '=', 'ms_ship.city_id_to', 'left outer')
+//            ->get();
+
+        $ships = MsShip::get();
+        foreach ($ships as $ship) {
+            $ship->city_code_from = $ship->cityFrom->city_code;
+            $ship->city_code_to = $ship->cityTo->city_code;
+        }
+
+
+            $query = DB::TABLE(DB::RAW("(
             SELECT 
               A.ship_id, 
               A.ship_name,
@@ -38,7 +53,7 @@ class ShipController extends Controller
              AND C.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
         ) AS X"));
-        return datatables()->query($query)->toJson();
+        return datatables()->of($ships)->toJson();
     }
 
     public function get($id)

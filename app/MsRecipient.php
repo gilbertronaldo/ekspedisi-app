@@ -31,4 +31,9 @@ class MsRecipient extends BaseModel
 {
     protected $table = 'ms_recipient';
     protected $primaryKey = 'recipient_id';
+
+    public function city()
+    {
+        return $this->belongsTo(MsCity::class, 'city_id')->select('city_name');
+    }
 }
