@@ -339,10 +339,12 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-responsive-lg">
+                                    <table class="table table-bordered">
                                         <caption class="text-right">
-                                            <a class="btn btn-circle btn-outline-warning btn-sm text-dark" ng-click="vm.senderItemPop(senderIdx)">-</a>
-                                            <a class="btn btn-circle btn-outline-info btn-sm text-dark" ng-click="vm.senderItemPush(senderIdx)">+</a>
+                                            <a class="btn btn-circle btn-outline-warning btn-sm text-dark"
+                                               ng-click="vm.senderItemPop(senderIdx)">-</a>
+                                            <a class="btn btn-circle btn-outline-info btn-sm text-dark"
+                                               ng-click="vm.senderItemPush(senderIdx)">+</a>
                                         </caption>
                                         <thead>
                                         <tr class="text-center">
@@ -359,26 +361,73 @@
                                         <tr ng-repeat="sItem in sender.items" ng-init="sItemIdx = $index">
                                             <th scope="row">{{'{{'. 'sItemIdx + 1' .'}'.'}'}}</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" ng-model="sItem.sender_item_name">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       ng-model="sItem.sender_item_name" ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" ng-model="sItem.koli">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       ng-model="sItem.koli" ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" ng-model="sItem.panjang">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       ng-model="sItem.panjang" ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" ng-model="sItem.lebar">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       ng-model="sItem.lebar" ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" ng-model="sItem.tinggi">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       ng-model="sItem.tinggi" ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text" ng-model="sItem.ton">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       ng-model="sItem.ton" ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-sm-12 text-left control-label col-form-label">Keterangan</label>
+                                            <div class="col-md-8 offset-2">
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Total Koli</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'sender.total.koli' .'}'.'}'}}</code>&nbsp;<span>Koli</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Dimensi Total</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'sender.total.dimensi' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Berat Total</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'sender.total.berat' .'}'.'}'}}</code>&nbsp;<span>Ton</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Total Harga</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>Rp. {{'{{'. 'sender.total.harga' .'}'.'}'}}</code>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="row" ng-if="senderIdx == vm.senders.length - 1">
@@ -410,8 +459,10 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group m-b-0 text-right">
-                                <button type="submit" class="btn btn-dark waves-effect waves-light">Batal</button>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light" ng-click="vm.onSubmit()">Simpan</button>
+                                <button type="submit" class="btn btn-dark waves-effect waves-light" ui-sref="admin.home">Batal</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light"
+                                        ng-click="vm.onSubmit()">Simpan
+                                </button>
                             </div>
                         </div>
                     </form>

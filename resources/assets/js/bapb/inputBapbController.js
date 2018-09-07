@@ -17,7 +17,8 @@
         'ShipService',
         '$http',
         'RecipientService',
-        'SenderService'
+        'SenderService',
+        'BapbService'
     ];
 
     function InputBapbController(
@@ -32,7 +33,8 @@
         ShipService,
         $http,
         RecipientService,
-        SenderService
+        SenderService,
+        BapbService
     ) {
         let ctrl = this;
         ctrl.input = {};
@@ -100,7 +102,13 @@
             return {
                 'sender_id': null,
                 'detail': {},
-                'items': [senderItemNew()]
+                'items': [senderItemNew()],
+                'total': {
+                    'koli': 0,
+                    'dimensi': 0,
+                    'berat': 0,
+                    'harga': 0,
+                }
             };
         }
 
@@ -136,6 +144,18 @@
             ctrl.senders[idx].items.pop();
         }
 
+        ctrl.senderItemCalculate = (idx) => {
+            ctrl.senders[idx].total.koli = 0;
+            ctrl.senders[idx].total.dimensi = 0;
+            ctrl.senders[idx].total.berat = 0;
+            ctrl.senders[idx].total.harga = 0;
+            ctrl.senders[idx].items.forEach(i => {
+                ctrl.senders[idx].total.koli += parseInt(i.koli) || 0;
+                ctrl.senders[idx].total.berat += parseInt(i.ton) || 0;
+                ctrl.senders[idx].total.dimensi += ((parseInt(i.panjang) || 0) * (parseInt(i.lebar) || 0) * (parseInt(i.tinggi) || 0));
+            })
+        }
+
         ctrl.senderAsyncPageLimit = 20;
         ctrl.senderTotalResults = 0;
 
@@ -168,7 +188,23 @@
         ctrl.onSubmit = () => {
             let data = ctrl.input;
             data.senders = ctrl.senders;
-            console.log(data);
+
+            swangular.confirm('Konfirmasi BAPB', {
+                showCancelButton: true,
+                preConfirm: () => {
+                    console.log(data);
+                    BapbService.store(data)
+                        .then(res => {
+                            console.log(res)
+                            swangular.success("Berhasil Menyimpan BAPB");
+                            $state.go('admin.home');
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            swangular.alert("Error");
+                        })
+                },
+            })
         }
     }
 })();
