@@ -26,6 +26,8 @@ try {
     require('angular-moment-picker');
 
     require('angular-sanitize');
+    require('ui-select');
+    require('angular-sc-select');
 
     require('datatables.net');
     require('datatables.net-dt');
