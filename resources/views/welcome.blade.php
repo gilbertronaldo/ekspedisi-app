@@ -72,11 +72,11 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Gilbert Ronaldo
+            Sumber Rejeki Sinar Mandiri
         </div>
 
         <div class="links">
-            <a href="https://github.com/gilbertronaldo">GitHub</a>
+            <a href="/backend">Halaman Admin</a>
         </div>
     </div>
 </div>
