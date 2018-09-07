@@ -39,6 +39,30 @@ class RecipientController
         return $response;
     }
 
+    public function search(Request $request)
+    {
+        try {
+            $text = (string)$request->input('text');
+            $page = (int)$request->input('page') || 0;
+            $limit = (int)$request->input('limit') || 10;
+
+            $recipientList = MsRecipient::where('recipient_name', 'ilike', "%$text%")
+                ->orWhere('recipient_code', 'ilike', "%$text%")
+                ->leftjoin('ms_city', 'ms_city.city_id', '=', 'ms_recipient.city_id')
+                ->offset($page - 1)
+                ->limit($limit)
+                ->get();
+            $count = MsRecipient::where('recipient_name', 'ilike', "%$text%")
+                ->orWhere('recipient_code', 'ilike', "%$text%")
+                ->count();
+            $response = CoreResponse::ok(compact('recipientList', 'count'));
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
     public function store(Request $request)
     {
         try {

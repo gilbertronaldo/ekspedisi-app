@@ -11,6 +11,6 @@
 
     function HomeController(swangular) {
         console.log(this)
-        swangular.success("Great job!");
+        // swangular.success("Welcome");
     }
 })();

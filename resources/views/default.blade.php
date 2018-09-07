@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.css">
+    <link rel="stylesheet" href="https://singlecomm.github.io/angular-sc-select/dist/sc-select.min.css">
     <link rel="stylesheet" href="{{ URL::asset('assets/libs/angular-moment-picker/angular-moment-picker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/libs/datatables/media/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('dist/css/style.min.css') }}">

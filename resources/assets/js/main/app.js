@@ -3,9 +3,6 @@
 
     angular
         .module('Ekspedisi.app', [
-                require('angular-sc-select'),
-                'ngSanitize',
-                require('ui-select'),
                 'ui.router',
                 'ngStorage',
                 'moment-picker',
@@ -23,7 +20,7 @@
                     $urlRouterProvider.otherwise(function ($injector) {
                         return '/admin/home';
                     });
-                    $interpolateProvider.startSymbol('<%').endSymbol('%>');
+                    // $interpolateProvider.startSymbol('<%').endSymbol('%>');
 
                     $httpProvider.interceptors.push(function ($q, $location, $localStorage) {
                         return {

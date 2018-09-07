@@ -10,6 +10,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::prefix('ship')->group(function () {
         Route::get('/', 'ShipController@all');
+        Route::get('/search', 'ShipController@search');
         Route::get('/{id}', 'ShipController@get');
         Route::post('/', 'ShipController@store');
         Route::delete('/{id}', 'ShipController@destroy');
@@ -17,6 +18,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::prefix('sender')->group(function () {
         Route::get('/', 'SenderController@all');
+        Route::get('/search', 'SenderController@search');
         Route::get('/{id}', 'SenderController@get');
         Route::post('/', 'SenderController@store');
         Route::delete('/{id}', 'SenderController@destroy');
@@ -24,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::prefix('recipient')->group(function () {
         Route::get('/', 'RecipientController@all');
+        Route::get('/search', 'RecipientController@search');
         Route::get('/{id}', 'RecipientController@get');
         Route::post('/', 'RecipientController@store');
         Route::delete('/{id}', 'RecipientController@destroy');

@@ -8,12 +8,20 @@
     function RecipientService($http, $q) {
         return {
             get: get,
+            search: search,
             store: store,
             delete: _delete,
         };
 
         function get(id = '') {
             return $http.get(`/api/recipient/${id}`)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function search(param) {
+            return $http.get(`/api/recipient/search`, param)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
