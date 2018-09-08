@@ -1,5 +1,6 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     mode: "production",
@@ -9,10 +10,24 @@ module.exports = {
             './resources/assets/js/app.js',
         ]
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader"]
+            }
+        ]
+    },
     output: {
         path: path.resolve(__dirname, 'public/js'),
         filename: 'app.js'
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "../css/app.css",
+            chunkFilename: "[id].css"
+        })
+    ],
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
