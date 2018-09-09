@@ -26,6 +26,7 @@ class MsCity extends BaseModel
 {
     protected $table = 'ms_city';
     protected $primaryKey = 'city_id';
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
-    
+
 }

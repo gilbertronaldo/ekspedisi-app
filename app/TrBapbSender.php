@@ -13,6 +13,7 @@ class TrBapbSender extends BaseModel
 {
     protected $primaryKey = 'bapb_sender_id';
     protected $table = 'tr_bapb_sender';
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     public function bapb()
     {

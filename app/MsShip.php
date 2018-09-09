@@ -31,6 +31,7 @@ class MsShip extends BaseModel
 {
     protected $table = 'ms_ship';
     protected $primaryKey = 'ship_id';
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     public function cityFrom()
     {

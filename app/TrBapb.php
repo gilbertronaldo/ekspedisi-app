@@ -21,6 +21,7 @@ class TrBapb extends BaseModel
 {
     protected $primaryKey = 'bapb_id';
     protected $table = 'tr_bapb';
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     public function senders()
     {
