@@ -40,13 +40,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
-                                        <label for="no-bapb"
+                                        <label for="bapb-no"
                                                class="col-sm-3 text-right control-label col-form-label">
                                             No BAPB
                                         </label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="no-bapb"
-                                                   placeholder="Input Nomor BAPB" ng-model="ctrl.input.no_bapb">
+                                            <input type="text" class="form-control" id="bapb-no"
+                                                   placeholder="Input Nomor BAPB" ng-model="vm.input.bapb_no" ng-disabled="true">
                                         </div>
                                     </div>
                                 </div>

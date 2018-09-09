@@ -43,6 +43,17 @@
         ctrl.shipAsyncPageLimit = 20;
         ctrl.shipTotalResults = 0;
 
+        getNewBapbNo();
+        function getNewBapbNo () {
+            BapbService.no()
+                .then(res => {
+                    ctrl.input.bapb_no = res.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
         ctrl.searchShipList = (searchText, page) => {
             if (!searchText) {
                 return [];

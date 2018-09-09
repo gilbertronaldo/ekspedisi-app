@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::prefix('bapb')->group(function () {
+        Route::get('/no', 'BapbController@no');
         Route::get('/', 'BapbController@get');
         Route::post('/', 'BapbController@store');
     });

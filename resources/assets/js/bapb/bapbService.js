@@ -8,12 +8,20 @@
     function BapbService($http, $q) {
         return {
             get: get,
+            no: no,
             store: store,
             delete: _delete,
         };
 
         function get(id = '') {
             return $http.get(`/api/bapb/${id}`)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function no() {
+            return $http.get(`/api/bapb/no`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
