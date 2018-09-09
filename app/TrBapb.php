@@ -22,4 +22,8 @@ class TrBapb extends BaseModel
     protected $primaryKey = 'bapb_id';
     protected $table = 'tr_bapb';
 
+    public function senders()
+    {
+        return $this->hasMany(TrBapbSender::class, 'bapb_id');
+    }
 }
