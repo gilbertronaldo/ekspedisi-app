@@ -42,7 +42,7 @@ class BapbController
     public function get(Request $request)
     {
         try {
-            $bapbList = TrBapb::with('senders')->get();
+            $bapbList = TrBapb::with('senders.items')->get();
             $response = CoreResponse::ok($bapbList);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
