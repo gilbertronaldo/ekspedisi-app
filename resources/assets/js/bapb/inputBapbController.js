@@ -126,8 +126,8 @@
 
         function senderItemNew() {
             return {
-                'sender_item_id': null,
-                'sender_item_name': null,
+                'bapb_sender_item_id': null,
+                'bapb_sender_item_name': null,
                 'koli': null,
                 'panjang': null,
                 'lebar': null,
@@ -218,8 +218,12 @@
                     BapbService.store(data)
                         .then(res => {
                             console.log(res)
-                            swangular.success("Berhasil Menyimpan BAPB");
-                            $state.go('admin.home');
+                            if (res.status == 'OK') {
+                                swangular.success("Berhasil Menyimpan BAPB");
+                                $state.go('admin.home');
+                            } else {
+                                swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
+                            }
                         })
                         .catch(err => {
                             console.log(err);

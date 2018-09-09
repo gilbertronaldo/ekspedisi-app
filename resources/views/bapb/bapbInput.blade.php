@@ -372,7 +372,7 @@
                                             <th scope="row">{{'{{'. 'sItemIdx + 1' .'}'.'}'}}</th>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.sender_item_name"
+                                                       ng-model="sItem.bapb_sender_item_name"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
