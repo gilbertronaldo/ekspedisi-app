@@ -361,10 +361,10 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Nama Barang</th>
                                             <th scope="col">Koli</th>
-                                            <th scope="col">P</th>
-                                            <th scope="col">L</th>
-                                            <th scope="col">T</th>
-                                            <th scope="col">Ton</th>
+                                            <th scope="col">P <span>(cm)</span></th>
+                                            <th scope="col">L <span>(cm)</span></th>
+                                            <th scope="col">T <span>(cm)</span></th>
+                                            <th scope="col">Berat <span>(kg)</span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -376,28 +376,28 @@
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text"
+                                                <input class="form-control form-control-sm" type="number"
                                                        ng-model="sItem.koli"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text"
+                                                <input class="form-control form-control-sm" type="number"
                                                        ng-model="sItem.panjang"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text"
+                                                <input class="form-control form-control-sm" type="number"
                                                        ng-model="sItem.lebar"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text"
+                                                <input class="form-control form-control-sm" type="number"
                                                        ng-model="sItem.tinggi"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.ton"
+                                                <input class="form-control form-control-sm" type="number"
+                                                       ng-model="sItem.berat"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                         </tr>
@@ -422,7 +422,7 @@
                                                         <span>Dimensi Total</span>
                                                     </div>
                                                     <div class="col-sm-7 text-left">
-                                                        <code>{{'{{'. 'sender.total.dimensi' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                        <code>{{'{{'. 'sender.total.dimensi' .'}'.'}'}}</code>&nbsp;<span>m<sup>3</sup></span>
                                                     </div>
                                                 </div>
                                                 <div class="row">
