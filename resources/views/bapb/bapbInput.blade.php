@@ -46,7 +46,8 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="bapb-no"
-                                                   placeholder="Input Nomor BAPB" ng-model="vm.input.bapb_no" ng-disabled="true">
+                                                   placeholder="Input Nomor BAPB" ng-model="vm.input.bapb_no"
+                                                   ng-disabled="true">
                                         </div>
                                     </div>
                                 </div>
@@ -255,69 +256,9 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-lg-6">
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Kode
-                                                Pengirim
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control"
-                                                       ng-model="sender.detail.sender_code"
-                                                       placeholder="" ng-disabled="true">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-lg-6">
-                                        <div class="form-group row p-t-15">
-                                            <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Telepon</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control"
-                                                       ng-model="sender.detail.sender_phone"
-                                                       placeholder="" ng-disabled="true">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-lg-6">
-                                        <div class="form-group row">
-                                            <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Nama
-                                                Pengirim
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control"
-                                                       ng-model="sender.detail.sender_name"
-                                                       placeholder="" ng-disabled="true">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-lg-6">
-                                        <div class="form-group row p-t-15">
-                                            <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Alamat</label>
-                                            <div class="col-sm-9">
-                                            <textarea type="text" class="form-control"
-                                                      ng-model="sender.detail.sender_address"
-                                                      placeholder="" ng-disabled="true"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-lg-6">
-                                        <div class="form-group row">
-                                            <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Nama
-                                                Pengirim
-                                                di
-                                                BAPB
+                                                    class="col-sm-3 text-right control-label col-form-label">Nama di BAPB
                                             </label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
@@ -326,17 +267,86 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-lg-6">
-                                        <div class="form-group row p-t-15">
-                                            <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Kota</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control"
-                                                       ng-model="sender.detail.city_name"
-                                                       placeholder="" ng-disabled="true">
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                                {{--<div class="row">--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
+                                {{--<div class="form-group row">--}}
+                                {{--<label--}}
+                                {{--class="col-sm-3 text-right control-label col-form-label">Kode--}}
+                                {{--Pengirim--}}
+                                {{--</label>--}}
+                                {{--<div class="col-sm-9">--}}
+                                {{--<input type="text" class="form-control"--}}
+                                {{--ng-model="sender.detail.sender_code"--}}
+                                {{--placeholder="" ng-disabled="true">--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
+                                {{--<div class="form-group row p-t-15">--}}
+                                {{--<label--}}
+                                {{--class="col-sm-3 text-right control-label col-form-label">Telepon</label>--}}
+                                {{--<div class="col-sm-9">--}}
+                                {{--<input type="text" class="form-control"--}}
+                                {{--ng-model="sender.detail.sender_phone"--}}
+                                {{--placeholder="" ng-disabled="true">--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="row">--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
+                                {{--<div class="form-group row">--}}
+                                {{--<label--}}
+                                {{--class="col-sm-3 text-right control-label col-form-label">Nama--}}
+                                {{--Pengirim--}}
+                                {{--</label>--}}
+                                {{--<div class="col-sm-9">--}}
+                                {{--<input type="text" class="form-control"--}}
+                                {{--ng-model="sender.detail.sender_name"--}}
+                                {{--placeholder="" ng-disabled="true">--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
+                                {{--<div class="form-group row p-t-15">--}}
+                                {{--<label--}}
+                                {{--class="col-sm-3 text-right control-label col-form-label">Alamat</label>--}}
+                                {{--<div class="col-sm-9">--}}
+                                {{--<textarea type="text" class="form-control"--}}
+                                {{--ng-model="sender.detail.sender_address"--}}
+                                {{--placeholder="" ng-disabled="true"></textarea>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                <div class="row">
+                                    {{--<div class="col-sm-12 col-lg-6">--}}
+                                    {{--<div class="form-group row">--}}
+                                    {{--<label--}}
+                                    {{--class="col-sm-3 text-right control-label col-form-label">Nama--}}
+                                    {{--Pengirim--}}
+                                    {{--di--}}
+                                    {{--BAPB--}}
+                                    {{--</label>--}}
+                                    {{--<div class="col-sm-9">--}}
+                                    {{--<input type="text" class="form-control"--}}
+                                    {{--ng-model="sender.detail.sender_name_bapb"--}}
+                                    {{--placeholder="" ng-disabled="true">--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-sm-12 col-lg-6">--}}
+                                    {{--<div class="form-group row p-t-15">--}}
+                                    {{--<label--}}
+                                    {{--class="col-sm-3 text-right control-label col-form-label">Kota</label>--}}
+                                    {{--<div class="col-sm-9">--}}
+                                    {{--<input type="text" class="form-control"--}}
+                                    {{--ng-model="sender.detail.city_name"--}}
+                                    {{--placeholder="" ng-disabled="true">--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
@@ -362,27 +372,33 @@
                                             <th scope="row">{{'{{'. 'sItemIdx + 1' .'}'.'}'}}</th>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.sender_item_name" ng-change="vm.senderItemCalculate(senderIdx)">
+                                                       ng-model="sItem.sender_item_name"
+                                                       ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.koli" ng-change="vm.senderItemCalculate(senderIdx)">
+                                                       ng-model="sItem.koli"
+                                                       ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.panjang" ng-change="vm.senderItemCalculate(senderIdx)">
+                                                       ng-model="sItem.panjang"
+                                                       ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.lebar" ng-change="vm.senderItemCalculate(senderIdx)">
+                                                       ng-model="sItem.lebar"
+                                                       ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.tinggi" ng-change="vm.senderItemCalculate(senderIdx)">
+                                                       ng-model="sItem.tinggi"
+                                                       ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="text"
-                                                       ng-model="sItem.ton" ng-change="vm.senderItemCalculate(senderIdx)">
+                                                       ng-model="sItem.ton"
+                                                       ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -459,7 +475,9 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group m-b-0 text-right">
-                                <button type="submit" class="btn btn-dark waves-effect waves-light" ui-sref="admin.home">Batal</button>
+                                <button type="submit" class="btn btn-dark waves-effect waves-light"
+                                        ui-sref="admin.home">Batal
+                                </button>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light"
                                         ng-click="vm.onSubmit()">Simpan
                                 </button>
