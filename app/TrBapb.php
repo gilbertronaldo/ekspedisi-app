@@ -27,4 +27,16 @@ class TrBapb extends BaseModel
     {
         return $this->hasMany(TrBapbSender::class, 'bapb_id');
     }
+
+    public function delete()
+    {
+        $senders = $this->senders()->with('items')->get();
+
+        foreach ($senders as $sender) {
+            $sender->items()->delete();
+            $sender->delete();
+        }
+
+        return parent::delete();
+    }
 }

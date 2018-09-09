@@ -38,17 +38,13 @@ class BapbController
     /**
      * @param Request $request
      * @return array
+     * @throws \Exception
      */
     public function get(Request $request)
     {
-        try {
-            $bapbList = TrBapb::with('senders.items')->get();
-            $response = CoreResponse::ok($bapbList);
-        } catch (CoreException $exception) {
-            $response = CoreResponse::fail($exception);
-        }
+        $bapbList = TrBapb::with('senders.items')->get();
 
-        return $response;
+        return datatables()->of($bapbList)->toJson();
     }
 
     public function store(Request $request)
@@ -93,11 +89,11 @@ class BapbController
         return $response;
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         try {
-
-            $response = CoreResponse::ok();
+            $bapb = TrBapb::findOrFail($id)->delete();
+            $response = CoreResponse::ok($bapb);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }

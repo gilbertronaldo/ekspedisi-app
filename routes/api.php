@@ -36,5 +36,6 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/no', 'BapbController@no');
         Route::get('/', 'BapbController@get');
         Route::post('/', 'BapbController@store');
+        Route::delete('/{id}', 'BapbController@destroy');
     });
 });
