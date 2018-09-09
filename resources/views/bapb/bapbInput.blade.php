@@ -377,27 +377,27 @@
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="number"
-                                                       ng-model="sItem.koli"
+                                                       ng-model="sItem.koli" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="number"
-                                                       ng-model="sItem.panjang"
+                                                       ng-model="sItem.panjang" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="number"
-                                                       ng-model="sItem.lebar"
+                                                       ng-model="sItem.lebar" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="number"
-                                                       ng-model="sItem.tinggi"
+                                                       ng-model="sItem.tinggi" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
                                                 <input class="form-control form-control-sm" type="number"
-                                                       ng-model="sItem.berat"
+                                                       ng-model="sItem.berat" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                         </tr>
