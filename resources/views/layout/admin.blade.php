@@ -69,7 +69,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                             <a class="dropdown-item" href="#" ng-click="doLogout()">
-                                <i class="fa fa-power-off m-r-5 m-l-5"></i>Logout</a>
+                                <i class="fa fa-power-off m-r-5 m-l-5"></i>Keluar</a>
                         </div>
                     </li>
                     <!-- ============================================================== -->
