@@ -31,13 +31,13 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">No Voyage</label>
                                 <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Nomor Voyage" ng-model="ctrl.input.no_voyage">
+                                       placeholder="Masukkan Nomor Voyage" ng-model="ctrl.input.no_voyage" required>
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nama Kapal</label>
                                 <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Nama Kapal" ng-model="ctrl.input.ship_name">
+                                       placeholder="Masukkan Nama Kapal" ng-model="ctrl.input.ship_name" required>
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="form-group">
@@ -64,7 +64,7 @@
                                                 tabindex="1"
                                                 ng-options="item.city_id as item.city_code + ' - ' + item.city_name for item in ctrl.cityList"
                                                 ng-model="ctrl.input.city_id_from"
-                                                ng-change="ctrl.changeCity()">
+                                                ng-change="ctrl.changeCity()" required>
                                             <option value="">Dari</option>
                                         </select>
                                     </div>
@@ -75,7 +75,7 @@
                                                 tabindex="1"
                                                 ng-options="item.city_id as item.city_code + ' - ' + item.city_name for item in ctrl.cityList"
                                                 ng-model="ctrl.input.city_id_to"
-                                                ng-change="ctrl.changeCity()">
+                                                ng-change="ctrl.changeCity()" required>
                                             <option value="">Menuju</option>
                                         </select>
                                     </div>

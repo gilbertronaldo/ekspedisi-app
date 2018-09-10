@@ -64,7 +64,7 @@
                                 <label for="exampleInputEmail1">Nomor Handphone Pengirim</label>
                                 <input type="text" class="form-control" aria-describedby="emailHelp"
                                        placeholder="Masukkan Nomor Handphone Pengirim"
-                                       ng-model="ctrl.input.sender_phone">
+                                       ng-model="ctrl.input.sender_phone" required>
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="form-group">

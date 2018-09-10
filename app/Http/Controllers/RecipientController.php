@@ -22,7 +22,10 @@ class RecipientController
     {
         $query = MsRecipient::get();
         foreach ($query as $q) {
-            $q->city_name = $q->city->city_name;
+            $q->city_name = '';
+            if ($q->city) {
+                $q->city_name = $q->city->city_name;
+            }
         }
         return datatables()->of($query)->toJson();
     }
