@@ -110,7 +110,7 @@
                                             <span class="input-group-text">Rp.</span>
                                         </div>
                                         <input type="text" ng-model="ctrl.input.price_ton" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)">
+                                               aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -122,7 +122,7 @@
                                             <span class="input-group-text">Rp.</span>
                                         </div>
                                         <input type="text" ng-model="ctrl.input.price_meter" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)">
+                                               aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>
                             </div>
