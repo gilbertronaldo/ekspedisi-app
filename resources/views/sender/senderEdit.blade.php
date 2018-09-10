@@ -68,6 +68,20 @@
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Telepon Pengirim</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                       placeholder="Masukkan Nomor Telephone Pengirim"
+                                       ng-model="ctrl.input.sender_telephone" required>
+                                <small class="form-text text-muted"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Fax Pengirim</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                       placeholder="Masukkan Nomor Fax Penerima"
+                                       ng-model="ctrl.input.sender_fax" required>
+                                <small class="form-text text-muted"></small>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label">Pilih Kota Pengirim</label>
                                 <select class="form-control custom-select" data-placeholder="Pilih kota"
                                         tabindex="1"
