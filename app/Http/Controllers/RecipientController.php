@@ -30,7 +30,8 @@ class RecipientController
     public function get($id)
     {
         try {
-            $data = MsRecipient::findOrFail($id);
+            $data = MsRecipient::with('city')->findOrFail($id);
+            $data->city_name = $data->city->city_name;
             $response = CoreResponse::ok($data);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);

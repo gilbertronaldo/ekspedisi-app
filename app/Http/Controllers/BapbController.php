@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MsSender;
 use DB;
 use App\TrBapb;
 use App\TrBapbSender;
@@ -40,11 +41,31 @@ class BapbController
      * @return array
      * @throws \Exception
      */
-    public function get(Request $request)
+    public function all(Request $request)
     {
         $bapbList = TrBapb::with('senders.items')->get();
 
         return datatables()->of($bapbList)->toJson();
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function get($id)
+    {
+        try {
+            $bapb = TrBapb::with('senders.items')
+                ->findOrFail($id);
+            foreach ($bapb->senders as $sender) {
+                $sender->detail = MsSender::find($sender->sender_id);
+            }
+            $response = CoreResponse::ok($bapb);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
     }
 
     public function store(Request $request)
@@ -52,21 +73,36 @@ class BapbController
         try {
             DB::beginTransaction();
 
-            $bapb = new TrBapb();
-            $bapb->bapb_no = $this->newBapbNo();
+            if ($request->has('bapb_id')) {
+                $bapb = TrBapb::findOrFail($request->input('bapb_id'));
+            } else {
+                $bapb = new TrBapb();
+                $bapb->bapb_no = $this->newBapbNo();
+            }
             $bapb->bapb_description = $request->input('bapb_description');
             $bapb->ship_id = $request->input('ship_id');
             $bapb->recipient_id = $request->input('recipient_id');
             $bapb->save();
 
+            $unDeletedSender = [];
+            $unDeletedItem = [];
             foreach ($request->input('senders') as $sender) {
-                $bapbSender = new TrBapbSender();
+                if (isset($sender['bapb_sender_id'])) {
+                    $bapbSender = TrBapbSender::findOrFail($sender['bapb_sender_id']);
+                } else {
+                    $bapbSender = new TrBapbSender();
+                }
                 $bapbSender->bapb_id = $bapb->bapb_id;
                 $bapbSender->sender_id = $sender['sender_id'];
                 $bapbSender->save();
 
+                $unDeletedSender[] = $bapbSender->bapb_sender_id;
                 foreach ($sender['items'] as $item) {
-                    $bapbSenderItem = new TrBapbSenderItem();
+                    if (isset($item['bapb_sender_item_id'])) {
+                        $bapbSenderItem = TrBapbSenderItem::findOrFail($item['bapb_sender_item_id']);
+                    } else {
+                        $bapbSenderItem = new TrBapbSenderItem();
+                    }
                     $bapbSenderItem->bapb_sender_id = $bapbSender->bapb_sender_id;
                     $bapbSenderItem->bapb_sender_item_name = $item['bapb_sender_item_name'];
                     $bapbSenderItem->koli = $item['koli'];
@@ -75,8 +111,13 @@ class BapbController
                     $bapbSenderItem->tinggi = $item['tinggi'];
                     $bapbSenderItem->berat = $item['berat'];
                     $bapbSenderItem->save();
+
+                    $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
                 }
             }
+
+            TrBapbSenderItem::whereNotIn('bapb_sender_item_id', $unDeletedItem)->delete();
+            TrBapbSender::whereNotIn('bapb_sender_id', $unDeletedSender)->delete();
 
             DB::commit();
             $response = CoreResponse::ok();

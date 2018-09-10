@@ -35,24 +35,6 @@ class ShipController extends Controller
             $ship->city_code_to = $ship->cityTo->city_code;
         }
 
-
-        $query = DB::TABLE(DB::RAW("(
-            SELECT 
-              A.ship_id, 
-              A.ship_name,
-              A.ship_description,
-              to_char(A.sailing_date, 'DD FMMonth YYYY') AS sailing_date,
-              A.no_voyage,
-              B.city_code || ' - ' || C.city_code AS destination
-            FROM ms_ship A
-            LEFT OUTER JOIN ms_city B 
-             ON A.city_id_from = B.city_id
-             AND B.deleted_at IS NULL
-            LEFT OUTER JOIN ms_city C
-             ON A.city_id_to = C.city_id
-             AND C.deleted_at IS NULL
-            WHERE A.deleted_at IS NULL
-        ) AS X"));
         return datatables()->of($ships)->toJson();
     }
 
@@ -67,6 +49,8 @@ class ShipController extends Controller
                 }
             } else {
                 $ship = MsShip::findOrFail($id);
+                $ship->city_code_from = $ship->cityFrom->city_code;
+                $ship->city_code_to = $ship->cityTo->city_code;
             }
             $response = CoreResponse::ok($ship);
         } catch (CoreException $exception) {

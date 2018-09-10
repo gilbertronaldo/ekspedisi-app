@@ -35,6 +35,6 @@ class MsRecipient extends BaseModel
 
     public function city()
     {
-        return $this->belongsTo(MsCity::class, 'city_id')->select('city_name');
+        return $this->belongsTo(MsCity::class, 'city_id');
     }
 }
