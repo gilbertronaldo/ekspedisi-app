@@ -149,16 +149,17 @@ class BapbController
     private function newBapbNo()
     {
         $year = Carbon::now()->format('y');
+        $month = Carbon::now()->format('m');
 
-        $bapb = TrBapb::whereRaw("LEFT(bapb_no, 2) = '$year'")
-            ->selectRaw('CAST(RIGHT(bapb_no, 8) AS INT) AS bapb_no')
+        $bapb = TrBapb::whereRaw("LEFT(bapb_no, 4) = '$year$month'")
+            ->selectRaw('CAST(RIGHT(bapb_no, 6) AS INT) AS bapb_no')
             ->orderBy('bapb_no', 'desc')
             ->first();
 
         if (!$bapb) {
-            return $year . str_pad(1, 8, '0', STR_PAD_LEFT);
+            return $year . $month . str_pad(1, 6, '0', STR_PAD_LEFT);
         }
 
-        return $year . str_pad($bapb->bapb_no + 1, 8, '0', STR_PAD_LEFT);
+        return $year . $month . str_pad($bapb->bapb_no + 1, 6, '0', STR_PAD_LEFT);
     }
 }
