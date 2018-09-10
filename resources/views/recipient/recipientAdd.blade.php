@@ -130,9 +130,18 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Minimum Charge</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Minimum Charge"
-                                       ng-model="ctrl.input.minimum_charge">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                    </div>
+                                    <select class="custom-select col-sm-3" id="inputGroupSelect01"
+                                            ng-model="ctrl.input.minimum_charge_calculation_id" ng-options="item.calculation_id as item.calculation_name for item in ctrl.minimumChargeCalculationList">
+                                        <option value="">Pilih Perhitungan</option>
+                                    </select>
+                                    <input type="text" class="form-control" aria-describedby="emailHelp"
+                                           placeholder="Masukkan Minimum Charge"
+                                           ng-model="ctrl.input.minimum_charge" ui-currency>
+                                </div>
                                 <small class="form-text text-muted"></small>
                             </div>
                             <button type="submit" class="btn btn-dark" ui-sref="admin.recipient">Batal</button>

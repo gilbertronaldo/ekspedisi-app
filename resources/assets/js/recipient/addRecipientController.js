@@ -29,6 +29,21 @@
 
         ctrl.input = {};
 
+        ctrl.minimumChargeCalculationList = [
+            {
+                calculation_id: 1,
+                calculation_name: 'Meter Kubik'
+            },
+            {
+                calculation_id: 2,
+                calculation_name: 'Rp'
+            },
+            {
+                calculation_id: 3,
+                calculation_name: 'Kg'
+            }
+        ];
+
         init();
 
         function init() {
