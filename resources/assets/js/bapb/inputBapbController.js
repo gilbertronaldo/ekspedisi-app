@@ -7,6 +7,7 @@
 
     InputBapbController.$inject = [
         '$state',
+        '$stateParams',
         '$scope',
         'swangular',
         '$q',
@@ -23,6 +24,7 @@
 
     function InputBapbController(
         $state,
+        $stateParams,
         $scope,
         swangular,
         $q,
@@ -43,7 +45,56 @@
         ctrl.shipAsyncPageLimit = 20;
         ctrl.shipTotalResults = 0;
 
-        getNewBapbNo();
+        ctrl.id = $stateParams.id;
+
+        function init() {
+            if (!ctrl.id) {
+                getNewBapbNo();
+                ctrl.senders = [senderNew()];
+            } else {
+                getBapb();
+            }
+        }
+        init();
+
+        function getBapb() {
+            BapbService.get(ctrl.id)
+                .then(res => {
+                    ctrl.input = res.data;
+                    ctrl.senders = ctrl.input.senders;
+
+                    ctrl.senders.forEach((i, idx) => {
+                        i.total = {};
+                        ctrl.senderItemCalculate(idx);
+                    })
+
+                    getShip();
+                    getRecipient();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+        function getShip() {
+            ShipService.get(ctrl.input.ship_id)
+                .then(res => {
+                    ctrl.detail.ship = res.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+        function getRecipient() {
+            RecipientService.get(ctrl.input.recipient_id)
+                .then(res => {
+                    ctrl.detail.recipient = res.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
 
         function getNewBapbNo() {
             BapbService.no()
@@ -107,8 +158,6 @@
             }
             ctrl.detail.recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
         }
-
-        ctrl.senders = [senderNew()];
 
         function senderNew() {
             return {
