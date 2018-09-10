@@ -74,24 +74,25 @@ class RecipientController
     {
         try {
             if ($request->has('recipient_id')) {
-                $ship = MsRecipient::findOrFail($request->input('recipient_id'));
+                $data = MsRecipient::findOrFail($request->input('recipient_id'));
             } else {
-                $ship = new MsRecipient();
+                $data = new MsRecipient();
             }
 
-            $ship->recipient_code = $request->input('recipient_code');
-            $ship->recipient_name = $request->input('recipient_name');
-            $ship->recipient_name_bapb = $request->input('recipient_name_bapb');
-            $ship->recipient_name_other = $request->input('recipient_name_other');
-            $ship->recipient_phone = $request->input('recipient_phone');
-            $ship->recipient_telephone = $request->input('recipient_telephone');
-            $ship->recipient_fax = $request->input('recipient_fax');
-            $ship->recipient_address = $request->input('recipient_address');
-            $ship->city_id = $request->input('city_id');
-            $ship->price_ton = $request->input('price_ton');
-            $ship->price_meter = $request->input('price_meter');
-            $ship->minimum_charge = $request->input('minimum_charge');
-            $ship->save();
+            $data->recipient_code = $request->input('recipient_code');
+            $data->recipient_name = $request->input('recipient_name');
+            $data->recipient_name_bapb = $request->input('recipient_name_bapb');
+            $data->recipient_name_other = $request->input('recipient_name_other');
+            $data->recipient_phone = $request->input('recipient_phone');
+            $data->recipient_telephone = $request->input('recipient_telephone');
+            $data->recipient_fax = $request->input('recipient_fax');
+            $data->recipient_address = $request->input('recipient_address');
+            $data->city_id = $request->input('city_id');
+            $data->price_ton = $request->input('price_ton');
+            $data->price_meter = $request->input('price_meter');
+            $data->minimum_charge = $request->input('minimum_charge');
+            $data->minimum_charge_calculation_id = $request->input('minimum_charge_calculation_id');
+            $data->save();
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);

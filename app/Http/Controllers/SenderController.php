@@ -86,6 +86,7 @@ class SenderController
             $data->price_ton = $request->input('price_ton');
             $data->price_meter = $request->input('price_meter');
             $data->minimum_charge = $request->input('minimum_charge');
+            $data->minimum_charge_calculation_id = $request->input('minimum_charge_calculation_id');
             $data->save();
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {
