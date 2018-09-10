@@ -18,7 +18,7 @@
                 controller: 'BapbController as bapbController',
             })
             .state('admin.bapb-input', {
-                url: '/bapb-input',
+                url: '/bapb-input/?:id',
                 templateUrl: '/bapb/input',
                 controller: 'InputBapbController as inputBapbController',
             })

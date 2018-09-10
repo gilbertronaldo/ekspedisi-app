@@ -1,4 +1,4 @@
-<div id="main-wrapper" data-layout='vertical'>
+<div id="main-wrapper" data-layout='vertical' ng-controller="LayoutController">
     <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-dark">
             <div class="navbar-header">
@@ -68,8 +68,8 @@
                             <img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                            <a class="dropdown-item">
-                                <i class="fa fa-power-off m-r-5 m-l-5"></i>Logout</a>
+                            <a class="dropdown-item" href="#" ng-click="doLogout()">
+                                <i class="fa fa-power-off m-r-5 m-l-5"></i>Keluar</a>
                         </div>
                     </li>
                     <!-- ============================================================== -->

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 abstract class BaseModel extends Model
 {
     use SoftDeletes;
-    use Cachable;
+//    use Cachable;
 
     public $timestamps = true;
 }
