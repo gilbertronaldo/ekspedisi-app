@@ -63,7 +63,15 @@
                         };
                     });
                 }])
-        .run(run);
+        .run(run)
+        .controller('LayoutController', function ($localStorage, $location, $scope) {
+            let ctrl = this;
+
+            $scope.doLogout = () => {
+                $localStorage.$reset();
+                $location.path('/login');
+            }
+        });
 
     function run($rootScope, $http, $location, $localStorage) {
         // redirect to login page if not logged in and trying to access a restricted page
