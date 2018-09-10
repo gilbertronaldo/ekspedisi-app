@@ -43,6 +43,18 @@
         ctrl.shipAsyncPageLimit = 20;
         ctrl.shipTotalResults = 0;
 
+        getNewBapbNo();
+
+        function getNewBapbNo() {
+            BapbService.no()
+                .then(res => {
+                    ctrl.input.bapb_no = res.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
         ctrl.searchShipList = (searchText, page) => {
             if (!searchText) {
                 return [];
@@ -114,13 +126,13 @@
 
         function senderItemNew() {
             return {
-                'sender_item_id': null,
-                'sender_item_name': null,
+                'bapb_sender_item_id': null,
+                'bapb_sender_item_name': null,
                 'koli': null,
                 'panjang': null,
                 'lebar': null,
                 'tinggi': null,
-                'ton': null
+                'berat': null
             };
         }
 
@@ -136,12 +148,14 @@
 
         ctrl.senderItemPush = (idx) => {
             ctrl.senders[idx].items.push(senderItemNew());
+            ctrl.senderItemCalculate(idx);
         }
 
         ctrl.senderItemPop = (idx) => {
             if (ctrl.senders[idx].items.length === 1)
                 return;
             ctrl.senders[idx].items.pop();
+            ctrl.senderItemCalculate(idx);
         }
 
         ctrl.senderItemCalculate = (idx) => {
@@ -150,11 +164,19 @@
             ctrl.senders[idx].total.berat = 0;
             ctrl.senders[idx].total.harga = 0;
             ctrl.senders[idx].items.forEach(i => {
-                ctrl.senders[idx].total.koli += parseInt(i.koli) || 0;
-                ctrl.senders[idx].total.berat += parseInt(i.ton) || 0;
-                ctrl.senders[idx].total.dimensi += ((parseInt(i.panjang) || 0) * (parseInt(i.lebar) || 0) * (parseInt(i.tinggi) || 0));
+
+                const koli = parseInt(i.koli) || 0;
+                const berat = parseInt(i.berat) || 0;
+                const volume = (parseInt(i.panjang) || 0) * (parseInt(i.lebar) || 0) * (parseInt(i.tinggi) || 0);
+                const dimension = (Math.round((volume * koli)) / 1000000);
+
+                ctrl.senders[idx].total.koli += koli;
+                ctrl.senders[idx].total.berat += (koli * berat);
+                ctrl.senders[idx].total.dimensi += dimension;
             })
-        }
+            ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi).toFixed(3);
+            ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000).toFixed(3);
+        };
 
         ctrl.senderAsyncPageLimit = 20;
         ctrl.senderTotalResults = 0;
@@ -196,8 +218,12 @@
                     BapbService.store(data)
                         .then(res => {
                             console.log(res)
-                            swangular.success("Berhasil Menyimpan BAPB");
-                            $state.go('admin.home');
+                            if (res.status == 'OK') {
+                                swangular.success("Berhasil Menyimpan BAPB");
+                                $state.go('admin.home');
+                            } else {
+                                swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
+                            }
                         })
                         .catch(err => {
                             console.log(err);

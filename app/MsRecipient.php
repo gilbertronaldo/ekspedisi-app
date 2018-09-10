@@ -31,6 +31,7 @@ class MsRecipient extends BaseModel
 {
     protected $table = 'ms_recipient';
     protected $primaryKey = 'recipient_id';
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     public function city()
     {

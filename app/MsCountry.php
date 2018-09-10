@@ -26,4 +26,5 @@ class MsCountry extends BaseModel
 {
     protected $table = 'ms_country';
     protected $primaryKey = 'country_id';
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

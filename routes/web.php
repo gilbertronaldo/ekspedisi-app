@@ -75,6 +75,10 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::prefix('bapb')->group(function () {
+        Route::get('/', function () {
+            return view('bapb.bapb');
+        });
+
         Route::get('/input', function () {
             return view('bapb.bapbInput');
         });

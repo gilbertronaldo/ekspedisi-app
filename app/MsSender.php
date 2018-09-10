@@ -32,6 +32,7 @@ class MsSender extends BaseModel
 {
     protected $table = 'ms_sender';
     protected $primaryKey = 'sender_id';
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     public function city()
     {
