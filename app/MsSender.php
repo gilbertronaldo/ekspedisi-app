@@ -12,7 +12,7 @@ namespace App;
 use Carbon\Carbon;
 
 /**
- * Class Mssender
+ * Class MsSender
  *
  * @property int sender_id
  * @property string sender_code
@@ -20,6 +20,8 @@ use Carbon\Carbon;
  * @property string sender_name_bapb
  * @property string sender_name_other
  * @property string sender_phone
+ * @property string sender_telephone
+ * @property string sender_fax
  * @property string sender_address
  * @property int city_id
  * @property Carbon created_at

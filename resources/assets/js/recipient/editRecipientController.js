@@ -39,6 +39,20 @@
         }
 
         ctrl.saveRecipient = () => {
+            if (!ctrl.input.recipient_code) {
+                swangular.alert("Kode Penerima wajib di isi");
+                return;
+            }
+
+            if (!ctrl.input.recipient_name) {
+                swangular.alert("Nama Penerima wajib di isi");
+                return;
+            }
+
+            if (!ctrl.input.recipient_phone) {
+                swangular.alert("Nomor Handphone wajib di isi");
+                return;
+            }
             ctrl.is_saving = true;
 
             RecipientService.store(ctrl.input)

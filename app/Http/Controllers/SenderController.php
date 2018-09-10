@@ -21,7 +21,10 @@ class SenderController
     {
         $query = MsSender::get();
         foreach ($query as $q) {
-            $q->city_name = $q->city->city_name;
+            $q->city_name = '';
+            if ($q->city) {
+                $q->city_name = $q->city->city_name;
+            }
         }
         return datatables()->of($query)->toJson();
     }
@@ -76,6 +79,8 @@ class SenderController
             $data->sender_name_bapb = $request->input('sender_name_bapb');
             $data->sender_name_other = $request->input('sender_name_other');
             $data->sender_phone = $request->input('sender_phone');
+            $data->sender_telephone = $request->input('sender_telephone');
+            $data->sender_fax = $request->input('sender_fax');
             $data->sender_address = $request->input('sender_address');
             $data->city_id = $request->input('city_id');
             $data->price_ton = $request->input('price_ton');

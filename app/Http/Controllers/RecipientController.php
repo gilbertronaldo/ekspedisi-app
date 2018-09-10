@@ -22,7 +22,10 @@ class RecipientController
     {
         $query = MsRecipient::get();
         foreach ($query as $q) {
-            $q->city_name = $q->city->city_name;
+            $q->city_name = '';
+            if ($q->city) {
+                $q->city_name = $q->city->city_name;
+            }
         }
         return datatables()->of($query)->toJson();
     }
@@ -31,7 +34,10 @@ class RecipientController
     {
         try {
             $data = MsRecipient::with('city')->findOrFail($id);
-            $data->city_name = $data->city->city_name;
+            $data->city_name = '';
+            if ($data->city) {
+                $data->city_name = $data->city->city_name;
+            }
             $response = CoreResponse::ok($data);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
@@ -78,6 +84,8 @@ class RecipientController
             $ship->recipient_name_bapb = $request->input('recipient_name_bapb');
             $ship->recipient_name_other = $request->input('recipient_name_other');
             $ship->recipient_phone = $request->input('recipient_phone');
+            $ship->recipient_telephone = $request->input('recipient_telephone');
+            $ship->recipient_fax = $request->input('recipient_fax');
             $ship->recipient_address = $request->input('recipient_address');
             $ship->city_id = $request->input('city_id');
             $ship->price_ton = $request->input('price_ton');

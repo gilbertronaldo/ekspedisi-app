@@ -34,7 +34,8 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Kode Penerima</label>
                                 <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Kode Penerima" ng-model="ctrl.input.recipient_code" required>
+                                       placeholder="Masukkan Kode Penerima" ng-model="ctrl.input.recipient_code"
+                                       required>
                                 <small class="form-text text-muted"></small>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -43,7 +44,8 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nama Penerima</label>
                                 <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Nama Penerima" ng-model="ctrl.input.recipient_name" required>
+                                       placeholder="Masukkan Nama Penerima" ng-model="ctrl.input.recipient_name"
+                                       required>
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="form-group">
@@ -64,7 +66,21 @@
                                 <label for="exampleInputEmail1">Nomor Handphone Penerima</label>
                                 <input type="text" class="form-control" aria-describedby="emailHelp"
                                        placeholder="Masukkan Nomor Handphone Penerima"
-                                       ng-model="ctrl.input.recipient_phone">
+                                       ng-model="ctrl.input.recipient_phone" required>
+                                <small class="form-text text-muted"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Telepon Penerima</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                       placeholder="Masukkan Nomor Telephone Penerima"
+                                       ng-model="ctrl.input.recipient_telephone" required>
+                                <small class="form-text text-muted"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nomor Fax Penerima</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                       placeholder="Masukkan Nomor Fax Penerima"
+                                       ng-model="ctrl.input.recipient_fax" required>
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="form-group">
@@ -95,7 +111,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp.</span>
                                         </div>
-                                        <input type="text" ng-model="ctrl.input.price_ton" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                        <input type="text" ng-model="ctrl.input.price_ton" class="form-control"
+                                               aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -106,7 +123,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp.</span>
                                         </div>
-                                        <input type="text" ng-model="ctrl.input.price_meter" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                        <input type="text" ng-model="ctrl.input.price_meter" class="form-control"
+                                               aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>
                             </div>

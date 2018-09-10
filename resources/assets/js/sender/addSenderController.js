@@ -36,6 +36,21 @@
         }
 
         ctrl.saveSender = () => {
+            if (!ctrl.input.sender_code) {
+                swangular.alert("Kode Pengirim wajib di isi");
+                return;
+            }
+
+            if (!ctrl.input.sender_name) {
+                swangular.alert("Nama Pengirim wajib di isi");
+                return;
+            }
+
+            if (!ctrl.input.sender_phone) {
+                swangular.alert("Nomor Handphone wajib di isi");
+                return;
+            }
+
             ctrl.is_saving = true;
 
             SenderService.store(ctrl.input)
