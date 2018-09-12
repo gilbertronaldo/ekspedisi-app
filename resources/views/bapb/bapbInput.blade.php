@@ -155,21 +155,28 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">No. Container</label>
-                                        <div class="col-sm-9">
+                                                class="col-sm-3 text-right control-label col-form-label">No.
+                                            Container</label>
+                                        <div class="col-sm-3">
                                             <input type="text" class="form-control"
-                                                   ng-model="vm.detail.ship.ship_name"
-                                                   placeholder="">
+                                                   ng-model="vm.input.no_container_1"
+                                                   placeholder="Kode">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="number" class="form-control"
+                                                   ng-model="vm.input.no_container_2"
+                                                   placeholder="Nomor">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">No. Segel</label>
+                                                class="col-sm-3 text-right control-label col-form-label">No.
+                                            Segel</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
-                                                   ng-model="vm.detail.ship.sailing_date"
+                                                   ng-model="vm.input.no_seal"
                                                    placeholder="">
                                         </div>
                                     </div>
@@ -271,7 +278,7 @@
                                                     class="col-sm-3 text-right control-label col-form-label">Kemasan</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
-                                                       ng-model="sender.detail.kemasan"
+                                                       ng-model="sender.kemasan"
                                                        placeholder="">
                                             </div>
                                         </div>
@@ -283,7 +290,7 @@
                                                 Masuk</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
-                                                       ng-model="sender.detail.kemasan"
+                                                       ng-model="sender.date_in"
                                                        placeholder="">
                                             </div>
                                         </div>
@@ -296,7 +303,7 @@
                                                     class="col-sm-3 text-right control-label col-form-label">Krani</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
-                                                       ng-model="sender.detail.krani"
+                                                       ng-model="sender.krani"
                                                        placeholder="">
                                             </div>
                                         </div>
@@ -514,7 +521,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
                                             <thead>
-                                            <tr>
+                                            <tr class="text-center">
                                                 <th scope="col">Penerima</th>
                                                 <th scope="col">Pengirim</th>
                                                 <th scope="col">Total Koli</th>
@@ -524,13 +531,44 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr class="text-center" ng-repeat="sender in vm.senders"
+                                                ng-init="senderIdx = $index" ng-if="sender.sender_id">
+                                                <td rowspan="{{  '{{'. 'vm.senders.length' .'}'.'}' }}"
+                                                    ng-if="senderIdx == 0">
+                                                    <span>{{  '{{'. 'vm.detail.recipient.recipient_name_bapb' .'}'.'}' }}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{  '{{'. 'sender.detail.sender_name_bapb' .'}'.'}' }}</span>
+                                                </td>
+                                                <td>
+                                                    <code>{{'{{'. 'sender.total.koli' .'}'.'}'}}</code>&nbsp;<span>Koli</span>
+                                                </td>
+                                                <td>
+                                                    <code>{{'{{'. 'sender.total.dimensi' .'}'.'}'}}</code>&nbsp;<span>m<sup>3</sup></span>
+                                                </td>
+                                                <td>
+                                                    <code>{{'{{'. 'sender.total.berat' .'}'.'}'}}</code>&nbsp;<span>Ton</span>
+                                                </td>
+                                                <td>
+                                                    <code>Rp. {{'{{'. 'sender.total.harga' .'}'.'}'}}</code>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td colspan="2">
+                                                    Total Keseluruhan
+                                                </td>
+                                                <td>
+                                                    <code>{{'{{'. 'sender.total.koli' .'}'.'}'}}</code>&nbsp;<span>Koli</span>
+                                                </td>
+                                                <td>
+                                                    <code>{{'{{'. 'sender.total.dimensi' .'}'.'}'}}</code>&nbsp;<span>m<sup>3</sup></span>
+                                                </td>
+                                                <td>
+                                                    <code>{{'{{'. 'sender.total.berat' .'}'.'}'}}</code>&nbsp;<span>Ton</span>
+                                                </td>
+                                                <td>
+                                                    <code>Rp. {{'{{'. 'sender.total.harga' .'}'.'}'}}</code>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
