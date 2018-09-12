@@ -150,6 +150,31 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">No. Container</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.ship.ship_name"
+                                                   placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row p-t-15">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">No. Segel</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.ship.sailing_date"
+                                                   placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title m-t-10 p-b-20">Detail Penerima</h4>
@@ -254,7 +279,8 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Tgl. Masuk</label>
+                                                    class="col-sm-3 text-right control-label col-form-label">Tgl.
+                                                Masuk</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.detail.kemasan"
