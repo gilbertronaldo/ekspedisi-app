@@ -54,6 +54,26 @@
                                 <div class="col-sm-12 col-lg-6">
 
                                 </div>
+
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="tagih-di"
+                                               class="col-sm-3 text-right control-label col-form-label">
+                                            Tagih di
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select col-sm-3" id="inputGroupSelect01"
+                                                    ng-model="vm.input.tagih_di">
+                                                <option value="">Tagih di</option>
+                                                <option value="recipient">Penerima</option>
+                                                <option value="sender">Pengirim</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+
+                                </div>
                             </div>
                         </div>
 
@@ -159,56 +179,6 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kode Penerima
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_code"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row p-t-15">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Telepon</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_phone"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_name"
-                                                   placeholder="" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row p-t-15">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Alamat</label>
-                                        <div class="col-sm-9">
-                                            <textarea type="text" class="form-control"
-                                                      ng-model="vm.detail.recipient.recipient_address"
-                                                      placeholder="" ng-disabled="true"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label
                                                 class="col-sm-3 text-right control-label col-form-label">Nama Penerima
                                             di
                                             BAPB
@@ -223,11 +193,11 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kota</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Alamat</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.city_name"
-                                                   placeholder="" ng-disabled="true">
+                                            <textarea type="text" class="form-control"
+                                                      ng-model="vm.detail.recipient.recipient_address"
+                                                      placeholder="" ng-disabled="true"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -258,12 +228,50 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Nama di BAPB
+                                                    class="col-sm-3 text-right control-label col-form-label">Nama di
+                                                BAPB
                                             </label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.detail.sender_name_bapb"
                                                        placeholder="" ng-disabled="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="form-group row p-t-15">
+                                            <label
+                                                    class="col-sm-3 text-right control-label col-form-label">Kemasan</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                       ng-model="sender.detail.kemasan"
+                                                       placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="form-group row p-t-15">
+                                            <label
+                                                    class="col-sm-3 text-right control-label col-form-label">Tgl. Masuk</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                       ng-model="sender.detail.kemasan"
+                                                       placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="form-group row p-t-15">
+                                            <label
+                                                    class="col-sm-3 text-right control-label col-form-label">Krani</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                       ng-model="sender.detail.krani"
+                                                       placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -467,6 +475,39 @@
                                                       ng-model="vm.input.bapb_description"
                                                       placeholder="Masukkan keterangan Bapb" rows="3"></textarea>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-light">
+                            <h4 class="card-title m-t-10 p-b-20">Detail Bapb</h4>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Penerima</th>
+                                                <th scope="col">Pengirim</th>
+                                                <th scope="col">Total Koli</th>
+                                                <th scope="col">Dimensi Total</th>
+                                                <th scope="col">Berat Total</th>
+                                                <th scope="col">Total harga</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
