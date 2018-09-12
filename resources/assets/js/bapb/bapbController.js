@@ -58,12 +58,19 @@
                 '</button>&nbsp;' +
                 '<button class="btn btn-danger btn-xs" ng-click="vm.deleteBapb(' + data.bapb_id + ')">' +
                 '   <i class="fa fa-trash"></i>' +
+                '</button>&nbsp;' +
+                '<button class="btn btn-success btn-xs" ng-click="vm.printBapb(' + data.bapb_id + ')">' +
+                '   <i class="fa fa-print"></i>' +
                 '</button>';
         }
 
         vm.editBapb = id => {
             console.log(id)
             $state.go('admin.bapb-input', {id: id});
+        }
+
+        vm.printBapb = id => {
+            console.log(id)
         }
 
         vm.deleteBapb = id => {
