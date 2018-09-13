@@ -127,7 +127,7 @@
             };
         });
 
-    function run($rootScope, $http, $location, $localStorage) {
+    function run($rootScope, $http, $location, $localStorage, $locale) {
         // redirect to login page if not logged in and trying to access a restricted page
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             var publicPages = ['/login'];
@@ -137,5 +137,8 @@
                 $location.path('/login');
             }
         });
+
+        // $locale.NUMBER_FORMATS.GROUP_SEP = ".";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
     }
 })();
