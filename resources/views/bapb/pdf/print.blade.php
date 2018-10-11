@@ -9,7 +9,7 @@
 </head>
 <body>
     <div style="text-align: center;width: 100%;">
-        <h1>Bapb Print</h1>
+        <h1>Bapb Print {{ $bapb->bapb_no }}</h1>
     </div>
 </body>
 </html>

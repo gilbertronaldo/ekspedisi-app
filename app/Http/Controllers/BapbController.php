@@ -177,7 +177,17 @@ class BapbController
     public function generatePrint($bapbId)
     {
         try {
-            $pdf = PDF::loadView('bapb.pdf.print');
+            $bapb = TrBapb::with('senders.items')
+                ->findOrFail($bapbId);
+            foreach ($bapb->senders as $sender) {
+                $sender->detail = MsSender::find($sender->sender_id);
+            }
+
+            $data = [
+              'bapb' => $bapb
+            ];
+
+            $pdf = PDF::loadView('bapb.pdf.print', $data);
             return $pdf->stream('bapb.pdf');
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
