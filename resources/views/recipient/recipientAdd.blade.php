@@ -62,26 +62,35 @@
                                        ng-model="ctrl.input.recipient_name_other">
                                 <small class="form-text text-muted"></small>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Handphone Penerima</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Nomor Handphone Penerima"
-                                       ng-model="ctrl.input.recipient_phone" required>
-                                <small class="form-text text-muted"></small>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Telepon Penerima</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Nomor Telephone Penerima"
-                                       ng-model="ctrl.input.recipient_telephone" required>
-                                <small class="form-text text-muted"></small>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Fax Penerima</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp"
-                                       placeholder="Masukkan Nomor Fax Penerima"
-                                       ng-model="ctrl.input.recipient_fax" required>
-                                <small class="form-text text-muted"></small>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label>Nomor Penerima</label>
+                                </div>
+                                <div class="col-md-12 ml-md-5">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="exampleInputEmail1">Handphone</label>
+                                            <input type="text" class="form-control" aria-describedby="emailHelp"
+                                                   placeholder="Masukkan Nomor Handphone Penerima"
+                                                   ng-model="ctrl.input.recipient_phone" required>
+                                            <small class="form-text text-muted"></small>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="exampleInputEmail1">Telepon</label>
+                                            <input type="text" class="form-control" aria-describedby="emailHelp"
+                                                   placeholder="Masukkan Nomor Telephone Penerima"
+                                                   ng-model="ctrl.input.recipient_telephone" required>
+                                            <small class="form-text text-muted"></small>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="exampleInputEmail1">Fax</label>
+                                            <input type="text" class="form-control" aria-describedby="emailHelp"
+                                                   placeholder="Masukkan Nomor Fax Penerima"
+                                                   ng-model="ctrl.input.recipient_fax" required>
+                                            <small class="form-text text-muted"></small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Pilih Kota Penerima</label>
@@ -128,21 +137,47 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Minimum Charge</label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">Minimum Charge</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                        </div>
+                                        <select class="custom-select col-sm-3" id="inputGroupSelect01"
+                                                ng-model="ctrl.input.minimum_charge_calculation_id"
+                                                ng-options="item.calculation_id as item.calculation_name for item in ctrl.minimumChargeCalculationList">
+                                            <option value="">Pilih Perhitungan</option>
+                                        </select>
+                                        <input type="text" class="form-control" aria-describedby="emailHelp"
+                                               placeholder="Masukkan Minimum Charge"
+                                               ng-model="ctrl.input.minimum_charge" ui-currency>
                                     </div>
-                                    <select class="custom-select col-sm-3" id="inputGroupSelect01"
-                                            ng-model="ctrl.input.minimum_charge_calculation_id" ng-options="item.calculation_id as item.calculation_name for item in ctrl.minimumChargeCalculationList">
-                                        <option value="">Pilih Perhitungan</option>
-                                    </select>
-                                    <input type="text" class="form-control" aria-describedby="emailHelp"
-                                           placeholder="Masukkan Minimum Charge"
-                                           ng-model="ctrl.input.minimum_charge" ui-currency>
+                                    <small class="form-text text-muted"></small>
                                 </div>
-                                <small class="form-text text-muted"></small>
+                                <div class="col-md-6">
+                                    <label class="control-label">Biaya Dokument</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Rp.</label>
+                                        </div>
+                                        <input type="text" class="form-control" aria-describedby="emailHelp"
+                                               placeholder="Masukkan Biaya Dokument"
+                                               ng-model="ctrl.input.price_document" ui-currency>
+                                    </div>
+                                    <small class="form-text text-muted"></small>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="control-label">Ambil di</label>
+                                    <div class="input-group mb-3">
+                                        <select class="custom-select col-sm-3"
+                                                ng-model="ctrl.input.ambil_di">
+                                            <option value="">Ambil di</option>
+                                            <option value="port">Port</option>
+                                            <option value="door">Door</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-dark" ui-sref="admin.recipient">Batal</button>
                             <button type="submit" class="btn btn-primary" ng-click="ctrl.saveRecipient()">Simpan

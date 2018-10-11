@@ -55,15 +55,21 @@
                 getBapb();
             }
         }
+
         init();
 
         function getBapb() {
             BapbService.get(ctrl.id)
                 .then(res => {
+                    res.data.no_container_2 = parseInt(res.data.no_container_2);
                     ctrl.input = res.data;
+
                     ctrl.senders = ctrl.input.senders;
 
                     ctrl.senders.forEach((i, idx) => {
+                        if (i.entry_date) {
+                            i.entry_date = moment(i.entry_date);
+                        }
                         i.total = {};
                         ctrl.senderItemCalculate(idx);
                     })
@@ -162,6 +168,9 @@
         function senderNew() {
             return {
                 'sender_id': null,
+                'kemasan': null,
+                'krani': null,
+                'entry_date': null,
                 'detail': {},
                 'items': [senderItemNew()],
                 'total': {
@@ -225,6 +234,18 @@
             })
             ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi).toFixed(3);
             ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000).toFixed(3);
+
+            ctrl.input.total = {};
+            ctrl.input.total.koli = 0;
+            ctrl.input.total.dimensi = 0;
+            ctrl.input.total.berat = 0;
+            ctrl.input.total.harga = 0;
+            ctrl.senders.forEach(i => {
+                ctrl.input.total.koli += parseFloat(i.total ? i.total.koli : 0 || 0);
+                ctrl.input.total.dimensi += parseFloat(i.total ? i.total.dimensi : 0 || 0);
+                ctrl.input.total.berat += parseFloat(i.total ? i.total.berat : 0 || 0);
+                ctrl.input.total.harga += parseFloat(i.total ? i.total.harga : 0 || 0);
+            });
         };
 
         ctrl.senderAsyncPageLimit = 20;
@@ -269,7 +290,7 @@
                             console.log(res)
                             if (res.status == 'OK') {
                                 swangular.success("Berhasil Menyimpan BAPB");
-                                $state.go('admin.home');
+                                $state.go('admin.bapb');
                             } else {
                                 swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
                             }

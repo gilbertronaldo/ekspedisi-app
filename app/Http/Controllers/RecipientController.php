@@ -90,8 +90,10 @@ class RecipientController
             $data->city_id = $request->input('city_id');
             $data->price_ton = $request->input('price_ton');
             $data->price_meter = $request->input('price_meter');
+            $data->price_document = $request->input('price_document');
             $data->minimum_charge = $request->input('minimum_charge');
             $data->minimum_charge_calculation_id = $request->input('minimum_charge_calculation_id');
+            $data->ambil_di = $request->input('ambil_di');
             $data->save();
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {

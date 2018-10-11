@@ -80,6 +80,10 @@ class BapbController
                 $bapb->bapb_no = $this->newBapbNo();
             }
             $bapb->bapb_description = $request->input('bapb_description');
+            $bapb->no_container_1 = $request->input('no_container_1');
+            $bapb->no_container_2 = $request->input('no_container_2');
+            $bapb->no_seal = $request->input('no_seal');
+            $bapb->tagih_di = $request->input('tagih_di');
             $bapb->ship_id = $request->input('ship_id');
             $bapb->recipient_id = $request->input('recipient_id');
             $bapb->save();
@@ -94,6 +98,9 @@ class BapbController
                 }
                 $bapbSender->bapb_id = $bapb->bapb_id;
                 $bapbSender->sender_id = $sender['sender_id'];
+                $bapbSender->kemasan = $sender['kemasan'];
+                $bapbSender->krani = $sender['krani'];
+                $bapbSender->entry_date = Carbon::parse($sender['entry_date']);
                 $bapbSender->save();
 
                 $unDeletedSender[] = $bapbSender->bapb_sender_id;
