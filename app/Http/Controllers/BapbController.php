@@ -98,9 +98,9 @@ class BapbController
                 }
                 $bapbSender->bapb_id = $bapb->bapb_id;
                 $bapbSender->sender_id = $sender['sender_id'];
-                $bapbSender->kemasan = $sender['kemasan'];
-                $bapbSender->krani = $sender['krani'];
-                $bapbSender->entry_date = Carbon::parse($sender['entry_date']);
+                $bapbSender->kemasan = isset($sender['kemasan']) ? $sender['kemasan'] : NULL;
+                $bapbSender->krani = isset($sender['krani']) ? $sender['krani'] : NULL;
+                $bapbSender->entry_date = isset($sender['entry_date']) ? Carbon::parse($sender['entry_date']) : NULL;
                 $bapbSender->save();
 
                 $unDeletedSender[] = $bapbSender->bapb_sender_id;
