@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\MsSender;
+use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use App\TrBapb;
 use App\TrBapbSender;
@@ -168,5 +169,20 @@ class BapbController
         }
 
         return $year . $month . str_pad($bapb->bapb_no + 1, 6, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     *
+     */
+    public function generatePrint($bapbId)
+    {
+        try {
+            $pdf = PDF::loadView('bapb.pdf.print');
+            return $pdf->stream('bapb.pdf');
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
     }
 }

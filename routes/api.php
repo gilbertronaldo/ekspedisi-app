@@ -38,5 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/{id}', 'BapbController@get');
         Route::post('/', 'BapbController@store');
         Route::delete('/{id}', 'BapbController@destroy');
+
+        Route::get('/generate/{id}', 'BapbController@generatePrint');
     });
 });
