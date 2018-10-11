@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\MsSender;
+use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use App\TrBapb;
 use App\TrBapbSender;
@@ -98,9 +99,9 @@ class BapbController
                 }
                 $bapbSender->bapb_id = $bapb->bapb_id;
                 $bapbSender->sender_id = $sender['sender_id'];
-                $bapbSender->kemasan = $sender['kemasan'];
-                $bapbSender->krani = $sender['krani'];
-                $bapbSender->entry_date = Carbon::parse($sender['entry_date']);
+                $bapbSender->kemasan = isset($sender['kemasan']) ? $sender['kemasan'] : NULL;
+                $bapbSender->krani = isset($sender['krani']) ? $sender['krani'] : NULL;
+                $bapbSender->entry_date = isset($sender['entry_date']) ? Carbon::parse($sender['entry_date']) : NULL;
                 $bapbSender->save();
 
                 $unDeletedSender[] = $bapbSender->bapb_sender_id;
@@ -168,5 +169,20 @@ class BapbController
         }
 
         return $year . $month . str_pad($bapb->bapb_no + 1, 6, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     *
+     */
+    public function generatePrint($bapbId)
+    {
+        try {
+            $pdf = PDF::loadView('bapb.pdf.print');
+            return $pdf->stream('bapb.pdf');
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
     }
 }

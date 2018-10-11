@@ -70,8 +70,9 @@
         }
 
         vm.printBapb = id => {
-            console.log(id)
-        }
+            const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+            win.focus();
+        };
 
         vm.deleteBapb = id => {
             swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
