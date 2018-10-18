@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BapbController
 {
@@ -172,15 +173,19 @@ class BapbController
     }
 
     /**
+     * @param $bapbId
      *
+     * @return array
      */
     public function generatePrint($bapbId)
     {
         try {
             $bapb = TrBapb::with('senders.items')
                 ->findOrFail($bapbId);
-            foreach ($bapb->senders as $sender) {
-                $sender->detail = MsSender::find($sender->sender_id);
+            if (!empty($bapb->senders)) {
+                foreach ($bapb->senders as $sender) {
+                    $sender->detail = MsSender::find($sender->sender_id);
+                }
             }
 
             $data = [
