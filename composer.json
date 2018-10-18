@@ -17,6 +17,7 @@
         "gilbertronaldo/core-system": "dev-master",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
+        "maatwebsite/excel": "^3.1",
         "predis/predis": "^1.1",
         "tymon/jwt-auth": "1.0.*",
         "yajra/laravel-datatables-oracle": "~8.0"
