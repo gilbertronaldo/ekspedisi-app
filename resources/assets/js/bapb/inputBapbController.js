@@ -40,6 +40,7 @@
     ) {
         let ctrl = this;
         ctrl.input = {};
+        ctrl.code = '1';
         ctrl.detail = {};
 
         ctrl.shipAsyncPageLimit = 20;
@@ -47,16 +48,25 @@
 
         ctrl.id = $stateParams.id;
 
+        function resetForm() {
+            getNewBapbNo();
+            ctrl.senders = [senderNew()];
+            ctrl.input = {};
+        }
+
         function init() {
             if (!ctrl.id) {
-                getNewBapbNo();
-                ctrl.senders = [senderNew()];
+                resetForm();
             } else {
                 getBapb();
             }
         }
 
         init();
+
+        ctrl.changeCode = () => {
+            resetForm();
+        };
 
         function getBapb() {
             BapbService.get(ctrl.id)
@@ -103,7 +113,7 @@
         }
 
         function getNewBapbNo() {
-            BapbService.no()
+            BapbService.no(ctrl.code)
                 .then(res => {
                     ctrl.input.bapb_no = res.data;
                 })
