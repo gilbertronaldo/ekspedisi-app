@@ -20,8 +20,8 @@
                 });
         }
 
-        function no() {
-            return $http.get(`/api/bapb/no`)
+        function no(code) {
+            return $http.get(`/api/bapb/no/${code}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

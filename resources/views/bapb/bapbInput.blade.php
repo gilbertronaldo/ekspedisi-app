@@ -36,6 +36,27 @@
                                     <div class="form-group row">
                                         <label for="bapb-no"
                                                class="col-sm-3 text-right control-label col-form-label">
+                                            CODE
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select col-sm-6" id="inputGroupSelect01"
+                                                    ng-model="vm.code" ng-change="vm.changeCode()">
+                                                <option value="1" selected>JB - Banjarmasin</option>
+                                                <option value="2">JM - Samarinda</option>
+                                                <option value="3">JP - Balikpapan</option>
+                                                <option value="4">JK - Makassar</option>
+                                                <option value="5">KJ - Retur</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                </div>
+
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="bapb-no"
+                                               class="col-sm-3 text-right control-label col-form-label">
                                             No BAPB
                                         </label>
                                         <div class="col-sm-9">
@@ -448,7 +469,8 @@
                                             <tbody>
                                             <tr class="text-center" ng-repeat="sender in vm.senders"
                                                 ng-init="senderIdx = $index" ng-if="sender.sender_id">
-                                                <td class="align-middle" rowspan="{{  '{{'. 'vm.senders.length' .'}'.'}' }}"
+                                                <td class="align-middle"
+                                                    rowspan="{{  '{{'. 'vm.senders.length' .'}'.'}' }}"
                                                     ng-if="senderIdx == 0">
                                                     <span>{{  '{{'. 'vm.detail.recipient.recipient_name_bapb' .'}'.'}' }}</span>
                                                 </td>

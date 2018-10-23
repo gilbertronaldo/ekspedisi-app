@@ -6,11 +6,12 @@
          style="background:url(../../assets/images/big/auth-bg.jpg) no-repeat center center;">
         <div class="auth-box">
             <div id="loginform">
-                <div class="logo">
+                <div class="logo mb-3">
                     <h3 class="font-medium m-b-20">Ekspedisi</h3>
+                    <h4 class="font-medium m-b-20">PT. SUMBER REJEKI SINAR MANDIRI</h4>
                 </div>
                 <!-- Form -->
-                <div class="row">
+                <div class="row mt-5">
                     <div class="col-12">
                         <form class="form-horizontal m-t-20" id="loginform">
                             {{ csrf_field() }}
@@ -28,7 +29,7 @@
                                 <input type="password" name="password" class="form-control form-control-lg"
                                        placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" ng-model="ctrl.input.password">
                             </div>
-                            <div class="form-group text-center">
+                            <div class="form-group text-center mt-5">
                                 <div class="col-xs-12 p-b-20">
                                     <button class="btn btn-block btn-lg btn-info" ng-click="ctrl.doLogin()">Log In
                                     </button>

@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BapbController
 {
@@ -25,10 +26,10 @@ class BapbController
      * get new bapb no
      * @return array
      */
-    public function no()
+    public function no($code)
     {
         try {
-            $bapbNo = $this->newBapbNo();
+            $bapbNo = $this->newBapbNo($code);
             $response = CoreResponse::ok($bapbNo);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
@@ -44,7 +45,14 @@ class BapbController
      */
     public function all(Request $request)
     {
-        $bapbList = TrBapb::with('senders.items')->get();
+        $bapbList = TrBapb::with('senders.items')
+            ->with('recipient')
+            ->with('ship')
+            ->get();
+
+        $bapbList->each(function ($i) {
+            $i->no_container = $i->no_container_1 . " " . $i->no_container_2;
+        });
 
         return datatables()->of($bapbList)->toJson();
     }
@@ -78,7 +86,7 @@ class BapbController
                 $bapb = TrBapb::findOrFail($request->input('bapb_id'));
             } else {
                 $bapb = new TrBapb();
-                $bapb->bapb_no = $this->newBapbNo();
+                $bapb->bapb_no = $request->input('bapb_no');
             }
             $bapb->bapb_description = $request->input('bapb_description');
             $bapb->no_container_1 = $request->input('no_container_1');
@@ -152,39 +160,44 @@ class BapbController
 
     /**
      * get new bapb_no
+     * @param $code
      * @return string
      */
-    private function newBapbNo()
+    private function newBapbNo($code)
     {
         $year = Carbon::now()->format('y');
-        $month = Carbon::now()->format('m');
+//        $month = Carbon::now()->format('m');
 
-        $bapb = TrBapb::whereRaw("LEFT(bapb_no, 4) = '$year$month'")
+        $bapb = TrBapb::whereRaw("LEFT(bapb_no, 3) = '$year$code'")
             ->selectRaw('CAST(RIGHT(bapb_no, 6) AS INT) AS bapb_no')
             ->orderBy('bapb_no', 'desc')
             ->first();
 
         if (!$bapb) {
-            return $year . $month . str_pad(1, 6, '0', STR_PAD_LEFT);
+            return $year . $code . str_pad(1, 7, '0', STR_PAD_LEFT);
         }
 
-        return $year . $month . str_pad($bapb->bapb_no + 1, 6, '0', STR_PAD_LEFT);
+        return $year . $code . str_pad($bapb->bapb_no + 1, 7, '0', STR_PAD_LEFT);
     }
 
     /**
+     * @param $bapbId
      *
+     * @return array
      */
     public function generatePrint($bapbId)
     {
         try {
             $bapb = TrBapb::with('senders.items')
                 ->findOrFail($bapbId);
-            foreach ($bapb->senders as $sender) {
-                $sender->detail = MsSender::find($sender->sender_id);
+            if (!empty($bapb->senders)) {
+                foreach ($bapb->senders as $sender) {
+                    $sender->detail = MsSender::find($sender->sender_id);
+                }
             }
 
             $data = [
-              'bapb' => $bapb
+                'bapb' => $bapb
             ];
 
             $pdf = PDF::loadView('bapb.pdf.print', $data);

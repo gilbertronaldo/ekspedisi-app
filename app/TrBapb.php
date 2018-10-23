@@ -23,9 +23,20 @@ class TrBapb extends BaseModel
     protected $table = 'tr_bapb';
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+
+    public function recipient()
+    {
+        return $this->belongsTo(MsRecipient::class, 'recipient_id');
+    }
+
     public function senders()
     {
         return $this->hasMany(TrBapbSender::class, 'bapb_id');
+    }
+
+    public function ship()
+    {
+        return $this->belongsTo(MsShip::class, 'ship_id');
     }
 
     public function delete()

@@ -11,10 +11,16 @@ namespace App;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable;
 
-abstract class BaseModel extends Model
+/**
+ * Class BaseModel
+ * @package App
+ */
+abstract class BaseModel extends Model implements \OwenIt\Auditing\Contracts\Auditable
 {
     use SoftDeletes;
+    use Auditable;
 //    use Cachable;
 
     public $timestamps = true;
