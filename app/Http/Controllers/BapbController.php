@@ -45,7 +45,14 @@ class BapbController
      */
     public function all(Request $request)
     {
-        $bapbList = TrBapb::with('senders.items')->get();
+        $bapbList = TrBapb::with('senders.items')
+            ->with('recipient')
+            ->with('ship')
+            ->get();
+
+        $bapbList->each(function ($i) {
+            $i->no_container = $i->no_container_1 . " " . $i->no_container_2;
+        });
 
         return datatables()->of($bapbList)->toJson();
     }
@@ -189,7 +196,7 @@ class BapbController
             }
 
             $data = [
-              'bapb' => $bapb
+                'bapb' => $bapb
             ];
 
             $pdf = PDF::loadView('bapb.pdf.print', $data);
