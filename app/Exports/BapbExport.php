@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Events\BeforeExport;
 use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Events\BeforeWriting;
 use Maatwebsite\Excel\Sheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
  * Class BapbExport
@@ -24,7 +25,10 @@ class BapbExport implements FromView, WithEvents
     public function view(): View
     {
         return view('bapb.excel.bapb', [
-            'bapbList' => TrBapb::all()
+            'bapbList' => TrBapb::with('senders.items')
+                ->with('recipient')
+                ->with('ship')
+                ->get()
         ]);
     }
 
@@ -43,22 +47,42 @@ class BapbExport implements FromView, WithEvents
             BeforeWriting::class => [self::class, 'beforeWriting'],
 
             AfterSheet::class => function (AfterSheet $event) {
+                $event->getSheet()->getDelegate()->getPageSetup()
+                    ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE)
+                    ->setPaperSize(PageSetup::PAPERSIZE_A4)
+                    ->setHorizontalCentered(TRUE)
+                    ->setVerticalCentered(FALSE);
 
                 Sheet::macro('styleCells', function (Sheet $sheet, string $cellRange, array $style) {
                     $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($style);
+                    $sheet->autoSize();
                 });
 
                 $event->sheet->styleCells(
-                    'A1:G1',
+                    'A8:I100',
                     [
+                        'borders' => [
+                            'allBorders' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                'color' => ['argb' => '000000'],
+                            ],
+                        ]
+                    ]
+                );
+                $event->sheet->styleCells(
+                    'A8:I8',
+                    [
+                        'font' => [
+                            'bold' => true,
+                        ],
                         'fill' => [
                             'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                             'startColor' => [
-                                'argb' => 'FFA0A0A0',
+                                'argb' => '25cad0',
                             ],
                         ],
                         'borders' => [
-                            'outline' => [
+                            'allBorders' => [
                                 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                                 'color' => ['argb' => '000000'],
                             ],
