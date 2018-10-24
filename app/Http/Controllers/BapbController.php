@@ -208,4 +208,24 @@ class BapbController
 
         return $response;
     }
+
+    /**
+     *
+     * @return array
+     */
+    public function latestBapb()
+    {
+        try {
+            $latestBapb = TrBapb::whereNotNull('no_container_1')
+                ->whereNotNull('no_container_2')
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            $response = CoreResponse::ok(compact('latestBapb'));
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
 }

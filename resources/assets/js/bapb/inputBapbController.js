@@ -49,9 +49,10 @@
         ctrl.id = $stateParams.id;
 
         function resetForm() {
-            getNewBapbNo();
-            ctrl.senders = [senderNew()];
             ctrl.input = {};
+            getNewBapbNo();
+            latestBapb();
+            ctrl.senders = [senderNew()];
         }
 
         function init() {
@@ -86,6 +87,19 @@
 
                     getShip();
                     getRecipient();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+        function latestBapb() {
+            BapbService.latest()
+                .then(res => {
+                    if (res.data.latestBapb) {
+                        ctrl.input.no_container_1 = res.data.latestBapb.no_container_1;
+                        ctrl.input.no_container_2 = parseInt(res.data.latestBapb.no_container_2);
+                    }
                 })
                 .catch(err => {
                     console.log(err);
