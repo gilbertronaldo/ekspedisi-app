@@ -31,8 +31,8 @@ class ShipController extends Controller
 
         $ships = MsShip::get();
         foreach ($ships as $ship) {
-            $ship->city_code_from = $ship->cityFrom->city_code;
-            $ship->city_code_to = $ship->cityTo->city_code;
+            $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code : '';
+            $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code : '';
         }
 
         return datatables()->of($ships)->toJson();
@@ -44,13 +44,13 @@ class ShipController extends Controller
             if ($id == -99) {
                 $ship = MsShip::get();
                 foreach ($ship as $s) {
-                    $s->city_code_from = $s->cityFrom->city_code;
-                    $s->city_code_to = $s->cityTo->city_code;
+                    $s->city_code_from = $s->cityFrom ? $s->cityFrom->city_code : '';
+                    $s->city_code_to = $s->cityTo ? $s->cityTo->city_code : '';
                 }
             } else {
                 $ship = MsShip::findOrFail($id);
-                $ship->city_code_from = $ship->cityFrom->city_code;
-                $ship->city_code_to = $ship->cityTo->city_code;
+                $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code : '';
+                $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code : '';
             }
             $response = CoreResponse::ok($ship);
         } catch (CoreException $exception) {
@@ -77,8 +77,8 @@ class ShipController extends Controller
                 ->count();
 
             foreach ($shipList as $ship) {
-                $ship->city_code_from = $ship->cityFrom->city_code;
-                $ship->city_code_to = $ship->cityTo->city_code;
+                $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code : '';
+                $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code : '';
             }
             $response = CoreResponse::ok(compact('shipList', 'count'));
         } catch (CoreException $exception) {
