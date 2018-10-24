@@ -11,34 +11,35 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::prefix('ship')->group(function () {
         Route::get('/', 'ShipController@all');
         Route::get('/search', 'ShipController@search');
-        Route::get('/{id}', 'ShipController@get');
+        Route::get('/{id}', 'ShipController@get')->where('id', '[0-9]+');
         Route::post('/', 'ShipController@store');
-        Route::delete('/{id}', 'ShipController@destroy');
+        Route::delete('/{id}', 'ShipController@destroy')->where('id', '[0-9]+');
     });
 
     Route::prefix('sender')->group(function () {
         Route::get('/', 'SenderController@all');
         Route::get('/search', 'SenderController@search');
-        Route::get('/{id}', 'SenderController@get');
+        Route::get('/{id}', 'SenderController@get')->where('id', '[0-9]+');
         Route::post('/', 'SenderController@store');
-        Route::delete('/{id}', 'SenderController@destroy');
+        Route::delete('/{id}', 'SenderController@destroy')->where('id', '[0-9]+');
     });
 
     Route::prefix('recipient')->group(function () {
         Route::get('/', 'RecipientController@all');
         Route::get('/search', 'RecipientController@search');
-        Route::get('/{id}', 'RecipientController@get');
+        Route::get('/{id}', 'RecipientController@get')->where('id', '[0-9]+');
         Route::post('/', 'RecipientController@store');
-        Route::delete('/{id}', 'RecipientController@destroy');
+        Route::delete('/{id}', 'RecipientController@destroy')->where('id', '[0-9]+');
     });
 
     Route::prefix('bapb')->group(function () {
         Route::get('/no/{code}', 'BapbController@no');
         Route::get('/', 'BapbController@all');
-        Route::get('/{id}', 'BapbController@get');
+        Route::get('/{id}', 'BapbController@get')->where('id', '[0-9]+');
         Route::post('/', 'BapbController@store');
-        Route::delete('/{id}', 'BapbController@destroy');
+        Route::get('/latest', 'BapbController@latestBapb');
+        Route::delete('/{id}', 'BapbController@destroy')->where('id', '[0-9]+');
 
-        Route::get('/generate/{id}', 'BapbController@generatePrint');
+        Route::get('/generate/{id}', 'BapbController@generatePrint')->where('id', '[0-9]+');
     });
 });
