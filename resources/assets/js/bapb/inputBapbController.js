@@ -287,9 +287,31 @@
             ctrl.senders[idx].detail = ctrl.detail.senderList.find(i => i.sender_id === ctrl.senders[idx].sender_id);
         }
 
+        function bapbIsValid(data) {
+
+            if (!data.recipient_id) {
+                swangular.alert("Penerima wajib diisi");
+                return false;
+            }
+
+            for (let i of data.senders) {
+                if (!i.sender_id) {
+                    console.log(i)
+                    swangular.alert("Nama pengirim wajib diisi");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         ctrl.onSubmit = () => {
             let data = ctrl.input;
             data.senders = ctrl.senders;
+
+            if (!bapbIsValid(data)) {
+                return;
+            }
 
             swangular.confirm('Konfirmasi BAPB', {
                 showCancelButton: true,
