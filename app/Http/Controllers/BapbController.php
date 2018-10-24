@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BapbExport;
 use App\MsSender;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
@@ -19,6 +20,7 @@ use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BapbController
 {
@@ -227,5 +229,13 @@ class BapbController
         }
 
         return $response;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function exportExcel()
+    {
+        return Excel::download(new BapbExport(), 'users.xlsx');
     }
 }
