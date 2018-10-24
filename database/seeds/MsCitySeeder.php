@@ -13,57 +13,28 @@ class MsCitySeeder extends Seeder
     {
         DB::table('ms_city')->insert([
             'country_id' => 10,
-            'city_code' => 'JKT',
-            'city_name' => 'Jakarta',
+            'city_code' => 'JB',
+            'city_name' => 'Banjarmasin',
             'created_at' => \Carbon\Carbon::now()
         ]);
 
         DB::table('ms_city')->insert([
             'country_id' => 10,
-            'city_code' => 'BDG',
-            'city_name' => 'Bandung',
+            'city_code' => 'JM',
+            'city_name' => 'Samarinda',
             'created_at' => \Carbon\Carbon::now()
         ]);
 
         DB::table('ms_city')->insert([
             'country_id' => 10,
-            'city_code' => 'SBY',
-            'city_name' => 'Surabaya',
+            'city_code' => 'JP',
+            'city_name' => 'Balikpapan',
             'created_at' => \Carbon\Carbon::now()
         ]);
 
         DB::table('ms_city')->insert([
             'country_id' => 10,
-            'city_code' => 'YYK',
-            'city_name' => 'Yogyakarta',
-            'created_at' => \Carbon\Carbon::now()
-        ]);
-
-        DB::table('ms_city')->insert([
-            'country_id' => 10,
-            'city_code' => 'SMG',
-            'city_name' => 'Semarang',
-            'created_at' => \Carbon\Carbon::now()
-        ]);
-
-        DB::table('ms_city')->insert([
-            'country_id' => 10,
-            'city_code' => 'MND',
-            'city_name' => 'Manado',
-            'created_at' => \Carbon\Carbon::now()
-        ]);
-
-        DB::table('ms_city')->insert([
-            'country_id' => 10,
-            'city_code' => 'BNA',
-            'city_name' => 'Banda Aceh',
-            'created_at' => \Carbon\Carbon::now()
-        ]);
-
-
-        DB::table('ms_city')->insert([
-            'country_id' => 10,
-            'city_code' => 'MKS',
+            'city_code' => 'JK',
             'city_name' => 'Makassar',
             'created_at' => \Carbon\Carbon::now()
         ]);
