@@ -78,7 +78,8 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <select class="custom-select col-sm-5" id="inputGroupSelect01"
-                                                    ng-model="vm.input.tagih_di">
+                                                    ng-model="vm.input.tagih_di"
+                                                    ng-change="vm.changeCalculation()">
                                                 <option value="">Tagih di</option>
                                                 <option value="recipient">Penerima</option>
                                                 <option value="sender">Pengirim</option>
@@ -386,7 +387,47 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <label class="col-sm-12 text-left control-label col-form-label">Keterangan</label>
+                                            <label class="col-sm-12 text-left control-label col-form-label">Keterangan Perhitungan</label>
+                                            <div class="col-md-8 offset-2">
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Harga per Meter</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'vm.detail.calculation.price_meter | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Harga per Ton</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'vm.detail.calculation.price_ton | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Biaya Dokumen</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'vm.detail.calculation.price_document | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Min. Charge</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}</code>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-sm-12 text-left control-label col-form-label">&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;Keterangan</label>
                                             <div class="col-md-8 offset-2">
                                                 <div class="row">
                                                     <div class="col-sm-5 text-right">
@@ -417,7 +458,7 @@
                                                         <span>Total Harga</span>
                                                     </div>
                                                     <div class="col-sm-7 text-left">
-                                                        <code>Rp. {{'{{'. 'sender.total.harga' .'}'.'}'}}</code>
+                                                        <code>{{'{{'. 'sender.total.harga | currency:"Rp.":0' .'}'.'}'}}</code>
                                                     </div>
                                                 </div>
                                             </div>
@@ -488,7 +529,7 @@
                                                     <code>{{'{{'. 'sender.total.berat | number:3' .'}'.'}'}}</code>&nbsp;<span>Ton</span>
                                                 </td>
                                                 <td>
-                                                    <code>Rp. {{'{{'. 'sender.total.harga' .'}'.'}'}}</code>
+                                                    <code>{{'{{'. 'sender.total.harga | currency:"Rp.":0' .'}'.'}'}}</code>
                                                 </td>
                                             </tr>
                                             <tr class="text-center">
@@ -505,7 +546,7 @@
                                                     <code>{{'{{'. 'vm.input.total.berat | number:3' .'}'.'}'}}</code>&nbsp;<span>Ton</span>
                                                 </td>
                                                 <td>
-                                                    <code>Rp. {{'{{'. 'vm.input.total.harga' .'}'.'}'}}</code>
+                                                    <code>{{'{{'. 'vm.input.total.harga | currency:"Rp.":0' .'}'.'}'}}</code>
                                                 </td>
                                             </tr>
                                             </tbody>

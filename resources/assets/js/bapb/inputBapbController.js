@@ -42,6 +42,12 @@
         ctrl.input = {};
         ctrl.code = '1';
         ctrl.detail = {};
+        ctrl.detail.calculation = {
+            price_ton: 0,
+            price_meter: 0,
+            price_document: 0,
+            minimum_charge: 0
+        };
 
         ctrl.shipAsyncPageLimit = 20;
         ctrl.shipTotalResults = 0;
@@ -74,16 +80,6 @@
                 .then(res => {
                     res.data.no_container_2 = parseInt(res.data.no_container_2);
                     ctrl.input = res.data;
-
-                    ctrl.senders = ctrl.input.senders;
-
-                    ctrl.senders.forEach((i, idx) => {
-                        if (i.entry_date) {
-                            i.entry_date = moment(i.entry_date);
-                        }
-                        i.total = {};
-                        ctrl.senderItemCalculate(idx);
-                    })
 
                     getShip();
                     getRecipient();
@@ -120,6 +116,21 @@
             RecipientService.get(ctrl.input.recipient_id)
                 .then(res => {
                     ctrl.detail.recipient = res.data;
+
+                    ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
+                    ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
+                    ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
+                    ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
+
+                    ctrl.senders = ctrl.input.senders;
+
+                    ctrl.senders.forEach((i, idx) => {
+                        if (i.entry_date) {
+                            i.entry_date = moment(i.entry_date);
+                        }
+                        i.total = {};
+                        ctrl.senderItemCalculate(idx);
+                    })
                 })
                 .catch(err => {
                     console.log(err);
@@ -238,7 +249,26 @@
                 return;
             ctrl.senders[idx].items.pop();
             ctrl.senderItemCalculate(idx);
-        }
+        };
+
+        ctrl.changeCalculation = () => {
+            if (ctrl.input.tagih_di == 'sender') {
+
+            } else {
+                ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
+                ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
+                ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
+                ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
+            }
+
+            ctrl.senderItemCalculateAll();
+        };
+
+        ctrl.senderItemCalculateAll = () => {
+            ctrl.senders.forEach((item, idx) => {
+                ctrl.senderItemCalculate(idx);
+            });
+        };
 
         ctrl.senderItemCalculate = (idx) => {
             ctrl.senders[idx].total.koli = 0;
@@ -255,7 +285,25 @@
                 ctrl.senders[idx].total.koli += koli;
                 ctrl.senders[idx].total.berat += (koli * berat);
                 ctrl.senders[idx].total.dimensi += dimension;
-            })
+            });
+            ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi);
+            ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000);
+
+            if (ctrl.input.tagih_di == 'sender') {
+
+            } else {
+                if (ctrl.senders[idx].total.berat) {
+                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.berat * ctrl.detail.calculation.price_ton;
+                }
+
+                if (ctrl.senders[idx].total.dimensi) {
+                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.dimensi * ctrl.detail.calculation.price_meter;
+                }
+            }
+
+            ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi).toFixed(3);
+            ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000).toFixed(3);
+
             ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi).toFixed(3);
             ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000).toFixed(3);
 
