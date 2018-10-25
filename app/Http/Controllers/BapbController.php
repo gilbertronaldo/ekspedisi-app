@@ -215,11 +215,14 @@ class BapbController
      *
      * @return array
      */
-    public function latestBapb()
+    public function latestBapb($code = 1)
     {
         try {
+            $year = Carbon::now()->format('y');
+
             $latestBapb = TrBapb::whereNotNull('no_container_1')
                 ->whereNotNull('no_container_2')
+                ->whereRaw("LEFT(bapb_no, 3) = '$year$code'")
                 ->orderBy('created_at', 'desc')
                 ->first();
 

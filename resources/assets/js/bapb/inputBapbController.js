@@ -6,6 +6,7 @@
         .controller('InputBapbController', InputBapbController);
 
     InputBapbController.$inject = [
+        '$window',
         '$state',
         '$stateParams',
         '$scope',
@@ -23,6 +24,7 @@
     ];
 
     function InputBapbController(
+        $window,
         $state,
         $stateParams,
         $scope,
@@ -104,11 +106,19 @@
         }
 
         function latestBapb() {
-            BapbService.latest()
+            BapbService.latest(ctrl.code)
                 .then(res => {
                     if (res.data.latestBapb) {
+                        console.log(res.data.latestBapb);
+                        ctrl.input.tagih_di = res.data.latestBapb.tagih_di;
+                        ctrl.input.ship_id = res.data.latestBapb.ship_id;
                         ctrl.input.no_container_1 = res.data.latestBapb.no_container_1;
                         ctrl.input.no_container_2 = parseInt(res.data.latestBapb.no_container_2);
+                        ctrl.input.no_seal = parseInt(res.data.latestBapb.no_seal);
+
+                        if (res.data.latestBapb.ship_id) {
+                            getShip();
+                        }
                     }
                 })
                 .catch(err => {
@@ -120,6 +130,11 @@
             ShipService.get(ctrl.input.ship_id)
                 .then(res => {
                     ctrl.detail.ship = res.data;
+
+                    if (!ctrl.id) {
+                        const code = ctrl.codeList.find(code => code.name.substr(0, 3) == ctrl.detail.ship.city_to.city_code);
+                        ctrl.code = code.code_id;
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -414,10 +429,13 @@
                     console.log(data);
                     BapbService.store(data)
                         .then(res => {
-                            console.log(res)
                             if (res.status == 'OK') {
-                                swangular.success("Berhasil Menyimpan BAPB");
-                                $state.go('admin.bapb');
+                                swangular.success("Berhasil Menyimpan BAPB", {
+                                    preConfirm: function () {
+                                        $window.location.reload();
+                                    }
+                                });
+                                // $state.go('admin.bapb');
                             } else {
                                 swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
                             }
