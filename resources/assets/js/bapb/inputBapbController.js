@@ -6,6 +6,7 @@
         .controller('InputBapbController', InputBapbController);
 
     InputBapbController.$inject = [
+        '$window',
         '$state',
         '$stateParams',
         '$scope',
@@ -23,6 +24,7 @@
     ];
 
     function InputBapbController(
+        $window,
         $state,
         $stateParams,
         $scope,
@@ -40,7 +42,14 @@
     ) {
         let ctrl = this;
         ctrl.input = {};
-        ctrl.code = '1';
+        ctrl.codeList = [
+            {code_id: 1, name: 'BJM - Banjarmasin'},
+            {code_id: 2, name: 'SMD - Samarinda'},
+            {code_id: 3, name: 'BPP - Balikpapan'},
+            {code_id: 4, name: 'MKS - Makassar'},
+            {code_id: 5, name: 'KJ - Retur'},
+        ];
+        ctrl.code = 1;
         ctrl.detail = {};
         ctrl.detail.calculation = {
             price_ton: 0,
@@ -56,6 +65,13 @@
 
         function resetForm() {
             ctrl.input = {};
+            ctrl.detail = {};
+            ctrl.detail.calculation = {
+                price_ton: 0,
+                price_meter: 0,
+                price_document: 0,
+                minimum_charge: 0
+            };
             getNewBapbNo();
             latestBapb();
             ctrl.senders = [senderNew()];
@@ -90,11 +106,19 @@
         }
 
         function latestBapb() {
-            BapbService.latest()
+            BapbService.latest(ctrl.code)
                 .then(res => {
                     if (res.data.latestBapb) {
+                        console.log(res.data.latestBapb);
+                        ctrl.input.tagih_di = res.data.latestBapb.tagih_di;
+                        ctrl.input.ship_id = res.data.latestBapb.ship_id;
                         ctrl.input.no_container_1 = res.data.latestBapb.no_container_1;
                         ctrl.input.no_container_2 = parseInt(res.data.latestBapb.no_container_2);
+                        ctrl.input.no_seal = parseInt(res.data.latestBapb.no_seal);
+
+                        if (res.data.latestBapb.ship_id) {
+                            getShip();
+                        }
                     }
                 })
                 .catch(err => {
@@ -106,6 +130,11 @@
             ShipService.get(ctrl.input.ship_id)
                 .then(res => {
                     ctrl.detail.ship = res.data;
+
+                    if (!ctrl.id) {
+                        const code = ctrl.codeList.find(code => code.name.substr(0, 3) == ctrl.detail.ship.city_to.city_code);
+                        ctrl.code = code.code_id;
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -170,6 +199,13 @@
                 return;
             }
             ctrl.detail.ship = ctrl.detail.shipList.find(i => i.ship_id === ctrl.input.ship_id);
+
+            const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
+            if (ctrl.detail.ship) {
+                if (code.name.substr(0, 3) != ctrl.detail.ship.city_to.city_code) {
+                    swangular.alert("Kode BAPB dengan tujuan kapal tidak sesuai");
+                }
+            }
         }
 
         ctrl.recipientAsyncPageLimit = 20;
@@ -253,10 +289,12 @@
 
         ctrl.changeCalculation = () => {
             if (ctrl.input.tagih_di != 'sender') {
-                ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
-                ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
-                ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
-                ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
+                if (ctrl.input.recipient_id) {
+                    ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
+                    ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
+                    ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
+                    ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
+                }
             }
 
             ctrl.senderItemCalculateAll();
@@ -391,10 +429,13 @@
                     console.log(data);
                     BapbService.store(data)
                         .then(res => {
-                            console.log(res)
                             if (res.status == 'OK') {
-                                swangular.success("Berhasil Menyimpan BAPB");
-                                $state.go('admin.bapb');
+                                swangular.success("Berhasil Menyimpan BAPB", {
+                                    preConfirm: function () {
+                                        $window.location.reload();
+                                    }
+                                });
+                                // $state.go('admin.bapb');
                             } else {
                                 swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
                             }

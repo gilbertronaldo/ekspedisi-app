@@ -42,8 +42,8 @@
                 });
         }
 
-        function latest() {
-            return $http.get(`/api/bapb/latest`)
+        function latest(code) {
+            return $http.get(`/api/bapb/latest/${code}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

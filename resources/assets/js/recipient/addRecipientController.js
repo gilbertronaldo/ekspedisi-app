@@ -62,8 +62,28 @@
                 return;
             }
 
+            if (!ctrl.input.recipient_name_bapb) {
+                swangular.alert("Nama Penerima di BAPB wajib di isi");
+                return;
+            }
+
             if (!ctrl.input.recipient_phone) {
                 swangular.alert("Nomor Handphone wajib di isi");
+                return;
+            }
+
+            if (!ctrl.input.recipient_telephone) {
+                swangular.alert("Nomor Telephone wajib di isi");
+                return;
+            }
+
+            if (!ctrl.input.city_id) {
+                swangular.alert("Kota Penerima wajib di isi");
+                return;
+            }
+
+            if (!ctrl.input.recipient_address) {
+                swangular.alert("Alamat Penerima wajib di isi");
                 return;
             }
 

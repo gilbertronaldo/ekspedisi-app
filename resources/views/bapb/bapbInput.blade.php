@@ -40,12 +40,9 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <select class="custom-select col-sm-6" id="inputGroupSelect01"
-                                                    ng-model="vm.code" ng-change="vm.changeCode()">
-                                                <option value="1" selected>JB - Banjarmasin</option>
-                                                <option value="2">JM - Samarinda</option>
-                                                <option value="3">JP - Balikpapan</option>
-                                                <option value="4">JK - Makassar</option>
-                                                <option value="5">KJ - Retur</option>
+                                                    ng-init="vm.code = 1"
+                                                    ng-model="vm.code" ng-change="vm.changeCode()"
+                                                    ng-options="code.code_id as code.name for code in vm.codeList">
                                             </select>
                                         </div>
                                     </div>
@@ -220,7 +217,14 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-
+                                    <div class="form-group row">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Kota
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" ng-value="vm.detail.recipient.city_code + ' - ' + vm.detail.recipient.city_name" ng-disabled="true">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -309,7 +313,7 @@
                                                        ng-model="sender.entry_date"
                                                        ng-model-options="{ updateOn: 'blur' }"
                                                        placeholder="Select a date..."
-                                                       format="YYYY-MM-DD"
+                                                       format="DD-MM-YYYY"
                                                        moment-picker="sender.entry_date">
                                             </div>
                                         </div>
@@ -387,7 +391,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <label class="col-sm-12 text-left control-label col-form-label">Keterangan Perhitungan</label>
+                                            <label class="col-sm-12 text-left control-label col-form-label">Keterangan
+                                                Perhitungan</label>
                                             <div class="col-md-8 offset-2">
                                                 <div class="row">
                                                     <div class="col-sm-5 text-right">

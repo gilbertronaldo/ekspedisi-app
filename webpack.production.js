@@ -33,7 +33,7 @@ module.exports = {
             new UglifyJsPlugin({
                 uglifyOptions: {
                     warning: "verbose",
-                    ecma: 8,
+                    ecma: 5,
                     beautify: true,
                     compress: {
                         drop_console: true,
