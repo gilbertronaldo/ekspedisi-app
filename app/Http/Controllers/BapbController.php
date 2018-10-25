@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BapbExport;
 use App\MsSender;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
@@ -19,6 +20,7 @@ use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BapbController
 {
@@ -207,5 +209,33 @@ class BapbController
         }
 
         return $response;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function latestBapb()
+    {
+        try {
+            $latestBapb = TrBapb::whereNotNull('no_container_1')
+                ->whereNotNull('no_container_2')
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            $response = CoreResponse::ok(compact('latestBapb'));
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function exportExcel()
+    {
+        return Excel::download(new BapbExport(), 'users.xlsx');
     }
 }

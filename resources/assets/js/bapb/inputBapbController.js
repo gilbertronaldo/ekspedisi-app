@@ -49,9 +49,10 @@
         ctrl.id = $stateParams.id;
 
         function resetForm() {
-            getNewBapbNo();
-            ctrl.senders = [senderNew()];
             ctrl.input = {};
+            getNewBapbNo();
+            latestBapb();
+            ctrl.senders = [senderNew()];
         }
 
         function init() {
@@ -86,6 +87,19 @@
 
                     getShip();
                     getRecipient();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+        function latestBapb() {
+            BapbService.latest()
+                .then(res => {
+                    if (res.data.latestBapb) {
+                        ctrl.input.no_container_1 = res.data.latestBapb.no_container_1;
+                        ctrl.input.no_container_2 = parseInt(res.data.latestBapb.no_container_2);
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -287,9 +301,31 @@
             ctrl.senders[idx].detail = ctrl.detail.senderList.find(i => i.sender_id === ctrl.senders[idx].sender_id);
         }
 
+        function bapbIsValid(data) {
+
+            if (!data.recipient_id) {
+                swangular.alert("Penerima wajib diisi");
+                return false;
+            }
+
+            for (let i of data.senders) {
+                if (!i.sender_id) {
+                    console.log(i)
+                    swangular.alert("Nama pengirim wajib diisi");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         ctrl.onSubmit = () => {
             let data = ctrl.input;
             data.senders = ctrl.senders;
+
+            if (!bapbIsValid(data)) {
+                return;
+            }
 
             swangular.confirm('Konfirmasi BAPB', {
                 showCancelButton: true,
