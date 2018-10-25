@@ -40,12 +40,9 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <select class="custom-select col-sm-6" id="inputGroupSelect01"
-                                                    ng-model="vm.code" ng-change="vm.changeCode()">
-                                                <option value="1" selected>JB - Banjarmasin</option>
-                                                <option value="2">JM - Samarinda</option>
-                                                <option value="3">JP - Balikpapan</option>
-                                                <option value="4">JK - Makassar</option>
-                                                <option value="5">KJ - Retur</option>
+                                                    ng-init="vm.code = 1"
+                                                    ng-model="vm.code" ng-change="vm.changeCode()"
+                                                    ng-options="code.code_id as code.name for code in vm.codeList">
                                             </select>
                                         </div>
                                     </div>
@@ -387,7 +384,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <label class="col-sm-12 text-left control-label col-form-label">Keterangan Perhitungan</label>
+                                            <label class="col-sm-12 text-left control-label col-form-label">Keterangan
+                                                Perhitungan</label>
                                             <div class="col-md-8 offset-2">
                                                 <div class="row">
                                                     <div class="col-sm-5 text-right">
