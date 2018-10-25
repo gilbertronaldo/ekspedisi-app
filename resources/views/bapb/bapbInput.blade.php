@@ -309,7 +309,7 @@
                                                        ng-model="sender.entry_date"
                                                        ng-model-options="{ updateOn: 'blur' }"
                                                        placeholder="Select a date..."
-                                                       format="YYYY-MM-DD"
+                                                       format="DD-MM-YYYY"
                                                        moment-picker="sender.entry_date">
                                             </div>
                                         </div>
