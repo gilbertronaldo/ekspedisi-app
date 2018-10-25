@@ -394,7 +394,7 @@
                                                         <span>Harga per Meter</span>
                                                     </div>
                                                     <div class="col-sm-7 text-left">
-                                                        <code>{{'{{'. 'vm.detail.calculation.price_meter | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                        <code>{{'{{'. 'vm.input.tagih_di == "sender" ? sender.detail.price_meter : vm.detail.calculation.price_meter | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -402,7 +402,7 @@
                                                         <span>Harga per Ton</span>
                                                     </div>
                                                     <div class="col-sm-7 text-left">
-                                                        <code>{{'{{'. 'vm.detail.calculation.price_ton | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                        <code>{{'{{'. 'vm.input.tagih_di == "sender" ? sender.detail.price_ton : vm.detail.calculation.price_ton | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -410,7 +410,7 @@
                                                         <span>Biaya Dokumen</span>
                                                     </div>
                                                     <div class="col-sm-7 text-left">
-                                                        <code>{{'{{'. 'vm.detail.calculation.price_document | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
+                                                        <code>{{'{{'. 'vm.input.tagih_di == "sender" ? sender.detail.price_document : vm.detail.calculation.price_document | currency:"Rp.":0' .'}'.'}'}}</code>&nbsp;<span></span>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -418,7 +418,7 @@
                                                         <span>Min. Charge</span>
                                                     </div>
                                                     <div class="col-sm-7 text-left">
-                                                        <code>{{'{{'. 'vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}</code>
+                                                        <code>{{'{{'. 'vm.input.tagih_di == "sender" ? sender.detail.minimum_charge : vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}</code>
                                                     </div>
                                                 </div>
                                             </div>
