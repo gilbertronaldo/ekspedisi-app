@@ -62,7 +62,7 @@
             }
 
             if (!ctrl.input.sender_name_bapb) {
-                swangular.alert("Nama Pengirim wajib di isi");
+                swangular.alert("Nama Pengirim di BAPB wajib di isi");
                 return;
             }
 
