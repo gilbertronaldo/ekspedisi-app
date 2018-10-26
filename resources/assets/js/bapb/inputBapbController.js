@@ -432,10 +432,13 @@
                             if (res.status == 'OK') {
                                 swangular.success("Berhasil Menyimpan BAPB", {
                                     preConfirm: function () {
-                                        $window.location.reload();
+                                        if (!ctrl.id) {
+                                            $state.reload();
+                                        } else {
+                                            $state.go('admin.bapb');
+                                        }
                                     }
                                 });
-                                // $state.go('admin.bapb');
                             } else {
                                 swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
                             }
