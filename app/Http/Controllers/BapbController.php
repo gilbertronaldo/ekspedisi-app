@@ -132,10 +132,15 @@ class BapbController
 
                     $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
                 }
+
+                TrBapbSenderItem::where('bapb_sender_id', $bapbSender->bapb_sender_id)
+                    ->whereNotIn('bapb_sender_item_id', $unDeletedItem)
+                    ->delete();
             }
 
-            TrBapbSenderItem::whereNotIn('bapb_sender_item_id', $unDeletedItem)->delete();
-            TrBapbSender::whereNotIn('bapb_sender_id', $unDeletedSender)->delete();
+            TrBapbSender::where('bapb_id', $bapb->bapb_id)
+                ->whereNotIn('bapb_sender_id', $unDeletedSender)
+                ->delete();
 
             DB::commit();
             $response = CoreResponse::ok();
