@@ -97,8 +97,8 @@ class ShipController extends Controller
                 $ship = new MsShip();
             }
 
-            $ship->no_voyage = $request->input('no_voyage');
-            $ship->ship_name = $request->input('ship_name');
+            $ship->no_voyage = str_replace(' ', '', strtoupper($request->input('no_voyage')));
+            $ship->ship_name = strtoupper($request->input('ship_name'));
             $ship->ship_description = $request->input('ship_description');
             $ship->sailing_date = Carbon::parse($request->input('sailing_date'));
             $ship->city_id_from = $request->input('city_id_from');
