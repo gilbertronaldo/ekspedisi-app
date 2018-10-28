@@ -113,24 +113,24 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">per ton</span>
-                                        </div>
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Rp.</span>
-                                        </div>
-                                        <input type="text" ng-model="ctrl.input.price_ton" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)" ui-currency>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
                                             <span class="input-group-text">per meter kubik</span>
                                         </div>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp.</span>
                                         </div>
                                         <input type="text" ng-model="ctrl.input.price_meter" class="form-control"
+                                               aria-label="Amount (to the nearest dollar)" ui-currency>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">per ton</span>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp.</span>
+                                        </div>
+                                        <input type="text" ng-model="ctrl.input.price_ton" class="form-control"
                                                aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>
