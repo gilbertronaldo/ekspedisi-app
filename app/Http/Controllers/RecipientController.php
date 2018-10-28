@@ -94,6 +94,7 @@ class RecipientController
             $data->minimum_charge = $request->input('minimum_charge');
             $data->minimum_charge_calculation_id = $request->input('minimum_charge_calculation_id');
             $data->ambil_di = $request->input('ambil_di');
+            $data->email = $request->input('email');
             $data->save();
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {

@@ -60,6 +60,13 @@
                                        ng-model="ctrl.input.sender_name_other">
                                 <small class="form-text text-muted"></small>
                             </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                       placeholder="Masukkan Email"
+                                       ng-model="ctrl.input.email">
+                                <small class="form-text text-muted"></small>
+                            </div>
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label>Nomor Pengirim</label>

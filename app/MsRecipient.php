@@ -23,6 +23,7 @@ use Carbon\Carbon;
  * @property string recipient_fax
  * @property string recipient_address
  * @property int city_id
+ * @property string email
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property Carbon deleted_at
