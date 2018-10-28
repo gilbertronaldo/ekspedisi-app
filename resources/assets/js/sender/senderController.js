@@ -47,6 +47,7 @@
             DTColumnBuilder.newColumn('sender_phone').withTitle('Telepon').withOption('width', '10%'),
             DTColumnBuilder.newColumn('city.city_code').withTitle('Kota').withOption('width', '10%'),
             DTColumnBuilder.newColumn('sender_address').withTitle('Alamat').withOption('font-size', '0.7em'),
+            DTColumnBuilder.newColumn('ambil_di').withTitle('Ambil Di'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
 
