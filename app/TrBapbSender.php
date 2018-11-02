@@ -24,4 +24,9 @@ class TrBapbSender extends BaseModel
     {
         return $this->hasMany(TrBapbSenderItem::class, 'bapb_sender_id');
     }
+
+    public function costs()
+    {
+        return $this->hasMany(TrBapbSenderCost::class, 'bapb_sender_id');
+    }
 }

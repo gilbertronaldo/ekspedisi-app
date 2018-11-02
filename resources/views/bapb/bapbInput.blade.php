@@ -96,16 +96,16 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
+                                            class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                         <div class="col-sm-9">
                                             <sc-select
-                                                    id="approver-1"
-                                                    ng-model="vm.input.ship_id"
-                                                    sc-options="ship.ship_id as ship.no_voyage + ' - ' + ship.ship_name for ship in vm.searchShipList(searchText, page)"
-                                                    page-limit="vm.shipAsyncPageLimit"
-                                                    total-items="vm.shipTotalResults"
-                                                    ng-change="vm.getShipDetail()"
-                                                    placeholder="Cari Nomor Voyage Kapal">
+                                                id="approver-1"
+                                                ng-model="vm.input.ship_id"
+                                                sc-options="ship.ship_id as ship.no_voyage + ' - ' + ship.ship_name for ship in vm.searchShipList(searchText, page)"
+                                                page-limit="vm.shipAsyncPageLimit"
+                                                total-items="vm.shipTotalResults"
+                                                ng-change="vm.getShipDetail()"
+                                                placeholder="Cari Nomor Voyage Kapal">
                                             </sc-select>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">No
+                                            class="col-sm-3 text-right control-label col-form-label">No
                                             Voyage</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
@@ -129,7 +129,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Tujuan</label>
+                                            class="col-sm-3 text-right control-label col-form-label">Tujuan</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
                                                    value="{{  '{{'. 'vm.detail.ship.city_code_from' .'}'.'}' . ' - ' .'{{'. 'vm.detail.ship.city_code_to' .'}'.'}' }}"
@@ -142,7 +142,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Ship
+                                            class="col-sm-3 text-right control-label col-form-label">Ship
                                             Name</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
@@ -154,7 +154,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Berangkat</label>
+                                            class="col-sm-3 text-right control-label col-form-label">Berangkat</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
                                                    ng-model="vm.detail.ship.sailing_date"
@@ -168,7 +168,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">No.
+                                            class="col-sm-3 text-right control-label col-form-label">No.
                                             Container</label>
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control"
@@ -185,7 +185,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">No.
+                                            class="col-sm-3 text-right control-label col-form-label">No.
                                             Segel</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
@@ -202,16 +202,16 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
+                                            class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                         <div class="col-sm-9">
                                             <sc-select
-                                                    id="approver-1"
-                                                    ng-model="vm.input.recipient_id"
-                                                    sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientList(searchText, page)"
-                                                    page-limit="vm.recipientAsyncPageLimit"
-                                                    total-items="vm.recipientTotalResults"
-                                                    ng-change="vm.getRecipientDetail()"
-                                                    placeholder="Cari Penerima">
+                                                id="approver-1"
+                                                ng-model="vm.input.recipient_id"
+                                                sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientList(searchText, page)"
+                                                page-limit="vm.recipientAsyncPageLimit"
+                                                total-items="vm.recipientTotalResults"
+                                                ng-change="vm.getRecipientDetail()"
+                                                placeholder="Cari Penerima">
                                             </sc-select>
                                         </div>
                                     </div>
@@ -219,10 +219,12 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kota
+                                            class="col-sm-3 text-right control-label col-form-label">Kota
                                         </label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" ng-value="vm.detail.recipient.city_code + ' - ' + vm.detail.recipient.city_name" ng-disabled="true">
+                                            <input type="text" class="form-control"
+                                                   ng-value="vm.detail.recipient.city_code + ' - ' + vm.detail.recipient.city_name"
+                                                   ng-disabled="true">
                                         </div>
                                     </div>
                                 </div>
@@ -231,7 +233,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
+                                            class="col-sm-3 text-right control-label col-form-label">Nama Penerima
                                             di
                                             BAPB
                                         </label>
@@ -245,7 +247,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Alamat</label>
+                                            class="col-sm-3 text-right control-label col-form-label">Alamat</label>
                                         <div class="col-sm-9">
                                             <textarea type="text" class="form-control"
                                                       ng-model="vm.detail.recipient.recipient_address"
@@ -263,16 +265,16 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Cari</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                             <div class="col-sm-9">
                                                 <sc-select
-                                                        id="approver-1"
-                                                        ng-model="sender.sender_id"
-                                                        sc-options="_sender.sender_id as _sender.sender_code + ' - ' + _sender.sender_name for _sender in vm.searchSenderList(searchText, page)"
-                                                        page-limit="vm.senderAsyncPageLimit"
-                                                        total-items="vm.senderTotalResults"
-                                                        ng-change="vm.getSenderDetail(senderIdx)"
-                                                        placeholder="Cari Pengirim">
+                                                    id="approver-1"
+                                                    ng-model="sender.sender_id"
+                                                    sc-options="_sender.sender_id as _sender.sender_code + ' - ' + _sender.sender_name for _sender in vm.searchSenderList(searchText, page)"
+                                                    page-limit="vm.senderAsyncPageLimit"
+                                                    total-items="vm.senderTotalResults"
+                                                    ng-change="vm.getSenderDetail(senderIdx)"
+                                                    placeholder="Cari Pengirim">
                                                 </sc-select>
                                             </div>
                                         </div>
@@ -280,7 +282,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Nama di
+                                                class="col-sm-3 text-right control-label col-form-label">Nama di
                                                 BAPB
                                             </label>
                                             <div class="col-sm-9">
@@ -295,7 +297,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Kemasan</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Kemasan</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.kemasan"
@@ -306,7 +308,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Tgl.
+                                                class="col-sm-3 text-right control-label col-form-label">Tgl.
                                                 Masuk</label>
                                             <div class="col-sm-9">
                                                 <input class="form-control"
@@ -323,7 +325,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                    class="col-sm-3 text-right control-label col-form-label">Krani</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Krani</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.krani"
@@ -398,6 +400,61 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-group row">
+                                            <label
+                                                class="col-sm-12 text-left control-label col-form-label">Biaya Lain
+                                                Lain</label>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <caption class="text-right">
+                                                    <a class="btn btn-circle btn-outline-warning btn-sm text-dark"
+                                                       ng-click="vm.senderCostPop(senderIdx)">-</a>
+                                                    <a class="btn btn-circle btn-outline-info btn-sm text-dark"
+                                                       ng-click="vm.senderCostPush(senderIdx)">+</a>
+                                                </caption>
+                                                <thead>
+                                                <tr class="text-center">
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Keterangan</th>
+                                                    <th scope="col">Harga</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="sCost in sender.costs" ng-init="sCostIdx = $index">
+                                                    <th scope="row">{{'{{'. 'sCostIdx + 1' .'}'.'}'}}</th>
+                                                    <td>
+                                                        <input class="form-control form-control-sm" type="text"
+                                                               ng-model="sCost.bapb_sender_cost_name"
+                                                               ng-change="vm.senderItemCalculate(senderIdx)">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control form-control-sm" type="text"
+                                                               ng-model="sCost.price" ui-currency
+                                                               ng-change="vm.senderItemCalculate(senderIdx)">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-group row">
+                                            <label
+                                                class="col-sm-12 text-left control-label col-form-label">Keterangan
+                                                Pengirim</label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                            <textarea type="text" class="form-control"
+                                                      ng-model="sender.description"
+                                                      placeholder="Masukkan keterangan Pengirim" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -477,6 +534,14 @@
                                                         <code>{{'{{'. 'sender.total.harga | currency:"Rp.":0' .'}'.'}'}}</code>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-right">
+                                                        <span>Total Biaya lain</span>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left">
+                                                        <code>{{'{{'. 'sender.total.cost | currency:"Rp.":0' .'}'.'}'}}</code>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -490,25 +555,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-12">
-                                    <div class="form-group row">
-                                        <label
-                                                class="col-sm-12 text-left control-label col-form-label">Keterangan</label>
-                                        <div class="col-lg-12">
-                                            <textarea type="text" class="form-control"
-                                                      ng-model="vm.input.bapb_description"
-                                                      placeholder="Masukkan keterangan Bapb" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-light">
+                        <div class="card-body ">
                             <h4 class="card-title m-t-10 p-b-20">Detail Bapb</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12">
@@ -522,6 +569,7 @@
                                                 <th scope="col">Dimensi Total</th>
                                                 <th scope="col">Berat Total</th>
                                                 <th scope="col">Total harga</th>
+                                                <th scope="col">Total Biaya Lain</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -547,6 +595,9 @@
                                                 <td>
                                                     <code>{{'{{'. 'sender.total.harga | currency:"Rp.":0' .'}'.'}'}}</code>
                                                 </td>
+                                                <td>
+                                                    <code>{{'{{'. 'sender.total.cost | currency:"Rp.":0' .'}'.'}'}}</code>
+                                                </td>
                                             </tr>
                                             <tr class="text-center">
                                                 <td colspan="2">
@@ -564,6 +615,9 @@
                                                 <td>
                                                     <code>{{'{{'. 'vm.input.total.harga | currency:"Rp.":0' .'}'.'}'}}</code>
                                                 </td>
+                                                <td>
+                                                    <code>{{'{{'. 'vm.input.total.cost | currency:"Rp.":0' .'}'.'}'}}</code>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -573,7 +627,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body bg-light">
                             <div class="form-group m-b-0 text-right">
                                 <button type="submit" class="btn btn-dark waves-effect waves-light"
                                         ui-sref="admin.home">Batal
