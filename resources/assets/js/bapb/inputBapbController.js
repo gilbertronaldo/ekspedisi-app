@@ -246,11 +246,13 @@
                 'entry_date': null,
                 'detail': {},
                 'items': [senderItemNew()],
+                'costs': [senderCostNew()],
                 'total': {
                     'koli': 0,
                     'dimensi': 0,
                     'berat': 0,
                     'harga': 0,
+                    'cost': 0
                 }
             };
         }
@@ -264,6 +266,14 @@
                 'lebar': null,
                 'tinggi': null,
                 'berat': null
+            };
+        }
+
+        function senderCostNew() {
+            return {
+                'bapb_sender_cost_id': null,
+                'bapb_sender_cost_name': null,
+                'price': null,
             };
         }
 
@@ -286,6 +296,18 @@
             if (ctrl.senders[idx].items.length === 1)
                 return;
             ctrl.senders[idx].items.pop();
+            ctrl.senderItemCalculate(idx);
+        };
+
+        ctrl.senderCostPush = (idx) => {
+            ctrl.senders[idx].costs.push(senderCostNew());
+            ctrl.senderItemCalculate(idx);
+        };
+
+        ctrl.senderCostPop = (idx) => {
+            if (ctrl.senders[idx].costs.length === 1)
+                return;
+            ctrl.senders[idx].costs.pop();
             ctrl.senderItemCalculate(idx);
         };
 
@@ -313,6 +335,7 @@
             ctrl.senders[idx].total.dimensi = 0;
             ctrl.senders[idx].total.berat = 0;
             ctrl.senders[idx].total.harga = 0;
+            ctrl.senders[idx].total.cost = 0;
             ctrl.senders[idx].items.forEach(i => {
 
                 const koli = parseInt(i.koli) || 0;
@@ -327,7 +350,12 @@
             ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi);
             ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000);
 
-            if (ctrl.input.tagih_di == 'sender') {
+            ctrl.senders[idx].costs.forEach(i => {
+                ctrl.senders[idx].total.cost += parseInt(i.price) || 0;
+            });
+            ctrl.senders[idx].total.cost = parseInt(ctrl.senders[idx].total.cost);
+
+            if (ctrl.input.tagih_di === 'sender') {
 
                 if (ctrl.senders[idx].total.berat) {
                     ctrl.senders[idx].total.harga = ctrl.senders[idx].total.berat * parseInt(ctrl.senders[idx].detail.price_ton | 0);
@@ -362,12 +390,18 @@
             ctrl.input.total.dimensi = 0;
             ctrl.input.total.berat = 0;
             ctrl.input.total.harga = 0;
+            ctrl.input.total.cost = 0;
             ctrl.senders.forEach(i => {
                 ctrl.input.total.koli += parseFloat(i.total ? i.total.koli : 0 || 0);
                 ctrl.input.total.dimensi += parseFloat(i.total ? i.total.dimensi : 0 || 0);
                 ctrl.input.total.berat += parseFloat(i.total ? i.total.berat : 0 || 0);
                 ctrl.input.total.harga += parseFloat(i.total ? i.total.harga : 0 || 0);
+                ctrl.input.total.cost += parseFloat(i.total ? i.total.cost : 0 || 0);
             });
+        };
+
+        ctrl.senderCostCalculate = (idx) => {
+
         };
 
         ctrl.senderAsyncPageLimit = 20;

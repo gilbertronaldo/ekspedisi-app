@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\BapbExport;
 use App\MsSender;
+use App\TrBapbSenderCost;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use App\TrBapb;
@@ -42,12 +43,14 @@ class BapbController
 
     /**
      * @param Request $request
+     *
      * @return array
      * @throws \Exception
      */
     public function all(Request $request)
     {
         $bapbList = TrBapb::with('senders.items')
+            ->with('senders.costs')
             ->with('recipient')
             ->with('ship')
             ->get();
@@ -61,12 +64,14 @@ class BapbController
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function get($id)
     {
         try {
             $bapb = TrBapb::with('senders.items')
+                ->with('senders.costs')
                 ->findOrFail($id);
             foreach ($bapb->senders as $sender) {
                 $sender->detail = MsSender::find($sender->sender_id);
@@ -101,6 +106,7 @@ class BapbController
 
             $unDeletedSender = [];
             $unDeletedItem = [];
+            $unDeletedCost = [];
             foreach ($request->input('senders') as $sender) {
                 if (isset($sender['bapb_sender_id'])) {
                     $bapbSender = TrBapbSender::findOrFail($sender['bapb_sender_id']);
@@ -112,6 +118,7 @@ class BapbController
                 $bapbSender->kemasan = isset($sender['kemasan']) ? $sender['kemasan'] : NULL;
                 $bapbSender->krani = isset($sender['krani']) ? $sender['krani'] : NULL;
                 $bapbSender->no_ttb = isset($sender['no_ttb']) ? $sender['no_ttb'] : NULL;
+                $bapbSender->description = isset($sender['description']) ? $sender['description'] : NULL;
                 $bapbSender->entry_date = isset($sender['entry_date']) ? Carbon::parse($sender['entry_date']) : NULL;
                 $bapbSender->save();
 
@@ -134,8 +141,26 @@ class BapbController
                     $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
                 }
 
+                foreach ($sender['costs'] as $cost) {
+                    if (isset($cost['bapb_sender_cost_id'])) {
+                        $bapbSenderCost = TrBapbSenderCost::findOrFail($cost['bapb_sender_cost_id']);
+                    } else {
+                        $bapbSenderCost = new TrBapbSenderCost();
+                    }
+                    $bapbSenderCost->bapb_sender_id = $bapbSender->bapb_sender_id;
+                    $bapbSenderCost->bapb_sender_cost_name = $cost['bapb_sender_cost_name'];
+                    $bapbSenderCost->price = $cost['price'];
+                    $bapbSenderCost->save();
+
+                    $unDeletedCost[] = $bapbSenderCost->bapb_sender_cost_id;
+                }
+
                 TrBapbSenderItem::where('bapb_sender_id', $bapbSender->bapb_sender_id)
                     ->whereNotIn('bapb_sender_item_id', $unDeletedItem)
+                    ->delete();
+
+                TrBapbSenderCost::where('bapb_sender_id', $bapbSender->bapb_sender_id)
+                    ->whereNotIn('bapb_sender_cost_id', $unDeletedCost)
                     ->delete();
             }
 
@@ -168,7 +193,9 @@ class BapbController
 
     /**
      * get new bapb_no
+     *
      * @param $code
+     *
      * @return string
      */
     private function newBapbNo($code)
@@ -205,7 +232,7 @@ class BapbController
             }
 
             $data = [
-                'bapb' => $bapb
+                'bapb' => $bapb,
             ];
 
             $pdf = PDF::loadView('bapb.pdf.print', $data);
