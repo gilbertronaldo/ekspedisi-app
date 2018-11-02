@@ -44,10 +44,10 @@
             DTColumnBuilder.newColumn('recipient_code').withTitle('Kode Penerima').withOption('width', '10%'),
             DTColumnBuilder.newColumn('recipient_name').withTitle('Nama Penerima'),
             DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Nama Penerima BAPB'),
-            DTColumnBuilder.newColumn('recipient_name_other').withTitle('Nama Penerima Lainnya'),
             DTColumnBuilder.newColumn('recipient_phone').withTitle('Handphone').withOption('width', '10%'),
-            DTColumnBuilder.newColumn('city_name').withTitle('Kota').withOption('width', '10%'),
+            DTColumnBuilder.newColumn('city.city_code').withTitle('Kota').withOption('width', '10%'),
             DTColumnBuilder.newColumn('recipient_address').withTitle('Alamat').withOption('font-size', '0.7em'),
+            DTColumnBuilder.newColumn('ambil_di').withTitle('Ambil Di'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
 

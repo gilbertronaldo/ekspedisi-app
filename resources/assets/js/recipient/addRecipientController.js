@@ -87,6 +87,13 @@
                 return;
             }
 
+            if (ctrl.input.email) {
+                if (!validateEmail(ctrl.input.email)) {
+                    swangular.alert("Format Email Salah");
+                    return;
+                }
+            }
+
             ctrl.is_saving = true;
 
             RecipientService.store(ctrl.input)
@@ -120,6 +127,11 @@
                 .catch(err => {
                     console.log(err.data);
                 });
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
         }
 
     }

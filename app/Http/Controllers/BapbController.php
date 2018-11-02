@@ -111,6 +111,7 @@ class BapbController
                 $bapbSender->sender_id = $sender['sender_id'];
                 $bapbSender->kemasan = isset($sender['kemasan']) ? $sender['kemasan'] : NULL;
                 $bapbSender->krani = isset($sender['krani']) ? $sender['krani'] : NULL;
+                $bapbSender->no_ttb = isset($sender['no_ttb']) ? $sender['no_ttb'] : NULL;
                 $bapbSender->entry_date = isset($sender['entry_date']) ? Carbon::parse($sender['entry_date']) : NULL;
                 $bapbSender->save();
 
@@ -132,10 +133,15 @@ class BapbController
 
                     $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
                 }
+
+                TrBapbSenderItem::where('bapb_sender_id', $bapbSender->bapb_sender_id)
+                    ->whereNotIn('bapb_sender_item_id', $unDeletedItem)
+                    ->delete();
             }
 
-            TrBapbSenderItem::whereNotIn('bapb_sender_item_id', $unDeletedItem)->delete();
-            TrBapbSender::whereNotIn('bapb_sender_id', $unDeletedSender)->delete();
+            TrBapbSender::where('bapb_id', $bapb->bapb_id)
+                ->whereNotIn('bapb_sender_id', $unDeletedSender)
+                ->delete();
 
             DB::commit();
             $response = CoreResponse::ok();

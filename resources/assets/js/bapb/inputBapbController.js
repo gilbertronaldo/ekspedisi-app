@@ -198,15 +198,17 @@
             if (!ctrl.input.ship_id) {
                 return;
             }
-            ctrl.detail.ship = ctrl.detail.shipList.find(i => i.ship_id === ctrl.input.ship_id);
-
+            const ship = ctrl.detail.shipList.find(i => i.ship_id === ctrl.input.ship_id);
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
-            if (ctrl.detail.ship) {
-                if (code.name.substr(0, 3) != ctrl.detail.ship.city_to.city_code) {
+            if (ship) {
+                if (code.name.substr(0, 3) != ship.city_to.city_code) {
                     swangular.alert("Kode BAPB dengan tujuan kapal tidak sesuai");
+                    return;
                 }
             }
-        }
+
+            ctrl.detail.ship = ship;
+        };
 
         ctrl.recipientAsyncPageLimit = 20;
         ctrl.recipientTotalResults = 0;
@@ -432,10 +434,13 @@
                             if (res.status == 'OK') {
                                 swangular.success("Berhasil Menyimpan BAPB", {
                                     preConfirm: function () {
-                                        $window.location.reload();
+                                        if (!ctrl.id) {
+                                            $state.reload();
+                                        } else {
+                                            $state.go('admin.bapb');
+                                        }
                                     }
                                 });
-                                // $state.go('admin.bapb');
                             } else {
                                 swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
                             }

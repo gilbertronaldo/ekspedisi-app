@@ -47,8 +47,7 @@
                                        ng-model-options="{ updateOn: 'blur' }"
                                        placeholder="Select a date..."
                                        format="DD-MM-YYYY"
-                                       moment-picker="ctrl.input.sailing_date"
-                                       start-date="ctrl.input.sailing_date">
+                                       moment-picker="ctrl.input.sailing_date">
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12">
