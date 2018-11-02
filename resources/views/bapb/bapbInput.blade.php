@@ -331,6 +331,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="form-group row p-t-15">
+                                            <label
+                                                class="col-sm-3 text-right control-label col-form-label">No. TTB</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                       ng-model="sender.no_ttb"
+                                                       placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">

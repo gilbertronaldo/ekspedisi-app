@@ -111,6 +111,7 @@ class BapbController
                 $bapbSender->sender_id = $sender['sender_id'];
                 $bapbSender->kemasan = isset($sender['kemasan']) ? $sender['kemasan'] : NULL;
                 $bapbSender->krani = isset($sender['krani']) ? $sender['krani'] : NULL;
+                $bapbSender->no_ttb = isset($sender['no_ttb']) ? $sender['no_ttb'] : NULL;
                 $bapbSender->entry_date = isset($sender['entry_date']) ? Carbon::parse($sender['entry_date']) : NULL;
                 $bapbSender->save();
 
