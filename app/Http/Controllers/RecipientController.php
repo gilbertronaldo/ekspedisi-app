@@ -73,10 +73,29 @@ class RecipientController
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
             if ($request->has('recipient_id')) {
                 $data = MsRecipient::findOrFail($request->input('recipient_id'));
             } else {
                 $data = new MsRecipient();
+            }
+
+            $existName = MsRecipient::where('recipient_name', $request->input('recipient_name'))->first();
+
+            if ($existName) {
+                $existAddress = MsRecipient::where('recipient_name', $request->input('recipient_name'))
+                    ->where('recipient_address', $request->input('recipient_address'))->first();
+
+                if ($existAddress) {
+                    $existPhone = MsRecipient::where('recipient_name', $request->input('recipient_name'))
+                        ->where('recipient_address', $request->input('recipient_address'))
+                        ->where('recipient_phone', $request->input('recipient_phone'))
+                        ->first();
+
+                    if ($existPhone) {
+                        throw new CoreException("Data recipient sudah ada !");
+                    }
+                }
             }
 
             $data->recipient_code = $request->input('recipient_code');
@@ -96,8 +115,11 @@ class RecipientController
             $data->ambil_di = $request->input('ambil_di');
             $data->email = $request->input('email');
             $data->save();
+
+            DB::commit();
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {
+            DB::rollBack();
             $response = CoreResponse::fail($exception);
         }
 
