@@ -78,25 +78,26 @@ class RecipientController
                 $data = MsRecipient::findOrFail($request->input('recipient_id'));
             } else {
                 $data = new MsRecipient();
-            }
 
-            $existName = MsRecipient::where('recipient_name', $request->input('recipient_name'))->first();
+                $existName = MsRecipient::where('recipient_name', $request->input('recipient_name'))->first();
 
-            if ($existName) {
-                $existAddress = MsRecipient::where('recipient_name', $request->input('recipient_name'))
-                    ->where('recipient_address', $request->input('recipient_address'))->first();
+                if ($existName) {
+                    $existAddress = MsRecipient::where('recipient_name', $request->input('recipient_name'))
+                        ->where('recipient_address', $request->input('recipient_address'))->first();
 
-                if ($existAddress) {
-                    $existPhone = MsRecipient::where('recipient_name', $request->input('recipient_name'))
-                        ->where('recipient_address', $request->input('recipient_address'))
-                        ->where('recipient_phone', $request->input('recipient_phone'))
-                        ->first();
+                    if ($existAddress) {
+                        $existPhone = MsRecipient::where('recipient_name', $request->input('recipient_name'))
+                            ->where('recipient_address', $request->input('recipient_address'))
+                            ->where('recipient_phone', $request->input('recipient_phone'))
+                            ->first();
 
-                    if ($existPhone) {
-                        throw new CoreException("Data recipient sudah ada !");
+                        if ($existPhone) {
+                            throw new CoreException("Data recipient sudah ada !");
+                        }
                     }
                 }
             }
+
 
             $data->recipient_code = $request->input('recipient_code');
             $data->recipient_name = $request->input('recipient_name');

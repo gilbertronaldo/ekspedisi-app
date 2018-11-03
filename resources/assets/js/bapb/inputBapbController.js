@@ -202,6 +202,8 @@
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
             if (ship) {
                 if (code.name.substr(0, 3) != ship.city_to.city_code) {
+                    ctrl.input.ship_id = null;
+                    ctrl.detail.ship = {};
                     swangular.alert("Kode BAPB dengan tujuan kapal tidak sesuai");
                     return;
                 }
@@ -235,6 +237,18 @@
             if (!ctrl.input.recipient_id) {
                 return;
             }
+
+            const recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
+            const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
+            if (recipient) {
+                if (code.name.substr(0, 3) != recipient.city_code) {
+                    ctrl.input.recipient_id = null;
+                    ctrl.detail.recipient = {};
+                    swangular.alert("Kode BAPB dengan kota penerima tidak sesuai");
+                    return;
+                }
+            }
+
             ctrl.detail.recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
         }
 

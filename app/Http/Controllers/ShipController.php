@@ -96,13 +96,13 @@ class ShipController extends Controller
                 $ship = MsShip::findOrFail($request->input('ship_id'));
             } else {
                 $ship = new MsShip();
-            }
 
-            $existNoVoyage = MsShip::where("no_voyage", "=", str_replace(' ', '', strtoupper($request->input('no_voyage'))))
-                ->first();
+                $existNoVoyage = MsShip::where("no_voyage", "=", str_replace(' ', '', strtoupper($request->input('no_voyage'))))
+                    ->first();
 
-            if ($existNoVoyage) {
-                throw new CoreException("Nomor Voyage Kapal sudah ada !");
+                if ($existNoVoyage) {
+                    throw new CoreException("Nomor Voyage Kapal sudah ada !");
+                }
             }
 
             $ship->no_voyage = str_replace(' ', '', strtoupper($request->input('no_voyage')));

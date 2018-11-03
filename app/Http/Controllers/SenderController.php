@@ -73,25 +73,27 @@ class SenderController
                 $data = MsSender::findOrFail($request->input('sender_id'));
             } else {
                 $data = new MsSender();
-            }
 
-            $existName = MsSender::where('sender_name', $request->input('sender_name'))->first();
+                $existName = MsSender::where('sender_name', $request->input('sender_name'))->first();
 
-            if ($existName) {
-                $existAddress = MsSender::where('sender_name', $request->input('sender_name'))
-                    ->where('sender_address', $request->input('sender_address'))->first();
+                if ($existName) {
+                    $existAddress = MsSender::where('sender_name', $request->input('sender_name'))
+                        ->where('sender_address', $request->input('sender_address'))->first();
 
-                if ($existAddress) {
-                    $existPhone = MsSender::where('sender_name', $request->input('sender_name'))
-                        ->where('sender_address', $request->input('sender_address'))
-                        ->where('sender_phone', $request->input('sender_phone'))
-                        ->first();
+                    if ($existAddress) {
+                        $existPhone = MsSender::where('sender_name', $request->input('sender_name'))
+                            ->where('sender_address', $request->input('sender_address'))
+                            ->where('sender_phone', $request->input('sender_phone'))
+                            ->first();
 
-                    if ($existPhone) {
-                        throw new CoreException("Data sender sudah ada !");
+                        if ($existPhone) {
+                            throw new CoreException("Data sender sudah ada !");
+                        }
                     }
                 }
             }
+
+
 
             $data->sender_code = $request->input('sender_code');
             $data->sender_name = $request->input('sender_name');
