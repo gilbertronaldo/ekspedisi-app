@@ -91,10 +91,18 @@ class ShipController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
             if ($request->has('ship_id')) {
                 $ship = MsShip::findOrFail($request->input('ship_id'));
             } else {
                 $ship = new MsShip();
+            }
+
+            $existNoVoyage = MsShip::where("no_voyage", "=", str_replace(' ', '', strtoupper($request->input('no_voyage'))))
+                ->first();
+
+            if ($existNoVoyage) {
+                throw new CoreException("Nomor Voyage Kapal sudah ada !");
             }
 
             $ship->no_voyage = str_replace(' ', '', strtoupper($request->input('no_voyage')));
@@ -105,8 +113,10 @@ class ShipController extends Controller
             $ship->city_id_to = $request->input('city_id_to');
             $ship->save();
 
+            DB::commit();
             $response = CoreResponse::ok($ship);
         } catch (CoreException $e) {
+            DB::rollBack();
             $response = CoreResponse::fail($e);
         }
 
