@@ -64,9 +64,9 @@ class ShipController extends Controller
     {
         try {
             $text = (string)$request->input('text');
-            $page = (int)$request->input('page') || 0;
-            $limit = (int)$request->input('limit') || 10;
-
+            $page = (int)$request->input('page');
+            $limit = (int)$request->input('limit');
+            
             $shipList = MsShip::where('ship_name', 'ilike', "%$text%")
                 ->orWhere('no_voyage', 'ilike', "%$text%")
                 ->offset($page - 1)

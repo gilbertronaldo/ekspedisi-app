@@ -189,7 +189,7 @@
                 }
             })
                 .then(function (result) {
-                    ctrl.shipTotalResults = result.data.total;
+                    ctrl.shipTotalResults = result.data.count;
                     ctrl.detail.shipList = result.data.shipList;
                     return result.data.shipList;
                 });
@@ -228,7 +228,7 @@
                 }
             })
                 .then(function (result) {
-                    ctrl.recipientTotalResults = result.data.total;
+                    ctrl.recipientTotalResults = result.data.count;
                     ctrl.detail.recipientList = result.data.recipientList;
                     return result.data.recipientList;
                 });
@@ -434,7 +434,7 @@
                 }
             })
                 .then(function (result) {
-                    ctrl.senderTotalResults = result.data.total;
+                    ctrl.senderTotalResults = result.data.count;
                     ctrl.detail.senderList = result.data.senderList;
                     return result.data.senderList;
                 });

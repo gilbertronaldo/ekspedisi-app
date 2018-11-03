@@ -50,8 +50,8 @@ class RecipientController
     {
         try {
             $text = (string)$request->input('text');
-            $page = (int)$request->input('page') || 0;
-            $limit = (int)$request->input('limit') || 10;
+            $page = (int)$request->input('page');
+            $limit = (int)$request->input('limit');
 
             $recipientList = MsRecipient::where('recipient_name', 'ilike', "%$text%")
                 ->orWhere('recipient_code', 'ilike', "%$text%")

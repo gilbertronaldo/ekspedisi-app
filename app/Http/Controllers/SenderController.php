@@ -45,8 +45,8 @@ class SenderController
     {
         try {
             $text = (string)$request->input('text');
-            $page = (int)$request->input('page') || 0;
-            $limit = (int)$request->input('limit') || 10;
+            $page = (int)$request->input('page');
+            $limit = (int)$request->input('limit');
 
             $senderList = MsSender::where('sender_name', 'ilike', "%$text%")
                 ->orWhere('sender_code', 'ilike', "%$text%")
