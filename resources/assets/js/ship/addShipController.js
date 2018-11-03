@@ -43,7 +43,7 @@
             ShipService.store(ctrl.input)
                 .then(res => {
                     if (res.status === 'FAIL') {
-                        throw {};
+                        swangular.alert(res.data.message);
                     } else if (res.status === 'OK') {
                         $state.go('admin.ship');
                         swangular.success("Data Kapal Berhasil Tersimpan");

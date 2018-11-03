@@ -189,7 +189,7 @@
                 }
             })
                 .then(function (result) {
-                    ctrl.shipTotalResults = result.data.total;
+                    ctrl.shipTotalResults = result.data.count;
                     ctrl.detail.shipList = result.data.shipList;
                     return result.data.shipList;
                 });
@@ -202,6 +202,8 @@
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
             if (ship) {
                 if (code.name.substr(0, 3) != ship.city_to.city_code) {
+                    ctrl.input.ship_id = null;
+                    ctrl.detail.ship = {};
                     swangular.alert("Kode BAPB dengan tujuan kapal tidak sesuai");
                     return;
                 }
@@ -226,7 +228,7 @@
                 }
             })
                 .then(function (result) {
-                    ctrl.recipientTotalResults = result.data.total;
+                    ctrl.recipientTotalResults = result.data.count;
                     ctrl.detail.recipientList = result.data.recipientList;
                     return result.data.recipientList;
                 });
@@ -235,6 +237,18 @@
             if (!ctrl.input.recipient_id) {
                 return;
             }
+
+            const recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
+            const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
+            if (recipient) {
+                if (code.name.substr(0, 3) != recipient.city_code) {
+                    ctrl.input.recipient_id = null;
+                    ctrl.detail.recipient = {};
+                    swangular.alert("Kode BAPB dengan kota penerima tidak sesuai");
+                    return;
+                }
+            }
+
             ctrl.detail.recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
         }
 
@@ -420,7 +434,7 @@
                 }
             })
                 .then(function (result) {
-                    ctrl.senderTotalResults = result.data.total;
+                    ctrl.senderTotalResults = result.data.count;
                     ctrl.detail.senderList = result.data.senderList;
                     return result.data.senderList;
                 });

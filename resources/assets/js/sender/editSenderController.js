@@ -81,7 +81,7 @@
             SenderService.store(ctrl.input)
                 .then(res => {
                     if (res.status === 'FAIL') {
-                        throw {};
+                        swangular.alert(res.data.message);
                     } else if (res.status === 'OK') {
                         $state.go('admin.sender');
                         swangular.success("Data Pengirim Berhasil Tersimpan");

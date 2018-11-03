@@ -64,9 +64,9 @@ class ShipController extends Controller
     {
         try {
             $text = (string)$request->input('text');
-            $page = (int)$request->input('page') || 0;
-            $limit = (int)$request->input('limit') || 10;
-
+            $page = (int)$request->input('page');
+            $limit = (int)$request->input('limit');
+            
             $shipList = MsShip::where('ship_name', 'ilike', "%$text%")
                 ->orWhere('no_voyage', 'ilike', "%$text%")
                 ->offset($page - 1)
@@ -91,10 +91,18 @@ class ShipController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
             if ($request->has('ship_id')) {
                 $ship = MsShip::findOrFail($request->input('ship_id'));
             } else {
                 $ship = new MsShip();
+
+                $existNoVoyage = MsShip::where("no_voyage", "=", str_replace(' ', '', strtoupper($request->input('no_voyage'))))
+                    ->first();
+
+                if ($existNoVoyage) {
+                    throw new CoreException("Nomor Voyage Kapal sudah ada !");
+                }
             }
 
             $ship->no_voyage = str_replace(' ', '', strtoupper($request->input('no_voyage')));
@@ -105,8 +113,10 @@ class ShipController extends Controller
             $ship->city_id_to = $request->input('city_id_to');
             $ship->save();
 
+            DB::commit();
             $response = CoreResponse::ok($ship);
         } catch (CoreException $e) {
+            DB::rollBack();
             $response = CoreResponse::fail($e);
         }
 

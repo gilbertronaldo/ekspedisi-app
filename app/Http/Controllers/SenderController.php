@@ -45,8 +45,8 @@ class SenderController
     {
         try {
             $text = (string)$request->input('text');
-            $page = (int)$request->input('page') || 0;
-            $limit = (int)$request->input('limit') || 10;
+            $page = (int)$request->input('page');
+            $limit = (int)$request->input('limit');
 
             $senderList = MsSender::where('sender_name', 'ilike', "%$text%")
                 ->orWhere('sender_code', 'ilike', "%$text%")
@@ -68,11 +68,32 @@ class SenderController
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
             if ($request->has('sender_id')) {
                 $data = MsSender::findOrFail($request->input('sender_id'));
             } else {
                 $data = new MsSender();
+
+                $existName = MsSender::where('sender_name', $request->input('sender_name'))->first();
+
+                if ($existName) {
+                    $existAddress = MsSender::where('sender_name', $request->input('sender_name'))
+                        ->where('sender_address', $request->input('sender_address'))->first();
+
+                    if ($existAddress) {
+                        $existPhone = MsSender::where('sender_name', $request->input('sender_name'))
+                            ->where('sender_address', $request->input('sender_address'))
+                            ->where('sender_phone', $request->input('sender_phone'))
+                            ->first();
+
+                        if ($existPhone) {
+                            throw new CoreException("Data sender sudah ada !");
+                        }
+                    }
+                }
             }
+
+
 
             $data->sender_code = $request->input('sender_code');
             $data->sender_name = $request->input('sender_name');
@@ -91,8 +112,11 @@ class SenderController
             $data->ambil_di = $request->input('ambil_di');
             $data->email = $request->input('email');
             $data->save();
+
+            DB::commit();
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {
+            DB::rollBack();
             $response = CoreResponse::fail($exception);
         }
 
