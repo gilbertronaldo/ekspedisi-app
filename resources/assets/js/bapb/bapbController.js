@@ -43,7 +43,7 @@
             .withOption('createdRow', createdRow)
         vm.dtColumns = [
             DTColumnBuilder.newColumn('bapb_no').withTitle('No Bapb'),
-            DTColumnBuilder.newColumn('bapb_description').withTitle('Deskripsi'),
+            DTColumnBuilder.newColumn('ship.no_voyage').withTitle('Deskripsi'),
             DTColumnBuilder.newColumn('recipient.recipient_name_bapb').withTitle('Penerima'),
             DTColumnBuilder.newColumn('no_container').withTitle('No Container'),
             DTColumnBuilder.newColumn('no_seal').withTitle('Seal'),
