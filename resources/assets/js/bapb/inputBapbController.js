@@ -145,6 +145,7 @@
             RecipientService.get(ctrl.input.recipient_id)
                 .then(res => {
                     ctrl.detail.recipient = res.data;
+                    ctrl.detail.recipient.city_code = res.data.city ? res.data.city.city_code : '';
 
                     ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
                     ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
@@ -158,6 +159,12 @@
                             i.entry_date = moment(i.entry_date);
                         }
                         i.total = {};
+
+                        i.detail.price_ton = parseInt(i.detail.price_ton || 0);
+                        i.detail.price_meter = parseInt(i.detail.price_meter || 0);
+                        i.detail.price_document = parseInt(i.detail.price_document || 0);
+                        i.detail.minimum_charge = parseInt(i.detail.minimum_charge || 0);
+
                         ctrl.senderItemCalculate(idx);
                     })
                 })
@@ -369,20 +376,7 @@
             });
             ctrl.senders[idx].total.cost = parseInt(ctrl.senders[idx].total.cost);
 
-            if (ctrl.input.tagih_di === 'sender') {
-
-                if (ctrl.senders[idx].total.berat) {
-                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.berat * parseInt(ctrl.senders[idx].detail.price_ton | 0);
-                }
-
-                if (ctrl.senders[idx].total.dimensi) {
-                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.dimensi * parseInt(ctrl.senders[idx].detail.price_meter | 0);
-                }
-
-                if (ctrl.senders[idx].total.harga < parseInt(ctrl.senders[idx].detail.minimum_charge | 0)) {
-                    ctrl.senders[idx].total.harga = parseInt(ctrl.senders[idx].detail.minimum_charge | 0);
-                }
-            } else {
+            if (ctrl.input.tagih_di !== 'sender') {
                 if (ctrl.senders[idx].total.berat) {
                     ctrl.senders[idx].total.harga = ctrl.senders[idx].total.berat * ctrl.detail.calculation.price_ton;
                 }
@@ -392,7 +386,34 @@
                 }
 
                 if (ctrl.senders[idx].total.harga < ctrl.detail.calculation.minimum_charge) {
-                    ctrl.senders[idx].total.harga = ctrl.detail.calculation.minimum_charge;
+
+                    if (ctrl.senders[idx].total.koli !== 0 &&
+                        ctrl.senders[idx].total.dimensi !== 0 &&
+                        ctrl.senders[idx].total.berat !== 0) {
+                        ctrl.senders[idx].total.harga = ctrl.detail.calculation.minimum_charge;
+                    } else {
+                        ctrl.senders[idx].total.harga = 0;
+                    }
+
+                }
+            } else {
+                if (ctrl.senders[idx].total.berat) {
+                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.berat * parseInt(ctrl.senders[idx].detail.price_ton | 0);
+                }
+
+                if (ctrl.senders[idx].total.dimensi) {
+                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.dimensi * parseInt(ctrl.senders[idx].detail.price_meter | 0);
+                }
+
+                if (ctrl.senders[idx].total.harga < parseInt(ctrl.senders[idx].detail.minimum_charge | 0)) {
+
+                    if (ctrl.senders[idx].total.koli !== 0 &&
+                        ctrl.senders[idx].total.dimensi !== 0 &&
+                        ctrl.senders[idx].total.berat !== 0) {
+                        ctrl.senders[idx].total.harga = parseInt(ctrl.senders[idx].detail.minimum_charge | 0);
+                    } else {
+                        ctrl.senders[idx].total.harga = 0;
+                    }
                 }
             }
 

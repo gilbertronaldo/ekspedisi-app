@@ -74,7 +74,7 @@ class BapbController
                 ->with('senders.costs')
                 ->findOrFail($id);
             foreach ($bapb->senders as $sender) {
-                $sender->detail = MsSender::find($sender->sender_id);
+                $sender->detail = MsSender::with('city')->find($sender->sender_id);
             }
             $response = CoreResponse::ok($bapb);
         } catch (CoreException $exception) {

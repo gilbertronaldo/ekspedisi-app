@@ -223,7 +223,7 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
-                                                   ng-value="vm.detail.recipient.city_code + ' - ' + vm.detail.recipient.city_name"
+                                                   ng-value="vm.detail.recipient.city.city_code + ' - ' + vm.detail.recipient.city_name"
                                                    ng-disabled="true">
                                         </div>
                                     </div>
@@ -282,12 +282,38 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                class="col-sm-3 text-right control-label col-form-label">Nama di
+                                                class="col-sm-3 text-right control-label col-form-label">Kota
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                       ng-model="sender.detail.city.city_name"
+                                                       placeholder="" ng-disabled="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="form-group row">
+                                            <label
+                                                    class="col-sm-3 text-right control-label col-form-label">Nama di
                                                 BAPB
                                             </label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.detail.sender_name_bapb"
+                                                       placeholder="" ng-disabled="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="form-group row">
+                                            <label
+                                                    class="col-sm-3 text-right control-label col-form-label">Alamat
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                       ng-model="sender.detail.sender_address"
                                                        placeholder="" ng-disabled="true">
                                             </div>
                                         </div>
