@@ -224,6 +224,9 @@ class BapbController
     {
         try {
             $bapb = TrBapb::with('senders.items')
+                ->with('senders.costs')
+                ->with('recipient')
+                ->with('ship')
                 ->findOrFail($bapbId);
             if (!empty($bapb->senders)) {
                 foreach ($bapb->senders as $sender) {
