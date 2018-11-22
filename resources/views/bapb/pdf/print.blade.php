@@ -13,7 +13,7 @@
 
         header {
             position: fixed;
-            top: -250px;
+            top: -240px;
             left: 0;
             right: 0;
             height: 250px;
@@ -36,8 +36,8 @@
 
         main {
             width: 100%;
-            margin: 0 0 -100px;
-            background-color: pink;
+            margin: 10px 0 -100px;
+            /*background-color: pink;*/
         }
 
 
