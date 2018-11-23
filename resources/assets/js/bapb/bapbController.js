@@ -47,6 +47,7 @@
             DTColumnBuilder.newColumn('recipient.recipient_name_bapb').withTitle('Penerima'),
             DTColumnBuilder.newColumn('no_container').withTitle('No Container'),
             DTColumnBuilder.newColumn('no_seal').withTitle('Seal'),
+            DTColumnBuilder.newColumn('no_ttb').withTitle('Pengirim'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
 

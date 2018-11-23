@@ -20,6 +20,11 @@ class TrBapbSender extends BaseModel
         return $this->belongsTo(TrBapb::class, 'bapb_id');
     }
 
+    public function sender()
+    {
+        return $this->belongsTo(MsSender::class, 'sender_id');
+    }
+
     public function items()
     {
         return $this->hasMany(TrBapbSenderItem::class, 'bapb_sender_id');

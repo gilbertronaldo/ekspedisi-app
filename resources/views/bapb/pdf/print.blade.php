@@ -8,15 +8,15 @@
     <title>Document</title>
     <style>
         @page {
-            margin: 250px 25px;
+            margin: 150px 25px 250px;
         }
 
         header {
             position: fixed;
-            top: -240px;
+            top: -140px;
             left: 0;
             right: 0;
-            height: 250px;
+            height: 150px;
 
             /** Extra personal styles **/
             /*background-color: darkgrey;*/
@@ -40,7 +40,7 @@
 
         .table-bordered {
             width: 100%;
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             border-collapse: collapse;
             table-layout: fixed;
         }
@@ -68,6 +68,11 @@
         .t-b {
             font-weight: bold;
         }
+
+        main.page_break + main.page_break{
+            page-break-before: always;
+        }
+
     </style>
 </head>
 <body>
@@ -75,350 +80,94 @@
 @include('bapb.pdf.header')
 @include('bapb.pdf.footer')
 
-<main style="page-break-before: auto;">
-    <div>
-        <table class="table-bordered">
-            <tr>
-                <th width="10%">BANYAK KOLI</th>
-                <th width="60%">JENIS BARANG</th>
-                <th width="10%">M<sup>3</sup>/TON</th>
-                <th width="10%">JUMLAH SEWA</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Handphone Asus</td>
-                <td>10</td>
-                <td>10</td>
-            </tr>
-
-
-        </table>
-    </div>
-</main>
+@foreach($bapb->senders as $sender)
+    <main class="page_break">
+        <div>
+            <table class="table-bordered">
+                <tr>
+                    <td>
+                        PENGIRIM
+                        <span class="d-ib" style="width: 49.4px;"></span>:
+                        <span class="t-b">{{ $sender->sender->sender_name }}</span>
+                    </td>
+                    <td>
+                        NO. VOY
+                        <span class="d-ib" style="width: 15px;"></span>:
+                        <span class="t-b">{{ $bapb->ship->no_voyage }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ALAMAT
+                        <span class="d-ib" style="width: 60px;"></span>:
+                        <span class="t-b">{{ $sender->sender->sender_address }}</span>
+                    </td>
+                    <td>PENERIMA
+                        <span class="d-ib" style="width: 5px;"></span>:
+                        <span class="t-b">{{ $bapb->recipient->recipient_name }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>NAMA KAPAL
+                        <span class="d-ib" style="width: 29px;"></span>:
+                        <span class="t-b">{{ $bapb->ship->ship_name }}</span>
+                    </td>
+                    <td rowspan="2" valign="top">
+                        ALAMAT
+                        <span class="d-ib" style="width: 16px;"></span>:
+                        <span class="t-b">{{ $bapb->recipient->recipient_address }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>TGL. BERANGKAT
+                        <span class="d-ib" style="width: 3.7px;"></span>:
+                        <span class="t-b">{{ \Carbon\Carbon::parse($bapb->ship->sailing_date)->format('d F Y') }}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top: 10px">
+            <table class="table-bordered">
+                <tr>
+                    <th width="10%">BANYAK KOLI</th>
+                    <th width="60%">JENIS BARANG</th>
+                    <th width="10%">M<sup>3</sup>/TON</th>
+                    <th width="10%">JUMLAH SEWA</th>
+                </tr>
+                @foreach($sender->items as $item)
+                    <tr>
+                        <td>{{ $item->koli }}</td>
+                        <td>{{ $item->bapb_sender_item_name }}</td>
+                        @if(!is_null($item->berat))
+                            <td>
+                                <span>{{ ($item->berat * $item->koli / 1000) }}</span>
+                                <span> Ton</span>
+                            </td>
+                        @else
+                            <td>
+                                <span>{{ ($item->panjang * $item->lebar * $item->tinggi / 1000 * $item->koli) }}</span>
+                                <span> M<sup>3</sup></span>
+                            </td>
+                        @endif
+                        <td>
+                            <span>Rp. {{ number_format(750000, 0, ".", ".") }}</span>
+                        </td>
+                    </tr>
+                @endforeach
+                <tr style="border-left: none">
+                    <td colspan="2" rowspan="2" style="border: none;text-transform: uppercase;">
+                        TERBILANG ( {{ $sender->terbilang }} RUPIAH )
+                    </td>
+                    <td style="border: none">Dokumen</td>
+                    <td>Rp. {{ number_format(2000, 0, ".", ".") }}</td>
+                </tr>
+                <tr>
+                    <td style="border: none">Total</td>
+                    <td>Rp. {{ number_format($sender->total_harga, 0, ".", ".") }}</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+@endforeach
 
 </body>
 </html>

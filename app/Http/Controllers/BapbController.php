@@ -57,6 +57,10 @@ class BapbController
 
         $bapbList->each(function ($i) {
             $i->no_container = $i->no_container_1 . " " . $i->no_container_2;
+
+            $i->no_ttb = $i->senders->map(function ($j) {
+                return $j->no_ttb;
+            });
         });
 
         return datatables()->of($bapbList)->toJson();
@@ -225,14 +229,15 @@ class BapbController
         try {
             $bapb = TrBapb::with('senders.items')
                 ->with('senders.costs')
+                ->with('senders.sender')
                 ->with('recipient')
                 ->with('ship')
                 ->findOrFail($bapbId);
-            if (!empty($bapb->senders)) {
-                foreach ($bapb->senders as $sender) {
-                    $sender->detail = MsSender::find($sender->sender_id);
-                }
-            }
+
+            $bapb->senders->each(function ($sender) {
+                $sender->total_harga = 1500000;
+                $sender->terbilang = $this->terbilang($sender->total_harga);
+            });
 
             $data = [
                 'bapb' => $bapb,
@@ -276,5 +281,52 @@ class BapbController
     public function exportExcel()
     {
         return Excel::download(new BapbExport(), 'users.xlsx');
+    }
+
+    /**
+     * @param $nilai
+     * @return string
+     */
+    private function penyebut($nilai)
+    {
+        $nilai = abs($nilai);
+        $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+        $temp = "";
+        if ($nilai < 12) {
+            $temp = " " . $huruf[$nilai];
+        } else if ($nilai < 20) {
+            $temp = $this->penyebut($nilai - 10) . " belas";
+        } else if ($nilai < 100) {
+            $temp = $this->penyebut($nilai / 10) . " puluh" . $this->penyebut($nilai % 10);
+        } else if ($nilai < 200) {
+            $temp = " seratus" . $this->penyebut($nilai - 100);
+        } else if ($nilai < 1000) {
+            $temp = $this->penyebut($nilai / 100) . " ratus" . $this->penyebut($nilai % 100);
+        } else if ($nilai < 2000) {
+            $temp = " seribu" . $this->penyebut($nilai - 1000);
+        } else if ($nilai < 1000000) {
+            $temp = $this->penyebut($nilai / 1000) . " ribu" . $this->penyebut($nilai % 1000);
+        } else if ($nilai < 1000000000) {
+            $temp = $this->penyebut($nilai / 1000000) . " juta" . $this->penyebut($nilai % 1000000);
+        } else if ($nilai < 1000000000000) {
+            $temp = $this->penyebut($nilai / 1000000000) . " milyar" . $this->penyebut(fmod($nilai, 1000000000));
+        } else if ($nilai < 1000000000000000) {
+            $temp = $this->penyebut($nilai / 1000000000000) . " trilyun" . $this->penyebut(fmod($nilai, 1000000000000));
+        }
+        return $temp;
+    }
+
+    /**
+     * @param $nilai
+     * @return string
+     */
+    private function terbilang($nilai)
+    {
+        if ($nilai < 0) {
+            $hasil = "minus " . trim($this->penyebut($nilai));
+        } else {
+            $hasil = trim($this->penyebut($nilai));
+        }
+        return $hasil;
     }
 }
