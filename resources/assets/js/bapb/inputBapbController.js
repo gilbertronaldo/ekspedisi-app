@@ -359,14 +359,65 @@
             ctrl.senders[idx].total.cost = 0;
             ctrl.senders[idx].items.forEach(i => {
 
+                i.price = 0;
                 const koli = parseInt(i.koli) || 0;
                 const berat = parseInt(i.berat) || 0;
                 const volume = (parseInt(i.panjang) || 0) * (parseInt(i.lebar) || 0) * (parseInt(i.tinggi) || 0);
                 const dimension = (Math.round((volume * koli)) / 1000000);
 
+                i.total = {
+                    dimensi: dimension,
+                    berat: parseFloat((koli * berat) / 1000),
+                    harga: 0
+                };
+
+                if (ctrl.input.tagih_di !== 'sender') {
+                    if (i.total.berat !== 0) {
+                        i.total.harga = i.total.berat * ctrl.detail.calculation.price_ton;
+                    }
+
+                    if (i.total.dimensi !== 0) {
+                        i.total.harga = i.total.dimensi * ctrl.detail.calculation.price_meter;
+                    }
+
+                    if (i.total.harga < ctrl.detail.calculation.minimum_charge) {
+
+                        if (i.total.koli !== 0 &&
+                            i.total.dimensi !== 0 &&
+                            i.total.berat !== 0) {
+                            i.total.harga = ctrl.detail.calculation.minimum_charge;
+                        } else {
+                            i.total.harga = 0;
+                        }
+
+                    }
+                } else {
+                    if (i.total.berat !== 0) {
+                        i.total.harga = i.total.berat * parseInt(ctrl.senders[idx].detail.price_ton | 0);
+                    }
+
+                    if (i.total.dimensi !== 0) {
+                        i.total.harga = i.total.dimensi * parseInt(ctrl.senders[idx].detail.price_meter | 0);
+                    }
+
+                    if (i.total.harga < parseInt(ctrl.senders[idx].detail.minimum_charge | 0)) {
+
+                        if (i.total.koli !== 0 &&
+                            i.total.dimensi !== 0 &&
+                            i.total.berat !== 0) {
+                            i.total.harga = parseInt(ctrl.senders[idx].detail.minimum_charge | 0);
+                        } else {
+                            i.total.harga = 0;
+                        }
+                    }
+                }
+
+                i.price = parseInt(i.total.harga);
+
                 ctrl.senders[idx].total.koli += koli;
                 ctrl.senders[idx].total.berat += (koli * berat);
                 ctrl.senders[idx].total.dimensi += dimension;
+                ctrl.senders[idx].total.harga += i.price;
             });
             ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi);
             ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000);
@@ -376,47 +427,8 @@
             });
             ctrl.senders[idx].total.cost = parseInt(ctrl.senders[idx].total.cost);
 
-            if (ctrl.input.tagih_di !== 'sender') {
-                if (ctrl.senders[idx].total.berat) {
-                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.berat * ctrl.detail.calculation.price_ton;
-                }
 
-                if (ctrl.senders[idx].total.dimensi) {
-                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.dimensi * ctrl.detail.calculation.price_meter;
-                }
-
-                if (ctrl.senders[idx].total.harga < ctrl.detail.calculation.minimum_charge) {
-
-                    if (ctrl.senders[idx].total.koli !== 0 &&
-                        ctrl.senders[idx].total.dimensi !== 0 &&
-                        ctrl.senders[idx].total.berat !== 0) {
-                        ctrl.senders[idx].total.harga = ctrl.detail.calculation.minimum_charge;
-                    } else {
-                        ctrl.senders[idx].total.harga = 0;
-                    }
-
-                }
-            } else {
-                if (ctrl.senders[idx].total.berat) {
-                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.berat * parseInt(ctrl.senders[idx].detail.price_ton | 0);
-                }
-
-                if (ctrl.senders[idx].total.dimensi) {
-                    ctrl.senders[idx].total.harga = ctrl.senders[idx].total.dimensi * parseInt(ctrl.senders[idx].detail.price_meter | 0);
-                }
-
-                if (ctrl.senders[idx].total.harga < parseInt(ctrl.senders[idx].detail.minimum_charge | 0)) {
-
-                    if (ctrl.senders[idx].total.koli !== 0 &&
-                        ctrl.senders[idx].total.dimensi !== 0 &&
-                        ctrl.senders[idx].total.berat !== 0) {
-                        ctrl.senders[idx].total.harga = parseInt(ctrl.senders[idx].detail.minimum_charge | 0);
-                    } else {
-                        ctrl.senders[idx].total.harga = 0;
-                    }
-                }
-            }
-
+            ctrl.senders[idx].total_price = ctrl.senders[idx].total.harga + ctrl.senders[idx].total.cost + ctrl.detail.calculation.price_document;
             ctrl.senders[idx].total.dimensi = parseFloat(ctrl.senders[idx].total.dimensi).toFixed(3);
             ctrl.senders[idx].total.berat = parseFloat(ctrl.senders[idx].total.berat / 1000).toFixed(3);
 

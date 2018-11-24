@@ -124,6 +124,7 @@ class BapbController
                 $bapbSender->no_ttb = isset($sender['no_ttb']) ? $sender['no_ttb'] : NULL;
                 $bapbSender->description = isset($sender['description']) ? $sender['description'] : NULL;
                 $bapbSender->entry_date = isset($sender['entry_date']) ? Carbon::parse($sender['entry_date']) : NULL;
+                $bapbSender->price = isset($sender['total_price']) ? $sender['total_price'] : 0;
                 $bapbSender->save();
 
                 $unDeletedSender[] = $bapbSender->bapb_sender_id;
@@ -140,6 +141,7 @@ class BapbController
                     $bapbSenderItem->lebar = $item['lebar'];
                     $bapbSenderItem->tinggi = $item['tinggi'];
                     $bapbSenderItem->berat = $item['berat'];
+                    $bapbSenderItem->price = isset($item['price']) ? $item['price'] : 0;
                     $bapbSenderItem->save();
 
                     $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
@@ -235,8 +237,7 @@ class BapbController
                 ->findOrFail($bapbId);
 
             $bapb->senders->each(function ($sender) {
-                $sender->total_harga = 1500000;
-                $sender->terbilang = $this->terbilang($sender->total_harga);
+                $sender->terbilang = $this->terbilang($sender->total_price);
             });
 
             $data = [

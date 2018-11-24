@@ -47,7 +47,7 @@
 
         .table-bordered tr th {
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             border: 1px solid #000000;
             padding: 7px;
             text-align: center;
@@ -58,7 +58,7 @@
             margin: 0;
             padding: 2px 5px;
             font-weight: normal;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .d-ib {
@@ -69,7 +69,11 @@
             font-weight: bold;
         }
 
-        main.page_break + main.page_break{
+        .text-center {
+            text-align: center;
+        }
+
+        main.page_break + main.page_break {
             page-break-before: always;
         }
 
@@ -130,39 +134,51 @@
                 <tr>
                     <th width="10%">BANYAK KOLI</th>
                     <th width="60%">JENIS BARANG</th>
-                    <th width="10%">M<sup>3</sup>/TON</th>
-                    <th width="10%">JUMLAH SEWA</th>
+                    <th width="15%">M<sup>3</sup>/TON</th>
+                    <th width="15%">BIAYA</th>
                 </tr>
                 @foreach($sender->items as $item)
                     <tr>
-                        <td>{{ $item->koli }}</td>
+                        <td class="text-center">{{ $item->koli }}</td>
                         <td>{{ $item->bapb_sender_item_name }}</td>
                         @if(!is_null($item->berat))
                             <td>
-                                <span>{{ ($item->berat * $item->koli / 1000) }}</span>
+                                <span>{{ number_format(($item->berat * $item->koli / 1000), 0, ".", ".") }}</span>
                                 <span> Ton</span>
                             </td>
                         @else
                             <td>
-                                <span>{{ ($item->panjang * $item->lebar * $item->tinggi / 1000 * $item->koli) }}</span>
+                                <span>{{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000 * $item->koli), 0, ".", ".") }}</span>
                                 <span> M<sup>3</sup></span>
                             </td>
                         @endif
                         <td>
-                            <span>Rp. {{ number_format(750000, 0, ".", ".") }}</span>
+                            <span>Rp. {{ number_format($item->price, 0, ".", ".") }}</span>
                         </td>
                     </tr>
+                @endforeach
+                @foreach($sender->costs as $cost)
+                    @if(!is_null($cost->price))
+                        <tr>
+                            <td colspan="3">{{ $cost->bapb_sender_cost_name }}</td>
+                            <td>
+                                <span>Rp. {{ number_format($cost->price, 0, ".", ".") }}</span>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 <tr style="border-left: none">
                     <td colspan="2" rowspan="2" style="border: none;text-transform: uppercase;">
                         TERBILANG ( {{ $sender->terbilang }} RUPIAH )
                     </td>
                     <td style="border: none">Dokumen</td>
-                    <td>Rp. {{ number_format(2000, 0, ".", ".") }}</td>
+                    <td>
+                        Rp. {{ number_format(($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $sender->sender->price_document, 0, ".", ".") }}
+                    </td>
                 </tr>
                 <tr>
                     <td style="border: none">Total</td>
-                    <td>Rp. {{ number_format($sender->total_harga, 0, ".", ".") }}</td>
+                    <td>Rp. {{ number_format($sender->price, 0, ".", ".") }}</td>
                 </tr>
             </table>
         </div>
