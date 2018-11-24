@@ -12,7 +12,6 @@ use App\Exports\BapbExport;
 use App\MsSender;
 use App\TrBapbSenderCost;
 use Barryvdh\DomPDF\Facade as PDF;
-use DB;
 use App\TrBapb;
 use App\TrBapbSender;
 use App\TrBapbSenderItem;
@@ -21,7 +20,9 @@ use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\DataTables;
 
 class BapbController
 {
@@ -63,7 +64,24 @@ class BapbController
             });
         });
 
-        return datatables()->of($bapbList)->toJson();
+        $query = "
+          SELECT A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, A.no_seal,
+              B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb
+            FROM tr_bapb A
+            INNER JOIN ms_ship B
+              ON A.ship_id = B.ship_id
+              AND B.deleted_at IS NULL
+            INNER JOIN ms_recipient C 
+              ON A.recipient_id = C.recipient_id
+              AND C.deleted_at IS NULL
+            LEFT JOIN tr_bapb_sender D 
+              ON A.bapb_id = D.bapb_id
+              AND D.deleted_at IS NULL
+            WHERE A.deleted_at IS NULL
+            GROUP BY A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb
+        ";
+
+        return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
     }
 
     /**
