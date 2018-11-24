@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\TrBapb;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -24,12 +25,73 @@ class BapbExport implements FromView, WithEvents
      */
     public function view(): View
     {
-        return view('bapb.excel.bapb', [
-            'bapbList' => TrBapb::with('senders.items')
-                ->with('recipient')
-                ->with('ship')
-                ->get()
-        ]);
+        $header = $this->getHeader('SPNU 461505');
+        $input = [
+            'header' => $header,
+            'items' => $this->getItems('SPNU 461505')
+        ];
+
+        return view('bapb.excel.bapb', $input);
+    }
+
+    private function getHeader($noContainer)
+    {
+        $get = DB::SELECT("
+            SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) as no_container, A.no_seal,
+                   B.no_voyage, B.ship_name, to_char(B.sailing_date, 'dd FMMonth yyyy') as sailing_date, 
+                   CONCAT(C.city_code, ' - ', C.city_name) as destination,
+                   COUNT(A.bapb_id) total,
+                   to_char(MAX(D.entry_date), 'dd FMMonth yyyy') as last_entry
+            FROM tr_bapb A
+            INNER JOIN ms_ship B
+             ON A.ship_id = B.ship_id
+             AND B.deleted_at IS NULL
+            INNER JOIN ms_city C 
+              ON B.city_id_to = C.city_id
+              AND C.deleted_at IS NULL
+            LEFT JOIN tr_bapb_sender D
+              ON A.bapb_id = D.bapb_id
+              AND D.deleted_at IS NULL
+            WHERE A.deleted_at IS NULL
+            AND UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) ILIKE '$noContainer'
+            GROUP BY no_container, A.no_seal, B.no_voyage, B.ship_name, B.sailing_date, destination
+        ");
+
+        if (empty($get)) {
+            return null;
+        }
+
+        return $get[0];
+    }
+
+    private function getItems($noContainer)
+    {
+        $get = DB::SELECT("
+            SELECT TO_CHAR(C.entry_date, 'dd FMMon') as date,
+                   B.recipient_name,
+                   D.sender_name,
+                   E.koli, E.bapb_sender_item_name,
+                   C.kemasan,
+                   C.description,
+                   C.price
+            FROM tr_bapb A
+            INNER JOIN ms_recipient B
+              ON A.recipient_id = B.recipient_id
+             AND B.deleted_at IS NULL
+            INNER JOIN tr_bapb_sender C
+             ON A.bapb_id = C.bapb_id
+             AND C.deleted_at IS NULL
+            INNER JOIN ms_sender D
+             ON C.sender_id = D.sender_id
+             AND D.deleted_at IS NULL
+            INNER JOIN tr_bapb_sender_item E
+              ON C.bapb_sender_id = E.bapb_sender_id
+              AND E.deleted_at IS NULL
+            WHERE A.deleted_at IS NULL
+            AND UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) ILIKE '$noContainer'
+            GROUP BY C.entry_date, B.recipient_name, D.sender_name, E.koli, E.bapb_sender_item_name, C.kemasan, C.description, C.price
+        ");
+        return $get;
     }
 
     /**
