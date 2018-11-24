@@ -255,7 +255,7 @@ class BapbController
                 ->findOrFail($bapbId);
 
             $bapb->senders->each(function ($sender) {
-                $sender->terbilang = $this->terbilang($sender->total_price);
+                $sender->terbilang = $this->terbilang($sender->price);
             });
 
             $data = [
