@@ -78,7 +78,7 @@ class BapbController
               ON A.bapb_id = D.bapb_id
               AND D.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
-            GROUP BY A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb
+            GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb
         ";
 
         return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
