@@ -83,4 +83,8 @@ Route::middleware('auth:api')->group(function () {
             return view('bapb.bapbInput');
         });
     });
+
+    Route::get('container', function () {
+        return view('bapb.container');
+    });
 });

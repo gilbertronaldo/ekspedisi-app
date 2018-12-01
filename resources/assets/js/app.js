@@ -38,4 +38,5 @@ require('./recipient/editRecipientController.js');
 require('./bapb/bapb.js');
 require('./bapb/bapbService.js');
 require('./bapb/bapbController.js');
+require('./bapb/containerController.js');
 require('./bapb/inputBapbController.js');
