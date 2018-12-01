@@ -50,19 +50,19 @@ class BapbController
      */
     public function all(Request $request)
     {
-        $bapbList = TrBapb::with('senders.items')
-            ->with('senders.costs')
-            ->with('recipient')
-            ->with('ship')
-            ->get();
-
-        $bapbList->each(function ($i) {
-            $i->no_container = $i->no_container_1 . " " . $i->no_container_2;
-
-            $i->no_ttb = $i->senders->map(function ($j) {
-                return $j->no_ttb;
-            });
-        });
+//        $bapbList = TrBapb::with('senders.items')
+//            ->with('senders.costs')
+//            ->with('recipient')
+//            ->with('ship')
+//            ->get();
+//
+//        $bapbList->each(function ($i) {
+//            $i->no_container = $i->no_container_1 . " " . $i->no_container_2;
+//
+//            $i->no_ttb = $i->senders->map(function ($j) {
+//                return $j->no_ttb;
+//            });
+//        });
 
         $query = "
           SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, A.no_seal,
@@ -295,6 +295,7 @@ class BapbController
     }
 
     /**
+     * @param $noContainer
      * @return mixed
      */
     public function exportExcel($noContainer)
@@ -347,5 +348,37 @@ class BapbController
             $hasil = trim($this->penyebut($nilai));
         }
         return $hasil;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function container(Request $request)
+    {
+        $query = "
+            SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) as no_container, A.no_seal,
+                   UPPER(CONCAT(A.no_container_1, A.no_container_2)) as _no_container,
+                   B.no_voyage, B.ship_name, to_char(B.sailing_date, 'dd FMMonth yyyy') as sailing_date, 
+                   CONCAT(C.city_code, ' - ', C.city_name) as destination,
+                   COUNT(A.bapb_id) total,
+                   to_char(MAX(D.entry_date), 'dd FMMonth yyyy') as last_entry
+            FROM tr_bapb A
+            INNER JOIN ms_ship B
+             ON A.ship_id = B.ship_id
+             AND B.deleted_at IS NULL
+            INNER JOIN ms_city C 
+              ON B.city_id_to = C.city_id
+              AND C.deleted_at IS NULL
+            LEFT JOIN tr_bapb_sender D
+              ON A.bapb_id = D.bapb_id
+              AND D.deleted_at IS NULL
+            WHERE A.deleted_at IS NULL
+            GROUP BY no_container, _no_container, A.no_seal, B.no_voyage, B.ship_name, B.sailing_date, destination
+        ";
+
+        return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
     }
 }

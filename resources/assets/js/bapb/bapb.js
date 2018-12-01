@@ -22,5 +22,10 @@
                 templateUrl: '/bapb/input',
                 controller: 'InputBapbController as inputBapbController',
             })
+            .state('admin.container', {
+                url: '/container',
+                templateUrl: '/container',
+                controller: 'ContainerController as containerController',
+            })
     });
 })();
