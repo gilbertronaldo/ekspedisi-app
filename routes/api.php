@@ -41,6 +41,6 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::delete('/{id}', 'BapbController@destroy')->where('id', '[0-9]+');
 
         Route::get('/generate/{id}', 'BapbController@generatePrint')->where('id', '[0-9]+');
-        Route::get('/export', 'BapbController@exportExcel');
+        Route::get('/export/{noContainer}', 'BapbController@exportExcel');
     });
 });

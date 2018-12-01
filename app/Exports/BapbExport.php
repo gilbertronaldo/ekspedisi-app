@@ -20,15 +20,22 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
  */
 class BapbExport implements FromView, WithEvents
 {
+    private $noContainer;
+
+    public function __construct($noContainer)
+    {
+        $this->noContainer = preg_replace('/\s+/', '', $noContainer);;
+    }
+
     /**
      * @return View
      */
     public function view(): View
     {
-        $header = $this->getHeader('SPNU 461505');
+        $header = $this->getHeader($this->noContainer);
         $input = [
             'header' => $header,
-            'items' => $this->getItems('SPNU 461505')
+            'items' => $this->getItems($this->noContainer)
         ];
 
         return view('bapb.excel.bapb', $input);
@@ -53,7 +60,7 @@ class BapbExport implements FromView, WithEvents
               ON A.bapb_id = D.bapb_id
               AND D.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
-            AND UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) ILIKE '$noContainer'
+            AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
             GROUP BY no_container, A.no_seal, B.no_voyage, B.ship_name, B.sailing_date, destination
         ");
 
@@ -88,7 +95,7 @@ class BapbExport implements FromView, WithEvents
               ON C.bapb_sender_id = E.bapb_sender_id
               AND E.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
-            AND UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) ILIKE '$noContainer'
+            AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
             GROUP BY C.entry_date, B.recipient_name, D.sender_name, E.koli, E.bapb_sender_item_name, C.kemasan, C.description, C.price
         ");
         return $get;

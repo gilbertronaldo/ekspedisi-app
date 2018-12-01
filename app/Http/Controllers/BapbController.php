@@ -297,9 +297,9 @@ class BapbController
     /**
      * @return mixed
      */
-    public function exportExcel()
+    public function exportExcel($noContainer)
     {
-        return Excel::download(new BapbExport(), 'users.xlsx');
+        return Excel::download(new BapbExport($noContainer), 'users.xlsx');
     }
 
     /**
