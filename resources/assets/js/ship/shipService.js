@@ -28,7 +28,7 @@
         }
 
         function store(input) {
-            return $http.post(`/api/ship/`, input)
+            return $http.post(`/api/ship`, input)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

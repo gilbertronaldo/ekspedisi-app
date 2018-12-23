@@ -29,7 +29,7 @@
         }
 
         function store(input) {
-            return $http.post(`/api/bapb/`, input)
+            return $http.post(`/api/bapb`, input)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
