@@ -392,16 +392,40 @@
                 };
 
                 if (ctrl.input.tagih_di !== 'sender') {
-                    if (i.total.berat !== 0) {
-                        i.total.harga = i.total.berat * ctrl.detail.calculation.price_ton;
-                    }
-
-                    if (i.total.dimensi !== 0) {
-                        i.total.harga = i.total.dimensi * ctrl.detail.calculation.price_meter;
-                    }
-
-                    if (i.total.harga < ctrl.detail.calculation.minimum_charge) {
-                        i.total.harga = ctrl.detail.calculation.minimum_charge;
+                    switch (ctrl.detail.calculation.minimum_charge_calculation_id) {
+                        case 1:
+                            if (i.total.dimensi < ctrl.detail.calculation.minimum_charge) {
+                                i.total.dimensi = ctrl.detail.calculation.minimum_charge;
+                            }
+                            if (i.total.berat !== 0) {
+                                i.total.harga = i.total.berat * ctrl.detail.calculation.price_ton;
+                            }
+                            if (i.total.dimensi !== 0) {
+                                i.total.harga = i.total.dimensi * ctrl.detail.calculation.price_meter;
+                            }
+                            break;
+                        case 3:
+                            if (i.total.berat < ctrl.detail.calculation.minimum_charge) {
+                                i.total.berat = ctrl.detail.calculation.minimum_charge;
+                            }
+                            if (i.total.dimensi !== 0) {
+                                i.total.harga = i.total.dimensi * ctrl.detail.calculation.price_meter;
+                            }
+                            if (i.total.berat !== 0) {
+                                i.total.harga = i.total.berat * ctrl.detail.calculation.price_ton;
+                            }
+                            break;
+                        default:
+                            if (i.total.berat !== 0) {
+                                i.total.harga = i.total.berat * ctrl.detail.calculation.price_ton;
+                            }
+                            if (i.total.dimensi !== 0) {
+                                i.total.harga = i.total.dimensi * ctrl.detail.calculation.price_meter;
+                            }
+                            if (i.total.harga < ctrl.detail.calculation.minimum_charge) {
+                                i.total.harga = ctrl.detail.calculation.minimum_charge;
+                            }
+                            break;
                     }
                 } else {
                     switch (ctrl.senders[idx].detail.minimum_charge_calculation_id) {
