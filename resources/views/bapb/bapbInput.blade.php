@@ -535,7 +535,7 @@
                                                             {{'{{'. 'vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}
                                                         </code>
                                                         <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 3">
-                                                            {{'{{'. 'vm.detail.calculation.minimum_charge' .'}'.'}'}} <span>koli</span>
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge' .'}'.'}'}} <span>kg</span>
                                                         </code>
                                                     </div>
                                                 </div>
