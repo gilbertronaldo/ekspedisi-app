@@ -381,13 +381,13 @@
                                         </caption>
                                         <thead>
                                         <tr class="text-center">
-                                            <th scope="col">#</th>
-                                            <th scope="col">Nama Barang</th>
-                                            <th scope="col">Koli</th>
-                                            <th scope="col">P <span>(cm)</span></th>
-                                            <th scope="col">L <span>(cm)</span></th>
-                                            <th scope="col">T <span>(cm)</span></th>
-                                            <th scope="col">Berat <span>(kg)</span></th>
+                                            <th scope="col" width="10%">#</th>
+                                            <th scope="col" width="40%">Nama Barang</th>
+                                            <th scope="col" width="10%">Koli</th>
+                                            <th scope="col" width="10%">P <span>(cm)</span></th>
+                                            <th scope="col" width="10%">L <span>(cm)</span></th>
+                                            <th scope="col" width="10%">T <span>(cm)</span></th>
+                                            <th scope="col" width="10%">Berat <span>(kg)</span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -516,8 +516,27 @@
                                                     <div class="col-sm-5 text-right">
                                                         <span>Min. Charge</span>
                                                     </div>
-                                                    <div class="col-sm-7 text-left">
-                                                        <code>{{'{{'. 'vm.input.tagih_di == "sender" ? sender.detail.minimum_charge : vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}</code>
+                                                    <div class="col-sm-7 text-left" ng-if="vm.input.tagih_di == 'sender'">
+                                                        <code ng-if="sender.detail.minimum_charge_calculation_id == 1">
+                                                            {{'{{'. 'sender.detail.minimum_charge' .'}'.'}'}} <span>m<sup>3</sup></span>
+                                                        </code>
+                                                        <code ng-if="sender.detail.minimum_charge_calculation_id == 2">
+                                                            {{'{{'. 'sender.detail.minimum_charge | currency:"Rp.":0' .'}'.'}'}}
+                                                        </code>
+                                                        <code ng-if="sender.detail.minimum_charge_calculation_id == 3">
+                                                            {{'{{'. 'sender.detail.minimum_charge' .'}'.'}'}} <span>kg</span>
+                                                        </code>
+                                                    </div>
+                                                    <div class="col-sm-7 text-left" ng-if="vm.input.tagih_di != 'sender'">
+                                                        <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 1">
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge' .'}'.'}'}} <span>m<sup>3</sup></span>
+                                                        </code>
+                                                        <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 2">
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}
+                                                        </code>
+                                                        <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 3">
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge' .'}'.'}'}} <span>koli</span>
+                                                        </code>
                                                     </div>
                                                 </div>
                                             </div>

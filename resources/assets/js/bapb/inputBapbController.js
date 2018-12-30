@@ -55,8 +55,24 @@
             price_ton: 0,
             price_meter: 0,
             price_document: 0,
-            minimum_charge: 0
+            minimum_charge: 0,
+            minimum_charge_calculation_id: 0,
         };
+
+        ctrl.minimumChargeCalculationList = [
+            {
+                calculation_id: 1,
+                calculation_name: 'Meter Kubik'
+            },
+            {
+                calculation_id: 2,
+                calculation_name: 'Rp'
+            },
+            {
+                calculation_id: 3,
+                calculation_name: 'Kg'
+            }
+        ];
 
         ctrl.shipAsyncPageLimit = 20;
         ctrl.shipTotalResults = 0;
@@ -70,7 +86,8 @@
                 price_ton: 0,
                 price_meter: 0,
                 price_document: 0,
-                minimum_charge: 0
+                minimum_charge: 0,
+                minimum_charge_calculation_id: 0
             };
             getNewBapbNo();
             latestBapb();
@@ -151,6 +168,7 @@
                     ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
                     ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
                     ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
+                    ctrl.detail.calculation.minimum_charge_calculation_id = parseInt(ctrl.detail.recipient.minimum_charge_calculation_id || 0);
 
                     ctrl.senders = ctrl.input.senders;
 
@@ -164,6 +182,7 @@
                         i.detail.price_meter = parseInt(i.detail.price_meter || 0);
                         i.detail.price_document = parseInt(i.detail.price_document || 0);
                         i.detail.minimum_charge = parseInt(i.detail.minimum_charge || 0);
+                        i.detail.minimum_charge_calculation_id = parseInt(i.detail.minimum_charge_calculation_id || 0);
 
                         ctrl.senderItemCalculate(idx);
                     })
@@ -339,6 +358,7 @@
                     ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
                     ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
                     ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
+                    ctrl.detail.calculation.minimum_charge_calculation_id = parseInt(ctrl.detail.recipient.minimum_charge_calculation_id || 0);
                 }
             }
 
