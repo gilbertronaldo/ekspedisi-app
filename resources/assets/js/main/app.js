@@ -72,58 +72,54 @@
                 $location.path('/login');
             }
         })
-        .directive('uiCurrency', function ($filter, $parse) {
+        .directive('uiCurrency', function ($filter, $parse, $locale) {
+
+            // For input validation
+            var isValid = function(val) {
+                return angular.isNumber(val) && !isNaN(val);
+            };
+
+            // Helper for creating RegExp's
+            var toRegExp = function(val) {
+                var escaped = val.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                return new RegExp(escaped, 'g');
+            };
+
+            // Saved to your $scope/model
+            var toModel = function(val) {
+
+                // Locale currency support
+                var decimal = toRegExp($locale.NUMBER_FORMATS.DECIMAL_SEP);
+                var group = toRegExp($locale.NUMBER_FORMATS.GROUP_SEP);
+                var currency = toRegExp($locale.NUMBER_FORMATS.CURRENCY_SYM);
+
+                // Strip currency related characters from string
+                val = val.replace(decimal, '').replace(group, '').replace(currency, '').trim();
+
+                return parseInt(val, 10);
+            };
+
+            // Displayed in the input to users
+            var toView = function(val) {
+                return $filter('currency')(val, '', 0);
+            };
+
+            // Link to DOM
+            var link = function($scope, $element, $attrs, $ngModel) {
+                $ngModel.$formatters.push(toView);
+                $ngModel.$parsers.push(toModel);
+                $ngModel.$validators.currency = isValid;
+
+                $element.on('keyup', function() {
+                    $ngModel.$viewValue = toView($ngModel.$modelValue);
+                    $ngModel.$render();
+                });
+            };
+
             return {
-                require: 'ngModel',
                 restrict: 'A',
-                link: function (scope, element, attrs, ngModel) {
-
-                    function parse(viewValue, noRender) {
-                        if (!viewValue)
-                            return viewValue;
-
-                        // strips all non digits leaving periods.
-                        var clean = viewValue.toString().replace(/[^0-9.]+/g, '').replace(/\.{2,}/, '.');
-
-                        // case for users entering multiple periods throughout the number
-                        var dotSplit = clean.split('.');
-                        if (dotSplit.length > 2) {
-                            clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 2);
-                        } else if (dotSplit.length == 2) {
-                            clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 2);
-                        }
-
-                        if (!noRender)
-                            ngModel.$render();
-                        return clean;
-                    }
-
-                    ngModel.$parsers.unshift(parse);
-
-                    ngModel.$render = function () {
-                        var clean = parse(ngModel.$viewValue, true);
-                        if (!clean)
-                            return;
-
-                        var currencyValue,
-                            dotSplit = clean.split('.');
-
-                        // todo: refactor, this is ugly
-                        if (clean[clean.length - 1] === '.') {
-                            currencyValue = $filter('number')(parseFloat(clean)) + '.';
-
-                        } else if (clean.indexOf('.') != -1 && dotSplit[dotSplit.length - 1].length == 1) {
-                            currencyValue = $filter('number')(parseFloat(clean), 1);
-                        } else if (clean.indexOf('.') != -1 && dotSplit[dotSplit.length - 1].length == 1) {
-                            currencyValue = $filter('number')(parseFloat(clean), 2);
-                        } else {
-                            currencyValue = $filter('number')(parseFloat(clean));
-                        }
-
-                        element.val(currencyValue);
-                    };
-
-                }
+                require: 'ngModel',
+                link: link
             };
         });
 

@@ -560,7 +560,7 @@
                                                         <span>Dimensi Total</span>
                                                     </div>
                                                     <div class="col-sm-7 text-left">
-                                                        <code>{{'{{'. 'sender.total.dimensi | currency:"":0' .'}'.'}'}}</code>&nbsp;<span>m<sup>3</sup></span>
+                                                        <code>{{'{{'. 'sender.total.dimensi | number:3' .'}'.'}'}}</code>&nbsp;<span>m<sup>3</sup></span>
                                                     </div>
                                                 </div>
                                                 <div class="row">
