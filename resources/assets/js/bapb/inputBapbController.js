@@ -397,9 +397,9 @@
 
             let harga = 0;
 
-            const price_ton = ctrl.input.tagih_di !== 'sender' ? 0 : parseInt(ctrl.senders[idx].detail.price_ton | 0);
-            const price_meter = ctrl.input.tagih_di !== 'sender' ? 0 : parseInt(ctrl.senders[idx].detail.price_meter | 0);
-            const price_document = ctrl.input.tagih_di !== 'sender' ? 0 : parseInt(ctrl.senders[idx].detail.price_document | 0);
+            const price_ton = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_ton : parseInt(ctrl.senders[idx].detail.price_ton | 0);
+            const price_meter = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_meter : parseInt(ctrl.senders[idx].detail.price_meter | 0);
+            const price_document = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_document : parseInt(ctrl.senders[idx].detail.price_document | 0);
 
             if (ctrl.senders[idx].total.dimensi !== 0) {
                 harga = ctrl.senders[idx].total.dimensi * price_meter;
