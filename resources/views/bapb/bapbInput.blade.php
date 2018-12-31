@@ -518,24 +518,24 @@
                                                     </div>
                                                     <div class="col-sm-7 text-left" ng-if="vm.input.tagih_di == 'sender'">
                                                         <code ng-if="sender.detail.minimum_charge_calculation_id == 1">
-                                                            {{'{{'. 'sender.detail.minimum_charge' .'}'.'}'}} <span>m<sup>3</sup></span>
+                                                            {{'{{'. 'sender.detail.minimum_charge / 1000' .'}'.'}'}} <span>m<sup>3</sup></span>
                                                         </code>
                                                         <code ng-if="sender.detail.minimum_charge_calculation_id == 2">
                                                             {{'{{'. 'sender.detail.minimum_charge | currency:"Rp.":0' .'}'.'}'}}
                                                         </code>
                                                         <code ng-if="sender.detail.minimum_charge_calculation_id == 3">
-                                                            {{'{{'. 'sender.detail.minimum_charge' .'}'.'}'}} <span>kg</span>
+                                                            {{'{{'. 'sender.detail.minimum_charge | currency:"":0' .'}'.'}'}} <span>kg</span>
                                                         </code>
                                                     </div>
                                                     <div class="col-sm-7 text-left" ng-if="vm.input.tagih_di != 'sender'">
                                                         <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 1">
-                                                            {{'{{'. 'vm.detail.calculation.minimum_charge' .'}'.'}'}} <span>m<sup>3</sup></span>
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge / 1000' .'}'.'}'}} <span>m<sup>3</sup></span>
                                                         </code>
                                                         <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 2">
                                                             {{'{{'. 'vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}
                                                         </code>
                                                         <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 3">
-                                                            {{'{{'. 'vm.detail.calculation.minimum_charge' .'}'.'}'}} <span>kg</span>
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge | currency:"":0' .'}'.'}'}} <span>kg</span>
                                                         </code>
                                                     </div>
                                                 </div>
@@ -629,7 +629,7 @@
                                                     <span>{{  '{{'. 'sender.detail.sender_name_bapb' .'}'.'}' }}</span>
                                                 </td>
                                                 <td>
-                                                    <code>{{'{{'. 'sender.total.koli | number:3' .'}'.'}'}}</code>&nbsp;<span>Koli</span>
+                                                    <code>{{'{{'. 'sender.total.koli | currency:"":0' .'}'.'}'}}</code>&nbsp;<span>Koli</span>
                                                 </td>
                                                 <td>
                                                     <code>{{'{{'. 'sender.total.dimensi | number:3' .'}'.'}'}}</code>&nbsp;<span>m<sup>3</sup></span>
@@ -649,7 +649,7 @@
                                                     Total Keseluruhan
                                                 </td>
                                                 <td>
-                                                    <code>{{'{{'. 'vm.input.total.koli | number:3' .'}'.'}'}}</code>&nbsp;<span>Koli</span>
+                                                    <code>{{'{{'. 'vm.input.total.koli | currency:"":0' .'}'.'}'}}</code>&nbsp;<span>Koli</span>
                                                 </td>
                                                 <td>
                                                     <code>{{'{{'. 'vm.input.total.dimensi | number:3' .'}'.'}'}}</code>&nbsp;<span>m<sup>3</sup></span>
@@ -675,7 +675,7 @@
                         <div class="card-body bg-light">
                             <div class="form-group m-b-0 text-right">
                                 <button type="submit" class="btn btn-dark waves-effect waves-light"
-                                        ui-sref="admin.home">Batal
+                                        ui-sref="admin.bapb">Batal
                                 </button>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light"
                                         ng-click="vm.onSubmit()">Simpan

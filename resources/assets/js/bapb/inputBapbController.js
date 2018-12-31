@@ -402,6 +402,19 @@
                 ctrl.senders[idx].total.berat += item.total.berat;
             });
 
+            switch (minimum_charge_calculation_id) {
+                case 1:
+                    if (ctrl.senders[idx].total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
+                        ctrl.senders[idx].total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
+                    }
+                    break;
+                case 3:
+                    if (ctrl.senders[idx].total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
+                        ctrl.senders[idx].total.berat = parseFloat((min_charge / 1000).toFixed(3));
+                    }
+                    break;
+            }
+
             let harga = 0;
 
             if (ctrl.senders[idx].total.dimensi !== 0) {
