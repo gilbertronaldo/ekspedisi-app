@@ -377,6 +377,75 @@
             ctrl.senders[idx].total.berat = 0;
             ctrl.senders[idx].total.harga = 0;
             ctrl.senders[idx].total.cost = 0;
+
+            ctrl.senders[idx].items.forEach(item => {
+
+                const koli = parseInt(item.koli) || 0;
+                const volume = (parseInt(item.panjang) || 0) * (parseInt(item.lebar) || 0) * (parseInt(item.tinggi) || 0);
+                const dimension = (parseFloat(volume * koli) / 1000000).toFixed(3);
+                const berat = parseFloat(koli * (parseInt(item.berat) || 0) / 1000).toFixed(3);
+
+                item.total = {
+                    dimensi: parseFloat(dimension),
+                    berat: parseFloat(berat)
+                };
+
+                ctrl.senders[idx].total.koli += koli;
+                ctrl.senders[idx].total.dimensi += item.total.dimensi;
+                ctrl.senders[idx].total.berat += item.total.berat;
+            });
+
+            let harga = 0;
+
+            const price_ton = ctrl.input.tagih_di !== 'sender' ? 0 : parseInt(ctrl.senders[idx].detail.price_ton | 0);
+            const price_meter = ctrl.input.tagih_di !== 'sender' ? 0 : parseInt(ctrl.senders[idx].detail.price_meter | 0);
+            const price_document = ctrl.input.tagih_di !== 'sender' ? 0 : parseInt(ctrl.senders[idx].detail.price_document | 0);
+
+            if (ctrl.senders[idx].total.dimensi !== 0) {
+                harga = ctrl.senders[idx].total.dimensi * price_meter;
+            }
+            if (ctrl.senders[idx].total.berat !== 0) {
+                harga = ctrl.senders[idx].total.berat * price_ton;
+            }
+
+
+            ctrl.senders[idx].total.harga = harga + price_document;
+
+            ctrl.senders[idx].total_price = ctrl.senders[idx].total.harga + ctrl.senders[idx].total.cost;
+
+            reCalculateBiayaLainLainSender(idx);
+            reCalculateTotal();
+        };
+
+        function reCalculateBiayaLainLainSender(idx) {
+            ctrl.senders[idx].costs.forEach(i => {
+                ctrl.senders[idx].total.cost += parseInt(i.price) || 0;
+            });
+            ctrl.senders[idx].total.cost = parseInt(ctrl.senders[idx].total.cost);
+        }
+
+        function reCalculateTotal() {
+            ctrl.input.total = {};
+            ctrl.input.total.koli = 0;
+            ctrl.input.total.dimensi = 0;
+            ctrl.input.total.berat = 0;
+            ctrl.input.total.harga = 0;
+            ctrl.input.total.cost = 0;
+            ctrl.senders.forEach(i => {
+                ctrl.input.total.koli += parseFloat(i.total ? i.total.koli : 0 || 0);
+                ctrl.input.total.dimensi += parseFloat(i.total ? i.total.dimensi : 0 || 0);
+                ctrl.input.total.berat += parseFloat(i.total ? i.total.berat : 0 || 0);
+                ctrl.input.total.harga += parseFloat(i.total ? i.total.harga : 0 || 0);
+                ctrl.input.total.cost += parseFloat(i.total ? i.total.cost : 0 || 0);
+            });
+        }
+
+        ctrl.senderItemCalculateOld = (idx) => {
+            ctrl.senders[idx].total.koli = 0;
+            ctrl.senders[idx].total.dimensi = 0;
+            ctrl.senders[idx].total.berat = 0;
+            ctrl.senders[idx].total.harga = 0;
+            ctrl.senders[idx].total.cost = 0;
             ctrl.senders[idx].items.forEach(i => {
 
                 i.price = 0;
