@@ -378,6 +378,13 @@
             ctrl.senders[idx].total.harga = 0;
             ctrl.senders[idx].total.cost = 0;
 
+            const price_ton = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_ton : parseInt(ctrl.senders[idx].detail.price_ton | 0);
+            const price_meter = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_meter : parseInt(ctrl.senders[idx].detail.price_meter | 0);
+            const price_document = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_document : parseInt(ctrl.senders[idx].detail.price_document | 0);
+
+            const minimum_charge_calculation_id = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.minimum_charge_calculation_id : ctrl.senders[idx].detail.minimum_charge_calculation_id;
+            const min_charge = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.minimum_charge : parseInt(ctrl.senders[idx].detail.minimum_charge | 0);
+
             ctrl.senders[idx].items.forEach(item => {
 
                 const koli = parseInt(item.koli) || 0;
@@ -397,10 +404,6 @@
 
             let harga = 0;
 
-            const price_ton = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_ton : parseInt(ctrl.senders[idx].detail.price_ton | 0);
-            const price_meter = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_meter : parseInt(ctrl.senders[idx].detail.price_meter | 0);
-            const price_document = ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_document : parseInt(ctrl.senders[idx].detail.price_document | 0);
-
             if (ctrl.senders[idx].total.dimensi !== 0) {
                 harga = ctrl.senders[idx].total.dimensi * price_meter;
             }
@@ -408,6 +411,11 @@
                 harga = ctrl.senders[idx].total.berat * price_ton;
             }
 
+            if (minimum_charge_calculation_id !== 1 && minimum_charge_calculation_id !== 3) {
+                if (harga < min_charge) {
+                    harga = min_charge;
+                }
+            }
 
             ctrl.senders[idx].total.harga = harga + price_document;
 
