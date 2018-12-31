@@ -397,6 +397,17 @@
                     berat: parseFloat(berat)
                 };
 
+                let price = 0;
+
+                if (item.total.dimensi !== 0) {
+                    price = item.total.dimensi * price_meter;
+                }
+                if (item.total.berat !== 0) {
+                    price = item.total.berat * price_ton;
+                }
+
+                item.price = price;
+
                 ctrl.senders[idx].total.koli += koli;
                 ctrl.senders[idx].total.dimensi += item.total.dimensi;
                 ctrl.senders[idx].total.berat += item.total.berat;
@@ -432,9 +443,10 @@
 
             ctrl.senders[idx].total.harga = harga + price_document;
 
+            reCalculateBiayaLainLainSender(idx);
+
             ctrl.senders[idx].total_price = ctrl.senders[idx].total.harga + ctrl.senders[idx].total.cost;
 
-            reCalculateBiayaLainLainSender(idx);
             reCalculateTotal();
         };
 
