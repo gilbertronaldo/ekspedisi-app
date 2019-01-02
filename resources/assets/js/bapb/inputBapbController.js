@@ -414,17 +414,19 @@
                 ctrl.senders[idx].total.berat += item.total.berat;
             });
 
-            switch (minimum_charge_calculation_id) {
-                case 1:
-                    if (ctrl.senders[idx].total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
-                        ctrl.senders[idx].total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
-                    }
-                    break;
-                case 3:
-                    if (ctrl.senders[idx].total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
-                        ctrl.senders[idx].total.berat = parseFloat((min_charge / 1000).toFixed(3));
-                    }
-                    break;
+            if (ctrl.input.tagih_di === 'sender') {
+                switch (minimum_charge_calculation_id) {
+                    case 1:
+                        if (ctrl.senders[idx].total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.senders[idx].total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
+                        }
+                        break;
+                    case 3:
+                        if (ctrl.senders[idx].total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.senders[idx].total.berat = parseFloat((min_charge / 1000).toFixed(3));
+                        }
+                        break;
+                }
             }
 
             let harga = 0;
@@ -436,9 +438,11 @@
                 harga = ctrl.senders[idx].total.berat * price_ton;
             }
 
-            if (minimum_charge_calculation_id !== 1 && minimum_charge_calculation_id !== 3) {
-                if (harga < min_charge) {
-                    harga = min_charge;
+            if (ctrl.input.tagih_di === 'sender') {
+                if (minimum_charge_calculation_id !== 1 && minimum_charge_calculation_id !== 3) {
+                    if (harga < min_charge) {
+                        harga = min_charge;
+                    }
                 }
             }
 
@@ -459,6 +463,14 @@
         }
 
         function reCalculateTotal() {
+
+            const price_ton = ctrl.detail.calculation.price_ton;
+            const price_meter = ctrl.detail.calculation.price_meter;
+            const price_document = ctrl.detail.calculation.price_document;
+
+            const minimum_charge_calculation_id = ctrl.detail.calculation.minimum_charge_calculation_id;
+            const min_charge = ctrl.detail.calculation.minimum_charge;
+
             ctrl.input.total = {};
             ctrl.input.total.koli = 0;
             ctrl.input.total.dimensi = 0;
@@ -472,6 +484,39 @@
                 ctrl.input.total.harga += parseFloat(i.total ? i.total.harga : 0 || 0);
                 ctrl.input.total.cost += parseFloat(i.total ? i.total.cost : 0 || 0);
             });
+
+            if (ctrl.input.tagih_di !== 'sender') {
+
+                switch (minimum_charge_calculation_id) {
+                    case 1:
+                        if (ctrl.input.total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.input.total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
+                        }
+                        break;
+                    case 3:
+                        if (ctrl.input.total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.input.total.berat = parseFloat((min_charge / 1000).toFixed(3));
+                        }
+                        break;
+                }
+
+                let harga = ctrl.input.total.harga;
+
+                if (ctrl.input.total.dimensi !== 0) {
+                    harga = ctrl.input.total.dimensi * price_meter;
+                }
+                if (ctrl.input.total.berat !== 0) {
+                    harga = ctrl.input.total.berat * price_ton;
+                }
+
+                if (minimum_charge_calculation_id !== 1 && minimum_charge_calculation_id !== 3) {
+                    if (harga < min_charge) {
+                        harga = min_charge;
+                    }
+                }
+
+                ctrl.input.total.harga = harga + (ctrl.senders.length * price_document);
+            }
         }
 
         ctrl.senderItemCalculateOld = (idx) => {
