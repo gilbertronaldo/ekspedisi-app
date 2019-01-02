@@ -19,7 +19,7 @@ class CreateTableMsRecipient extends Migration
             $table->string('recipient_name');
             $table->string('recipient_name_bapb')->nullable();
             $table->string('recipient_name_other')->nullable();
-            $table->string('recipient_phone', 20);
+            $table->string('recipient_phone');
             $table->text('recipient_address')->nullable();
             $table->bigInteger('city_id')->nullable();
             $table->bigInteger('price_ton')->nullable();

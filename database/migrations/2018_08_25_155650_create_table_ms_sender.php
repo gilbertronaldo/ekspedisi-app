@@ -19,7 +19,7 @@ class CreateTableMsSender extends Migration
             $table->string('sender_name');
             $table->string('sender_name_bapb')->nullable();
             $table->string('sender_name_other')->nullable();
-            $table->string('sender_phone', 20);
+            $table->string('sender_phone');
             $table->text('sender_address')->nullable();
             $table->bigInteger('city_id')->nullable();
             $table->bigInteger('price_ton')->nullable();
