@@ -15,7 +15,7 @@ class CreateTableMsSender extends Migration
     {
         Schema::create('ms_sender', function (Blueprint $table) {
             $table->bigIncrements('sender_id');
-            $table->string('sender_code', 10);
+            $table->string('sender_code');
             $table->string('sender_name');
             $table->string('sender_name_bapb')->nullable();
             $table->string('sender_name_other')->nullable();

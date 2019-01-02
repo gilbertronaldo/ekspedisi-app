@@ -15,7 +15,7 @@ class CreateTableMsRecipient extends Migration
     {
         Schema::create('ms_recipient', function (Blueprint $table) {
             $table->bigIncrements('recipient_id');
-            $table->string('recipient_code', 10);
+            $table->string('recipient_code');
             $table->string('recipient_name');
             $table->string('recipient_name_bapb')->nullable();
             $table->string('recipient_name_other')->nullable();

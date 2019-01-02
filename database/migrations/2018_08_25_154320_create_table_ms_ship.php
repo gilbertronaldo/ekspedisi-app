@@ -15,7 +15,7 @@ class CreateTableMsShip extends Migration
     {
         Schema::create('ms_ship', function (Blueprint $table) {
             $table->bigIncrements('ship_id');
-            $table->string('no_voyage', 20);
+            $table->string('no_voyage');
             $table->string('ship_name');
             $table->text('ship_description')->nullable();
             $table->timestamp('sailing_date')->nullable();
