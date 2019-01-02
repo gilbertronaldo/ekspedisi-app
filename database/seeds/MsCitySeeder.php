@@ -45,5 +45,61 @@ class MsCitySeeder extends Seeder
             'city_name' => 'Makassar',
             'created_at' => \Carbon\Carbon::now()
         ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'MKS',
+            'city_name' => 'GW - Gowa',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'MKS',
+            'city_name' => 'KD - Kendari',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'MKS',
+            'city_name' => 'PA - Palu',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'BJM',
+            'city_name' => 'PLK - Palangkaraya',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'BJM',
+            'city_name' => 'SPT - Sampit',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'BJM',
+            'city_name' => 'BJB - Banjarbaru',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'BJM',
+            'city_name' => 'MTP - Mantapura',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('ms_city')->insert([
+            'country_id' => 10,
+            'city_code' => 'BJM',
+            'city_name' => 'BTL - Batulicin',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
     }
 }

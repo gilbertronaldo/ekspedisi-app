@@ -71,7 +71,7 @@
         }
 
         function getCityList() {
-            MasterService.cityList()
+            MasterService.cityListMaster()
                 .then(res => {
                     ctrl.cityList = res.data;
                     console.log(res)
