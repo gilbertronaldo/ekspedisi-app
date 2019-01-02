@@ -14,12 +14,12 @@ class AlterRecipientSenderAddPhoneFax extends Migration
     public function up()
     {
         Schema::table('ms_recipient', function(Blueprint $table) {
-            $table->string('recipient_telephone', 20)->nullable();
-            $table->string('recipient_fax', 20)->nullable();
+            $table->string('recipient_telephone')->nullable();
+            $table->string('recipient_fax')->nullable();
         });
         Schema::table('ms_sender', function(Blueprint $table) {
-            $table->string('sender_telephone', 20)->nullable();
-            $table->string('sender_fax', 20)->nullable();
+            $table->string('sender_telephone')->nullable();
+            $table->string('sender_fax')->nullable();
         });
 
     }
