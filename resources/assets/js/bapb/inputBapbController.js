@@ -276,7 +276,8 @@
             }
 
             ctrl.detail.recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
-        }
+            ctrl.changeCalculation();
+        };
 
         function senderNew() {
             return {

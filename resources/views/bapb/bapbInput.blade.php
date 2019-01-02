@@ -49,44 +49,6 @@
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                 </div>
-
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="bapb-no"
-                                               class="col-sm-3 text-right control-label col-form-label">
-                                            No BAPB
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="bapb-no"
-                                                   placeholder="Input Nomor BAPB" ng-model="vm.input.bapb_no"
-                                                   ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-
-                                </div>
-
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="tagih-di"
-                                               class="col-sm-3 text-right control-label col-form-label">
-                                            Tagih di
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <select class="custom-select col-sm-5" id="inputGroupSelect01"
-                                                    ng-model="vm.input.tagih_di"
-                                                    ng-change="vm.changeCalculation()">
-                                                <option value="">Tagih di</option>
-                                                <option value="recipient">Penerima</option>
-                                                <option value="sender">Pengirim</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-
-                                </div>
                             </div>
                         </div>
 
@@ -96,16 +58,16 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Cari</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                         <div class="col-sm-9">
                                             <sc-select
-                                                id="approver-1"
-                                                ng-model="vm.input.ship_id"
-                                                sc-options="ship.ship_id as ship.no_voyage + ' - ' + ship.ship_name for ship in vm.searchShipList(searchText, page)"
-                                                page-limit="vm.shipAsyncPageLimit"
-                                                total-items="vm.shipTotalResults"
-                                                ng-change="vm.getShipDetail()"
-                                                placeholder="Cari Nomor Voyage Kapal">
+                                                    id="approver-1"
+                                                    ng-model="vm.input.ship_id"
+                                                    sc-options="ship.ship_id as ship.no_voyage + ' - ' + ship.ship_name for ship in vm.searchShipList(searchText, page)"
+                                                    page-limit="vm.shipAsyncPageLimit"
+                                                    total-items="vm.shipTotalResults"
+                                                    ng-change="vm.getShipDetail()"
+                                                    placeholder="Cari Nomor Voyage Kapal">
                                             </sc-select>
                                         </div>
                                     </div>
@@ -117,7 +79,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">No
+                                                class="col-sm-3 text-right control-label col-form-label">No
                                             Voyage</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
@@ -129,7 +91,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Tujuan</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Tujuan</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
                                                    value="{{  '{{'. 'vm.detail.ship.city_code_from' .'}'.'}' . ' - ' .'{{'. 'vm.detail.ship.city_code_to' .'}'.'}' }}"
@@ -142,7 +104,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Ship
+                                                class="col-sm-3 text-right control-label col-form-label">Ship
                                             Name</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
@@ -154,7 +116,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Berangkat</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Berangkat</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
                                                    ng-model="vm.detail.ship.sailing_date"
@@ -168,7 +130,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">No.
+                                                class="col-sm-3 text-right control-label col-form-label">No.
                                             Container</label>
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control"
@@ -185,7 +147,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">No.
+                                                class="col-sm-3 text-right control-label col-form-label">No.
                                             Segel</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
@@ -193,6 +155,22 @@
                                                    placeholder="">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="bapb-no"
+                                               class="col-sm-3 text-right control-label col-form-label">
+                                            No BAPB
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="bapb-no"
+                                                   placeholder="Input Nomor BAPB" ng-model="vm.input.bapb_no"
+                                                   ng-disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+
                                 </div>
                             </div>
                         </div>
@@ -202,16 +180,16 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Cari</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                         <div class="col-sm-9">
                                             <sc-select
-                                                id="approver-1"
-                                                ng-model="vm.input.recipient_id"
-                                                sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientList(searchText, page)"
-                                                page-limit="vm.recipientAsyncPageLimit"
-                                                total-items="vm.recipientTotalResults"
-                                                ng-change="vm.getRecipientDetail()"
-                                                placeholder="Cari Penerima">
+                                                    id="approver-1"
+                                                    ng-model="vm.input.recipient_id"
+                                                    sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientList(searchText, page)"
+                                                    page-limit="vm.recipientAsyncPageLimit"
+                                                    total-items="vm.recipientTotalResults"
+                                                    ng-change="vm.getRecipientDetail()"
+                                                    placeholder="Cari Penerima">
                                             </sc-select>
                                         </div>
                                     </div>
@@ -219,7 +197,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Kota
+                                                class="col-sm-3 text-right control-label col-form-label">Kota
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
@@ -233,7 +211,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Nama Penerima
+                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
                                             di
                                             BAPB
                                         </label>
@@ -247,7 +225,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                            class="col-sm-3 text-right control-label col-form-label">Alamat</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Alamat</label>
                                         <div class="col-sm-9">
                                             <textarea type="text" class="form-control"
                                                       ng-model="vm.detail.recipient.recipient_address"
@@ -265,16 +243,16 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                class="col-sm-3 text-right control-label col-form-label">Cari</label>
+                                                    class="col-sm-3 text-right control-label col-form-label">Cari</label>
                                             <div class="col-sm-9">
                                                 <sc-select
-                                                    id="approver-1"
-                                                    ng-model="sender.sender_id"
-                                                    sc-options="_sender.sender_id as _sender.sender_code + ' - ' + _sender.sender_name for _sender in vm.searchSenderList(searchText, page)"
-                                                    page-limit="vm.senderAsyncPageLimit"
-                                                    total-items="vm.senderTotalResults"
-                                                    ng-change="vm.getSenderDetail(senderIdx)"
-                                                    placeholder="Cari Pengirim">
+                                                        id="approver-1"
+                                                        ng-model="sender.sender_id"
+                                                        sc-options="_sender.sender_id as _sender.sender_code + ' - ' + _sender.sender_name for _sender in vm.searchSenderList(searchText, page)"
+                                                        page-limit="vm.senderAsyncPageLimit"
+                                                        total-items="vm.senderTotalResults"
+                                                        ng-change="vm.getSenderDetail(senderIdx)"
+                                                        placeholder="Cari Pengirim">
                                                 </sc-select>
                                             </div>
                                         </div>
@@ -282,7 +260,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kota
+                                                    class="col-sm-3 text-right control-label col-form-label">Kota
                                             </label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
@@ -323,7 +301,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kemasan</label>
+                                                    class="col-sm-3 text-right control-label col-form-label">Kemasan</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.kemasan"
@@ -334,7 +312,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                class="col-sm-3 text-right control-label col-form-label">Tgl.
+                                                    class="col-sm-3 text-right control-label col-form-label">Tgl.
                                                 Masuk</label>
                                             <div class="col-sm-9">
                                                 <input class="form-control"
@@ -351,7 +329,7 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                class="col-sm-3 text-right control-label col-form-label">Krani</label>
+                                                    class="col-sm-3 text-right control-label col-form-label">Krani</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.krani"
@@ -362,7 +340,8 @@
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row p-t-15">
                                             <label
-                                                class="col-sm-3 text-right control-label col-form-label">No. TTB</label>
+                                                    class="col-sm-3 text-right control-label col-form-label">No.
+                                                TTB</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
                                                        ng-model="sender.no_ttb"
@@ -431,7 +410,7 @@
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                class="col-sm-12 text-left control-label col-form-label">Biaya Lain
+                                                    class="col-sm-12 text-left control-label col-form-label">Biaya Lain
                                                 Lain</label>
                                         </div>
                                         <div class="table-responsive">
@@ -470,7 +449,7 @@
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="form-group row">
                                             <label
-                                                class="col-sm-12 text-left control-label col-form-label">Keterangan
+                                                    class="col-sm-12 text-left control-label col-form-label">Keterangan
                                                 Pengirim</label>
                                         </div>
                                         <div class="row">
@@ -516,26 +495,32 @@
                                                     <div class="col-sm-5 text-right">
                                                         <span>Min. Charge</span>
                                                     </div>
-                                                    <div class="col-sm-7 text-left" ng-if="vm.input.tagih_di == 'sender'">
+                                                    <div class="col-sm-7 text-left"
+                                                         ng-if="vm.input.tagih_di == 'sender'">
                                                         <code ng-if="sender.detail.minimum_charge_calculation_id == 1">
-                                                            {{'{{'. 'sender.detail.minimum_charge / 1000' .'}'.'}'}} <span>m<sup>3</sup></span>
+                                                            {{'{{'. 'sender.detail.minimum_charge / 1000' .'}'.'}'}}
+                                                            <span>m<sup>3</sup></span>
                                                         </code>
                                                         <code ng-if="sender.detail.minimum_charge_calculation_id == 2">
                                                             {{'{{'. 'sender.detail.minimum_charge | currency:"Rp.":0' .'}'.'}'}}
                                                         </code>
                                                         <code ng-if="sender.detail.minimum_charge_calculation_id == 3">
-                                                            {{'{{'. 'sender.detail.minimum_charge | currency:"":0' .'}'.'}'}} <span>kg</span>
+                                                            {{'{{'. 'sender.detail.minimum_charge | currency:"":0' .'}'.'}'}}
+                                                            <span>kg</span>
                                                         </code>
                                                     </div>
-                                                    <div class="col-sm-7 text-left" ng-if="vm.input.tagih_di != 'sender'">
+                                                    <div class="col-sm-7 text-left"
+                                                         ng-if="vm.input.tagih_di != 'sender'">
                                                         <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 1">
-                                                            {{'{{'. 'vm.detail.calculation.minimum_charge / 1000' .'}'.'}'}} <span>m<sup>3</sup></span>
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge / 1000' .'}'.'}'}}
+                                                            <span>m<sup>3</sup></span>
                                                         </code>
                                                         <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 2">
                                                             {{'{{'. 'vm.detail.calculation.minimum_charge | currency:"Rp.":0' .'}'.'}'}}
                                                         </code>
                                                         <code ng-if="vm.detail.calculation.minimum_charge_calculation_id == 3">
-                                                            {{'{{'. 'vm.detail.calculation.minimum_charge | currency:"":0' .'}'.'}'}} <span>kg</span>
+                                                            {{'{{'. 'vm.detail.calculation.minimum_charge | currency:"":0' .'}'.'}'}}
+                                                            <span>kg</span>
                                                         </code>
                                                     </div>
                                                 </div>
@@ -601,6 +586,29 @@
                             </div>
                         </div>
                         <div class="card-body ">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="tagih-di"
+                                               class="col-sm-3 text-left control-label col-form-label">
+                                            Tagih di
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select col-sm-5" id="inputGroupSelect01"
+                                                    ng-model="vm.input.tagih_di"
+                                                    ng-init="vm.input.tagih_di = 'recipient'"
+                                                    ng-change="vm.changeCalculation()">
+                                                {{--<option value="">Tagih di</option>--}}
+                                                <option value="recipient">Penerima</option>
+                                                <option value="sender">Pengirim</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+
+                                </div>
+                            </div>
                             <h4 class="card-title m-t-10 p-b-20">Detail Bapb</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12">
