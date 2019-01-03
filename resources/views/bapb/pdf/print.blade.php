@@ -153,11 +153,15 @@
                 @foreach($bapb->senders as $sender)
                     <tr>
                         <td class="table-bordered-body-td" valign="top"
-                            width="20%">{{ $sender->sender->sender_name }}</td>
+                            width="20%">
+                            {{ $sender->sender->sender_name }}
+                            <br>
+{{--                            <span style="font-size: 11px">({{ $sender->sender->sender_address }})</span>--}}
+                        </td>
                         <td class="table-bordered-body-td" colspan="4" style="padding: 0 !important;">
                             <table style="table-layout: fixed;width: 100%;border-collapse: collapse;margin: 0;padding: 0;">
                                 @foreach($sender->items as $item)
-                                    <tr style="margin: 0;padding: 0;">
+                                    <tr>
                                         <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
                                             width="43%">
                                             {{ $item->bapb_sender_item_name }}
