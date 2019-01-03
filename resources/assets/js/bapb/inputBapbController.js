@@ -446,7 +446,7 @@
                 }
             }
 
-            ctrl.senders[idx].total.harga = harga + price_document;
+            ctrl.senders[idx].total.harga = harga;
 
             reCalculateBiayaLainLainSender(idx);
 
@@ -471,6 +471,8 @@
             const minimum_charge_calculation_id = ctrl.detail.calculation.minimum_charge_calculation_id;
             const min_charge = ctrl.detail.calculation.minimum_charge;
 
+            let total_price_document = 0;
+
             ctrl.input.total = {};
             ctrl.input.total.koli = 0;
             ctrl.input.total.dimensi = 0;
@@ -483,6 +485,8 @@
                 ctrl.input.total.berat += parseFloat(i.total ? i.total.berat : 0 || 0);
                 ctrl.input.total.harga += parseFloat(i.total ? i.total.harga : 0 || 0);
                 ctrl.input.total.cost += parseFloat(i.total ? i.total.cost : 0 || 0);
+
+                total_price_document += ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_document : parseInt(i.detail.price_document | 0);
             });
 
             if (ctrl.input.tagih_di !== 'sender') {
@@ -500,13 +504,13 @@
                         break;
                 }
 
-                let harga = ctrl.input.total.harga;
+                let harga = 0;
 
                 if (ctrl.input.total.dimensi !== 0) {
-                    harga = ctrl.input.total.dimensi * price_meter;
+                    harga += ctrl.input.total.dimensi * price_meter;
                 }
                 if (ctrl.input.total.berat !== 0) {
-                    harga = ctrl.input.total.berat * price_ton;
+                    harga += ctrl.input.total.berat * price_ton;
                 }
 
                 if (minimum_charge_calculation_id !== 1 && minimum_charge_calculation_id !== 3) {
@@ -515,8 +519,10 @@
                     }
                 }
 
-                ctrl.input.total.harga = harga + (ctrl.senders.length * price_document);
+                ctrl.input.total.harga = harga;
             }
+
+            ctrl.input.total.harga += total_price_document;
         }
 
         ctrl.senderItemCalculateOld = (idx) => {
