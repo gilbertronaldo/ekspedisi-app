@@ -81,7 +81,7 @@ class BapbController
             GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb
         ";
 
-        return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
+        return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
     }
 
     /**
@@ -124,6 +124,14 @@ class BapbController
             $bapb->tagih_di = $request->input('tagih_di');
             $bapb->ship_id = $request->input('ship_id');
             $bapb->recipient_id = $request->input('recipient_id');
+
+            $total = $request->input('total');
+            $bapb->harga = isset($total['harga']) ? $total['harga'] : 0;
+            $bapb->cost = isset($total['cost']) ? $total['cost'] : 0;
+            $bapb->dimensi = isset($total['dimensi']) ? $total['dimensi'] : 0;
+            $bapb->berat = isset($total['berat']) ? $total['berat'] : 0;
+            $bapb->koli = isset($total['koli']) ? $total['koli'] : 0;
+
             $bapb->save();
 
             $unDeletedSender = [];
@@ -254,9 +262,31 @@ class BapbController
                 ->with('ship')
                 ->findOrFail($bapbId);
 
+            $totalPriceDocument = 0;
+            $totalPrice = 0;
+
             $bapb->senders->each(function ($sender) {
                 $sender->terbilang = $this->terbilang($sender->price);
+
+//                dd($sender->toArray());
+//                $totalPriceDocument += $sender->price_document;
+//                $sender->items->each(function ($item) use ($totalPrice) {
+//                    $totalPrice += $item->total_price;
+//                });
             });
+
+            $bapb->total_price_document = $bapb->senders->reduce(function ($i, $j) use ($bapb) {
+                return $i + (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $j->sender->price_document);
+            });
+
+            $bapb->total_price = $bapb->senders->reduce(function ($i, $j) {
+               return $i + $j->price;
+            });
+
+            $bapb->total_price += $bapb->total_price_document;
+
+            $bapb->terbilang = $this->terbilang($bapb->harga);
+
 
             $data = [
                 'bapb' => $bapb,
@@ -273,6 +303,7 @@ class BapbController
 
     /**
      *
+     * @param int $code
      * @return array
      */
     public function latestBapb($code = 1)
@@ -379,6 +410,6 @@ class BapbController
             GROUP BY no_container, _no_container, A.no_seal, B.no_voyage, B.ship_name, B.sailing_date, destination
         ";
 
-        return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
+        return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
     }
 }

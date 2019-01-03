@@ -61,6 +61,29 @@
             font-size: 14px;
         }
 
+        .table-bordered-body {
+            width: 100%;
+            /*border: 1px solid black;*/
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .table-bordered-body tr th {
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #000000;
+            padding: 7px;
+            text-align: center;
+        }
+
+        .table-bordered-body-td {
+            border: 1px solid #000000;
+            margin: 0;
+            padding: 2px 5px;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
         .d-ib {
             display: inline-block;
         }
@@ -84,8 +107,141 @@
 @include('bapb.pdf.header')
 @include('bapb.pdf.footer')
 
-@foreach($bapb->senders as $sender)
-    <main class="page_break">
+<main class="page_break">
+    <div>
+        <table class="table-bordered">
+            <tr>
+                <td>
+                    PENERIMA
+                    <span class="d-ib" style="width: 3px;"></span>:
+                    <span class="t-b">{{ $bapb->recipient->recipient_name }}</span>
+                </td>
+                <td>
+                    NO. VOY
+                    <span class="d-ib" style="width: 64.2px;"></span>:
+                    <span class="t-b">{{ $bapb->ship->no_voyage }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2" valign="top">ALAMAT
+                    <span class="d-ib" style="width: 14.5px;"></span>:
+                    <span class="t-b">{{ $bapb->recipient->recipient_address }}</span>
+                </td>
+                <td>NAMA KAPAL
+                    <span class="d-ib" style="width: 29px;"></span>:
+                    <span class="t-b">{{ $bapb->ship->ship_name }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>TGL. BERANGKAT
+                    <span class="d-ib" style="width: 1.3px;"></span>:
+                    <span class="t-b">{{ \Carbon\Carbon::parse($bapb->ship->sailing_date)->format('d F Y') }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <div style="margin-top: 10px">
+            <table class="table-bordered-body">
+                <tr>
+                    <th width="20%">PENGIRIM</th>
+                    <th width="43%">JENIS BARANG</th>
+                    <th width="7%">KOLI</th>
+                    <th width="15%">M<sup>3</sup>/TON</th>
+                    <th width="15%">BIAYA</th>
+                </tr>
+                @foreach($bapb->senders as $sender)
+                    <tr>
+                        <td class="table-bordered-body-td" valign="top"
+                            width="20%">{{ $sender->sender->sender_name }}</td>
+                        <td class="table-bordered-body-td" colspan="4" style="padding: 0 !important;">
+                            <table style="table-layout: fixed;width: 100%;border-collapse: collapse;margin: 0;padding: 0;">
+                                @foreach($sender->items as $item)
+                                    <tr style="margin: 0;padding: 0;">
+                                        <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                            width="43%">
+                                            {{ $item->bapb_sender_item_name }}
+                                        </td>
+                                        <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                            width="7%" class="text-center">
+                                            {{ $item->koli }}
+                                        </td>
+                                        <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                            width="15%">
+                                            @if(!is_null($item->berat))
+                                                <span>{{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}</span>
+                                                <span> Ton</span>
+                                            @else
+                                                <span>{{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}</span>
+                                                <span> M<sup>3</sup></span>
+                                            @endif
+                                        </td>
+                                        <td style="border-bottom: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                            width="15%">
+                                            <span>Rp. {{ number_format($item->price, 0, ".", ".") }}</span>
+                                        </td>
+                                @endforeach
+                                @foreach($sender->costs as $cost)
+                                    @if(!is_null($cost->price))
+                                        <tr>
+                                            <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                                colspan="3">{{ $cost->bapb_sender_cost_name }}</td>
+                                            <td style="border-bottom: 1px solid #000000;margin: 0;padding: 2px 5px;">
+                                                <span>Rp. {{ number_format($cost->price, 0, ".", ".") }}</span>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </table>
+                        </td>
+                    </tr>
+                @endforeach
+                <tr style="border-left: none">
+                    <td class="table-bordered-body-td" colspan="3" rowspan="7" valign="bottom"
+                        style="border: none;text-transform: uppercase;">
+                        TERBILANG ( {{ $bapb->terbilang }} RUPIAH )
+                    </td>
+                    <td class="table-bordered-body-td">Dokumen</td>
+                    <td class="table-bordered-body-td">
+                        {{--Rp. {{ number_format(($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $sender->sender->price_document, 0, ".", ".") }}--}}
+                        Rp. {{ number_format($bapb->total_price_document, 0, ".", ".") }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">TOTAL</td>
+                </tr>
+                <tr>
+                    <td class="table-bordered-body-td">Koli</td>
+                    <td class="table-bordered-body-td">{{ $bapb->koli }}</td>
+                </tr>
+                <tr>
+                    <td class="table-bordered-body-td">M<sup>3</sup></td>
+                    <td class="table-bordered-body-td">
+                        <span>{{ number_format($bapb->dimensi, 3, ",", ".") }}</span>
+                        <span> M<sup>3</sup></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-bordered-body-td">Ton</td>
+                    <td class="table-bordered-body-td">
+                        <span>{{ number_format($bapb->berat, 3, ",", ".") }}</span>
+                        <span> Ton</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-bordered-body-td">Biaya</td>
+                    <td class="table-bordered-body-td">Rp. {{ number_format($bapb->harga, 0, ".", ".") }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</main>
+
+{{--@foreach($bapb->senders as $sender)
+    <main>
         <div>
             <table class="table-bordered">
                 <tr>
@@ -183,7 +339,7 @@
             </table>
         </div>
     </main>
-@endforeach
+@endforeach--}}
 
 </body>
 </html>

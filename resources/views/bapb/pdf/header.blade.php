@@ -13,7 +13,7 @@
     <div style="text-align: center;width: 100%;">
         <h4>BERITA ACARA PENYERAHAN BARANG</h4>
     </div>
-    <div style="width: 100%;font-size: 16px;margin: -20px 5px 5px;text-align: left">
+    <div style="width: 100%;font-size: 16px;margin: -30px 5px 5px;text-align: left">
         <span>No.</span>&nbsp;<span class="t-b">{{ $bapb->bapb_no }}</span>
     </div>
 </header>

@@ -14,6 +14,11 @@ namespace App;
  *
  * @property string bapb_no
  * @property string bapb_description
+ * @property integer harga
+ * @property integer cost
+ * @property integer dimensi
+ * @property integer berat
+ * @property integer koli
  *
  * @package App
  */
