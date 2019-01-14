@@ -415,22 +415,17 @@
             });
 
             if (ctrl.input.tagih_di === 'sender') {
-                switch (minimum_charge_calculation_id) {
-                    case 1:
-                        if (ctrl.senders[idx].total.dimensi !== 0) {
-                            if (ctrl.senders[idx].total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
-                                ctrl.senders[idx].total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
-                            }
+                if (minimum_charge_calculation_id === 1 || minimum_charge_calculation_id === 3) {
+                    if (ctrl.senders[idx].total.dimensi !== 0) {
+                        if (ctrl.senders[idx].total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.senders[idx].total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
                         }
-
-                        break;
-                    case 3:
-                        if (ctrl.senders[idx].total.berat !== 0) {
-                            if (ctrl.senders[idx].total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
-                                ctrl.senders[idx].total.berat = parseFloat((min_charge / 1000).toFixed(3));
-                            }
+                    }
+                    if (ctrl.senders[idx].total.berat !== 0) {
+                        if (ctrl.senders[idx].total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.senders[idx].total.berat = parseFloat((min_charge / 1000).toFixed(3));
                         }
-                        break;
+                    }
                 }
             }
 
@@ -491,26 +486,24 @@
                 ctrl.input.total.harga += parseFloat(i.total ? i.total.harga : 0 || 0);
                 ctrl.input.total.cost += parseFloat(i.total ? i.total.cost : 0 || 0);
 
-                total_price_document += ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_document : parseInt(i.detail.price_document | 0);
+                // total_price_document += ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_document : parseInt(i.detail.price_document | 0);
             });
+
+            total_price_document = ctrl.detail.calculation.price_document;
 
             if (ctrl.input.tagih_di !== 'sender') {
 
-                switch (minimum_charge_calculation_id) {
-                    case 1:
-                        if (ctrl.input.total.dimensi !== 0) {
-                            if (ctrl.input.total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
-                                ctrl.input.total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
-                            }
+                if (minimum_charge_calculation_id === 1 || minimum_charge_calculation_id === 3) {
+                    if (ctrl.input.total.dimensi !== 0) {
+                        if (ctrl.input.total.dimensi < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.input.total.dimensi = parseFloat((min_charge / 1000).toFixed(3));
                         }
-                        break;
-                    case 3:
-                        if (ctrl.input.total.berat !== 0) {
-                            if (ctrl.input.total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
-                                ctrl.input.total.berat = parseFloat((min_charge / 1000).toFixed(3));
-                            }
+                    }
+                    if (ctrl.input.total.berat !== 0) {
+                        if (ctrl.input.total.berat < parseFloat((min_charge / 1000).toFixed(3))) {
+                            ctrl.input.total.berat = parseFloat((min_charge / 1000).toFixed(3));
                         }
-                        break;
+                    }
                 }
 
                 let harga = 0;
