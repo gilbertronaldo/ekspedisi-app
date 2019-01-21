@@ -275,9 +275,11 @@ class BapbController
 //                });
             });
 
-            $bapb->total_price_document = $bapb->senders->reduce(function ($i, $j) use ($bapb) {
-                return $i + (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $j->sender->price_document);
-            });
+//            $bapb->total_price_document = $bapb->senders->reduce(function ($i, $j) use ($bapb) {
+//                return $i + (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $j->sender->price_document);
+//            });
+
+            $bapb->total_price_document = $bapb->recipient->price_document;
 
             $bapb->total_price = $bapb->senders->reduce(function ($i, $j) {
                return $i + $j->price;
