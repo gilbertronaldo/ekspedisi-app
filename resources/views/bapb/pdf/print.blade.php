@@ -92,6 +92,10 @@
             font-weight: bold;
         }
 
+        .t-small {
+            font-size: 0.8em;
+        }
+
         .text-center {
             text-align: center;
         }
@@ -114,7 +118,7 @@
                 <td>
                     PENERIMA
                     <span class="d-ib" style="width: 3px;"></span>:
-                    <span class="t-b">{{ $bapb->recipient->recipient_name }}</span>
+                    <span class="t-b">{{ $bapb->recipient->recipient_name_bapb }}</span>
                 </td>
                 <td>
                     NO. VOY
@@ -142,7 +146,7 @@
     </div>
     <div>
         <div style="margin-top: 10px">
-            <table class="table-bordered-body">
+            <table class="table-bordered-body" style="table-layout: fixed">
                 <tr>
                     <th width="20%">PENGIRIM</th>
                     <th width="43%">JENIS BARANG</th>
@@ -150,48 +154,65 @@
                     <th width="15%">M<sup>3</sup>/TON</th>
                     <th width="15%">BIAYA</th>
                 </tr>
-                @foreach($bapb->senders as $sender)
+                @foreach($bapb->senders as $senderIdx => $sender)
                     <tr>
                         <td class="table-bordered-body-td" valign="top"
                             width="20%">
-                            {{ $sender->sender->sender_name }}
+                            {{ $sender->sender->sender_name_bapb }}
                             <br>
-{{--                            <span style="font-size: 11px">({{ $sender->sender->sender_address }})</span>--}}
+                            {{--                            <span style="font-size: 11px">({{ $sender->sender->sender_address }})</span>--}}
                         </td>
-                        <td class="table-bordered-body-td" colspan="4" style="padding: 0 !important;">
-                            <table style="table-layout: fixed;width: 100%;border-collapse: collapse;margin: 0;padding: 0;">
-                                @foreach($sender->items as $item)
+                        <td class="table-bordered-body-td" colspan="4" style="padding: 0;margin: 0;">
+                            <table style="table-layout: fixed;width: 100%;border-collapse: collapse;margin: 0;padding: 0">
+                                @foreach($sender->items as $itemIdx => $item)
                                     <tr>
-                                        <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                        <td style="margin: 0;padding: 2px 5px;"
                                             width="43%">
-                                            {{ $item->bapb_sender_item_name }}
+                                            <span>{{ $item->bapb_sender_item_name }}</span>
+                                            <br>
+                                            @if(!is_null($item->berat))
+                                                <span style="font-size: 0.9em">
+                                                    (berat = {!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span class="t-small">ton</span>)
+                                                </span>
+                                            @else
+                                                <span style="font-size: 0.9em">
+                                                    (dimensi = {!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!}) (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span class="t-small">m<sup>3</sup></span>)
+                                                </span>
+                                            @endif
                                         </td>
-                                        <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                        <td style="margin: 0;padding: 2px 5px;"
                                             width="7%" class="text-center">
                                             {{ $item->koli }}
                                         </td>
-                                        <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                        <td style="margin: 0;padding: 2px 5px;"
                                             width="15%">
                                             @if(!is_null($item->berat))
-                                                <span>{{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}</span>
+                                                <span>
+                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
+                                                    {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
+                                                </span>
                                                 <span> Ton</span>
                                             @else
-                                                <span>{{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}</span>
+                                                <span>
+                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."))) }}</span>
+                                                    {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}
+                                                </span>
                                                 <span> M<sup>3</sup></span>
                                             @endif
                                         </td>
-                                        <td style="border-bottom: 1px solid #000000;margin: 0;padding: 2px 5px;"
-                                            width="15%">
-                                            <span>Rp. {{ number_format($item->price, 0, ".", ".") }}</span>
+                                        <td style="margin: 0;padding: 2px 5px;"
+                                            width="15%"><span>Rp.<span
+                                                        style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
                                         </td>
                                 @endforeach
                                 @foreach($sender->costs as $cost)
                                     @if(!is_null($cost->price))
                                         <tr>
-                                            <td style="border-bottom: 1px solid #000000;border-right: 1px solid #000000;margin: 0;padding: 2px 5px;"
+                                            <td style="margin: 0;padding: 2px 5px;"
                                                 colspan="3">{{ $cost->bapb_sender_cost_name }}</td>
-                                            <td style="border-bottom: 1px solid #000000;margin: 0;padding: 2px 5px;">
-                                                <span>Rp. {{ number_format($cost->price, 0, ".", ".") }}</span>
+                                            <td style="margin: 0;padding: 2px 5px;">
+                                                <span>Rp. <span
+                                                            style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
                                             </td>
                                         </tr>
                                     @endif
@@ -206,9 +227,12 @@
                         TERBILANG ( {{ $bapb->terbilang }} RUPIAH )
                     </td>
                     <td class="table-bordered-body-td">Dokumen</td>
+                    {{--Rp. {{ number_format(($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $sender->sender->price_document, 0, ".", ".") }}--}}
                     <td class="table-bordered-body-td">
-                        {{--Rp. {{ number_format(($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $sender->sender->price_document, 0, ".", ".") }}--}}
-                        Rp. {{ number_format($bapb->total_price_document, 0, ".", ".") }}
+                        <span>
+                            Rp.<span
+                                style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
+                        </span>
                     </td>
                 </tr>
                 <tr>

@@ -265,8 +265,13 @@ class BapbController
             $totalPriceDocument = 0;
             $totalPrice = 0;
 
-            $bapb->senders->each(function ($sender) {
+            $bapb->senders->each(function ($sender) use ($bapb) {
                 $sender->terbilang = $this->terbilang($sender->price);
+
+                $sender->items->each(function ($item) use ($bapb, $sender) {
+                    $item->price_ton = (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_ton : $sender->price_ton);
+                    $item->price_meter = (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_meter : $sender->price_meter);
+                });
 
 //                dd($sender->toArray());
 //                $totalPriceDocument += $sender->price_document;
