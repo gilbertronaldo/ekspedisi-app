@@ -172,11 +172,12 @@
                                             <br>
                                             @if(!is_null($item->berat))
                                                 <span style="font-size: 0.9em">
-                                                    (berat = {!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span class="t-small">ton</span>)
+                                                    ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span class="t-small">ton</span>)
                                                 </span>
                                             @else
                                                 <span style="font-size: 0.9em">
-                                                    (dimensi = {!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!}) (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span class="t-small">m<sup>3</sup></span>)
+                                                    ({!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!} =  {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }} <span class="t-small">m<sup>3</sup></span>)
+                                                    (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span class="t-small">m<sup>3</sup></span>)
                                                 </span>
                                             @endif
                                         </td>
