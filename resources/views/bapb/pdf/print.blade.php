@@ -172,12 +172,16 @@
                                             <br>
                                             @if(!is_null($item->berat))
                                                 <span style="font-size: 0.9em">
-                                                    ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span class="t-small">ton</span>)
+                                                    ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span
+                                                            class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                                            class="t-small">ton</span>)
                                                 </span>
                                             @else
                                                 <span style="font-size: 0.9em">
-                                                    ({!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!} =  {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }} <span class="t-small">m<sup>3</sup></span>)
-                                                    (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span class="t-small">m<sup>3</sup></span>)
+                                                    ({!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!} =  {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }} <span
+                                                            class="t-small">m<sup>3</sup></span>)
+                                                    (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
+                                                            class="t-small">m<sup>3</sup></span>)
                                                 </span>
                                             @endif
                                         </td>
@@ -222,19 +226,34 @@
                         </td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td colspan="3">
+                        @if($bapb->tagih_di == 'recipient' && $bapb->total_price != ($bapb->harga + $bapb->cost))
+                            @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
+                                <span style="font-weight: normal;font-size: 14px;">
+                                    Minimal Charge = Rp. {{ number_format($bapb->recipient->minimum_charge, 0, ".", ".") }}
+                                </span>
+                            @else
+                                <span style="font-weight: normal;font-size: 14px;">
+                                    Minimal Charge = {{ number_format($bapb->recipient->minimum_charge / 1000, 3, ",", ".") }} ton/m3
+                                </span>
+                            @endif
+                        @endif
+                    </td>
+                    <td class="table-bordered-body-td">Dokumen</td>
+                    <td class="table-bordered-body-td">
+                        <span>
+                        Rp.<span style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
+                    </span>
+                    </td>
+                </tr>
                 <tr style="border-left: none">
                     <td class="table-bordered-body-td" colspan="3" rowspan="7" valign="bottom"
                         style="border: none;text-transform: uppercase;">
                         TERBILANG ( {{ $bapb->terbilang }} RUPIAH )
                     </td>
-                    <td class="table-bordered-body-td">Dokumen</td>
-                    {{--Rp. {{ number_format(($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $sender->sender->price_document, 0, ".", ".") }}--}}
-                    <td class="table-bordered-body-td">
-                        <span>
-                            Rp.<span
-                                style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
-                        </span>
-                    </td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
                 </tr>
                 <tr>
                     <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">&nbsp;</td>
@@ -262,7 +281,7 @@
                 </tr>
                 <tr>
                     <td class="table-bordered-body-td">Biaya</td>
-                    <td class="table-bordered-body-td">Rp. {{ number_format($bapb->harga, 0, ".", ".") }}</td>
+                    <td class="table-bordered-body-td">Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</td>
                 </tr>
             </table>
         </div>

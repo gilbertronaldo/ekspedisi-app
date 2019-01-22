@@ -262,9 +262,6 @@ class BapbController
                 ->with('ship')
                 ->findOrFail($bapbId);
 
-            $totalPriceDocument = 0;
-            $totalPrice = 0;
-
             $bapb->senders->each(function ($sender) use ($bapb) {
                 $sender->terbilang = $this->terbilang($sender->price);
 
@@ -272,17 +269,7 @@ class BapbController
                     $item->price_ton = (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_ton : $sender->price_ton);
                     $item->price_meter = (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_meter : $sender->price_meter);
                 });
-
-//                dd($sender->toArray());
-//                $totalPriceDocument += $sender->price_document;
-//                $sender->items->each(function ($item) use ($totalPrice) {
-//                    $totalPrice += $item->total_price;
-//                });
             });
-
-//            $bapb->total_price_document = $bapb->senders->reduce(function ($i, $j) use ($bapb) {
-//                return $i + (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_document : $j->sender->price_document);
-//            });
 
             $bapb->total_price_document = $bapb->recipient->price_document;
 
