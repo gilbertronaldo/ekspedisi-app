@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/libs/angular-moment-picker/angular-moment-picker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/libs/datatables/media/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('dist/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
 
     <style>
         .page-wrapper .container-fluid {

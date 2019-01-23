@@ -169,20 +169,22 @@
                                         <td style="margin: 0;padding: 2px 5px;"
                                             width="43%">
                                             <span>{{ $item->bapb_sender_item_name }}</span>
-                                            <br>
-                                            @if(!is_null($item->berat))
-                                                <span style="font-size: 0.9em">
+                                            @if(!$bapb->kena_min_charge)
+                                                <br>
+                                                @if(!is_null($item->berat))
+                                                    <span style="font-size: 0.9em">
                                                     ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span
-                                                            class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
-                                                            class="t-small">ton</span>)
+                                                                class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                                                class="t-small">ton</span>)
                                                 </span>
-                                            @else
-                                                <span style="font-size: 0.9em">
+                                                @else
+                                                    <span style="font-size: 0.9em">
                                                     ({!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!} =  {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }} <span
-                                                            class="t-small">m<sup>3</sup></span>)
+                                                                class="t-small">m<sup>3</sup></span>)
                                                     (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
-                                                            class="t-small">m<sup>3</sup></span>)
+                                                                class="t-small">m<sup>3</sup></span>)
                                                 </span>
+                                                @endif
                                             @endif
                                         </td>
                                         <td style="margin: 0;padding: 2px 5px;"
@@ -191,23 +193,28 @@
                                         </td>
                                         <td style="margin: 0;padding: 2px 5px;"
                                             width="15%">
-                                            @if(!is_null($item->berat))
-                                                <span>
+                                            @if(!$bapb->kena_min_charge)
+                                                @if(!is_null($item->berat))
+                                                    <span>
                                                     <span style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
                                                 </span>
-                                                <span> Ton</span>
-                                            @else
-                                                <span>
+                                                    <span> Ton</span>
+                                                @else
+                                                    <span>
                                                     <span style="color: white;">{{ substr(str_pad(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}
                                                 </span>
-                                                <span> M<sup>3</sup></span>
+                                                    <span> M<sup>3</sup></span>
+                                                @endif
                                             @endif
                                         </td>
                                         <td style="margin: 0;padding: 2px 5px;"
-                                            width="15%"><span>Rp.<span
-                                                        style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
+                                            width="15%">
+                                            @if(!$bapb->kena_min_charge)
+                                                <span>Rp.<span
+                                                            style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
+                                            @endif
                                         </td>
                                 @endforeach
                                 @foreach($sender->costs as $cost)
@@ -228,7 +235,7 @@
                 @endforeach
                 <tr>
                     <td colspan="3">
-                        @if($bapb->tagih_di == 'recipient' && $bapb->total_price != ($bapb->harga + $bapb->cost))
+                        @if($bapb->kena_min_charge)
                             @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
                                 <span style="font-weight: normal;font-size: 14px;">
                                     Minimal Charge = Rp. {{ number_format($bapb->recipient->minimum_charge, 0, ".", ".") }}
@@ -237,6 +244,21 @@
                                 <span style="font-weight: normal;font-size: 14px;">
                                     Minimal Charge = {{ number_format($bapb->recipient->minimum_charge / 1000, 3, ",", ".") }} ton/m3
                                 </span>
+                                <br>
+                                @if($bapb->berat != 0)
+                                    <span style="font-weight: normal;font-size: 14px;">
+                                        Harga =
+                                        <span
+                                                class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                                class="t-small">ton</span>
+                                    </span>
+                                @else
+                                    <span style="font-weight: normal;font-size: 14px;">
+                                        Harga =
+                                        <span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
+                                                class="t-small">m<sup>3</sup></span>
+                                    </span>
+                                @endif
                             @endif
                         @endif
                     </td>
@@ -281,7 +303,8 @@
                 </tr>
                 <tr>
                     <td class="table-bordered-body-td">Biaya</td>
-                    <td class="table-bordered-body-td">Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</td>
+                    <td class="table-bordered-body-td">
+                        Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</td>
                 </tr>
             </table>
         </div>

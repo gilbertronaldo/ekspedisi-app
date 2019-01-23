@@ -281,6 +281,8 @@ class BapbController
 
             $bapb->terbilang = $this->terbilang($bapb->harga);
 
+            $bapb->kena_min_charge = $bapb->tagih_di == 'recipient' && $bapb->total_price != ($bapb->harga + $bapb->cost);
+
 
             $data = [
                 'bapb' => $bapb,
