@@ -609,6 +609,26 @@
 
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="show-calculation"
+                                               class="col-sm-3 text-left control-label col-form-label">
+                                            Tampilkan Kalkulasi
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select col-sm-5" id="show-calculation"
+                                                    ng-model="vm.input.show_calculation"
+                                                    ng-init="vm.input.show_calculation = true"
+                                                    ng-options="o.v as o.n for o in [{ n: 'Tidak', v: false }, { n: 'Ya', v: true }]">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+
+                                </div>
+                            </div>
                             <h4 class="card-title m-t-10 p-b-20">Detail Bapb</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12">

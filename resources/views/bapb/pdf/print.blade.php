@@ -169,7 +169,7 @@
                                         <td style="margin: 0;padding: 2px 5px;"
                                             width="43%">
                                             <span>{{ $item->bapb_sender_item_name }}</span>
-                                            @if(!$bapb->kena_min_charge)
+                                            @if($bapb->show_calculation)
                                                 <br>
                                                 @if(!is_null($item->berat))
                                                     <span style="font-size: 0.9em">
@@ -193,7 +193,7 @@
                                         </td>
                                         <td style="margin: 0;padding: 2px 5px;"
                                             width="15%">
-                                            @if(!$bapb->kena_min_charge)
+                                            @if($bapb->show_calculation)
                                                 @if(!is_null($item->berat))
                                                     <span>
                                                     <span style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
@@ -211,7 +211,7 @@
                                         </td>
                                         <td style="margin: 0;padding: 2px 5px;"
                                             width="15%">
-                                            @if(!$bapb->kena_min_charge)
+                                            @if($bapb->show_calculation)
                                                 <span>Rp.<span
                                                             style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
                                             @endif

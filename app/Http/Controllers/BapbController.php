@@ -124,6 +124,7 @@ class BapbController
             $bapb->tagih_di = $request->input('tagih_di');
             $bapb->ship_id = $request->input('ship_id');
             $bapb->recipient_id = $request->input('recipient_id');
+            $bapb->show_calculation = $request->input('show_calculation');
 
             $total = $request->input('total');
             $bapb->harga = isset($total['harga']) ? $total['harga'] : 0;
