@@ -36,14 +36,14 @@
     <thead>
     <tr style="background-color: yellow;">
         <th>NO</th>
-        <th>NO BAPB</th>
+        <th>TGL. MASUK</th>
         <th>PENERIMA</th>
         <th>PENGIRIM</th>
         <th>JML/KOLI</th>
         <th>JENIS BARANG</th>
         <th>KEMASAN</th>
         <th>KET</th>
-        <th>HARGA</th>
+        <th>TOTAL</th>
     </tr>
     </thead>
     <tbody>
@@ -57,7 +57,9 @@
             <td>{{ $item->bapb_sender_item_name }}</td>
             <td>{{ $item->kemasan }}</td>
             <td>{{ $item->description }}</td>
-            <td>{{ $item->price }}</td>
+            <td>{!! $item->berat == 0 ? (float)($item->dimensi / 1000000 * $item->koli) . ' <span
+                                                class="t-small">m<sup>3</sup></span>' : (float)($item->berat / 1000 * $item->koli) . '<span
+                                                class="t-small">ton</span>'!!}</td>
         </tr>
     @endforeach
     </tbody>

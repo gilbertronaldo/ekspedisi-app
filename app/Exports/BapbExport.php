@@ -80,7 +80,9 @@ class BapbExport implements FromView, WithEvents
                    E.koli, E.bapb_sender_item_name,
                    C.kemasan,
                    C.description,
-                   C.price
+                   C.price,
+                   (E.panjang * E.lebar * E.tinggi) AS dimensi,
+                   E.berat AS berat
             FROM tr_bapb A
             INNER JOIN ms_recipient B
               ON A.recipient_id = B.recipient_id
@@ -96,7 +98,9 @@ class BapbExport implements FromView, WithEvents
               AND E.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
             AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
-            GROUP BY C.entry_date, B.recipient_name, D.sender_name, E.koli, E.bapb_sender_item_name, C.kemasan, C.description, C.price
+            GROUP BY C.entry_date, B.recipient_name, D.sender_name, E.koli, 
+                     E.bapb_sender_item_name, C.kemasan, C.description, C.price,
+                     E.panjang, E.lebar, E.tinggi, E.berat
         ");
         return $get;
     }
