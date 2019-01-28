@@ -29,7 +29,7 @@ class CreateTableTrInvoiceBapb extends Migration
               $table->timestamps();
               $table->softDeletes();
 
-              $table->foreign('invoice_id','tr_invoice_bapb_invoice_id_fk')->references('invoice_id')->on('ms_invoice');
+              $table->foreign('invoice_id','tr_invoice_bapb_invoice_id_fk')->references('invoice_id')->on('tr_invoice');
               $table->foreign('bapb_id','tr_invoice_bapb_bapb_id_fk')->references('bapb_id')->on('tr_bapb');
           }
         );

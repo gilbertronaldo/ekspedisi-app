@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableMsInvoice extends Migration
+class CreateTableTrInvoice extends Migration
 {
 
     /**
@@ -15,7 +15,7 @@ class CreateTableMsInvoice extends Migration
     public function up()
     {
         Schema::create(
-          'ms_invoice',
+          'tr_invoice',
           function (Blueprint $table)
           {
               $table->bigIncrements('invoice_id');
@@ -38,6 +38,6 @@ class CreateTableMsInvoice extends Migration
      */
     public function down()
     {
-        Schema::drop('ms_invoice');
+        Schema::drop('tr_invoice');
     }
 }
