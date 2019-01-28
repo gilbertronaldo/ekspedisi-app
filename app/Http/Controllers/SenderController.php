@@ -15,7 +15,7 @@ use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SenderController
+class SenderController extends Controller
 {
     public function all(Request $request)
     {

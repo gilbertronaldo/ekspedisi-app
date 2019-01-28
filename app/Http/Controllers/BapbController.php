@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
-class BapbController
+class BapbController extends Controller
 {
     /**
      * get new bapb no

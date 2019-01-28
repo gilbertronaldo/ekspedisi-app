@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group([], function () {
     Route::prefix('master')->group(function () {
         Route::get('/city', 'MasterController@cityList');
         Route::get('/country', 'MasterController@countryList');
@@ -43,6 +43,12 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/generate/{id}', 'BapbController@generatePrint')->where('id', '[0-9]+');
         Route::get('/export/{noContainer}', 'BapbController@exportExcel');
     });
+
+    Route::prefix('invoice')->group(function () {
+        Route::get('/no', 'InvoiceController@no');
+        Route::get('/generate/{invoiceId}', 'InvoiceController@generatePrint');
+    });
+
 
     Route::get('/container', 'BapbController@container');
 });

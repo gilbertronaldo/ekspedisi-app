@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-class RecipientController
+class RecipientController extends Controller
 {
 
     public function all(Request $request)

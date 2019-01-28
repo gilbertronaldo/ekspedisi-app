@@ -113,7 +113,48 @@
 
 <main class="page_break">
     <div>
-
+        <span>Dengan Hormat,</span>
+        <br>
+        <span>Bersama ini kami kirimkan perincian tagihan sebagai berikut: </span>
+    </div>
+    <div style="margin-top: 10px">
+        <table class="table-bordered-body" style="table-layout: fixed">
+            <tr>
+                <th width="7%">NO</th>
+                <th width="10%">NO. BAPB</th>
+                <th width="10%">NO. CONT</th>
+                <th width="10%">TUJUAN</th>
+                <th width="10%">TGL BRKT</th>
+                <th width="38%">PENGIRIM</th>
+                <th width="15%">Jumlah (Rp)</th>
+            </tr>
+            @foreach($bapbList as $bapbIdx => $bapb)
+                <tr>
+                    <td class="table-bordered-body-td text-center" valign="middle">
+                        {{ $bapbIdx + 1 }}
+                    </td>
+                    <td class="table-bordered-body-td text-center" valign="middle">
+                        {{ $bapb->bapb_no }}
+                    </td>
+                    <td class="table-bordered-body-td text-center" valign="middle">
+                        {{ $bapb->no_container }}
+                    </td>
+                    <td class="table-bordered-body-td text-center" valign="middle">
+                        {{ $bapb->destination }}
+                    </td>
+                    <td class="table-bordered-body-td text-center" valign="middle">
+                        {{ $bapb->sailing_date }}
+                    </td>
+                    <td class="table-bordered-body-td" valign="middle">
+                        {{ $bapb->senders }}
+                    </td>
+                    <td class="table-bordered-body-td" valign="middle">
+                        <span>Rp. <span
+                                style="color: white;">{{ substr(str_pad(number_format($bapb->total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total, 0, ".", "."))) }}</span>{{ number_format($bapb->total, 0, ".", ".") }}
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </div>
 </main>
 
