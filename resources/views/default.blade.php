@@ -11,13 +11,12 @@
 
     <title>Dashboard</title>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.css">
-    <link rel="stylesheet" href="https://singlecomm.github.io/angular-sc-select/dist/sc-select.min.css">
+    {{--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>--}}
+    {{--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'/>--}}
+    <link rel="stylesheet" href="{{ URL::asset('css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/select.min.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/sc-select.min.css') }}"/>
     <link rel="stylesheet" href="{{ URL::asset('assets/libs/angular-moment-picker/angular-moment-picker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/libs/datatables/media/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('dist/css/style.min.css') }}">
@@ -37,8 +36,8 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="{{ URL::asset('js/html5shiv.js') }}"></script>
+    <script src="{{ URL::asset('js/respond.min.js') }}"></script>
     <![endif]-->
 </head>
 <body ng-app="Ekspedisi.app">
