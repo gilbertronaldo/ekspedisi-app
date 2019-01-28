@@ -57,8 +57,8 @@
             <td>{{ $item->bapb_sender_item_name }}</td>
             <td>{{ $item->kemasan }}</td>
             <td>{{ $item->description }}</td>
-            <td>{!! $item->berat == 0 ? (float)($item->dimensi / 1000000 * $item->koli) . ' <span
-                                                class="t-small">m<sup>3</sup></span>' : (float)($item->berat / 1000 * $item->koli) . '<span
+            <td>{!! $item->berat == 0 ? sprintf("%.3f", ($item->dimensi / 1000000 * $item->koli)) . ' <span
+                                                class="t-small">m<sup>3</sup></span>' : sprintf("%.3f", ($item->berat / 1000 * $item->koli)) . '<span
                                                 class="t-small">ton</span>'!!}</td>
         </tr>
     @endforeach
