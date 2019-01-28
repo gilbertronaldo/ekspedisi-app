@@ -18,13 +18,24 @@
         'BapbService'
     ];
 
-    function InvoiceController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, SenderService, BapbService) {
+    function InvoiceController(
+        $state,
+        $scope,
+        swangular,
+        $q,
+        DTOptionsBuilder,
+        DTColumnBuilder,
+        $localStorage,
+        $compile,
+        SenderService,
+        BapbService
+    ) {
         let vm = this;
 
         vm.dtInstance = {};
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
-                url: '/api/bapb/',
+                url: '/api/bapb',
                 type: 'GET',
                 'beforeSend': function (request) {
                     request.setRequestHeader("Authorization", 'Bearer ' + $localStorage.currentUser.access_token);

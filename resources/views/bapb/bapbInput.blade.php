@@ -15,7 +15,7 @@
                                 <a ui-sref="home">Transaction</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a ui-sref="bapb.view">Bapb</a>
+                                <a ui-sref="admin.bapb">Bapb</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Input Bapb</li>
                         </ol>

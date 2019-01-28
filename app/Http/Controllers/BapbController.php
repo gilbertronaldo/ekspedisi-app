@@ -66,7 +66,8 @@ class BapbController
 
         $query = "
           SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, A.no_seal,
-              B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb
+              B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb,
+              COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total
             FROM tr_bapb A
             INNER JOIN ms_ship B
               ON A.ship_id = B.ship_id
@@ -78,7 +79,8 @@ class BapbController
               ON A.bapb_id = D.bapb_id
               AND D.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
-            GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb
+            GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb,
+                     A.harga, A.berat
         ";
 
         return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
