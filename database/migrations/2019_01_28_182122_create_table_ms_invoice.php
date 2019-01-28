@@ -19,7 +19,7 @@ class CreateTableMsInvoice extends Migration
           function (Blueprint $table)
           {
               $table->bigIncrements('invoice_id');
-              $table->string('bapb_no', 10);
+              $table->string('invoice_no', 10);
 
               $table->boolean('is_paid')->default(FALSE);
               $table->integer('payment_total')->default(0);
