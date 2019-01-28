@@ -87,4 +87,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('container', function () {
         return view('bapb.container');
     });
+
+    Route::prefix('invoice')->group(function () {
+        Route::get('/', function () {
+            return view('invoice.invoice');
+        });
+
+        Route::get('/input', function () {
+            return view('invoice.invoiceInput');
+        });
+    });
 });

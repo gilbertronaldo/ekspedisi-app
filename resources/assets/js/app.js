@@ -40,3 +40,8 @@ require('./bapb/bapbService.js');
 require('./bapb/bapbController.js');
 require('./bapb/containerController.js');
 require('./bapb/inputBapbController.js');
+
+require('./invoice/invoice.js');
+require('./invoice/invoiceService.js');
+require('./invoice/invoiceController.js');
+require('./invoice/inputInvoiceController.js');
