@@ -95,9 +95,34 @@
                             <h4 class="card-title m-t-10 p-b-20">List BAPB Penerima</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12">
-                                    <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
-                                           dt-instance="vm.dtInstance" class="row-border hover" width="100%"
-                                           cellspacing="0">
+                                    {{--<table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"--}}
+                                           {{--dt-instance="vm.dtInstance" class="row-border hover" width="100%"--}}
+                                           {{--cellspacing="0">--}}
+                                    {{--</table>--}}
+                                    <table class="table table-bordered table-responsive">
+                                        <tr>
+                                            <th>No BAPB</th>
+                                            <th>No Cont</th>
+                                            <th>Tujuan</th>
+                                            <th>Tgl Brngkt</th>
+                                            <th>Pengirim</th>
+                                            <th>Jumlah (Rp)</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <tr ng-repeat="bapb in vm.bapbList track by bapb.bapb_id">
+                                            <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-xs"
+                                                        ng-click="vm.addBapb(bapb)">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -119,13 +144,13 @@
                                         <tr ng-repeat="bapb in vm.newBapbList track by bapb.bapb_id">
                                             <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>
                                             <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
                                             <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
                                             <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
                                             <td>
                                                 <button class="btn btn-danger btn-xs"
-                                                        ng-click="vm.removeBapb($index)">
+                                                        ng-click="vm.removeBapb(bapb)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </td>
@@ -138,11 +163,11 @@
                                     <div class="form-group row">
                                         <label for="voice-no"
                                                class="col-sm-3 text-left control-label col-form-label">
-                                            No Voice
+                                            No invoice
                                         </label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="voice-no"
-                                                   placeholder="Input Nomor Voice" ng-model="vm.input.voice_no"
+                                            <input type="text" class="form-control" id="invoice-no"
+                                                   placeholder="Input Nomor invoice" ng-model="vm.input.invoice_no"
                                                    ng-disabled="true">
                                         </div>
                                     </div>

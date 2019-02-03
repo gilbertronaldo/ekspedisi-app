@@ -12,8 +12,9 @@ namespace App;
 /**
  * Class TrBapb
  *
- * @property string bapb_no
- * @property string bapb_description
+ * @property integer bapb_id
+ * @property string  bapb_no
+ * @property string  bapb_description
  * @property integer harga
  * @property integer cost
  * @property integer dimensi
@@ -24,8 +25,11 @@ namespace App;
  */
 class TrBapb extends BaseModel
 {
+
     protected $primaryKey = 'bapb_id';
+
     protected $table = 'tr_bapb';
+
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
 

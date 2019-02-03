@@ -12,12 +12,21 @@ namespace App;
 /**
  * Class TrInvoice
  *
+ * @property integer invoice_id
+ * @property string  invoice_no
+ * @property boolean is_paid
+ * @property integer payment_total
+ * @property \Carbon\Carbon payment_date
+ *
  * @package App
  */
 class TrInvoice extends BaseModel
 {
+
     protected $primaryKey = 'invoice_id';
+
     protected $table = 'tr_invoice';
+
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     public function invoiceBapb()

@@ -45,7 +45,9 @@ Route::group([], function () {
     });
 
     Route::prefix('invoice')->group(function () {
+        Route::post('/bapb-list', 'InvoiceController@bapbList');
         Route::get('/no', 'InvoiceController@no');
+        Route::post('/', 'InvoiceController@store');
         Route::get('/generate/{invoiceId}', 'InvoiceController@generatePrint');
     });
 

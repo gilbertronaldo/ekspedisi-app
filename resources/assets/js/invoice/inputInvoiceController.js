@@ -20,7 +20,8 @@
         '$http',
         'RecipientService',
         'SenderService',
-        'BapbService'
+        'BapbService',
+        'InvoiceService'
     ];
 
     function InputInvoiceController(
@@ -38,7 +39,8 @@
         $http,
         RecipientService,
         SenderService,
-        BapbService
+        BapbService,
+        InvoiceService
     ) {
         let vm = this;
         vm.input = {};
@@ -53,6 +55,7 @@
         vm.detail = {};
         vm.id = $stateParams.id;
 
+        vm.bapbList = [];
         vm.newBapbList = [];
 
         function resetForm() {
@@ -62,77 +65,91 @@
 
         function init() {
             if (!vm.id) {
+                noInvoice();
             } else {
             }
         }
 
         init();
 
-        vm.dtInstance = {};
-        vm.dtOptions = DTOptionsBuilder.newOptions()
-            .withOption('ajax', {
-                url: '/api/bapb?recipient_id=' + vm.input.recipient_id,
-                type: 'GET',
-                'beforeSend': function (request) {
-                    request.setRequestHeader("Authorization", 'Bearer ' + $localStorage.currentUser.access_token);
-                },
-                data: function (search) {
-                    // fine tune what you need to send back here.
-                    search.recipient_id = vm.input.recipient;
-                    return search;
-                },
-                dataSrc: json => {
-                    vm.bapbList = json.data;
-                    return vm.bapbList;
-                }
+        // vm.dtInstance = {};
+        // vm.dtOptions = DTOptionsBuilder.newOptions()
+        //     .withOption('ajax', {
+        //         url: '/api/bapb?recipient_id=' + vm.input.recipient_id,
+        //         type: 'GET',
+        //         'beforeSend': function (request) {
+        //             request.setRequestHeader("Authorization", 'Bearer ' + $localStorage.currentUser.access_token);
+        //         },
+        //         data: function (search) {
+        //             // fine tune what you need to send back here.
+        //             search.recipient_id = vm.input.recipient;
+        //             return search;
+        //         },
+        //         dataSrc: json => {
+        //             vm.bapbList = json.data;
+        //             return vm.bapbList;
+        //         }
+        //     })
+        //     .withOption('order', [0, 'desc'])
+        //     .withOption('lengthMenu', [[10, 25, 50, 100, 1000, -1], [10, 25, 50, 100, 1000, 'All']])
+        //     .withDataProp('data')
+        //     .withOption('processing', true)
+        //     .withOption('serverSide', true)
+        //     .withPaginationType('full_numbers')
+        //     .withOption('createdRow', createdRow)
+        // vm.dtColumns = [
+        //     DTColumnBuilder.newColumn('bapb_no').withTitle('No Bapb'),
+        //     DTColumnBuilder.newColumn('no_voyage').withTitle('Deskripsi'),
+        //     DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Penerima'),
+        //     DTColumnBuilder.newColumn('no_container').withTitle('No Container'),
+        //     DTColumnBuilder.newColumn('no_seal').withTitle('Seal'),
+        //     DTColumnBuilder.newColumn('no_ttb').withTitle('No. TTB'),
+        //     DTColumnBuilder.newColumn('total').withTitle('Jumlah (Rp)'),
+        //     DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
+        // ];
+        //
+        // function createdRow(row, data, dataIndex) {
+        //     $compile(angular.element(row).contents())($scope);
+        // }
+        //
+        // // Action buttons added to the last column: to edit and to delete rows
+        // function actionButtons(data, type, full, meta) {
+        //     return '<button class="btn btn-info btn-xs" ng-click="vm.addBapb(' + data.bapb_id + ')">' +
+        //         '   <i class="fa fa-check"></i>' +
+        //         '</button>&nbsp;'
+        // }
+
+        function noInvoice() {
+            InvoiceService.no()
+                .then(function (result) {
+                    vm.input.invoice_no = result.data;
+                    vm.input.invoice_no = result.data;
+                });
+        }
+
+        function getBapbList() {
+            InvoiceService.getBapbList({
+                recipient_id: vm.input.recipient_id
             })
-            .withOption('order', [0, 'desc'])
-            .withOption('lengthMenu', [[10, 25, 50, 100, 1000, -1], [10, 25, 50, 100, 1000, 'All']])
-            .withDataProp('data')
-            .withOption('processing', true)
-            .withOption('serverSide', true)
-            .withPaginationType('full_numbers')
-            .withOption('createdRow', createdRow)
-        vm.dtColumns = [
-            DTColumnBuilder.newColumn('bapb_no').withTitle('No Bapb'),
-            DTColumnBuilder.newColumn('no_voyage').withTitle('Deskripsi'),
-            DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Penerima'),
-            DTColumnBuilder.newColumn('no_container').withTitle('No Container'),
-            DTColumnBuilder.newColumn('no_seal').withTitle('Seal'),
-            DTColumnBuilder.newColumn('no_ttb').withTitle('No. TTB'),
-            DTColumnBuilder.newColumn('total').withTitle('Jumlah (Rp)'),
-            DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
-        ];
-
-        function createdRow(row, data, dataIndex) {
-            $compile(angular.element(row).contents())($scope);
+                .then(function (result) {
+                    vm.bapbList = result.data.bapbList;
+                });
         }
 
-        // Action buttons added to the last column: to edit and to delete rows
-        function actionButtons(data, type, full, meta) {
-            return '<button class="btn btn-info btn-xs" ng-click="vm.addBapb(' + data.bapb_id + ')">' +
-                '   <i class="fa fa-check"></i>' +
-                '</button>&nbsp;'
-        }
-
-        vm.addBapb = id => {
-            const bapb = vm.newBapbList.find(i => i.bapb_id === id);
-            if (bapb) {
+        vm.addBapb = bapb => {
+            const dup = vm.newBapbList.find(i => i === bapb);
+            if (dup) {
                 return;
             }
 
-            BapbService.get(id)
-                .then(res => {
-                    vm.newBapbList.push(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+            vm.bapbList.splice(vm.bapbList.indexOf(bapb), 1);
+
+            vm.newBapbList.push(bapb);
         };
 
-        vm.removeBapb = idx => {
-            vm.newBapbList.splice(idx, 1);
-            console.log(vm.newBapbList);
+        vm.removeBapb = bapb => {
+            vm.newBapbList.splice(vm.newBapbList.indexOf(bapb), 1);
+            vm.bapbList.push(bapb);
         };
 
         vm.recipientAsyncPageLimit = 20;
@@ -164,30 +181,33 @@
             // vm.dtInstance.reloadData();
 
             vm.detail.recipient = vm.detail.recipientList.find(i => i.recipient_id === vm.input.recipient_id);
+
+            getBapbList();
         };
 
 
         vm.onSubmit = () => {
-            let data = vm.input;
-            data.senders = vm.senders;
+            let data = {
+                invoice_no: vm.input.invoice_no,
+                bapb_list: vm.newBapbList.map(i => i.bapb_id)
+            };
 
             // if (!bapbIsValid(data)) {
             //     return;
             // }
 
-            swangular.confirm('Konfirmasi BAPB', {
+            swangular.confirm('Konfirmasi INVOICE', {
                 showCancelButton: true,
                 preConfirm: () => {
-                    console.log(data);
-                    BapbService.store(data)
+                    InvoiceService.store(data)
                         .then(res => {
                             if (res.status == 'OK') {
-                                swangular.success("Berhasil Menyimpan BAPB", {
+                                swangular.success("Berhasil Menyimpan INVOICE", {
                                     preConfirm: function () {
                                         if (!vm.id) {
                                             $state.reload();
                                         } else {
-                                            $state.go('admin.bapb');
+                                            $state.go('admin.invoice');
                                         }
                                     }
                                 });

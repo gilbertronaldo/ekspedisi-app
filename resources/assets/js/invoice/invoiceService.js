@@ -11,8 +11,16 @@
             no: no,
             store: store,
             delete: _delete,
-            latest: latest
+            latest: latest,
+            getBapbList: getBapbList
         };
+
+        function getBapbList(param) {
+            return $http.post(`/api/invoice/bapb-list`, param)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
 
         function get(id = '') {
             return $http.get(`/api/bapb/${id}`)
@@ -21,15 +29,15 @@
                 });
         }
 
-        function no(code) {
-            return $http.get(`/api/bapb/no/${code}`)
+        function no() {
+            return $http.get(`/api/invoice/no`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
         }
 
         function store(input) {
-            return $http.post(`/api/bapb`, input)
+            return $http.post(`/api/invoice`, input)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
