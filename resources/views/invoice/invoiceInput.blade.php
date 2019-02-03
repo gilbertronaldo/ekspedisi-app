@@ -109,6 +109,9 @@
                                             <th>Jumlah (Rp)</th>
                                             <th>Status</th>
                                         </tr>
+                                        <tr ng-if="vm.bapbList.length == 0">
+                                            <td colspan="7">Tidak ada data BAPB tersedia</td>
+                                        </tr>
                                         <tr ng-repeat="bapb in vm.bapbList track by bapb.bapb_id">
                                             <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>
                                             <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
@@ -140,6 +143,9 @@
                                             <th>Pengirim</th>
                                             <th>Jumlah (Rp)</th>
                                             <th>Status</th>
+                                        </tr>
+                                        <tr ng-if="vm.newBapbList.length == 0">
+                                            <td colspan="7">Pilih BAPB</td>
                                         </tr>
                                         <tr ng-repeat="bapb in vm.newBapbList track by bapb.bapb_id">
                                             <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>

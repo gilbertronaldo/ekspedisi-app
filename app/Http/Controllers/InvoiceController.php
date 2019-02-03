@@ -100,7 +100,12 @@ class InvoiceController extends Controller
                   ON A.bapb_id = D.bapb_id
                   AND D.deleted_at IS NULL
                 WHERE A.deleted_at IS NULL
-                --AND A.recipient_id = $recipientId
+                AND A.recipient_id = $recipientId
+                AND A.bapb_id NOT IN (
+                  SELECT X.bapb_id
+                  FROM tr_invoice_bapb X 
+                  WHERE X.deleted_at IS NULL
+                )
                 GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb,
                          A.harga, A.berat, E.city_code, B.sailing_date
             "
