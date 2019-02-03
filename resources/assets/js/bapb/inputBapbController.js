@@ -517,7 +517,7 @@
 
                     const total_ = ctrl.input.total.dimensi + ctrl.input.total.berat;
 
-                    if (total_ !== 0) {
+                    if (total_ != 0) {
                         if (total_ < parseFloat((min_charge / 1000).toFixed(3))) {
 
                             if (biggest === ctrl.input.total.dimensi) {
@@ -553,8 +553,10 @@
                 }
 
                 if (minimum_charge_calculation_id !== 1 && minimum_charge_calculation_id !== 3) {
-                    if (harga < min_charge) {
-                        harga = min_charge;
+                    if (harga != 0) {
+                        if (harga < min_charge) {
+                            harga = min_charge;
+                        }
                     }
                 }
 

@@ -127,13 +127,19 @@
                 </td>
             </tr>
             <tr>
-                <td rowspan="2" valign="top">ALAMAT
+                <td rowspan="3" valign="top">ALAMAT
                     <span class="d-ib" style="width: 14.5px;"></span>:
                     <span class="t-b">{{ $bapb->recipient->recipient_address }}</span>
                 </td>
                 <td>NAMA KAPAL
                     <span class="d-ib" style="width: 29px;"></span>:
                     <span class="t-b">{{ $bapb->ship->ship_name }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>NO. CONT
+                    <span class="d-ib" style="width: 55.8px;"></span>:
+                    <span class="t-b">{{ $bapb->no_container_1 . "" . $bapb->no_container_2 }}</span>
                 </td>
             </tr>
             <tr>
