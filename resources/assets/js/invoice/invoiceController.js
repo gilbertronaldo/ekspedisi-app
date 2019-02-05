@@ -15,7 +15,7 @@
         '$localStorage',
         '$compile',
         'SenderService',
-        'BapbService'
+        'InvoiceService'
     ];
 
     function InvoiceController(
@@ -28,14 +28,14 @@
         $localStorage,
         $compile,
         SenderService,
-        BapbService
+        InvoiceService
     ) {
         let vm = this;
 
         vm.dtInstance = {};
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
-                url: '/api/bapb',
+                url: '/api/invoice',
                 type: 'GET',
                 'beforeSend': function (request) {
                     request.setRequestHeader("Authorization", 'Bearer ' + $localStorage.currentUser.access_token);
@@ -53,12 +53,9 @@
             .withPaginationType('full_numbers')
             .withOption('createdRow', createdRow)
         vm.dtColumns = [
-            DTColumnBuilder.newColumn('bapb_no').withTitle('No Bapb'),
-            DTColumnBuilder.newColumn('no_voyage').withTitle('Deskripsi'),
+            DTColumnBuilder.newColumn('invoice_no').withTitle('No Invoice'),
             DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Penerima'),
-            DTColumnBuilder.newColumn('no_container').withTitle('No Container'),
-            DTColumnBuilder.newColumn('no_seal').withTitle('Seal'),
-            DTColumnBuilder.newColumn('no_ttb').withTitle('No. TTB'),
+            DTColumnBuilder.newColumn('bapb_no').withTitle('Bapb'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
 
@@ -68,34 +65,31 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<button class="btn btn-info btn-xs" ng-click="vm.editBapb(' + data.bapb_id + ')">' +
-                '   <i class="fa fa-edit"></i>' +
-                '</button>&nbsp;' +
-                '<button class="btn btn-danger btn-xs" ng-click="vm.deleteBapb(' + data.bapb_id + ')">' +
+            return '<button class="btn btn-danger btn-xs" ng-click="vm.deleteInvoice(' + data.invoice_id + ')">' +
                 '   <i class="fa fa-trash"></i>' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-success btn-xs" ng-click="vm.printBapb(' + data.bapb_id + ')">' +
+                '<button class="btn btn-success btn-xs" ng-click="vm.printInvoice(' + data.invoice_id + ')">' +
                 '   <i class="fa fa-print"></i>' +
                 '</button>';
         }
 
-        vm.editBapb = id => {
+        vm.editInvoice = id => {
             console.log(id)
             $state.go('admin.bapb-input', {id: id});
         }
 
-        vm.printBapb = id => {
-            const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+        vm.printInvoice = id => {
+            const win = window.open(`http://${window.location.hostname}/api/invoice/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
 
-        vm.deleteBapb = id => {
-            swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
+        vm.deleteInvoice = id => {
+            swangular.confirm('Apakah anda yakin ingin menghapus invoice ini', {
                 showCancelButton: true,
                 preConfirm: () => {
-                    BapbService.delete(id)
+                    InvoiceService.delete(id)
                         .then(res => {
-                            swangular.success("Berhasil Menghapus Bapb");
+                            swangular.success("Berhasil Menghapus Invoice");
                             vm.dtInstance.rerender();
                         })
                         .catch(err => {

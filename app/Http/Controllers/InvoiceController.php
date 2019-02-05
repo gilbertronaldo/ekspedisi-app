@@ -194,6 +194,7 @@ class InvoiceController extends Controller
             ON F.sender_id = G.sender_id
             AND G.deleted_at IS NULL
           WHERE A.deleted_at IS NULL
+          AND A.invoice_id = $invoiceId
           GROUP BY A.invoice_id, A.invoice_no, C.bapb_id, C.bapb_no, C.harga, C.cost,
                    C.no_container_1, C.no_container_2,
                    E.city_code, E.city_name,
@@ -216,5 +217,52 @@ class InvoiceController extends Controller
         $pdf = PDF::loadView('invoice.pdf.print', $input);
 
         return $pdf->stream('invoice.pdf');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function all(Request $request)
+    {
+
+        $query = "
+          SELECT A.invoice_id, A.invoice_no, C.bapb_no,
+                 D.recipient_name_bapb
+          FROM tr_invoice A  
+          INNER JOIN tr_invoice_bapb B 
+              ON A.invoice_id = B.invoice_id
+              AND B.deleted_at IS NULL
+          INNER JOIN tr_bapb C 
+              ON B.bapb_id = C.bapb_id
+              AND C.deleted_at IS NULL
+          INNER JOIN ms_recipient D 
+              ON C.recipient_id = D.recipient_id
+              AND D.deleted_at IS NULL
+          WHERE A.deleted_at IS NULL
+          GROUP BY A.invoice_id, A.invoice_no, D.recipient_name_bapb, C.bapb_no
+        ";
+
+        return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function destroy($id)
+    {
+        try {
+
+            $bapb     = TrInvoice::findOrFail($id)->delete();
+            $response = CoreResponse::ok($bapb);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
     }
 }

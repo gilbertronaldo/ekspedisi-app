@@ -44,7 +44,7 @@
         }
 
         function _delete(id) {
-            return $http.delete(`/api/bapb/${id}`)
+            return $http.delete(`/api/invoice/${id}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

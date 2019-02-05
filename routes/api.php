@@ -48,7 +48,9 @@ Route::group([], function () {
         Route::post('/bapb-list', 'InvoiceController@bapbList');
         Route::get('/no', 'InvoiceController@no');
         Route::post('/', 'InvoiceController@store');
+        Route::get('/', 'InvoiceController@all');
         Route::get('/generate/{invoiceId}', 'InvoiceController@generatePrint');
+        Route::delete('/{id}', 'InvoiceController@destroy')->where('id', '[0-9]+');
     });
 
 

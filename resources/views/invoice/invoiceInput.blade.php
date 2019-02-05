@@ -186,7 +186,7 @@
                         <div class="card-body bg-light">
                             <div class="form-group m-b-0 text-right">
                                 <button type="submit" class="btn btn-dark waves-effect waves-light"
-                                        ui-sref="admin.bapb">Batal
+                                        ui-sref="admin.invoice">Batal
                                 </button>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light"
                                         ng-if="vm.input.recipient_id"
