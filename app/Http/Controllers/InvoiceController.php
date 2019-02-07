@@ -250,20 +250,36 @@ class InvoiceController extends Controller
     {
 
         $query = "
-          SELECT A.invoice_id, A.invoice_no, C.bapb_no,
-                 D.recipient_name_bapb
-          FROM tr_invoice A  
-          INNER JOIN tr_invoice_bapb B 
-              ON A.invoice_id = B.invoice_id
-              AND B.deleted_at IS NULL
-          INNER JOIN tr_bapb C 
-              ON B.bapb_id = C.bapb_id
-              AND C.deleted_at IS NULL
-          INNER JOIN ms_recipient D 
-              ON C.recipient_id = D.recipient_id
-              AND D.deleted_at IS NULL
-          WHERE A.deleted_at IS NULL
-          GROUP BY A.invoice_id, A.invoice_no, D.recipient_name_bapb, C.bapb_no
+         SELECT AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb,
+               string_agg(DISTINCT CC.bapb_no, ', ') AS bapb_no,
+               string_agg(DD.no_ttb, ', ') AS no_ttb
+            FROM (
+                   SELECT A.invoice_id, A.invoice_no,
+                          D.recipient_name_bapb
+                   FROM tr_invoice A
+                          INNER JOIN tr_invoice_bapb B
+                                     ON A.invoice_id = B.invoice_id
+                                       AND B.deleted_at IS NULL
+                          INNER JOIN tr_bapb C
+                                     ON B.bapb_id = C.bapb_id
+                                       AND C.deleted_at IS NULL
+                          INNER JOIN ms_recipient D
+                                     ON C.recipient_id = D.recipient_id
+                                       AND D.deleted_at IS NULL
+                   WHERE A.deleted_at IS NULL
+                   GROUP BY A.invoice_id, A.invoice_no, D.recipient_name_bapb
+             ) AA
+            INNER JOIN tr_invoice_bapb BB
+                ON AA.invoice_id = BB.invoice_id
+                AND BB.deleted_at IS NULL
+            INNER JOIN tr_bapb CC
+                ON BB.bapb_id = CC.bapb_id
+                AND CC.deleted_at IS NULL
+            LEFT JOIN tr_bapb_sender DD
+                ON CC.bapb_id = DD.bapb_id
+                AND DD.deleted_at IS NULL
+            GROUP BY AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb
+
         ";
 
         return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();

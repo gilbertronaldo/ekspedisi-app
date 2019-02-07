@@ -164,24 +164,24 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="voice-no"
-                                               class="col-sm-3 text-left control-label col-form-label">
-                                            No invoice
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="invoice-no"
-                                                   placeholder="Input Nomor invoice" ng-model="vm.input.invoice_no"
-                                                   ng-disabled="true">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
+                            {{--<div class="row mt-3">--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
+                                    {{--<div class="form-group row">--}}
+                                        {{--<label for="voice-no"--}}
+                                               {{--class="col-sm-3 text-left control-label col-form-label">--}}
+                                            {{--No invoice--}}
+                                        {{--</label>--}}
+                                        {{--<div class="col-sm-9">--}}
+                                            {{--<input type="text" class="form-control" id="invoice-no"--}}
+                                                   {{--placeholder="Input Nomor invoice" ng-model="vm.input.invoice_no"--}}
+                                                   {{--ng-disabled="true">--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
 
-                                </div>
-                            </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="card-body bg-light">
                             <div class="form-group m-b-0 text-right">
