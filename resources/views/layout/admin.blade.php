@@ -98,7 +98,7 @@
                     <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                            aria-expanded="false">
-                            <i class="icon-Car-Wheel"></i>
+                            <i class="mdi mdi-border-top"></i>
                             <span class="hide-menu">Master </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
