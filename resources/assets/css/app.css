@@ -1,7 +1,9 @@
 body {
-    /*background-color: red;*/
+    font-weight: bold !important;
 }
 
 * {
     font-family: "Times New Roman", Times, serif !important;
+    font-weight: bold !important;
+    /*color: black !important;*/
 }

@@ -13,14 +13,14 @@
         <th colspan="3">{{ $header->no_voyage }}</th>
     </tr>
     <tr>
-        <th colspan="2">KET</th>
-        <th colspan="3">SD {{ $header->last_entry }}</th>
+        <th colspan="2">NAMA BARANG</th>
+        <th colspan="3">CAMPURAN</th>
         <th>KAPAL</th>
         <th colspan="3">{{ $header->ship_name }}</th>
     </tr>
     <tr>
-        <th colspan="2">NAMA BARANG</th>
-        <th colspan="3">CAMPURAN</th>
+        <th colspan="2"></th>
+        <th colspan="3"></th>
         <TH>TGL. BRGKT</TH>
         <th colspan="3">{{ $header->sailing_date }}</th>
     </tr>
