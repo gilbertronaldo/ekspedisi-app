@@ -122,7 +122,7 @@
                                             <td>
                                                 <button class="btn btn-primary btn-xs"
                                                         ng-click="vm.addBapb(bapb)">
-                                                    <i class="fa fa-check"></i>
+                                                    ADD
                                                 </button>
                                             </td>
                                         </tr>
@@ -157,7 +157,7 @@
                                             <td>
                                                 <button class="btn btn-danger btn-xs"
                                                         ng-click="vm.removeBapb(bapb)">
-                                                    <i class="fa fa-trash"></i>
+                                                    REMOVE
                                                 </button>
                                             </td>
                                         </tr>

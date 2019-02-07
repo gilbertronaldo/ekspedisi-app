@@ -57,7 +57,7 @@
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
             return `<button class="btn btn-success btn-xs" ng-click="vm.printBapb('${data._no_container}')">` +
-                `   <i class="fa fa-print"></i>` +
+                `   PRINT` +
                 `</button>`;
         }
 
