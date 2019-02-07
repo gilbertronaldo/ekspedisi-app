@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\MsRecipient;
 use App\TrBapb;
 use App\TrInvoice;
 use App\TrInvoiceBapb;
@@ -170,7 +171,7 @@ class InvoiceController extends Controller
         $bapb = DB::select(
           "
           SELECT A.invoice_id, A.invoice_no,
-                 C.bapb_id, C.bapb_no,
+                 C.bapb_id, C.bapb_no, H.recipient_id,
                  COALESCE(C.harga,0) + COALESCE(C.cost,0) AS total,
                  UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
                  CONCAT(E.city_code) as destination,
@@ -193,14 +194,25 @@ class InvoiceController extends Controller
           LEFT JOIN ms_sender G
             ON F.sender_id = G.sender_id
             AND G.deleted_at IS NULL
+          INNER JOIN ms_recipient H
+            ON C.recipient_id = H.recipient_id
+            AND H.deleted_at IS NULL
           WHERE A.deleted_at IS NULL
           AND A.invoice_id = $invoiceId
           GROUP BY A.invoice_id, A.invoice_no, C.bapb_id, C.bapb_no, C.harga, C.cost,
                    C.no_container_1, C.no_container_2,
                    E.city_code, E.city_name,
-                   D.sailing_date
+                   D.sailing_date,
+                   H.recipient_id
         "
         );
+
+        $recipient = null;
+        if ( ! empty($bapb)) {
+            $recipient = MsRecipient::with('city')->findOrFail(
+              $bapb[0]->recipient_id
+            );
+        }
 
         collect($bapb)->each(
           function ($i)
@@ -209,14 +221,18 @@ class InvoiceController extends Controller
           }
         );
 
-        $total = collect($bapb)->reduce(function ($i, $j) {
-            return $i + $j->total;
-        });
+        $total = collect($bapb)->reduce(
+          function ($i, $j)
+          {
+              return $i + $j->total;
+          }
+        );
 
         $input = [
-          'invoice'  => $invoice,
-          'bapbList' => $bapb,
-          'total'    => $total,
+          'invoice'   => $invoice,
+          'bapbList'  => $bapb,
+          'total'     => $total,
+          'recipient' => $recipient,
         ];
 
         $pdf = PDF::loadView('invoice.pdf.print', $input);

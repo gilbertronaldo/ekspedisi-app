@@ -114,11 +114,10 @@
 <main class="page_break">
     <div>
         <span>Kepada Yth,</span>
-        <br><span>MULIA JAYA / SEPEDA</span>
-        <br><span>Jl. Bromo</span>
-        <br><span>Surabaya</span>
-        <br><span>TEL: </span>
-        <br><span>FAX: </span>
+        <br><span>{{ $recipient->recipient_name_bapb }}</span>
+        <br><span>{{ $recipient->recipient_address }}</span>
+        <br><span>TEL&nbsp;&nbsp;: {{ $recipient->recipient_telephone }}</span>
+        <br><span>FAX&nbsp;: {{ $recipient->recipient_fax }}</span>
     </div>
     <div style="margin-top: 10px;">
         <span>Dengan Hormat,</span>
