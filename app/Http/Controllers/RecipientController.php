@@ -55,12 +55,14 @@ class RecipientController extends Controller
 
             $recipientList = MsRecipient::where('recipient_name', 'ilike', "%$text%")
                 ->orWhere('recipient_code', 'ilike', "%$text%")
+                ->orWhere('recipient_name_other', 'ilike', "%$text%")
                 ->leftjoin('ms_city', 'ms_city.city_id', '=', 'ms_recipient.city_id')
                 ->offset($page - 1)
                 ->limit($limit)
                 ->get();
             $count = MsRecipient::where('recipient_name', 'ilike', "%$text%")
                 ->orWhere('recipient_code', 'ilike', "%$text%")
+                ->orWhere('recipient_name_other', 'ilike', "%$text%")
                 ->count();
             $response = CoreResponse::ok(compact('recipientList', 'count'));
         } catch (CoreException $exception) {

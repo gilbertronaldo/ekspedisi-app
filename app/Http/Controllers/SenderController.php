@@ -50,12 +50,14 @@ class SenderController extends Controller
 
             $senderList = MsSender::where('sender_name', 'ilike', "%$text%")
                 ->orWhere('sender_code', 'ilike', "%$text%")
+                ->orWhere('sender_name_other', 'ilike', "%$text%")
                 ->leftjoin('ms_city', 'ms_city.city_id', '=', 'ms_sender.city_id')
                 ->offset($page - 1)
                 ->limit($limit)
                 ->get();
             $count = MsSender::where('sender_name', 'ilike', "%$text%")
                 ->orWhere('sender_code', 'ilike', "%$text%")
+                ->orWhere('sender_name_other', 'ilike', "%$text%")
                 ->count();
             $response = CoreResponse::ok(compact('senderList', 'count'));
         } catch (CoreException $exception) {
