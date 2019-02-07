@@ -214,6 +214,11 @@ class BapbController extends Controller
         return $response;
     }
 
+    /**
+     * @param $id
+     *
+     * @return array
+     */
     public function destroy($id)
     {
         try {
@@ -225,6 +230,27 @@ class BapbController extends Controller
 
         return $response;
     }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function verify($id)
+    {
+        try {
+            $bapb = TrBapb::findOrFail($id);
+            $bapb->verified = TRUE;
+            $bapb->save();
+
+            $response = CoreResponse::ok($bapb);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
 
     /**
      * get new bapb_no

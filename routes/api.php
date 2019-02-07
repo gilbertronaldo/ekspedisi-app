@@ -39,6 +39,7 @@ Route::group([], function () {
         Route::post('/', 'BapbController@store');
         Route::get('/latest/{code?}', 'BapbController@latestBapb');
         Route::delete('/{id}', 'BapbController@destroy')->where('id', '[0-9]+');
+        Route::post('/verify/{id}', 'BapbController@verify')->where('id', '[0-9]+');
 
         Route::get('/generate/{id}', 'BapbController@generatePrint')->where('id', '[0-9]+');
         Route::get('/export/{noContainer}', 'BapbController@exportExcel');
