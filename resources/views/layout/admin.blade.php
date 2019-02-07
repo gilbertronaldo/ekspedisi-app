@@ -92,7 +92,7 @@
                     <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.home"
                            aria-expanded="false">
-                            <i class="mdi mdi-border-top"></i>
+                            <i class="mdi mdi-home"></i>
                             <span class="hide-menu">Home</span>
                         </a>
                     </li>
@@ -100,7 +100,7 @@
                     <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                            aria-expanded="false">
-                            <i class="mdi mdi-border-top"></i>
+                            <i class="mdi mdi-database"></i>
                             <span class="hide-menu">Master </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
@@ -128,21 +128,21 @@
                     <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.bapb"
                            aria-expanded="false">
-                            <i class="mdi mdi-border-top"></i>
+                            <i class="mdi mdi-pen"></i>
                             <span class="hide-menu">Bapb</span>
                         </a>
                     </li>
                     <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.invoice"
                            aria-expanded="false">
-                            <i class="mdi mdi-border-top"></i>
+                            <i class="mdi mdi-newspaper"></i>
                             <span class="hide-menu">Invoice</span>
                         </a>
                     </li>
                     <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.container"
                            aria-expanded="false">
-                            <i class="mdi mdi-border-top"></i>
+                            <i class="mdi mdi-content-paste"></i>
                             <span class="hide-menu">Container</span>
                         </a>
                     </li>
