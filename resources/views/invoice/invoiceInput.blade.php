@@ -190,12 +190,13 @@
                                 </button>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light"
                                         ng-if="vm.input.recipient_id"
+                                        ng-if="vm.input.recipient_id"
                                         ng-click="vm.onSubmit()">Simpan
                                 </button>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light"
-                                        ng-if="vm.input.recipient_id"
-                                        ng-click="vm.onSubmit()">Print & Simpan
-                                </button>
+                                {{--<button type="submit" class="btn btn-primary waves-effect waves-light"--}}
+                                        {{--ng-if="vm.input.recipient_id"--}}
+                                        {{--ng-click="vm.onSubmit()">Print & Simpan--}}
+                                {{--</button>--}}
                             </div>
                         </div>
                     </form>

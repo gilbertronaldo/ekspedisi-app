@@ -209,9 +209,14 @@ class InvoiceController extends Controller
           }
         );
 
+        $total = collect($bapb)->reduce(function ($i, $j) {
+            return $i + $j->total;
+        });
+
         $input = [
           'invoice'  => $invoice,
           'bapbList' => $bapb,
+          'total'    => $total,
         ];
 
         $pdf = PDF::loadView('invoice.pdf.print', $input);

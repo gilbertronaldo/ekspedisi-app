@@ -109,10 +109,18 @@
 <body>
 
 @include('invoice.pdf.header')
-@include('invoice.pdf.footer')
+{{--@include('invoice.pdf.footer')--}}
 
 <main class="page_break">
     <div>
+        <span>Kepada Yth,</span>
+        <br><span>MULIA JAYA / SEPEDA</span>
+        <br><span>Jl. Bromo</span>
+        <br><span>Surabaya</span>
+        <br><span>TEL: </span>
+        <br><span>FAX: </span>
+    </div>
+    <div style="margin-top: 10px;">
         <span>Dengan Hormat,</span>
         <br>
         <span>Bersama ini kami kirimkan perincian tagihan sebagai berikut: </span>
@@ -150,10 +158,63 @@
                     </td>
                     <td class="table-bordered-body-td" valign="middle">
                         <span>Rp. <span
-                                style="color: white;">{{ substr(str_pad(number_format($bapb->total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total, 0, ".", "."))) }}</span>{{ number_format($bapb->total, 0, ".", ".") }}
+                                    style="color: white;">{{ substr(str_pad(number_format($bapb->total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total, 0, ".", "."))) }}</span>{{ number_format($bapb->total, 0, ".", ".") }}</span>
                     </td>
                 </tr>
             @endforeach
+            <tr>
+                <td colspan="5"></td>
+                <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
+                    Yang harus dibayar
+                </td>
+                <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
+                    <span>Rp. <span
+                                style="color: white;">{{ substr(str_pad(number_format($total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($total, 0, ".", "."))) }}</span>{{ number_format($total, 0, ".", ".") }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-top: 10px">
+        <p>Pembayaran diatas harap ditransfer ke rekening BCA an: HENDRA GUNAWAN KURNIAWAN acc: 7460205772</p>
+        <p>Bukti transfer harap di fax ke (021) 6240380</p>
+        <p>Terima kasih atas kerjasamanya</p>
+
+        <p>Diterima tgl:</p>
+    </div>
+    <div style="width: 100%;">
+        <table style="text-align: center !important;width: 100%">
+            <tr style="">
+                <td style="text-align: center">
+                    Yang Menerima
+                </td>
+                <td style=" text-align: center">
+                    Hormat Kami
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr style="">
+                <td style="">
+                    __________________
+                </td>
+                <td style="font-size: 13px;">
+                    (PT.SUMBER REJEKI SINAR MANDIRI)
+                </td>
+            </tr>
         </table>
     </div>
 </main>
