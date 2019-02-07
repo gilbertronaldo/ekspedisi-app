@@ -17,14 +17,14 @@
                             {{ csrf_field() }}
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+                                    <span class="input-group-text" id="basic-addon1"><i class="mdi mdi-account"></i></span>
                                 </div>
                                 <input type="text" name="email" class="form-control form-control-lg"
-                                       placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" ng-model="ctrl.input.email">
+                                       placeholder="Username" aria-label="Email" aria-describedby="basic-addon1" ng-model="ctrl.input.email">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                    <span class="input-group-text" id="basic-addon2"><i class="mdi mdi-barcode"></i></span>
                                 </div>
                                 <input type="password" name="password" class="form-control form-control-lg"
                                        placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" ng-model="ctrl.input.password">
