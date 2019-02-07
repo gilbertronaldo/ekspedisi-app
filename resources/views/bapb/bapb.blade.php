@@ -38,7 +38,7 @@
                                 INPUT BAPB
                             </button>
                         </div>
-                        <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
+                        <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" id="bapb-table"
                                dt-instance="vm.dtInstance" class="row-border hover" width="100%" cellspacing="0">
                         </table>
                     </div>

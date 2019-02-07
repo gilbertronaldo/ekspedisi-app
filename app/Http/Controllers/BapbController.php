@@ -65,7 +65,8 @@ class BapbController extends Controller
 //        });
 
         $query = "
-          SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, A.no_seal,
+          SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, 
+                 A.no_seal, A.verified,
               B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb,
               COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total
             FROM tr_bapb A

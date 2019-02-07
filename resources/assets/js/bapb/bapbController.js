@@ -15,13 +15,25 @@
         '$localStorage',
         '$compile',
         'SenderService',
-        'BapbService'
+        'BapbService',
+        '$timeout'
     ];
 
-    function BapbController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, SenderService, BapbService) {
+    function BapbController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, SenderService, BapbService, $timeout) {
         let vm = this;
 
-        vm.dtInstance = {};
+        $scope.a = true;
+
+        vm.dtInstanceCallback = (dtInstance) => {
+            vm.dtInstance = dtInstance;
+            dtInstance.DataTable.on('draw.dt', () => {
+                let elements = angular.element("#" + dtInstance.id + " .ng-scope");
+                angular.forEach(elements, (element) => {
+                    $compile(element)($scope)
+                })
+            });
+        }
+        ;
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
                 url: '/api/bapb/',
@@ -41,6 +53,10 @@
             .withOption('serverSide', true)
             .withPaginationType('full_numbers')
             .withOption('createdRow', createdRow)
+            .withOption('drawCallback', function () {
+                $timeout(() => {
+                });
+            });
         vm.dtColumns = [
             DTColumnBuilder.newColumn('bapb_no').withTitle('No Bapb'),
             DTColumnBuilder.newColumn('no_voyage').withTitle('Deskripsi'),
@@ -64,10 +80,10 @@
                 '   DELETE' +
                 '</button>&nbsp;' +
                 '<button class="btn btn-success btn-xs" ng-click="vm.printBapb(' + data.bapb_id + ')">' +
-                '   PRINT' +
+                '   {{ "PRINT" }}' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-info btn-xs" ng-click="vm.verifyBapb(' + data.bapb_id + ')">' +
-                '   VERIFY' +
+                '<button class="btn btn-info btn-xs" ng-click="vm.verifyBapb(' + data.bapb_id + ')" ng-show="' + (data.verified == false) + '">' +
+                '   {{ "VERIFY" }}' +
                 '</button>';
         }
 
