@@ -186,11 +186,11 @@
 <script src="../../dist/js/custom.min.js"></script>
 <!--This page JavaScript -->
 <!--chartis chart-->
-<script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
-<script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<!--c3 charts -->
-<script src="../../assets/extra-libs/c3/d3.min.js"></script>
-<script src="../../assets/extra-libs/c3/c3.min.js"></script>
-<!--chartjs -->
-<script src="../../assets/libs/raphael/raphael.min.js"></script>
-<script src="../../assets/libs/morris.js/morris.min.js"></script>
+{{--<script src="../../assets/libs/chartist/dist/chartist.min.js"></script>--}}
+{{--<script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>--}}
+{{--<!--c3 charts -->--}}
+{{--<script src="../../assets/extra-libs/c3/d3.min.js"></script>--}}
+{{--<script src="../../assets/extra-libs/c3/c3.min.js"></script>--}}
+{{--<!--chartjs -->--}}
+{{--<script src="../../assets/libs/raphael/raphael.min.js"></script>--}}
+{{--<script src="../../assets/libs/morris.js/morris.min.js"></script>--}}
