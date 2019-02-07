@@ -396,7 +396,7 @@ class BapbController extends Controller
      * @param $nilai
      * @return string
      */
-    private function terbilang($nilai)
+    public function terbilang($nilai)
     {
         if ($nilai < 0) {
             $hasil = "minus " . trim($this->penyebut($nilai));

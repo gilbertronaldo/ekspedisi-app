@@ -11,7 +11,7 @@
         <h5 style="margin: 2px;padding: 0;">Telp. 021-6122087, 0858 7595 9469, Fax.: 021-6240380</h5>
     </div>
     <div style="text-align: center;width: 100%;">
-        <h2>INVOICE</h2>
+        <h2>KWITANSI</h2>
     </div>
     <div style="width: 100%;font-size: 16px;margin: -30px 5px 5px;text-align: left">
         {{--<span>No.</span>&nbsp;<span class="t-b">{{ $invoice->invoice_no }}</span>--}}

@@ -241,6 +241,90 @@ class InvoiceController extends Controller
     }
 
     /**
+     * @param $invoiceId
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function generateKwitansi($invoiceId)
+    {
+        $invoice = TrInvoice::findOrFail($invoiceId);
+
+        $bapb = DB::select(
+          "
+          SELECT A.invoice_id, A.invoice_no,
+                 C.bapb_id, C.bapb_no, H.recipient_id,
+                 COALESCE(C.harga,0) + COALESCE(C.cost,0) AS total,
+                 UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
+                 CONCAT(E.city_code) as destination,
+                 to_char(D.sailing_date, 'dd/mm/yyyy') as sailing_date,
+                 JSON_AGG(DISTINCT G.sender_name_bapb) AS senders
+          FROM tr_invoice A 
+          INNER JOIN tr_invoice_bapb B
+            ON A.invoice_id = B.invoice_id
+            AND B.deleted_at IS NULL
+          INNER JOIN tr_bapb C
+            ON B.bapb_id = C.bapb_id 
+            AND C.deleted_at IS NULL
+          INNER JOIN ms_ship D 
+            ON C.ship_id = D.ship_id
+          INNER JOIN ms_city E
+            ON D.city_id_to = E.city_id
+          LEFT JOIN tr_bapb_sender F 
+            ON C.bapb_id = F.bapb_id
+            AND F.deleted_at IS NULL
+          LEFT JOIN ms_sender G
+            ON F.sender_id = G.sender_id
+            AND G.deleted_at IS NULL
+          INNER JOIN ms_recipient H
+            ON C.recipient_id = H.recipient_id
+            AND H.deleted_at IS NULL
+          WHERE A.deleted_at IS NULL
+          AND A.invoice_id = $invoiceId
+          GROUP BY A.invoice_id, A.invoice_no, C.bapb_id, C.bapb_no, C.harga, C.cost,
+                   C.no_container_1, C.no_container_2,
+                   E.city_code, E.city_name,
+                   D.sailing_date,
+                   H.recipient_id
+        "
+        );
+
+        $recipient = null;
+        if ( ! empty($bapb)) {
+            $recipient = MsRecipient::with('city')->findOrFail(
+              $bapb[0]->recipient_id
+            );
+        }
+
+        collect($bapb)->each(
+          function ($i)
+          {
+              $i->senders = implode(", ", json_decode($i->senders));
+          }
+        );
+
+        $total = collect($bapb)->reduce(
+          function ($i, $j)
+          {
+              return $i + $j->total;
+          }
+        );
+
+        $terbilang = (new BapbController())->terbilang($total);
+
+        $input = [
+          'invoice'   => $invoice,
+          'bapbList'  => $bapb,
+          'total'     => $total,
+          'terbilang' => $terbilang,
+          'recipient' => $recipient,
+        ];
+
+        $pdf = PDF::loadView('invoice.kwitansi.print', $input);
+
+        return $pdf->stream('kwitansi.pdf');
+    }
+
+    /**
      * @param Request $request
      *
      * @return array

@@ -51,6 +51,7 @@ Route::group([], function () {
         Route::post('/', 'InvoiceController@store');
         Route::get('/', 'InvoiceController@all');
         Route::get('/generate/{invoiceId}', 'InvoiceController@generatePrint');
+        Route::get('/kwitansi/{invoiceId}', 'InvoiceController@generateKwitansi');
         Route::delete('/{id}', 'InvoiceController@destroy')->where('id', '[0-9]+');
     });
 
