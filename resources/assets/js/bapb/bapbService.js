@@ -11,7 +11,8 @@
             no: no,
             store: store,
             delete: _delete,
-            latest: latest
+            latest: latest,
+            verify: verify
         };
 
         function get(id = '') {
@@ -37,6 +38,13 @@
 
         function _delete(id) {
             return $http.delete(`/api/bapb/${id}`)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function verify(id) {
+            return $http.post(`/api/bapb/verify/${id}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

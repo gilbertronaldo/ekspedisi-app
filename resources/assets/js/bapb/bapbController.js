@@ -57,7 +57,7 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<button class="btn btn-info btn-xs" ng-click="vm.editBapb(' + data.bapb_id + ')">' +
+            return '<button class="btn btn-warning btn-xs" ng-click="vm.editBapb(' + data.bapb_id + ')">' +
                 '   EDIT' +
                 '</button>&nbsp;' +
                 '<button class="btn btn-danger btn-xs" ng-click="vm.deleteBapb(' + data.bapb_id + ')">' +
@@ -65,6 +65,9 @@
                 '</button>&nbsp;' +
                 '<button class="btn btn-success btn-xs" ng-click="vm.printBapb(' + data.bapb_id + ')">' +
                 '   PRINT' +
+                '</button>&nbsp;' +
+                '<button class="btn btn-info btn-xs" ng-click="vm.verifyBapb(' + data.bapb_id + ')">' +
+                '   VERIFY' +
                 '</button>';
         }
 
@@ -77,6 +80,23 @@
             const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
+
+        vm.verifyBapb = id => {
+            swangular.confirm('Apakah anda yakin ingin men verifying data ini', {
+                showCancelButton: true,
+                preConfirm: () => {
+                    BapbService.verify(id)
+                        .then(res => {
+                            swangular.success("Berhasil Verified Bapb");
+                            vm.dtInstance.rerender();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            swangular.alert("Error");
+                        })
+                },
+            })
+        }
 
         vm.deleteBapb = id => {
             swangular.confirm('Apakah anda yakin ingin menghapus data ini', {

@@ -114,7 +114,7 @@
         //
         // // Action buttons added to the last column: to edit and to delete rows
         // function actionButtons(data, type, full, meta) {
-        //     return '<button class="btn btn-info btn-xs" ng-click="vm.addBapb(' + data.bapb_id + ')">' +
+        //     return '<button class="btn btn-warning btn-xs" ng-click="vm.addBapb(' + data.bapb_id + ')">' +
         //         '   <i class="fa fa-check"></i>' +
         //         '</button>&nbsp;'
         // }
