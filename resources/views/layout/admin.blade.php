@@ -4,7 +4,7 @@
             <div class="navbar-header">
                 <!-- This is for the sidebar toggle which is visible on mobile only -->
                 <a class="nav-toggler waves-effect waves-light d-block d-md-none">
-                    <i class="ti-menu ti-close"></i>
+                    <i class="mdi mdi-sort-variant" style="color: white;font-size: 2em"></i>
                 </a>
                 <!-- ============================================================== -->
                 <!-- Logo -->
@@ -37,7 +37,7 @@
                 <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                    data-toggle="collapse" data-target="#navbarSupportedContent"
                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="ti-more"></i>
+                    <i class="mdi mdi-more" style="color: white;font-size: 1.5em"></i>
                 </a>
             </div>
             <!-- ============================================================== -->
@@ -51,7 +51,7 @@
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link sidebartoggler waves-effect waves-light""
                            data-sidebartype="mini-sidebar">
-                            <i class="sl-icon-menu font-20"></i>
+                            <i class="mdi mdi-sort-variant" style="font-size: 2em"></i>
                         </a>
                     </li>
                 </ul>
@@ -65,12 +65,14 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
                            data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-                            <img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
+                           aria-expanded="false" style="display: flex">
+                            <span style="margin-right: 1em;font-size: 1em">Admin</span >
+                            {{--<img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">--}}
+                            <i class="mdi mdi-account-circle" alt="user" width="50" style="font-size: 3em"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" style="min-width: 10em !important;padding: 0;">
                             <a class="dropdown-item" href="#" ng-click="doLogout()">
-                                <i class="fa fa-power-off m-r-5 m-l-5"></i>Keluar</a>
+                                <i class="mdi mdi-logout" style="margin-right: 2em"></i>LOGOUT</a>
                         </div>
                     </li>
                     <!-- ============================================================== -->
