@@ -17,21 +17,29 @@
                             {{ csrf_field() }}
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><i class="mdi mdi-account"></i></span>
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                                class="mdi mdi-account"></i></span>
                                 </div>
                                 <input type="text" name="email" class="form-control form-control-lg"
-                                       placeholder="Username" aria-label="Email" aria-describedby="basic-addon1" ng-model="ctrl.input.email">
+                                       ng-disabled="ctrl.loading"
+                                       placeholder="Username" aria-label="Email" aria-describedby="basic-addon1"
+                                       ng-model="ctrl.input.email">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon2"><i class="mdi mdi-barcode"></i></span>
+                                    <span class="input-group-text" id="basic-addon2"><i
+                                                class="mdi mdi-barcode"></i></span>
                                 </div>
                                 <input type="password" name="password" class="form-control form-control-lg"
-                                       placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" ng-model="ctrl.input.password">
+                                       ng-disabled="ctrl.loading"
+                                       placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"
+                                       ng-model="ctrl.input.password">
                             </div>
                             <div class="form-group text-center mt-5">
                                 <div class="col-xs-12 p-b-20">
-                                    <button class="btn btn-block btn-lg btn-info" ng-click="ctrl.doLogin()">Log In
+                                    <button class="btn btn-block btn-lg btn-info" ng-click="ctrl.doLogin()"
+                                            ng-disabled="ctrl.loading">
+                                        <span ng-if="ctrl.loading"><i class='fa fa-spinner fa-spin'></i> </span>Log In
                                     </button>
                                 </div>
                             </div>

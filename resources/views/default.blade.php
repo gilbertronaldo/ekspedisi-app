@@ -9,7 +9,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Dashboard</title>
+    <title>SRSM</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo-light-icon.png"/>
 
     {{--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>--}}
     {{--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'/>--}}
