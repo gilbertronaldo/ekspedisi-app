@@ -45,3 +45,7 @@ require('./invoice/invoice.js');
 require('./invoice/invoiceService.js');
 require('./invoice/invoiceController.js');
 require('./invoice/inputInvoiceController.js');
+
+require('./payment/payment.js');
+require('./payment/paymentService.js');
+require('./payment/paymentController.js');

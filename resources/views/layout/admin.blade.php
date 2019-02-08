@@ -140,6 +140,13 @@
                         </a>
                     </li>
                     <li class="sidebar-item" ui-sref-active='selected'>
+                        <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.payment"
+                           aria-expanded="false">
+                            <i class="ti-money"></i>
+                            <span class="hide-menu">Payment</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.container"
                            aria-expanded="false">
                             <i class="mdi mdi-content-paste"></i>

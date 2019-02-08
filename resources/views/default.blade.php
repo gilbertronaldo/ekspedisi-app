@@ -40,7 +40,7 @@
     <script src="{{ URL::asset('js/respond.min.js') }}"></script>
     <![endif]-->
 </head>
-<body ng-app="Ekspedisi.app">
+<body ng-app="Ekspedisi.app" dir="ltr">
 
 <!-- ============================================================== -->
 <!-- Preloader - style you can find in spinners.css -->

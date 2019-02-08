@@ -13,7 +13,8 @@
                 'Ekspedisi.recipient',
                 'Ekspedisi.sender',
                 'Ekspedisi.bapb',
-                'Ekspedisi.invoice'
+                'Ekspedisi.invoice',
+                'Ekspedisi.payment'
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

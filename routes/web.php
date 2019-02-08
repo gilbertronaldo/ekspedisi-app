@@ -97,4 +97,10 @@ Route::middleware('auth:api')->group(function () {
             return view('invoice.invoiceInput');
         });
     });
+
+    Route::prefix('payment')->group(function () {
+        Route::get('/', function () {
+            return view('payment.payment');
+        });
+    });
 });
