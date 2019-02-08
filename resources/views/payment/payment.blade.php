@@ -1,4 +1,4 @@
-<data ng-init="vm = inputInvoiceController">
+<data ng-init="vm = paymentController">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
@@ -28,7 +28,7 @@
                 <div class="card">
                     <form class="form-horizontal r-separator">
                         <div class="card-body bg-light">
-                            <h4 class="card-title m-t-10 p-b-20">Detail Penerima</h4>
+                            <h4 class="card-title m-t-10 p-b-20">Detail Kapal</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
@@ -37,40 +37,28 @@
                                         <div class="col-sm-9">
                                             <sc-select
                                                     id="approver-1"
-                                                    ng-model="vm.input.recipient_id"
-                                                    sc-options="recipient.recipient_id as recipient.recipient_code + ' - ' + recipient.recipient_name for recipient in vm.searchRecipientList(searchText, page)"
-                                                    page-limit="vm.recipientAsyncPageLimit"
-                                                    total-items="vm.recipientTotalResults"
-                                                    ng-change="vm.getRecipientDetail()"
-                                                    placeholder="Cari Penerima">
+                                                    ng-model="vm.input.ship_id"
+                                                    sc-options="ship.ship_id as ship.no_voyage + ' - ' + ship.ship_name for ship in vm.searchShipList(searchText, page)"
+                                                    page-limit="vm.shipAsyncPageLimit"
+                                                    total-items="vm.shipTotalResults"
+                                                    ng-change="vm.getShipDetail()"
+                                                    placeholder="Cari Nomor Voyage Kapal">
                                             </sc-select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label
-                                                class="col-sm-3 text-right control-label col-form-label">Kota
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   ng-value="vm.detail.recipient.city.city_code + ' - ' + vm.detail.recipient.city_name"
-                                                   ng-disabled="true">
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Nama Penerima
-                                            di
-                                            BAPB
-                                        </label>
+                                                class="col-sm-3 text-right control-label col-form-label">No
+                                            Voyage</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
-                                                   ng-model="vm.detail.recipient.recipient_name_bapb"
+                                                   ng-model="vm.detail.ship.no_voyage"
                                                    placeholder="" ng-disabled="true">
                                         </div>
                                     </div>
@@ -78,122 +66,39 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row p-t-15">
                                         <label
-                                                class="col-sm-3 text-right control-label col-form-label">Alamat</label>
+                                                class="col-sm-3 text-right control-label col-form-label">Tujuan</label>
                                         <div class="col-sm-9">
-                                            <textarea type="text" class="form-control"
-                                                      ng-model="vm.detail.recipient.recipient_address"
-                                                      placeholder="" ng-disabled="true"></textarea>
+                                            <input type="text" class="form-control"
+                                                   value="{{  '{{'. 'vm.detail.ship.city_code_from' .'}'.'}' . ' - ' .'{{'. 'vm.detail.ship.city_code_to' .'}'.'}' }}"
+                                                   placeholder="" ng-disabled="true">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body" ng-if="vm.input.recipient_id">
-                            <h4 class="card-title m-t-10 p-b-20">List BAPB Penerima</h4>
                             <div class="row">
-                                <div class="col-sm-12 col-lg-12">
-                                    {{--<table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"--}}
-                                    {{--dt-instance="vm.dtInstance" class="row-border hover table-responsive" width="100%"--}}
-                                    {{--cellspacing="0">--}}
-                                    {{--</table>--}}
-                                    <table class="table table-bordered table-responsive">
-                                        <tr>
-                                            <th>No BAPB</th>
-                                            <th>No Cont</th>
-                                            <th>Tujuan</th>
-                                            <th>Tgl Brngkt</th>
-                                            <th>Pengirim</th>
-                                            <th>Jumlah (Rp)</th>
-                                            <th>Status</th>
-                                        </tr>
-                                        <tr ng-if="vm.bapbList.length == 0">
-                                            <td colspan="7">Tidak ada data BAPB tersedia</td>
-                                        </tr>
-                                        <tr ng-repeat="bapb in vm.bapbList track by bapb.bapb_id">
-                                            <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
-                                            <td>
-                                                <button class="btn btn-primary btn-xs"
-                                                        ng-click="vm.addBapb(bapb)">
-                                                    ADD
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Ship
+                                            Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.ship.ship_name"
+                                                   placeholder="" ng-disabled="true">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-body bg-light" ng-if="vm.input.recipient_id">
-                            <h4 class="card-title m-t-10 p-b-20">Daftar BAPB Invoice</h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-12">
-                                    <table class="table table-bordered table-active table-striped">
-                                        <tr>
-                                            <th>No BAPB</th>
-                                            <th>No Cont</th>
-                                            <th>Tujuan</th>
-                                            <th>Tgl Brngkt</th>
-                                            <th>Pengirim</th>
-                                            <th>Jumlah (Rp)</th>
-                                            <th>Status</th>
-                                        </tr>
-                                        <tr ng-if="vm.newBapbList.length == 0">
-                                            <td colspan="7">Pilih BAPB</td>
-                                        </tr>
-                                        <tr ng-repeat="bapb in vm.newBapbList track by bapb.bapb_id">
-                                            <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
-                                            <td>
-                                                <button class="btn btn-danger btn-xs"
-                                                        ng-click="vm.removeBapb(bapb)">
-                                                    REMOVE
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row p-t-15">
+                                        <label
+                                                class="col-sm-3 text-right control-label col-form-label">Berangkat</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control"
+                                                   ng-model="vm.detail.ship.sailing_date"
+                                                   placeholder="" ng-disabled="true">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            {{--<div class="row mt-3">--}}
-                            {{--<div class="col-sm-12 col-lg-6">--}}
-                            {{--<div class="form-group row">--}}
-                            {{--<label for="voice-no"--}}
-                            {{--class="col-sm-3 text-left control-label col-form-label">--}}
-                            {{--No invoice--}}
-                            {{--</label>--}}
-                            {{--<div class="col-sm-9">--}}
-                            {{--<input type="text" class="form-control" id="invoice-no"--}}
-                            {{--placeholder="Input Nomor invoice" ng-model="vm.input.invoice_no"--}}
-                            {{--ng-disabled="true">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-sm-12 col-lg-6">--}}
-
-                            {{--</div>--}}
-                            {{--</div>--}}
-                        </div>
-                        <div class="card-body bg-light">
-                            <div class="form-group m-b-0 text-right">
-                                <button type="submit" class="btn btn-dark waves-effect waves-light"
-                                        ui-sref="admin.invoice">Batal
-                                </button>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light"
-                                        ng-if="vm.input.recipient_id"
-                                        ng-if="vm.input.recipient_id"
-                                        ng-click="vm.onSubmit()">Simpan
-                                </button>
-                                {{--<button type="submit" class="btn btn-primary waves-effect waves-light"--}}
-                                {{--ng-if="vm.input.recipient_id"--}}
-                                {{--ng-click="vm.onSubmit()">Print & Simpan--}}
-                                {{--</button>--}}
                             </div>
                         </div>
                     </form>
