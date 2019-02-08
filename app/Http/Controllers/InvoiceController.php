@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\MsOfficeBranch;
 use App\MsRecipient;
 use App\TrBapb;
 use App\TrInvoice;
@@ -166,6 +167,8 @@ class InvoiceController extends Controller
      */
     public function generatePrint($invoiceId)
     {
+        MsOfficeBranch::createData();
+
         $invoice = TrInvoice::findOrFail($invoiceId);
 
         $bapb = DB::select(
