@@ -57,21 +57,6 @@
         ctrl.shipAsyncPageLimit = 20;
         ctrl.shipTotalResults = 0;
 
-        function getShip() {
-            ShipService.get(ctrl.input.ship_id)
-                .then(res => {
-                    ctrl.detail.ship = res.data;
-
-                    if (!ctrl.id) {
-                        const code = ctrl.codeList.find(code => code.name.substr(0, 3) == ctrl.detail.ship.city_to.city_code);
-                        ctrl.code = code.code_id;
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        }
-
         ctrl.searchShipList = (searchText, page) => {
             if (!searchText) {
                 return [];
@@ -94,7 +79,7 @@
             if (!ctrl.input.ship_id) {
                 return;
             }
-            ctrl.detail.ship = ship;
+            ctrl.detail.ship = ctrl.detail.shipList.find(i => i.ship_id === ctrl.input.ship_id);
         };
 
     }
