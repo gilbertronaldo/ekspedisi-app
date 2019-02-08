@@ -6,11 +6,43 @@
         .controller('HomeController', HomeController);
 
     HomeController.$inject = [
-        'swangular'
+        'swangular',
+        'HomeService'
     ];
 
-    function HomeController(swangular) {
-        console.log(this)
-        // swangular.success("Welcome");
+    function HomeController(
+        swangular,
+        HomeService
+    ) {
+        let ctrl = this;
+
+        ctrl.header = {};
+
+        ctrl.loading = [
+          false,
+          false
+        ];
+
+        init();
+        function init() {
+            getHeader();
+        }
+
+        function getHeader() {
+            ctrl.loading[0] = true;
+            HomeService.header()
+                .then(function (result) {
+                    ctrl.header = result.data;
+                    ctrl.loading[0] = false;
+
+                    console.log(ctrl.header);
+                })
+                .catch(err => {
+                    ctrl.loading[0] = false;
+                    console.log(err);
+                    swangular.alert("Error Home Header");
+                })
+        }
+
     }
 })();

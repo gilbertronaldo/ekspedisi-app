@@ -9,6 +9,7 @@ require('./admin/adminController.js');
 
 require('./home/home.js');
 require('./home/homeController.js');
+require('./home/homeService.js');
 
 require('./auth/auth.js');
 require('./auth/authService.js');

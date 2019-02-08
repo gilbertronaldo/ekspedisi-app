@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
+    Route::prefix('home')->group(function () {
+        Route::get('/header', 'DashboardController@header');
+    });
+
     Route::prefix('master')->group(function () {
         Route::get('/city', 'MasterController@cityList');
         Route::get('/country', 'MasterController@countryList');

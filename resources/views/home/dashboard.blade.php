@@ -48,7 +48,7 @@
 
                         </div>
                         <div class="ml-auto">
-                            <h2 class="m-b-0 font-light">5</h2>
+                            <h2 class="m-b-0 font-light" ng-bind-html="vm.header.total.staff"></h2>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                             New BAPB
                         </div>
                         <div class="ml-auto">
-                            <h2 class="m-b-0 font-light">23</h2>
+                            <h2 class="m-b-0 font-light" ng-bind-html="vm.header.total.bapb"></h2>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
 
                         </div>
                         <div class="ml-auto">
-                            <h2 class="m-b-0 font-light">43</h2>
+                            <h2 class="m-b-0 font-light" ng-bind-html="vm.header.total.invoice"></h2>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
 
                         </div>
                         <div class="ml-auto">
-                            <h2 class="m-b-0 font-light">63</h2>
+                            <h2 class="m-b-0 font-light" ng-bind-html="vm.header.total.profit"></h2>
                         </div>
                     </div>
                 </div>
