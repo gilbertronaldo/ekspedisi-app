@@ -18,21 +18,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Contracts\DataTable;
 
+/**
+ * Class ShipController
+ *
+ * @package App\Http\Controllers
+ */
 class ShipController extends Controller
 {
+
     public function all(Request $request)
     {
-//        $data = MsShip::select('ms_ship.ship_id', 'ms_ship.ship_name', 'ms_ship.ship_description',  'ms_ship.no_voyage',
-//            'B.city_code AS city_code_from', 'C.city_code AS city_code_to',
-//            DB::raw("to_char(ms_ship.sailing_date, 'DD FMMonth YYYY') as sailing_date"))
-//            ->join('ms_city as B', 'B.city_id', '=', 'ms_ship.city_id_from', 'left outer')
-//            ->join('ms_city as C', 'C.city_id', '=', 'ms_ship.city_id_to', 'left outer')
-//            ->get();
+        //        $data = MsShip::select('ms_ship.ship_id', 'ms_ship.ship_name', 'ms_ship.ship_description',  'ms_ship.no_voyage',
+        //            'B.city_code AS city_code_from', 'C.city_code AS city_code_to',
+        //            DB::raw("to_char(ms_ship.sailing_date, 'DD FMMonth YYYY') as sailing_date"))
+        //            ->join('ms_city as B', 'B.city_id', '=', 'ms_ship.city_id_from', 'left outer')
+        //            ->join('ms_city as C', 'C.city_id', '=', 'ms_ship.city_id_to', 'left outer')
+        //            ->get();
 
         $ships = MsShip::get();
         foreach ($ships as $ship) {
-            $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code : '';
-            $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code : '';
+            $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code
+              : '';
+            $ship->city_code_to   = $ship->cityTo ? $ship->cityTo->city_code
+              : '';
         }
 
         return datatables()->of($ships)->toJson();
@@ -44,13 +52,17 @@ class ShipController extends Controller
             if ($id == -99) {
                 $ship = MsShip::get();
                 foreach ($ship as $s) {
-                    $s->city_code_from = $s->cityFrom ? $s->cityFrom->city_code : '';
-                    $s->city_code_to = $s->cityTo ? $s->cityTo->city_code : '';
+                    $s->city_code_from = $s->cityFrom ? $s->cityFrom->city_code
+                      : '';
+                    $s->city_code_to   = $s->cityTo ? $s->cityTo->city_code
+                      : '';
                 }
             } else {
-                $ship = MsShip::findOrFail($id);
-                $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code : '';
-                $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code : '';
+                $ship                 = MsShip::findOrFail($id);
+                $ship->city_code_from = $ship->cityFrom
+                  ? $ship->cityFrom->city_code : '';
+                $ship->city_code_to   = $ship->cityTo ? $ship->cityTo->city_code
+                  : '';
             }
             $response = CoreResponse::ok($ship);
         } catch (CoreException $exception) {
@@ -63,22 +75,24 @@ class ShipController extends Controller
     public function search(Request $request)
     {
         try {
-            $text = (string)$request->input('text');
-            $page = (int)$request->input('page');
+            $text  = (string)$request->input('text');
+            $page  = (int)$request->input('page');
             $limit = (int)$request->input('limit');
-            
+
             $shipList = MsShip::where('ship_name', 'ilike', "%$text%")
-                ->orWhere('no_voyage', 'ilike', "%$text%")
-                ->offset($page - 1)
-                ->limit($limit)
-                ->get();
-            $count = MsShip::where('ship_name', 'ilike', "%$text%")
-                ->orWhere('no_voyage', 'ilike', "%$text%")
-                ->count();
+                              ->orWhere('no_voyage', 'ilike', "%$text%")
+                              ->offset($page - 1)
+                              ->limit($limit)
+                              ->get();
+            $count    = MsShip::where('ship_name', 'ilike', "%$text%")
+                              ->orWhere('no_voyage', 'ilike', "%$text%")
+                              ->count();
 
             foreach ($shipList as $ship) {
-                $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code : '';
-                $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code : '';
+                $ship->city_code_from = $ship->cityFrom
+                  ? $ship->cityFrom->city_code : '';
+                $ship->city_code_to   = $ship->cityTo ? $ship->cityTo->city_code
+                  : '';
             }
             $response = CoreResponse::ok(compact('shipList', 'count'));
         } catch (CoreException $exception) {
@@ -97,20 +111,30 @@ class ShipController extends Controller
             } else {
                 $ship = new MsShip();
 
-                $existNoVoyage = MsShip::where("no_voyage", "=", str_replace(' ', '', strtoupper($request->input('no_voyage'))))
-                    ->first();
+                $existNoVoyage = MsShip::where(
+                  "no_voyage",
+                  "=",
+                  str_replace(' ', '', strtoupper($request->input('no_voyage')))
+                )
+                                       ->first();
 
                 if ($existNoVoyage) {
                     throw new CoreException("Nomor Voyage Kapal sudah ada !");
                 }
             }
 
-            $ship->no_voyage = str_replace(' ', '', strtoupper($request->input('no_voyage')));
-            $ship->ship_name = strtoupper($request->input('ship_name'));
+            $ship->no_voyage        = str_replace(
+              ' ',
+              '',
+              strtoupper($request->input('no_voyage'))
+            );
+            $ship->ship_name        = strtoupper($request->input('ship_name'));
             $ship->ship_description = $request->input('ship_description');
-            $ship->sailing_date = Carbon::parse($request->input('sailing_date'));
-            $ship->city_id_from = $request->input('city_id_from');
-            $ship->city_id_to = $request->input('city_id_to');
+            $ship->sailing_date     = Carbon::parse(
+              $request->input('sailing_date')
+            );
+            $ship->city_id_from     = $request->input('city_id_from');
+            $ship->city_id_to       = $request->input('city_id_to');
             $ship->save();
 
             DB::commit();
@@ -130,6 +154,33 @@ class ShipController extends Controller
             $ship->delete();
 
             $response = CoreResponse::ok($ship);
+        } catch (CoreException $e) {
+            $response = CoreResponse::fail($e);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function searchContainer(Request $request)
+    {
+        try {
+
+            $shipId = $request->input('ship_id');
+            $containerList = DB::select("
+                SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) AS no_container,
+                       FALSE AS checked
+                FROM tr_bapb A 
+                WHERE A.deleted_at IS NULL
+                AND A.ship_id = $shipId
+                GROUP BY A.no_container_1, A.no_container_2
+            ");
+
+            $response = CoreResponse::ok(compact('containerList'));
         } catch (CoreException $e) {
             $response = CoreResponse::fail($e);
         }

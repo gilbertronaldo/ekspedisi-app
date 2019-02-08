@@ -135,7 +135,7 @@
                     <li class="sidebar-item" ui-sref-active='selected'>
                         <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.invoice"
                            aria-expanded="false">
-                            <i class="mdi mdi-newspaper"></i>
+                            <i class="icon-Receipt-3"></i>
                             <span class="hide-menu">Invoice</span>
                         </a>
                     </li>

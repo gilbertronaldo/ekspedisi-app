@@ -11,6 +11,7 @@
             search: search,
             store: store,
             delete: _delete,
+            searchContainer: searchContainer
         };
 
         function get(id = '') {
@@ -29,6 +30,13 @@
 
         function store(input) {
             return $http.post(`/api/ship`, input)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function searchContainer(input) {
+            return $http.post(`/api/ship/containers`, input)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

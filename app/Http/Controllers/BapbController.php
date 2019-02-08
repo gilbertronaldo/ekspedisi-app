@@ -26,14 +26,16 @@ use Yajra\DataTables\DataTables;
 
 class BapbController extends Controller
 {
+
     /**
      * get new bapb no
+     *
      * @return array
      */
     public function no($code)
     {
         try {
-            $bapbNo = $this->newBapbNo($code);
+            $bapbNo   = $this->newBapbNo($code);
             $response = CoreResponse::ok($bapbNo);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
@@ -50,19 +52,19 @@ class BapbController extends Controller
      */
     public function all(Request $request)
     {
-//        $bapbList = TrBapb::with('senders.items')
-//            ->with('senders.costs')
-//            ->with('recipient')
-//            ->with('ship')
-//            ->get();
-//
-//        $bapbList->each(function ($i) {
-//            $i->no_container = $i->no_container_1 . " " . $i->no_container_2;
-//
-//            $i->no_ttb = $i->senders->map(function ($j) {
-//                return $j->no_ttb;
-//            });
-//        });
+        //        $bapbList = TrBapb::with('senders.items')
+        //            ->with('senders.costs')
+        //            ->with('recipient')
+        //            ->with('ship')
+        //            ->get();
+        //
+        //        $bapbList->each(function ($i) {
+        //            $i->no_container = $i->no_container_1 . " " . $i->no_container_2;
+        //
+        //            $i->no_ttb = $i->senders->map(function ($j) {
+        //                return $j->no_ttb;
+        //            });
+        //        });
 
         $query = "
           SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, 
@@ -85,7 +87,7 @@ class BapbController extends Controller
                      A.harga, A.berat, B.ship_name, B.sailing_date
         ";
 
-        return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
+        return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
     }
 
     /**
@@ -97,10 +99,12 @@ class BapbController extends Controller
     {
         try {
             $bapb = TrBapb::with('senders.items')
-                ->with('senders.costs')
-                ->findOrFail($id);
+                          ->with('senders.costs')
+                          ->findOrFail($id);
             foreach ($bapb->senders as $sender) {
-                $sender->detail = MsSender::with('city')->find($sender->sender_id);
+                $sender->detail = MsSender::with('city')->find(
+                  $sender->sender_id
+                );
             }
             $response = CoreResponse::ok($bapb);
         } catch (CoreException $exception) {
@@ -118,61 +122,75 @@ class BapbController extends Controller
             if ($request->has('bapb_id')) {
                 $bapb = TrBapb::findOrFail($request->input('bapb_id'));
             } else {
-                $bapb = new TrBapb();
+                $bapb          = new TrBapb();
                 $bapb->bapb_no = $request->input('bapb_no');
             }
             $bapb->bapb_description = $request->input('bapb_description');
-            $bapb->no_container_1 = $request->input('no_container_1');
-            $bapb->no_container_2 = $request->input('no_container_2');
-            $bapb->no_seal = $request->input('no_seal');
-            $bapb->tagih_di = $request->input('tagih_di');
-            $bapb->ship_id = $request->input('ship_id');
-            $bapb->recipient_id = $request->input('recipient_id');
+            $bapb->no_container_1   = $request->input('no_container_1');
+            $bapb->no_container_2   = $request->input('no_container_2');
+            $bapb->no_seal          = $request->input('no_seal');
+            $bapb->tagih_di         = $request->input('tagih_di');
+            $bapb->ship_id          = $request->input('ship_id');
+            $bapb->recipient_id     = $request->input('recipient_id');
             $bapb->show_calculation = $request->input('show_calculation');
 
-            $total = $request->input('total');
-            $bapb->harga = isset($total['harga']) ? $total['harga'] : 0;
-            $bapb->cost = isset($total['cost']) ? $total['cost'] : 0;
+            $total         = $request->input('total');
+            $bapb->harga   = isset($total['harga']) ? $total['harga'] : 0;
+            $bapb->cost    = isset($total['cost']) ? $total['cost'] : 0;
             $bapb->dimensi = isset($total['dimensi']) ? $total['dimensi'] : 0;
-            $bapb->berat = isset($total['berat']) ? $total['berat'] : 0;
-            $bapb->koli = isset($total['koli']) ? $total['koli'] : 0;
+            $bapb->berat   = isset($total['berat']) ? $total['berat'] : 0;
+            $bapb->koli    = isset($total['koli']) ? $total['koli'] : 0;
 
             $bapb->save();
 
             $unDeletedSender = [];
-            $unDeletedItem = [];
-            $unDeletedCost = [];
+            $unDeletedItem   = [];
+            $unDeletedCost   = [];
             foreach ($request->input('senders') as $sender) {
                 if (isset($sender['bapb_sender_id'])) {
-                    $bapbSender = TrBapbSender::findOrFail($sender['bapb_sender_id']);
+                    $bapbSender = TrBapbSender::findOrFail(
+                      $sender['bapb_sender_id']
+                    );
                 } else {
                     $bapbSender = new TrBapbSender();
                 }
-                $bapbSender->bapb_id = $bapb->bapb_id;
-                $bapbSender->sender_id = $sender['sender_id'];
-                $bapbSender->kemasan = isset($sender['kemasan']) ? $sender['kemasan'] : NULL;
-                $bapbSender->krani = isset($sender['krani']) ? $sender['krani'] : NULL;
-                $bapbSender->no_ttb = isset($sender['no_ttb']) ? $sender['no_ttb'] : NULL;
-                $bapbSender->description = isset($sender['description']) ? $sender['description'] : NULL;
-                $bapbSender->entry_date = isset($sender['entry_date']) ? Carbon::parse($sender['entry_date']) : NULL;
-                $bapbSender->price = isset($sender['total_price']) ? $sender['total_price'] : 0;
+                $bapbSender->bapb_id     = $bapb->bapb_id;
+                $bapbSender->sender_id   = $sender['sender_id'];
+                $bapbSender->kemasan     = isset($sender['kemasan'])
+                  ? $sender['kemasan'] : null;
+                $bapbSender->krani       = isset($sender['krani'])
+                  ? $sender['krani'] : null;
+                $bapbSender->no_ttb      = isset($sender['no_ttb'])
+                  ? $sender['no_ttb'] : null;
+                $bapbSender->description = isset($sender['description'])
+                  ? $sender['description'] : null;
+                $bapbSender->entry_date  = isset($sender['entry_date'])
+                  ? Carbon::parse($sender['entry_date']) : null;
+                $bapbSender->price       = isset($sender['total_price'])
+                  ? $sender['total_price'] : 0;
                 $bapbSender->save();
 
                 $unDeletedSender[] = $bapbSender->bapb_sender_id;
                 foreach ($sender['items'] as $item) {
                     if (isset($item['bapb_sender_item_id'])) {
-                        $bapbSenderItem = TrBapbSenderItem::findOrFail($item['bapb_sender_item_id']);
+                        $bapbSenderItem = TrBapbSenderItem::findOrFail(
+                          $item['bapb_sender_item_id']
+                        );
                     } else {
                         $bapbSenderItem = new TrBapbSenderItem();
                     }
-                    $bapbSenderItem->bapb_sender_id = $bapbSender->bapb_sender_id;
-                    $bapbSenderItem->bapb_sender_item_name = $item['bapb_sender_item_name'];
-                    $bapbSenderItem->koli = $item['koli'];
+                    $bapbSenderItem->bapb_sender_id
+                                             = $bapbSender->bapb_sender_id;
+                    $bapbSenderItem->bapb_sender_item_name
+                                             = $item['bapb_sender_item_name'];
+                    $bapbSenderItem->koli    = $item['koli'];
                     $bapbSenderItem->panjang = $item['panjang'];
-                    $bapbSenderItem->lebar = $item['lebar'];
-                    $bapbSenderItem->tinggi = $item['tinggi'];
-                    $bapbSenderItem->berat = $item['berat'];
-                    $bapbSenderItem->price = isset($item['price']) ? $item['price'] : 0;
+                    $bapbSenderItem->lebar   = $item['lebar'];
+                    $bapbSenderItem->tinggi  = $item['tinggi'];
+                    $bapbSenderItem->berat   = $item['berat'];
+                    $bapbSenderItem->price
+                                             = isset($item['price'])
+                      ? $item['price'] : 0;
                     $bapbSenderItem->save();
 
                     $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
@@ -180,30 +198,46 @@ class BapbController extends Controller
 
                 foreach ($sender['costs'] as $cost) {
                     if (isset($cost['bapb_sender_cost_id'])) {
-                        $bapbSenderCost = TrBapbSenderCost::findOrFail($cost['bapb_sender_cost_id']);
+                        $bapbSenderCost = TrBapbSenderCost::findOrFail(
+                          $cost['bapb_sender_cost_id']
+                        );
                     } else {
                         $bapbSenderCost = new TrBapbSenderCost();
                     }
-                    $bapbSenderCost->bapb_sender_id = $bapbSender->bapb_sender_id;
-                    $bapbSenderCost->bapb_sender_cost_name = $cost['bapb_sender_cost_name'];
+                    $bapbSenderCost->bapb_sender_id
+                                           = $bapbSender->bapb_sender_id;
+                    $bapbSenderCost->bapb_sender_cost_name
+                                           = $cost['bapb_sender_cost_name'];
                     $bapbSenderCost->price = $cost['price'];
                     $bapbSenderCost->save();
 
                     $unDeletedCost[] = $bapbSenderCost->bapb_sender_cost_id;
                 }
 
-                TrBapbSenderItem::where('bapb_sender_id', $bapbSender->bapb_sender_id)
-                    ->whereNotIn('bapb_sender_item_id', $unDeletedItem)
-                    ->delete();
+                TrBapbSenderItem::where(
+                  'bapb_sender_id',
+                  $bapbSender->bapb_sender_id
+                )
+                                ->whereNotIn(
+                                  'bapb_sender_item_id',
+                                  $unDeletedItem
+                                )
+                                ->delete();
 
-                TrBapbSenderCost::where('bapb_sender_id', $bapbSender->bapb_sender_id)
-                    ->whereNotIn('bapb_sender_cost_id', $unDeletedCost)
-                    ->delete();
+                TrBapbSenderCost::where(
+                  'bapb_sender_id',
+                  $bapbSender->bapb_sender_id
+                )
+                                ->whereNotIn(
+                                  'bapb_sender_cost_id',
+                                  $unDeletedCost
+                                )
+                                ->delete();
             }
 
             TrBapbSender::where('bapb_id', $bapb->bapb_id)
-                ->whereNotIn('bapb_sender_id', $unDeletedSender)
-                ->delete();
+                        ->whereNotIn('bapb_sender_id', $unDeletedSender)
+                        ->delete();
 
             DB::commit();
             $response = CoreResponse::ok();
@@ -224,7 +258,7 @@ class BapbController extends Controller
     public function destroy($id)
     {
         try {
-            $bapb = TrBapb::findOrFail($id)->delete();
+            $bapb     = TrBapb::findOrFail($id)->delete();
             $response = CoreResponse::ok($bapb);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
@@ -241,8 +275,8 @@ class BapbController extends Controller
     public function verify($id)
     {
         try {
-            $bapb = TrBapb::findOrFail($id);
-            $bapb->verified = TRUE;
+            $bapb           = TrBapb::findOrFail($id);
+            $bapb->verified = true;
             $bapb->save();
 
             $response = CoreResponse::ok($bapb);
@@ -264,18 +298,18 @@ class BapbController extends Controller
     private function newBapbNo($code)
     {
         $year = Carbon::now()->format('y');
-//        $month = Carbon::now()->format('m');
+        //        $month = Carbon::now()->format('m');
 
         $bapb = TrBapb::whereRaw("LEFT(bapb_no, 3) = '$year$code'")
-            ->selectRaw('CAST(RIGHT(bapb_no, 6) AS INT) AS bapb_no')
-            ->orderBy('bapb_no', 'desc')
-            ->first();
+                      ->selectRaw('CAST(RIGHT(bapb_no, 6) AS INT) AS bapb_no')
+                      ->orderBy('bapb_no', 'desc')
+                      ->first();
 
-        if (!$bapb) {
-            return $year . $code . str_pad(1, 7, '0', STR_PAD_LEFT);
+        if ( ! $bapb) {
+            return $year.$code.str_pad(1, 7, '0', STR_PAD_LEFT);
         }
 
-        return $year . $code . str_pad($bapb->bapb_no + 1, 7, '0', STR_PAD_LEFT);
+        return $year.$code.str_pad($bapb->bapb_no + 1, 7, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -301,9 +335,12 @@ class BapbController extends Controller
                               ->with('ship')
                               ->findOrFail($bapbId);
 
-                $bapb->senders->each(function ($sender) use ($bapb) {
+                $bapb->senders->each(
+                  function ($sender) use ($bapb)
+                  {
 
-                    $items = DB::select("
+                      $items = DB::select(
+                        "
                         SELECT SUM(B.koli) AS koli, 
                                STRING_AGG(B.bapb_sender_item_name, ', ') AS bapb_sender_item_name,
                                SUM(B.price) AS price
@@ -313,41 +350,58 @@ class BapbController extends Controller
                             AND A.bapb_sender_id = $sender->bapb_sender_id
                             AND B.deleted_at IS NULL
                         WHERE A.deleted_at IS NULL
-                    ");
+                    "
+                      );
 
-                    $sender->items = collect($items);
-                });
+                      $sender->items = collect($items);
+                  }
+                );
 
             }
 
 
-            $bapb->senders->each(function ($sender) use ($bapb) {
-                $sender->terbilang = $this->terbilang($sender->price);
+            $bapb->senders->each(
+              function ($sender) use ($bapb)
+              {
+                  $sender->terbilang = $this->terbilang($sender->price);
 
-                $sender->items->each(function ($item) use ($bapb, $sender) {
-                    $item->price_ton = (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_ton : $sender->price_ton);
-                    $item->price_meter = (($bapb->tagih_di == 'recipient') ? $bapb->recipient->price_meter : $sender->price_meter);
-                });
-            });
+                  $sender->items->each(
+                    function ($item) use ($bapb, $sender)
+                    {
+                        $item->price_ton   = (($bapb->tagih_di == 'recipient')
+                          ? $bapb->recipient->price_ton : $sender->price_ton);
+                        $item->price_meter = (($bapb->tagih_di == 'recipient')
+                          ? $bapb->recipient->price_meter
+                          : $sender->price_meter);
+                    }
+                  );
+              }
+            );
 
             $bapb->total_price_document = $bapb->recipient->price_document;
 
-            $bapb->total_price = $bapb->senders->reduce(function ($i, $j) {
-               return $i + $j->price;
-            });
+            $bapb->total_price = $bapb->senders->reduce(
+              function ($i, $j)
+              {
+                  return $i + $j->price;
+              }
+            );
 
             $bapb->total_price += $bapb->total_price_document;
 
             $bapb->terbilang = $this->terbilang($bapb->harga);
 
-            $bapb->kena_min_charge = $bapb->tagih_di == 'recipient' && $bapb->total_price != ($bapb->harga + $bapb->cost);
+            $bapb->kena_min_charge = $bapb->tagih_di == 'recipient'
+                                     && $bapb->total_price != ($bapb->harga
+                                                               + $bapb->cost);
 
 
             $data = [
-                'bapb' => $bapb,
+              'bapb' => $bapb,
             ];
 
             $pdf = PDF::loadView('bapb.pdf.print', $data);
+
             return $pdf->stream('bapb.pdf');
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
@@ -359,6 +413,7 @@ class BapbController extends Controller
     /**
      *
      * @param int $code
+     *
      * @return array
      */
     public function latestBapb($code = 1)
@@ -367,10 +422,10 @@ class BapbController extends Controller
             $year = Carbon::now()->format('y');
 
             $latestBapb = TrBapb::whereNotNull('no_container_1')
-                ->whereNotNull('no_container_2')
-                ->whereRaw("LEFT(bapb_no, 3) = '$year$code'")
-                ->orderBy('created_at', 'desc')
-                ->first();
+                                ->whereNotNull('no_container_2')
+                                ->whereRaw("LEFT(bapb_no, 3) = '$year$code'")
+                                ->orderBy('created_at', 'desc')
+                                ->first();
 
             $response = CoreResponse::ok(compact('latestBapb'));
         } catch (CoreException $exception) {
@@ -382,6 +437,7 @@ class BapbController extends Controller
 
     /**
      * @param $noContainer
+     *
      * @return mixed
      */
     public function exportExcel($noContainer)
@@ -391,48 +447,75 @@ class BapbController extends Controller
 
     /**
      * @param $nilai
+     *
      * @return string
      */
     private function penyebut($nilai)
     {
         $nilai = abs($nilai);
-        $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
-        $temp = "";
+        $huruf = [
+          "",
+          "satu",
+          "dua",
+          "tiga",
+          "empat",
+          "lima",
+          "enam",
+          "tujuh",
+          "delapan",
+          "sembilan",
+          "sepuluh",
+          "sebelas",
+        ];
+        $temp  = "";
         if ($nilai < 12) {
-            $temp = " " . $huruf[$nilai];
-        } else if ($nilai < 20) {
-            $temp = $this->penyebut($nilai - 10) . " belas";
-        } else if ($nilai < 100) {
-            $temp = $this->penyebut($nilai / 10) . " puluh" . $this->penyebut($nilai % 10);
-        } else if ($nilai < 200) {
-            $temp = " seratus" . $this->penyebut($nilai - 100);
-        } else if ($nilai < 1000) {
-            $temp = $this->penyebut($nilai / 100) . " ratus" . $this->penyebut($nilai % 100);
-        } else if ($nilai < 2000) {
-            $temp = " seribu" . $this->penyebut($nilai - 1000);
-        } else if ($nilai < 1000000) {
-            $temp = $this->penyebut($nilai / 1000) . " ribu" . $this->penyebut($nilai % 1000);
-        } else if ($nilai < 1000000000) {
-            $temp = $this->penyebut($nilai / 1000000) . " juta" . $this->penyebut($nilai % 1000000);
-        } else if ($nilai < 1000000000000) {
-            $temp = $this->penyebut($nilai / 1000000000) . " milyar" . $this->penyebut(fmod($nilai, 1000000000));
-        } else if ($nilai < 1000000000000000) {
-            $temp = $this->penyebut($nilai / 1000000000000) . " trilyun" . $this->penyebut(fmod($nilai, 1000000000000));
+            $temp = " ".$huruf[$nilai];
+        } elseif ($nilai < 20) {
+            $temp = $this->penyebut($nilai - 10)." belas";
+        } elseif ($nilai < 100) {
+            $temp = $this->penyebut($nilai / 10)." puluh".$this->penyebut(
+                $nilai % 10
+              );
+        } elseif ($nilai < 200) {
+            $temp = " seratus".$this->penyebut($nilai - 100);
+        } elseif ($nilai < 1000) {
+            $temp = $this->penyebut($nilai / 100)." ratus".$this->penyebut(
+                $nilai % 100
+              );
+        } elseif ($nilai < 2000) {
+            $temp = " seribu".$this->penyebut($nilai - 1000);
+        } elseif ($nilai < 1000000) {
+            $temp = $this->penyebut($nilai / 1000)." ribu".$this->penyebut(
+                $nilai % 1000
+              );
+        } elseif ($nilai < 1000000000) {
+            $temp = $this->penyebut($nilai / 1000000)." juta".$this->penyebut(
+                $nilai % 1000000
+              );
+        } elseif ($nilai < 1000000000000) {
+            $temp = $this->penyebut($nilai / 1000000000)." milyar"
+                    .$this->penyebut(fmod($nilai, 1000000000));
+        } elseif ($nilai < 1000000000000000) {
+            $temp = $this->penyebut($nilai / 1000000000000)." trilyun"
+                    .$this->penyebut(fmod($nilai, 1000000000000));
         }
+
         return $temp;
     }
 
     /**
      * @param $nilai
+     *
      * @return string
      */
     public function terbilang($nilai)
     {
         if ($nilai < 0) {
-            $hasil = "minus " . trim($this->penyebut($nilai));
+            $hasil = "minus ".trim($this->penyebut($nilai));
         } else {
             $hasil = trim($this->penyebut($nilai));
         }
+
         return $hasil;
     }
 
@@ -465,6 +548,23 @@ class BapbController extends Controller
             GROUP BY no_container, _no_container, A.no_seal, B.no_voyage, B.ship_name, B.sailing_date, destination
         ";
 
-        return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
+        return DataTables::of(DB::TABLE(DB::RAW("(".$query.") AS X")))->make();
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function paymentList(Request $request)
+    {
+        try {
+            $bapbList = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+            $response = CoreResponse::ok(compact('bapbList'));
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
     }
 }

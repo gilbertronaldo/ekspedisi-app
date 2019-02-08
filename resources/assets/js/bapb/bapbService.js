@@ -12,7 +12,8 @@
             store: store,
             delete: _delete,
             latest: latest,
-            verify: verify
+            verify: verify,
+            paymentList: paymentList
         };
 
         function get(id = '') {
@@ -52,6 +53,13 @@
 
         function latest(code) {
             return $http.get(`/api/bapb/latest/${code}`)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function paymentList(id) {
+            return $http.post(`/api/bapb/payment-list`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

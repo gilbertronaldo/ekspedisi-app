@@ -16,11 +16,8 @@
         'DTColumnBuilder',
         '$localStorage',
         '$compile',
-        'ShipService',
         '$http',
         'RecipientService',
-        'SenderService',
-        'BapbService',
         'InvoiceService'
     ];
 
@@ -35,23 +32,12 @@
         DTColumnBuilder,
         $localStorage,
         $compile,
-        ShipService,
         $http,
         RecipientService,
-        SenderService,
-        BapbService,
         InvoiceService
     ) {
         let vm = this;
         vm.input = {};
-        vm.codeList = [
-            {code_id: 1, name: 'BJM - Banjarmasin'},
-            {code_id: 2, name: 'SMD - Samarinda'},
-            {code_id: 3, name: 'BPP - Balikpapan'},
-            {code_id: 4, name: 'MKS - Makassar'},
-            {code_id: 5, name: 'KJ - Retur'},
-        ];
-        vm.code = 1;
         vm.detail = {};
         vm.id = $stateParams.id;
 
