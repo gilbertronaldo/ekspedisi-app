@@ -68,7 +68,8 @@ class BapbController extends Controller
           SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, 
                  A.no_seal, A.verified,
               B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb,
-              COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total
+              COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total,
+              B.ship_name, to_char(B.sailing_date, 'dd/mm/yy') as sailing_date
             FROM tr_bapb A
             INNER JOIN ms_ship B
               ON A.ship_id = B.ship_id
@@ -81,7 +82,7 @@ class BapbController extends Controller
               AND D.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
             GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb,
-                     A.harga, A.berat
+                     A.harga, A.berat, B.ship_name, B.sailing_date
         ";
 
         return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();

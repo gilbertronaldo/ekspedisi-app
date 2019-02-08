@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-body">
                         <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
-                               dt-instance="vm.dtInstance" class="row-border hover" width="100%" cellspacing="0">
+                               dt-instance="vm.dtInstance" class="row-border hover table-responsive" width="100%" cellspacing="0">
                         </table>
                     </div>
                 </div>
