@@ -174,7 +174,7 @@
         </table>
     </div>
     <div style="margin-top: 10px">
-        <p>Pembayaran diatas harap ditransfer ke rekening BCA an: HENDRA GUNAWAN KURNIAWAN acc: 7460205772</p>
+        <p>Pembayaran diatas harap ditransfer ke rekening {{ $officeBranch->bank_account }} an: {{ $officeBranch->bank_account_name }} acc: {{ $officeBranch->bank_account_number }}</p>
         <p>Bukti transfer harap di fax ke (021) 6240380</p>
         <p>Terima kasih atas kerjasamanya</p>
 

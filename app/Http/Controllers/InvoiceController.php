@@ -163,7 +163,7 @@ class InvoiceController extends Controller
     /**
      * @param $invoiceId
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|string
      */
     public function generatePrint($invoiceId)
     {
@@ -217,6 +217,14 @@ class InvoiceController extends Controller
             );
         }
 
+        if (is_null($recipient)) {
+            return 'no recipient';
+        }
+
+        $cityCodeRecipient = $recipient->city->city_code;
+
+        $officeBranch = MsOfficeBranch::whereCityCode($cityCodeRecipient);
+        
         collect($bapb)->each(
           function ($i)
           {
@@ -232,10 +240,11 @@ class InvoiceController extends Controller
         );
 
         $input = [
-          'invoice'   => $invoice,
-          'bapbList'  => $bapb,
-          'total'     => $total,
-          'recipient' => $recipient,
+          'invoice'       => $invoice,
+          'bapbList'      => $bapb,
+          'total'         => $total,
+          'recipient'     => $recipient,
+          'officeBranch' => $officeBranch,
         ];
 
         $pdf = PDF::loadView('invoice.pdf.print', $input);

@@ -28,6 +28,8 @@ use Carbon\Carbon;
  * @property Carbon updated_at
  * @property Carbon deleted_at
  *
+ * @property \App\MsCity city
+ *
  * @package App
  */
 class MsRecipient extends BaseModel

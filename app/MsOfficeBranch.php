@@ -9,6 +9,7 @@
 namespace App;
 
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use phpDocumentor\Reflection\Types\Integer;
 
 /**
@@ -21,6 +22,8 @@ use phpDocumentor\Reflection\Types\Integer;
  * @property string  bank_account_name
  * @property string  bank_account_number
  *
+ * @property \App\MsCity city
+ *
  * @package App
  */
 class MsOfficeBranch extends BaseModel
@@ -31,6 +34,24 @@ class MsOfficeBranch extends BaseModel
     protected $primaryKey = 'office_branch_id';
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function city()
+    {
+        return $this->belongsTo(MsCity::class, 'city_id');
+    }
+
+    /**
+     * @param string $cityCode
+     *
+     * @return string
+     */
+    public static function whereCityCode(string $cityCode)
+    {
+        return self::with('city')->get()->where('city.city_code', '=', $cityCode)->first();
+    }
 
     /**
      * @return void
