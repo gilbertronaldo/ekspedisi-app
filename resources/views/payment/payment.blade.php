@@ -166,9 +166,21 @@
                                                 </td>
                                             </tr>
                                             <tr ng-repeat="bapb in vm.bapbList">
-                                                <td>1213222</td>
-                                                <td>Gilbert Ronaldo</td>
-                                                <td>12</td>
+                                                <td>
+                                                    <span>
+                                                        {{'{{'. 'bapb.bapb_no' .'}'.'}'}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {{'{{'. 'bapb.koli' .'}'.'}'}}
+                                                    </span>
+                                                </td>
                                                 <td>Rp. 100000</td>
                                                 <td>13 Agustus 2019</td>
                                             </tr>

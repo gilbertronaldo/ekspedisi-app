@@ -58,8 +58,8 @@
                 });
         }
 
-        function paymentList(id) {
-            return $http.post(`/api/bapb/payment-list`)
+        function paymentList(param) {
+            return $http.post(`/api/bapb/payment-list`, param)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

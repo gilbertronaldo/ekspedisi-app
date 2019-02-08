@@ -559,7 +559,37 @@ class BapbController extends Controller
     public function paymentList(Request $request)
     {
         try {
-            $bapbList = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+            $shipId = $request->input('ship_id');
+            $containers = $request->input('containers');
+
+            if (collect($containers)->isEmpty()) {
+                $bapbList = [];
+                return CoreResponse::ok(compact('bapbList'));
+            }
+
+
+            $containers = collect($containers)
+              ->map(function ($container) {
+                  return preg_replace('/\s+/', '', strtoupper($container));
+              })
+              ->implode("', '");
+
+
+            $bapbList = DB::select("
+                SELECT A.bapb_no,
+                       A.koli,
+                       B.recipient_name_bapb
+                FROM tr_bapb A
+                INNER JOIN ms_recipient B
+                    ON A.recipient_id = B.recipient_id
+                    AND B.deleted_at IS NULL
+                WHERE A.deleted_at IS NULL
+                AND A.ship_id = $shipId
+                AND REPLACE(UPPER(CONCAT(A.no_container_1, A.no_container_2)), ' ', '') IN ('$containers')
+                ORDER BY A.created_at DESC
+            ");
+
+
             $response = CoreResponse::ok(compact('bapbList'));
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
