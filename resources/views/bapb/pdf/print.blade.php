@@ -217,10 +217,10 @@
                                         </td>
                                         <td style="margin: 0;padding: 2px 5px;"
                                             width="15%">
-                                            @if($bapb->show_calculation)
+{{--                                            @if($bapb->show_calculation)--}}
                                                 <span>Rp.<span
                                                             style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
-                                            @endif
+                                            {{--@endif--}}
                                         </td>
                                 @endforeach
                                 @foreach($sender->costs as $cost)

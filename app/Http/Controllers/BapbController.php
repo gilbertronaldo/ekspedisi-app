@@ -286,12 +286,40 @@ class BapbController extends Controller
     public function generatePrint($bapbId)
     {
         try {
-            $bapb = TrBapb::with('senders.items')
-                ->with('senders.costs')
-                ->with('senders.sender')
-                ->with('recipient')
-                ->with('ship')
-                ->findOrFail($bapbId);
+            $bapb = TrBapb::findOrFail($bapbId);
+
+            if ($bapb->show_calculation == true) {
+                $bapb = TrBapb::with('senders.items')
+                              ->with('senders.costs')
+                              ->with('senders.sender')
+                              ->with('recipient')
+                              ->with('ship')
+                              ->findOrFail($bapbId);
+            } else {
+                $bapb = TrBapb::with('senders')
+                              ->with('recipient')
+                              ->with('ship')
+                              ->findOrFail($bapbId);
+
+                $bapb->senders->each(function ($sender) use ($bapb) {
+
+                    $items = DB::select("
+                        SELECT SUM(B.koli) AS koli, 
+                               STRING_AGG(B.bapb_sender_item_name, ', ') AS bapb_sender_item_name,
+                               SUM(B.price) AS price
+                        FROM tr_bapb_sender A 
+                        INNER JOIN tr_bapb_sender_item B
+                            ON A.bapb_sender_id = B.bapb_sender_id
+                            AND A.bapb_sender_id = $sender->bapb_sender_id
+                            AND B.deleted_at IS NULL
+                        WHERE A.deleted_at IS NULL
+                    ");
+
+                    $sender->items = collect($items);
+                });
+
+            }
+
 
             $bapb->senders->each(function ($sender) use ($bapb) {
                 $sender->terbilang = $this->terbilang($sender->price);
