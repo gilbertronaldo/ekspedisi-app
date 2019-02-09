@@ -14,13 +14,29 @@
         'DTColumnBuilder',
         '$localStorage',
         '$compile',
-        'ShipService'
+        'ShipService',
+        '$rootScope',
+        '$timeout'
     ];
 
-    function ShipController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, ShipService) {
+    function ShipController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, ShipService, $rootScope, $timeout) {
         let vm = this;
 
-        vm.dtInstance = {};
+        vm.can = {
+            edit: $rootScope.authCan('SHIP_EDIT'),
+            delete: $rootScope.authCan('SHIP_DELETE')
+        };
+
+        vm.dtInstanceCallback = (dtInstance) => {
+            vm.dtInstance = dtInstance;
+            dtInstance.DataTable.on('draw.dt', () => {
+                let elements = angular.element("#" + dtInstance.id + " .ng-scope");
+                angular.forEach(elements, (element) => {
+                    $compile(element)($scope)
+                })
+            });
+        }
+        ;
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
                 url: '/api/ship/',
@@ -40,6 +56,10 @@
             .withOption('serverSide', true)
             .withPaginationType('full_numbers')
             .withOption('createdRow', createdRow)
+            .withOption('drawCallback', function () {
+                $timeout(() => {
+                });
+            });
         vm.dtColumns = [
             DTColumnBuilder.newColumn('no_voyage').withTitle('No. Voyage'),
             DTColumnBuilder.newColumn('ship_name').withTitle('Nama Kapal').withOption('width', '25%'),
@@ -56,19 +76,19 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<div><button class="btn btn-warning btn-xs" ng-click="vm.editShip(' + data.ship_id + ')">' +
+            return '<div ng-controller="ShipController"><button class="btn btn-warning btn-xs" ng-click="editShip(' + data.ship_id + ')" one-time-if="(' + vm.can.edit + ')">' +
                 '   EDIT' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-danger btn-xs" ng-click="vm.deleteShip(' + data.ship_id + ')">' +
+                '<button class="btn btn-danger btn-xs" ng-click="deleteShip(' + data.ship_id + ')" one-time-if="(' + vm.can.delete + ')">' +
                 '   DELETE' +
                 '</button></div>';
         }
 
-        vm.editShip = shipId => {
-            $state.go('admin.ship-edit', { id: shipId });
+        $scope.editShip = shipId => {
+            $state.go('admin.ship-edit', {id: shipId});
         }
 
-        vm.deleteShip = shipId => {
+        $scope.deleteShip = shipId => {
             swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
                 showCancelButton: true,
                 preConfirm: () => {

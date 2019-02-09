@@ -14,11 +14,19 @@
         'DTColumnBuilder',
         '$localStorage',
         '$compile',
-        'RecipientService'
+        'RecipientService',
+        '$rootScope',
+        '$timeout'
     ];
 
-    function RecipientController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, RecipientService) {
+    function RecipientController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, RecipientService, $rootScope, $timeout) {
         let vm = this;
+
+        vm.can = {
+            edit: $rootScope.authCan('RECIPIENT_EDIT'),
+            delete: $rootScope.authCan('RECIPIENT_DELETE')
+        };
+
 
         vm.dtInstance = {};
         vm.dtOptions = DTOptionsBuilder.newOptions()
@@ -40,6 +48,10 @@
             .withOption('serverSide', true)
             .withPaginationType('full_numbers')
             .withOption('createdRow', createdRow)
+            .withOption('drawCallback', function () {
+                $timeout(() => {
+                });
+            });
         vm.dtColumns = [
             DTColumnBuilder.newColumn('recipient_code').withTitle('Kode Penerima').withOption('width', '10%'),
             DTColumnBuilder.newColumn('recipient_name').withTitle('Nama Penerima'),
@@ -57,19 +69,19 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<div><button class="btn btn-warning btn-xs" ng-click="vm.editRecipient(' + data.recipient_id + ')">' +
+            return '<div ng-controller="RecipientController"><button class="btn btn-warning btn-xs" ng-click="editRecipient(' + data.recipient_id + ')" one-time-if="(' + vm.can.edit + ')">' +
                 '   EDIT' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-danger btn-xs" ng-click="vm.deleteRecipient(' + data.recipient_id + ')">' +
+                '<button class="btn btn-danger btn-xs" ng-click="deleteRecipient(' + data.recipient_id + ')" one-time-if="(' + vm.can.delete + ')">' +
                 '   DELETE' +
                 '</button></div>';
         }
 
-        vm.editRecipient = id => {
+        $scope.editRecipient = id => {
             $state.go('admin.recipient-edit', {id: id});
         }
 
-        vm.deleteRecipient = id => {
+        $scope.deleteRecipient = id => {
             swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
                 showCancelButton: true,
                 preConfirm: () => {

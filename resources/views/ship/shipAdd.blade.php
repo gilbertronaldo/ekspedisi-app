@@ -1,4 +1,4 @@
-<data ng-init="ctrl = addShipController">
+<data ng-init="ctrl = addShipController" one-time-if="authCan('SHIP_ADD')">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">

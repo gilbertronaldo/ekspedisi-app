@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="button-group">
-                            <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.recipient-add">
+                            <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.recipient-add" one-time-if="authCan('RECIPIENT_ADD')">
                                 TAMBAH PENERIMA
                             </button>
                         </div>

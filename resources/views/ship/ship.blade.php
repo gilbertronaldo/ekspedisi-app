@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="button-group">
-                            <button type="button" class="btn waves-effect waves-light btn-primary"
+                            <button type="button" class="btn waves-effect waves-light btn-primary" one-time-if="authCan('SHIP_ADD')"
                                     ui-sref="admin.ship-add">
                                 TAMBAH KAPAL
                             </button>
