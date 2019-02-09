@@ -66,5 +66,28 @@
                 <span class="hide-menu">Container</span>
             </a>
         </li>
+
+        <li class="nav-small-cap">
+            <i class="mdi mdi-settings"></i>
+            <span class="hide-menu">Settings</span>
+        </li>
+
+        <li class="sidebar-item" ui-sref-active='selected'>
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link"
+               ui-sref="admin.user"
+               aria-expanded="false">
+                <i class="icon-Add-User"></i>
+                <span class="hide-menu">Users</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item" ui-sref-active='selected'>
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link"
+               ui-sref="admin.role"
+               aria-expanded="false">
+                <i class="mdi mdi-account-key"></i>
+                <span class="hide-menu">Roles</span>
+            </a>
+        </li>
     </ul>
 </nav>

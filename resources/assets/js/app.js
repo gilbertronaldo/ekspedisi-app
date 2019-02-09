@@ -7,6 +7,10 @@ require('./main/app.js');
 require('./admin/admin.js');
 require('./admin/adminController.js');
 
+require('./user/user.js');
+require('./user/userController.js');
+require('./user/userService.js');
+
 require('./home/home.js');
 require('./home/homeController.js');
 require('./home/homeService.js');

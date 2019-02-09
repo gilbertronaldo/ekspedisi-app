@@ -9,6 +9,7 @@
                 'ngStorage',
                 'moment-picker',
                 'Ekspedisi.admin',
+                'Ekspedisi.user',
                 'Ekspedisi.auth',
                 'Ekspedisi.master',
                 'Ekspedisi.ship',

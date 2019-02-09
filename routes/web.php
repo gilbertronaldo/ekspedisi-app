@@ -30,6 +30,12 @@ Route::middleware('auth:api')->group(function () {
         return view('layout.admin');
     });
 
+    Route::prefix('user')->group(function () {
+        Route::get('/', function () {
+            return view('user.user');
+        });
+    });
+
 
     Route::prefix('ship')->group(function () {
         Route::get('/', function () {
