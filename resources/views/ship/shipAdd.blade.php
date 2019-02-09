@@ -88,7 +88,7 @@
                                           placeholder="Masukkan Deskripsi Kapal"></textarea>
                                 <small class="form-text text-muted"></small>
                             </div>
-                            <button type="submit" class="btn btn-dark" ui-sref="admin.ship">Batal</button>
+                            <button type="button" class="btn btn-dark" ui-sref="admin.ship">Batal</button>
                             <button type="submit" class="btn btn-primary" ng-click="ctrl.saveShip()">Simpan</button>
                         </form>
                     </div>

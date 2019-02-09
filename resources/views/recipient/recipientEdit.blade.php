@@ -186,7 +186,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-dark" ui-sref="admin.recipient">Batal</button>
+                            <button type="button" class="btn btn-dark" ui-sref="admin.recipient">Batal</button>
                             <button type="submit" class="btn btn-primary" ng-click="ctrl.saveRecipient()">Simpan
                             </button>
                         </form>
