@@ -1,4 +1,4 @@
-<data ng-init="vm = inputInvoiceController">
+<data ng-init="vm = inputInvoiceController" one-time-if="authCan('INVOICE_ADD')">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">

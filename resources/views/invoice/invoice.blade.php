@@ -34,13 +34,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="button-group">
-                            <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.invoice-input">
+                            <button type="button" class="btn waves-effect waves-light btn-primary"
+                                    ui-sref="admin.invoice-input" one-time-if="authCan('INVOICE_ADD')">
                                 INPUT INVOICE
                             </button>
                         </div>
                         <div class="table-responsive">
                             <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
-                                   dt-instance="vm.dtInstance" class="table table-bordered" width="100%" cellspacing="0">
+                                   dt-instance="vm.dtInstance" class="table table-bordered" width="100%"
+                                   cellspacing="0">
                             </table>
                         </div>
                     </div>

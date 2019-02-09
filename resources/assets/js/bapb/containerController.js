@@ -15,11 +15,17 @@
         '$localStorage',
         '$compile',
         'SenderService',
-        'BapbService'
+        'BapbService',
+        '$rootScope',
+        '$timeout'
     ];
 
-    function ContainerController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, SenderService, BapbService) {
+    function ContainerController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, SenderService, BapbService, $rootScope, $timeout) {
         let vm = this;
+
+        vm.can = {
+            printExcel: $rootScope.authCan('CONTAINER_PRINT_EXCEL')
+        };
 
         vm.dtInstance = {};
         vm.dtOptions = DTOptionsBuilder.newOptions()
@@ -41,6 +47,10 @@
             .withOption('serverSide', true)
             .withPaginationType('full_numbers')
             .withOption('createdRow', createdRow)
+            .withOption('drawCallback', function () {
+                $timeout(() => {
+                });
+            });
         vm.dtColumns = [
             DTColumnBuilder.newColumn('no_container').withTitle('No Container'),
             DTColumnBuilder.newColumn('no_seal').withTitle('No Seal'),
@@ -56,36 +66,17 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return `<div><button class="btn btn-success btn-xs" ng-click="vm.printBapb('${data._no_container}')">` +
-                `   PRINT` +
-                `</button></div>`;
+            const noContainer = `'${data._no_container}'`;
+            return '<div ng-controller="ContainerController"><button class="btn btn-success btn-xs" ng-click="printExcel('+ noContainer +')" one-time-if="(' + vm.can.printExcel + ')">'+
+                'PRINT' +
+                '</button></div>';
         }
 
-        vm.editBapb = id => {
-            $state.go('admin.bapb-input', {id: id});
-        }
 
-        vm.printBapb = id => {
+        $scope.printExcel = id => {
             console.log(id);
             const win = window.open(`http://${window.location.hostname}/api/bapb/export/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
-
-        vm.deleteBapb = id => {
-            swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
-                showCancelButton: true,
-                preConfirm: () => {
-                    BapbService.delete(id)
-                        .then(res => {
-                            swangular.success("Berhasil Menghapus Bapb");
-                            vm.dtInstance.rerender();
-                        })
-                        .catch(err => {
-                            console.log(err);
-                            swangular.alert("Error");
-                        })
-                },
-            })
-        }
     }
 })();

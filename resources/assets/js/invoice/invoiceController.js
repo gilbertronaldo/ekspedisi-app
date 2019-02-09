@@ -15,7 +15,9 @@
         '$localStorage',
         '$compile',
         'SenderService',
-        'InvoiceService'
+        'InvoiceService',
+        '$rootScope',
+        '$timeout'
     ];
 
     function InvoiceController(
@@ -28,9 +30,17 @@
         $localStorage,
         $compile,
         SenderService,
-        InvoiceService
+        InvoiceService,
+        $rootScope,
+        $timeout
     ) {
         let vm = this;
+
+        vm.can = {
+            delete: $rootScope.authCan('INVOICE_DELETE'),
+            printInvoice: $rootScope.authCan('INVOICE_PRINT_INVOICE'),
+            printKwitansi: $rootScope.authCan('INVOICE_PRINT_KWITANSI')
+        };
 
         vm.dtInstance = {};
         vm.dtOptions = DTOptionsBuilder.newOptions()
@@ -52,6 +62,10 @@
             .withOption('serverSide', true)
             .withPaginationType('full_numbers')
             .withOption('createdRow', createdRow)
+            .withOption('drawCallback', function () {
+                $timeout(() => {
+                });
+            });
         vm.dtColumns = [
             // DTColumnBuilder.newColumn('invoice_no').withTitle('No Invoice'),
             DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Penerima'),
@@ -66,33 +80,28 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<div><button class="btn btn-danger btn-xs" ng-click="vm.deleteInvoice(' + data.invoice_id + ')">' +
+            return '<div ng-controller="InvoiceController"><button class="btn btn-danger btn-xs" ng-click="deleteInvoice(' + data.invoice_id + ')" one-time-if="(' + vm.can.delete + ')">' +
                 '   DELETE' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-success btn-xs" ng-click="vm.printInvoice(' + data.invoice_id + ')">' +
+                '<button class="btn btn-success btn-xs" ng-click="printInvoice(' + data.invoice_id + ')" one-time-if="(' + vm.can.printInvoice + ')">' +
                 '   PRINT INVOICE' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-success btn-xs" ng-click="vm.printKwitansi(' + data.invoice_id + ')">' +
+                '<button class="btn btn-success btn-xs" ng-click="printKwitansi(' + data.invoice_id + ')" one-time-if="(' + vm.can.printKwitansi + ')">' +
                 '   PRINT KWITANSI' +
                 '</button></div>';
         }
 
-        vm.editInvoice = id => {
-            console.log(id)
-            $state.go('admin.bapb-input', {id: id});
-        }
-
-        vm.printInvoice = id => {
+        $scope.printInvoice = id => {
             const win = window.open(`http://${window.location.hostname}/api/invoice/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
 
-        vm.printKwitansi = id => {
+        $scope.printKwitansi = id => {
             const win = window.open(`http://${window.location.hostname}/api/invoice/kwitansi/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
 
-        vm.deleteInvoice = id => {
+        $scope.deleteInvoice = id => {
             swangular.confirm('Apakah anda yakin ingin menghapus invoice ini', {
                 showCancelButton: true,
                 preConfirm: () => {
