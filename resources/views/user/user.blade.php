@@ -1,4 +1,4 @@
-<data ng-controller="UserController">
+<data ng-controller="UserController" one-time-if="authCan('USER_NAVIGATION_SIDEBAR')">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -35,6 +35,7 @@
                     <div class="card-body">
                         <div class="button-group">
                             <button type="button" class="btn waves-effect waves-light btn-primary"
+                                    one-time-if="authCan('USER_ADD')"
                                     ui-sref="admin.user">
                                 TAMBAH USER
                             </button>
@@ -61,9 +62,9 @@
                                     </td>
                                     <td class="text-center">
                                         <div>
-                                            <button class="btn btn-warning btn-xs">EDIT</button>
-                                            <button class="btn btn-danger btn-xs">DELETE</button>
-                                            <button class="btn btn-primary btn-xs">MANAGE ROLES</button>
+                                            <button class="btn btn-warning btn-xs" one-time-if="authCan('USER_EDIT')">EDIT</button>
+                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('USER_DELETE')">DELETE</button>
+                                            <button class="btn btn-primary btn-xs" one-time-if="authCan('USER_MANAGE_ROLES')">MANAGE ROLES</button>
                                         </div>
                                     </td>
                                 </tr>

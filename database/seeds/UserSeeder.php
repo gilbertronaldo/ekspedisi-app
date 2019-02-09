@@ -91,6 +91,26 @@ class UserSeeder extends Seeder
     {
         $data = [
           [
+            'task_code'        => 'USER_NAVIGATION_SIDEBAR',
+            'task_description' => 'Menampilkan Menu User di navigation',
+          ],
+          [
+            'task_code'        => 'USER_ADD',
+            'task_description' => 'Menambahkan Data User',
+          ],
+          [
+            'task_code'        => 'USER_EDIT',
+            'task_description' => 'Mengedit Data User',
+          ],
+          [
+            'task_code'        => 'USER_DELETE',
+            'task_description' => 'Menghapus Data Delete',
+          ],
+          [
+            'task_code'        => 'USER_MANAGE_ROLES',
+            'task_description' => 'Manage User Roles',
+          ],
+          [
             'task_code'        => 'SHIP_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Kapal di navigation',
           ],

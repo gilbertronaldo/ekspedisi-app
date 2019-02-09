@@ -67,12 +67,12 @@
             </a>
         </li>
 
-        <li class="nav-small-cap">
+        <li class="nav-small-cap" ng-if="authCan('USER_NAVIGATION_SIDEBAR, ROLE_NAVIGATION_SIDEBAR')">
             <i class="mdi mdi-settings"></i>
             <span class="hide-menu">Settings</span>
         </li>
 
-        <li class="sidebar-item" ui-sref-active='selected'>
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('USER_NAVIGATION_SIDEBAR')">
             <a class="sidebar-link active waves-effect waves-dark sidebar-link"
                ui-sref="admin.user"
                aria-expanded="false">
@@ -81,7 +81,7 @@
             </a>
         </li>
 
-        <li class="sidebar-item" ui-sref-active='selected'>
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('ROLE_NAVIGATION_SIDEBAR')">
             <a class="sidebar-link active waves-effect waves-dark sidebar-link"
                ui-sref="admin.role"
                aria-expanded="false">
