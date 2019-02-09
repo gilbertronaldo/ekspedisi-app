@@ -1,4 +1,4 @@
-<data ng-init="vm = invoiceController">
+<data ng-init="vm = invoiceController" one-time-if="authCan('INVOICE_NAVIGATION_SIDEBAR')">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->

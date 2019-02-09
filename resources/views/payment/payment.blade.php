@@ -1,4 +1,4 @@
-<data ng-init="vm = paymentController">
+<data ng-init="vm = paymentController" one-time-if="authCan('PAYMENT_NAVIGATION_SIDEBAR')">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">

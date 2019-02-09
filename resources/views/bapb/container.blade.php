@@ -1,4 +1,4 @@
-<data ng-init="vm = containerController">
+<data ng-init="vm = containerController" one-time-if="authCan('CONTAINER_NAVIGATION_SIDEBAR')">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->

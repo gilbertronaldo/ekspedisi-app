@@ -1,4 +1,4 @@
-<data ng-init="vm = bapbController">
+<data ng-init="vm = bapbController" one-time-if="authCan('BAPB_NAVIGATION_SIDEBAR')">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -34,13 +34,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="button-group">
-                            <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.bapb-input">
+                            <button type="button" class="btn waves-effect waves-light btn-primary"
+                                    ui-sref="admin.bapb-input">
                                 INPUT BAPB
                             </button>
                         </div>
                         <div class="table-responsive">
                             <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" id="bapb-table"
-                                   dt-instance="vm.dtInstance" class="table table-bordered" width="100%" cellspacing="0">
+                                   dt-instance="vm.dtInstance" class="table table-bordered" width="100%"
+                                   cellspacing="0">
                             </table>
                         </div>
                     </div>
