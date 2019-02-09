@@ -36,7 +36,7 @@
                         <div class="button-group">
                             <button type="button" class="btn waves-effect waves-light btn-primary"
                                     one-time-if="authCan('USER_ADD')"
-                                    ui-sref="admin.user">
+                                    ui-sref="admin.user-edit">
                                 TAMBAH USER
                             </button>
                             {{--<button type="button" class="btn waves-effect waves-light btn-primary" ng-click="vm.exportToExcel()">--}}
@@ -62,9 +62,15 @@
                                     </td>
                                     <td class="text-center">
                                         <div>
-                                            <button class="btn btn-warning btn-xs" one-time-if="authCan('USER_EDIT')">EDIT</button>
-                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('USER_DELETE')">DELETE</button>
-                                            <button class="btn btn-primary btn-xs" one-time-if="authCan('USER_MANAGE_ROLES')">MANAGE ROLES</button>
+                                            <button class="btn btn-warning btn-xs" one-time-if="authCan('USER_EDIT')"
+                                                    ui-sref="admin.user-edit({id: user.id})">EDIT
+                                            </button>
+                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('USER_DELETE')">
+                                                DELETE
+                                            </button>
+                                            <button class="btn btn-primary btn-xs"
+                                                    one-time-if="authCan('USER_MANAGE_ROLES')">MANAGE ROLES
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
