@@ -1,4 +1,4 @@
-<data ng-init="ctrl = addSenderController">
+<data ng-init="ctrl = addSenderController" one-time-if="authCan('SENDER_ADD')">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">

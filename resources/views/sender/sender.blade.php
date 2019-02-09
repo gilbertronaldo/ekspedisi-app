@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="button-group">
-                            <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.sender-add">
+                            <button type="button" class="btn waves-effect waves-light btn-primary" ui-sref="admin.sender-add" one-time-if="authCan('SENDER_ADD')">
                                 TAMBAH PENGIRIM
                             </button>
                         </div>
