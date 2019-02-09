@@ -29,8 +29,9 @@
             min-height: calc(100vh - 180px);
         }
 
-        table.dataTable > tbody > tr > td:last-child {
+        table.dataTable > tbody > tr > td:last-child div {
             display: inline-flex;
+            border: none;
         }
     </style>
 

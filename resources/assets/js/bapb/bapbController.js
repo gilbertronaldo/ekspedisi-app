@@ -75,7 +75,7 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<button class="btn btn-warning btn-xs" ng-click="vm.editBapb(' + data.bapb_id + ')">' +
+            return '<div><button class="btn btn-warning btn-xs" ng-click="vm.editBapb(' + data.bapb_id + ')">' +
                 '   EDIT' +
                 '</button>&nbsp;' +
                 '<button class="btn btn-danger btn-xs" ng-click="vm.deleteBapb(' + data.bapb_id + ')">' +
@@ -86,7 +86,7 @@
                 '</button>&nbsp;' +
                 '<button class="btn btn-info btn-xs" ng-click="vm.verifyBapb(' + data.bapb_id + ')" ng-show="' + (data.verified == false) + '">' +
                 '   {{ "VERIFY" }}' +
-                '</button>';
+                '</button></div>';
         }
 
         vm.editBapb = id => {

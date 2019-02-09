@@ -66,7 +66,7 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<button class="btn btn-danger btn-xs" ng-click="vm.deleteInvoice(' + data.invoice_id + ')">' +
+            return '<div><button class="btn btn-danger btn-xs" ng-click="vm.deleteInvoice(' + data.invoice_id + ')">' +
                 '   DELETE' +
                 '</button>&nbsp;' +
                 '<button class="btn btn-success btn-xs" ng-click="vm.printInvoice(' + data.invoice_id + ')">' +
@@ -74,7 +74,7 @@
                 '</button>&nbsp;' +
                 '<button class="btn btn-success btn-xs" ng-click="vm.printKwitansi(' + data.invoice_id + ')">' +
                 '   PRINT KWITANSI' +
-                '</button>';
+                '</button></div>';
         }
 
         vm.editInvoice = id => {

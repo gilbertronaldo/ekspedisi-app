@@ -96,7 +96,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12">
                                     {{--<table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"--}}
-                                           {{--dt-instance="vm.dtInstance" class="row-border hover table-responsive" width="100%"--}}
+                                           {{--dt-instance="vm.dtInstance" class="table table-bordered" width="100%"--}}
                                            {{--cellspacing="0">--}}
                                     {{--</table>--}}
                                     <table class="table table-bordered table-responsive">

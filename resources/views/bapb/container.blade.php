@@ -33,9 +33,11 @@
             <div class="col-lg-12 col-xlg-6">
                 <div class="card">
                     <div class="card-body">
-                        <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
-                               dt-instance="vm.dtInstance" class="row-border hover table-responsive" width="100%" cellspacing="0">
-                        </table>
+                      <div class="table-responsive">
+                          <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
+                                 dt-instance="vm.dtInstance" class="table table-bordered" width="100%" cellspacing="0">
+                          </table>
+                      </div>
                     </div>
                 </div>
             </div>
