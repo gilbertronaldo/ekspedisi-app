@@ -14,6 +14,7 @@ require('./user/userService.js');
 
 require('./role/role.js');
 require('./role/roleController.js');
+require('./role/editRoleController');
 require('./role/roleService.js');
 
 require('./home/home.js');

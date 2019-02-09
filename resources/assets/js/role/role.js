@@ -14,5 +14,13 @@
                 templateUrl: '/role',
                 controller: 'RoleController as roleController',
             })
+            .state('admin.role-edit', {
+                url: '/role/edit/:id?',
+                templateUrl: '/role/edit',
+                controller: 'EditRoleController as editRoleController',
+                params: {
+                    id: { squash: true, value: null },
+                }
+            })
     });
 })();

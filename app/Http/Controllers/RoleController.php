@@ -99,13 +99,13 @@ class RoleController extends Controller
                 throw new CoreException('Nama Role sudah terpakai');
             }
 
-            if ($request->has('user_id') && ! is_null($id)) {
+            if ($request->has('role_id') && ! is_null($id)) {
                 $role = TRole::findOrFail($id);
             } else {
                 $role = new TRole();
             }
 
-            $role->role_name = $request->input('role_name');
+            $role->role_name = strtoupper($request->input('role_name'));
             $role->save();
 
             $response = CoreResponse::ok($role);

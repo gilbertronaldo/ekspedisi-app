@@ -35,14 +35,14 @@
                     <div class="card-body">
                         <div class="button-group">
                             <button type="button" class="btn waves-effect waves-light btn-primary"
-                                    ui-sref="admin.role">
+                                    ui-sref="admin.role-edit">
                                 TAMBAH ROLE
                             </button>
                             {{--<button type="button" class="btn waves-effect waves-light btn-primary" ng-click="vm.exportToExcel()">--}}
                             {{--EXPORT EXCEL--}}
                             {{--</button>--}}
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive mt-3">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -58,7 +58,7 @@
                                     <td class="text-center">
                                         <div>
                                             <button class="btn btn-warning btn-xs" one-time-if="authCan('ROLE_EDIT')"
-                                                    ui-sref="admin.role-edit({id: role.id})">EDIT
+                                                    ui-sref="admin.role-edit({id: role.role_id})">EDIT
                                             </button>
                                             <button class="btn btn-danger btn-xs" one-time-if="authCan('ROLE_DELETE')" ng-click="delete(role.role_id)">
                                                 DELETE
