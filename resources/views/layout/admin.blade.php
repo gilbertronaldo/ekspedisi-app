@@ -1,5 +1,12 @@
 <div id="main-wrapper" data-layout='vertical' ng-controller="LayoutController">
-    <header class="topbar">
+    <div class="preloader" ng-show="loading[0]">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+
+    <header class="topbar" ng-hide="!loading[0]">
         <nav class="navbar top-navbar navbar-expand-md navbar-dark">
             <div class="navbar-header">
                 <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -66,7 +73,7 @@
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false" style="display: flex">
-                            <span style="margin-right: 1em;font-size: 1em">Admin</span >
+                            <span style="margin-right: 1em;font-size: 1em" ng-bind-html="username">Admin</span>
                             {{--<img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">--}}
                             <i class="mdi mdi-account-circle" alt="user" width="50" style="font-size: 3em"></i>
                         </a>

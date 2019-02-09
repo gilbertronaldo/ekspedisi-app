@@ -68,21 +68,25 @@
         .run(run)
         .controller('LayoutController', function ($localStorage, $location, $scope, HomeService) {
             let ctrl = this;
-            ctrl.loading = [false];
+            $scope.loading = [false];
+
+            $scope.username = 'Aldo';
 
             init();
 
             function init() {
-                ctrl.loading[0] = true;
+                $scope.loading[0] = true;
                 HomeService.init()
                     .then(function (res) {
                         $localStorage.authTasks = res.data.tasks;
                         $localStorage.authUser = res.data.user;
 
-                        ctrl.loading[0] = false;
+                        $scope.username = res.data.user.name;
+
+                        $scope.loading[0] = false;
                     })
                     .catch(err => {
-                        ctrl.loading[0] = false;
+                        $scope.loading[0] = false;
                         console.log(err);
                     });
             }

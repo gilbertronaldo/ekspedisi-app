@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\TTask;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 
@@ -31,9 +32,15 @@ class UserController extends Controller
 
             $user = auth()->user();
 
+            if ($user->id === 1) {
+                $tasks = TTask::all()->pluck('task_code');
+            } else {
+                $tasks = [];
+            }
+
             $res = [
               'user'  => $user,
-              'tasks' => [],
+              'tasks' => $tasks,
             ];
 
             $response = CoreResponse::ok($res);

@@ -34,8 +34,6 @@
                 .then(function (result) {
                     ctrl.header = result.data;
                     ctrl.loading[0] = false;
-
-                    console.log(ctrl.header);
                 })
                 .catch(err => {
                     ctrl.loading[0] = false;
