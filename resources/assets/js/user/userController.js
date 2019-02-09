@@ -53,5 +53,22 @@
                     swangular.alert("Error");
                 })
         }
+
+        $scope.deleteUser = id => {
+            swangular.confirm('Apakah anda yakin ingin menghapus user ini', {
+                showCancelButton: true,
+                preConfirm: () => {
+                    UserService.destroy(id)
+                        .then(res => {
+                            getUserList();
+                            swangular.success("Berhasil Menghapus User");
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            swangular.alert("Error");
+                        })
+                },
+            })
+        }
     }
 })();

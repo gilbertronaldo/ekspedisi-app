@@ -9,7 +9,8 @@
         return {
             all: all,
             get: get,
-            save: save
+            save: save,
+            destroy: destroy
         };
 
         function all() {
@@ -28,6 +29,13 @@
 
         function save(data) {
             return $http.post(`/api/user`, data)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function destroy(id) {
+            return $http.delete(`/api/user/${id}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

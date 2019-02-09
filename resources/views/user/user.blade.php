@@ -65,7 +65,7 @@
                                             <button class="btn btn-warning btn-xs" one-time-if="authCan('USER_EDIT')"
                                                     ui-sref="admin.user-edit({id: user.id})">EDIT
                                             </button>
-                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('USER_DELETE')">
+                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('USER_DELETE')" ng-click="deleteUser(user.id)">
                                                 DELETE
                                             </button>
                                             <button class="btn btn-primary btn-xs"

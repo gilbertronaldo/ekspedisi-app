@@ -16,6 +16,7 @@ Route::group([], function () {
         Route::get('/', 'UserController@all');
         Route::post('/', 'UserController@save');
         Route::get('/{id}', 'UserController@get')->where('id', '[0-9]+');
+        Route::delete('/{id}', 'UserController@destroy')->where('id', '[0-9]+');
     });
 
     Route::prefix('master')->group(function () {

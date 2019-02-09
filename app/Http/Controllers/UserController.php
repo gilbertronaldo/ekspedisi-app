@@ -136,4 +136,22 @@ class UserController extends Controller
 
         return $response;
     }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function destroy($id)
+    {
+        try {
+            $user = User::findOrFail($id)->delete();
+
+            $response = CoreResponse::ok($user);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
 }
