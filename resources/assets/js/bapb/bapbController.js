@@ -16,13 +16,19 @@
         '$compile',
         'SenderService',
         'BapbService',
-        '$timeout'
+        '$timeout',
+        '$rootScope'
     ];
 
-    function BapbController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, SenderService, BapbService, $timeout) {
+    function BapbController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, SenderService, BapbService, $timeout, $rootScope) {
         let vm = this;
 
-        $scope.a = true;
+        vm.can = {
+            edit: $rootScope.authCan('BAPB_INPUT'),
+            delete: $rootScope.authCan('BAPB_DELETE'),
+            print: $rootScope.authCan('BAPB_PRINT_PDF'),
+            verify: $rootScope.authCan('BAPB_VERIFY')
+        };
 
         vm.dtInstanceCallback = (dtInstance) => {
             vm.dtInstance = dtInstance;
@@ -75,31 +81,31 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<div><button class="btn btn-warning btn-xs" ng-click="vm.editBapb(' + data.bapb_id + ')">' +
+            return '<div ng-controller="BapbController"><button class="btn btn-warning btn-xs" ng-click="editBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.edit + ')">' +
                 '   EDIT' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-danger btn-xs" ng-click="vm.deleteBapb(' + data.bapb_id + ')">' +
+                '<button class="btn btn-danger btn-xs" ng-click="deleteBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.delete + ')">' +
                 '   DELETE' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-success btn-xs" ng-click="vm.printBapb(' + data.bapb_id + ')">' +
+                '<button class="btn btn-success btn-xs" ng-click="printBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.print + ')">' +
                 '   {{ "PRINT" }}' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-info btn-xs" ng-click="vm.verifyBapb(' + data.bapb_id + ')" ng-show="' + (data.verified == false) + '">' +
+                '<button class="btn btn-info btn-xs" ng-click="verifyBapb(' + data.bapb_id + ')" one-time-if="' + (data.verified == false && vm.can.verify) + '">' +
                 '   {{ "VERIFY" }}' +
                 '</button></div>';
         }
 
-        vm.editBapb = id => {
+        $scope.editBapb = id => {
             console.log(id)
             $state.go('admin.bapb-input', {id: id});
         }
 
-        vm.printBapb = id => {
+        $scope.printBapb = id => {
             const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
 
-        vm.verifyBapb = id => {
+        $scope.verifyBapb = id => {
             swangular.confirm('Apakah anda yakin ingin men verifying data ini', {
                 showCancelButton: true,
                 preConfirm: () => {
@@ -116,7 +122,7 @@
             })
         }
 
-        vm.deleteBapb = id => {
+        $scope.deleteBapb = id => {
             swangular.confirm('Apakah anda yakin ingin menghapus data ini', {
                 showCancelButton: true,
                 preConfirm: () => {

@@ -144,12 +144,8 @@ class UserSeeder extends Seeder
             'task_description' => 'Menampilkan Menu BAPB di navigation',
           ],
           [
-            'task_code'        => 'BAPB_ADD',
+            'task_code'        => 'BAPB_INPUT',
             'task_description' => 'Input data BAPB',
-          ],
-          [
-            'task_code'        => 'BAPB_EDIT',
-            'task_description' => 'Edit data BAPB',
           ],
           [
             'task_code'        => 'BAPB_DELETE',

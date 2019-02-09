@@ -1,4 +1,4 @@
-<data ng-init="vm = inputBapbController">
+<data ng-init="vm = inputBapbController" one-time-if="authCan('BAPB_INPUT')">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
