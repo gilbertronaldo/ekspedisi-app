@@ -1,4 +1,4 @@
-<data ng-init="vm = shipController">
+<data ng-init="vm = shipController" one-time-if="authCan('SHIP_NAVIGATION_SIDEBAR')">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->

@@ -1,4 +1,4 @@
-<data ng-init="vm = senderController">
+<data ng-init="vm = senderController" one-time-if="authCan('SENDER_NAVIGATION_SIDEBAR')">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->

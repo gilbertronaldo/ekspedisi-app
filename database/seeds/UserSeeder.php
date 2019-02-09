@@ -91,6 +91,31 @@ class UserSeeder extends Seeder
     {
         DB::table('t_task')->insert(
           [
+            'task_code'        => 'SHIP_NAVIGATION_SIDEBAR',
+            'task_description' => 'Menampilkan Menu Kapal di navigation',
+            'created_at'       => \Carbon\Carbon::now(),
+          ]
+        );
+
+        DB::table('t_task')->insert(
+          [
+            'task_code'        => 'RECIPIENT_NAVIGATION_SIDEBAR',
+            'task_description' => 'Menampilkan Menu Penerima di navigation',
+            'created_at'       => \Carbon\Carbon::now(),
+          ]
+        );
+
+        DB::table('t_task')->insert(
+          [
+            'task_code'        => 'SENDER_NAVIGATION_SIDEBAR',
+            'task_description' => 'Menampilkan Menu Pengirim di navigation',
+            'created_at'       => \Carbon\Carbon::now(),
+          ]
+        );
+
+
+        DB::table('t_task')->insert(
+          [
             'task_code'        => 'BAPB_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu BAPB di navigation',
             'created_at'       => \Carbon\Carbon::now(),
