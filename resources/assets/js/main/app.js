@@ -66,8 +66,26 @@
                     });
                 }])
         .run(run)
-        .controller('LayoutController', function ($localStorage, $location, $scope) {
+        .controller('LayoutController', function ($localStorage, $location, $scope, HomeService) {
             let ctrl = this;
+            ctrl.loading = [false];
+
+            init();
+
+            function init() {
+                ctrl.loading[0] = true;
+                HomeService.init()
+                    .then(function (res) {
+                        $localStorage.authTasks = res.data.tasks;
+                        $localStorage.authUser = res.data.user;
+
+                        ctrl.loading[0] = false;
+                    })
+                    .catch(err => {
+                        ctrl.loading[0] = false;
+                        console.log(err);
+                    });
+            }
 
             $scope.doLogout = () => {
                 $localStorage.$reset();
@@ -77,18 +95,18 @@
         .directive('uiCurrency', function ($filter, $parse, $locale) {
 
             // For input validation
-            var isValid = function(val) {
+            var isValid = function (val) {
                 return angular.isNumber(val) && !isNaN(val);
             };
 
             // Helper for creating RegExp's
-            var toRegExp = function(val) {
+            var toRegExp = function (val) {
                 var escaped = val.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 return new RegExp(escaped, 'g');
             };
 
             // Saved to your $scope/model
-            var toModel = function(val) {
+            var toModel = function (val) {
 
                 // Locale currency support
                 var decimal = toRegExp($locale.NUMBER_FORMATS.DECIMAL_SEP);
@@ -102,17 +120,17 @@
             };
 
             // Displayed in the input to users
-            var toView = function(val) {
+            var toView = function (val) {
                 return $filter('currency')(val, '', 0);
             };
 
             // Link to DOM
-            var link = function($scope, $element, $attrs, $ngModel) {
+            var link = function ($scope, $element, $attrs, $ngModel) {
                 $ngModel.$formatters.push(toView);
                 $ngModel.$parsers.push(toModel);
                 $ngModel.$validators.currency = isValid;
 
-                $element.on('keyup', function() {
+                $element.on('keyup', function () {
                     $ngModel.$viewValue = toView($ngModel.$modelValue);
                     $ngModel.$render();
                 });

@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
+
+    Route::prefix('my')->group(function () {
+        Route::get('/init', 'UserController@init');
+    });
+
     Route::prefix('home')->group(function () {
         Route::get('/header', 'DashboardController@header');
     });
