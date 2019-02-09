@@ -17,7 +17,7 @@
                             <li class="breadcrumb-item">
                                 <a ui-sref="admin.home">Settings</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">User</li>
+                            <li class="breadcrumb-item active" aria-current="page">Users</li>
                         </ol>
                     </nav>
                 </div>

@@ -10,6 +10,7 @@
                 'moment-picker',
                 'Ekspedisi.admin',
                 'Ekspedisi.user',
+                'Ekspedisi.role',
                 'Ekspedisi.auth',
                 'Ekspedisi.master',
                 'Ekspedisi.ship',

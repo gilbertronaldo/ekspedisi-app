@@ -36,6 +36,12 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
+    Route::prefix('role')->group(function () {
+        Route::get('/', function () {
+            return view('role.role');
+        });
+    });
+
 
     Route::prefix('ship')->group(function () {
         Route::get('/', function () {

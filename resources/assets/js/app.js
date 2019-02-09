@@ -11,6 +11,10 @@ require('./user/user.js');
 require('./user/userController.js');
 require('./user/userService.js');
 
+require('./role/role.js');
+require('./role/roleController.js');
+require('./role/roleService.js');
+
 require('./home/home.js');
 require('./home/homeController.js');
 require('./home/homeService.js');
