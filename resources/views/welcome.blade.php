@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Gilbert Ronaldo</title>
+    <title>SRSM</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo-light-icon.png"/>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">

@@ -94,12 +94,12 @@
                         <div class="card-body" ng-if="vm.input.recipient_id">
                             <h4 class="card-title m-t-10 p-b-20">List BAPB Penerima</h4>
                             <div class="row">
-                                <div class="col-sm-12 col-lg-12">
+                                <div class="col-sm-12 col-lg-12 table-responsive">
                                     {{--<table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"--}}
                                            {{--dt-instance="vm.dtInstance" class="table table-bordered" width="100%"--}}
                                            {{--cellspacing="0">--}}
                                     {{--</table>--}}
-                                    <table class="table table-bordered table-responsive">
+                                    <table class="table table-bordered">
                                         <tr>
                                             <th>No BAPB</th>
                                             <th>No Cont</th>
@@ -133,7 +133,7 @@
                         <div class="card-body bg-light" ng-if="vm.input.recipient_id">
                             <h4 class="card-title m-t-10 p-b-20">Daftar BAPB Invoice</h4>
                             <div class="row">
-                                <div class="col-sm-12 col-lg-12">
+                                <div class="col-sm-12 col-lg-12 table-responsive">
                                     <table class="table table-bordered table-active table-striped">
                                         <tr>
                                             <th>No BAPB</th>
