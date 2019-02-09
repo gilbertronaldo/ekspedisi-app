@@ -9,26 +9,26 @@
             </a>
         </li>
 
-        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('SHIP_NAVIGATION_SIDEBAR, RECIPIENT_NAVIGATION_SIDEBAR, SENDER_NAVIGATION_SIDEBAR')">
+        <li class="sidebar-item" ui-sref-active='selected' ng-show="authCan('SHIP_NAVIGATION_SIDEBAR, RECIPIENT_NAVIGATION_SIDEBAR, SENDER_NAVIGATION_SIDEBAR')">
             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                aria-expanded="false">
                 <i class="mdi mdi-database"></i>
                 <span class="hide-menu">Master </span>
             </a>
             <ul aria-expanded="false" class="collapse  first-level">
-                <li class="sidebar-item" ng-if="authCan('SHIP_NAVIGATION_SIDEBAR')">
+                <li class="sidebar-item" ng-show="authCan('SHIP_NAVIGATION_SIDEBAR')">
                     <a class="sidebar-link" ui-sref="admin.ship">
                         <i class="icon-Record"></i>
                         <span class="hide-menu">Kapal</span>
                     </a>
                 </li>
-                <li class="sidebar-item" ng-if="authCan('RECIPIENT_NAVIGATION_SIDEBAR')">
+                <li class="sidebar-item" ng-show="authCan('RECIPIENT_NAVIGATION_SIDEBAR')">
                     <a class="sidebar-link" ui-sref="admin.recipient">
                         <i class="icon-Record"></i>
                         <span class="hide-menu">Penerima</span>
                     </a>
                 </li>
-                <li class="sidebar-item" ng-if="authCan('SENDER_NAVIGATION_SIDEBAR')">
+                <li class="sidebar-item" ng-show="authCan('SENDER_NAVIGATION_SIDEBAR')">
                     <a class="sidebar-link" ui-sref="admin.sender">
                         <i class="icon-Record"></i>
                         <span class="hide-menu">Pengirim</span>
