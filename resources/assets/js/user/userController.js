@@ -14,7 +14,7 @@
         'DTColumnBuilder',
         '$localStorage',
         '$compile',
-        'ShipService',
+        'UserService',
         '$rootScope',
         '$timeout'
     ];
@@ -28,11 +28,30 @@
         DTColumnBuilder,
         $localStorage,
         $compile,
-        ShipService,
+        UserService,
         $rootScope,
         $timeout) {
-        let vm = this;
 
-       console.log(vm);
+        $scope.userList = [];
+        $scope.loading = [false];
+
+        init();
+        function init() {
+            getUserList();
+        }
+
+        function getUserList() {
+            $scope.loading[0] = true;
+            UserService.all()
+                .then(res => {
+                    $scope.userList = res.data.userList;
+                    $scope.loading[0] = false;
+                })
+                .catch(err => {
+                    $scope.loading[0] = false;
+                    console.log(err);
+                    swangular.alert("Error");
+                })
+        }
     }
 })();

@@ -42,8 +42,33 @@
                             {{--EXPORT EXCEL--}}
                             {{--</button>--}}
                         </div>
-                        <div class="table-responsive">
-
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th width="35%">Name</th>
+                                    <th width="35%">Username</th>
+                                    <th width="30%" class="text-center">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="user in userList">
+                                    <td>
+                                        <span ng-bind-html="user.name"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind-html="user.email"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <button class="btn btn-warning btn-xs">EDIT</button>
+                                            <button class="btn btn-danger btn-xs">DELETE</button>
+                                            <button class="btn btn-primary btn-xs">MANAGE ROLES</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

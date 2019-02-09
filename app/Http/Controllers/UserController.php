@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\TTask;
+use App\User;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 
@@ -29,9 +30,6 @@ class UserController extends Controller
     public function init()
     {
         try {
-
-//            sleep(5);
-
             $user = auth()->user();
 
             if ($user->id === 1) {
@@ -46,6 +44,22 @@ class UserController extends Controller
             ];
 
             $response = CoreResponse::ok($res);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     *
+     */
+    public function all()
+    {
+        try {
+            $userList = User::all();
+
+            $response = CoreResponse::ok(compact('userList'));
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }

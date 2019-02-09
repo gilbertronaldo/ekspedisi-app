@@ -12,6 +12,10 @@ Route::group([], function () {
         Route::get('/header', 'DashboardController@header');
     });
 
+    Route::prefix('user')->group(function () {
+        Route::get('/', 'UserController@all');
+    });
+
     Route::prefix('master')->group(function () {
         Route::get('/city', 'MasterController@cityList');
         Route::get('/country', 'MasterController@countryList');
