@@ -43,6 +43,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/', function () {
             return view('role.role');
         });
+        Route::get('/edit', function () {
+            return view('role.roleEdit');
+        });
     });
 
 

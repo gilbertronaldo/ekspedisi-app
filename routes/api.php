@@ -19,6 +19,14 @@ Route::group([], function () {
         Route::delete('/{id}', 'UserController@destroy')->where('id', '[0-9]+');
     });
 
+    Route::prefix('role')->group(function () {
+        Route::get('/', 'RoleController@all');
+        Route::post('/', 'RoleController@save');
+        Route::get('/{id}', 'RoleController@get')->where('id', '[0-9]+');
+        Route::delete('/{id}', 'RoleController@destroy')->where('id', '[0-9]+');
+    });
+
+
     Route::prefix('master')->group(function () {
         Route::get('/city', 'MasterController@cityList');
         Route::get('/country', 'MasterController@countryList');

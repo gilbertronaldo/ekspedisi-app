@@ -104,11 +104,31 @@ class UserSeeder extends Seeder
           ],
           [
             'task_code'        => 'USER_DELETE',
-            'task_description' => 'Menghapus Data Delete',
+            'task_description' => 'Menghapus Data User',
           ],
           [
             'task_code'        => 'USER_MANAGE_ROLES',
             'task_description' => 'Manage User Roles',
+          ],
+          [
+            'task_code'        => 'ROLE_NAVIGATION_SIDEBAR',
+            'task_description' => 'Menampilkan Menu Roles di navigation',
+          ],
+          [
+            'task_code'        => 'ROLE_ADD',
+            'task_description' => 'Menambahkan Data Role',
+          ],
+          [
+            'task_code'        => 'ROLE_EDIT',
+            'task_description' => 'Mengedit Data Role',
+          ],
+          [
+            'task_code'        => 'ROLE_DELETE',
+            'task_description' => 'Menghapus Data Role',
+          ],
+          [
+            'task_code'        => 'ROLE_MANAGE_TASKS',
+            'task_description' => 'Manage role tasks',
           ],
           [
             'task_code'        => 'SHIP_NAVIGATION_SIDEBAR',
