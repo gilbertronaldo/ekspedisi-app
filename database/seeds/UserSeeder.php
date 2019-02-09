@@ -89,61 +89,125 @@ class UserSeeder extends Seeder
 
     private function seedTask()
     {
-        DB::table('t_task')->insert(
+        $data = [
           [
             'task_code'        => 'SHIP_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Kapal di navigation',
-            'created_at'       => \Carbon\Carbon::now(),
-          ]
-        );
-
-        DB::table('t_task')->insert(
+          ],
+          [
+            'task_code'        => 'SHIP_ADD',
+            'task_description' => 'Menambahkan Data Kapal',
+          ],
+          [
+            'task_code'        => 'SHIP_EDIT',
+            'task_description' => 'Mengedit Data Kapal',
+          ],
+          [
+            'task_code'        => 'SHIP_DELETE',
+            'task_description' => 'Menghapus Data Kapal',
+          ],
           [
             'task_code'        => 'RECIPIENT_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Penerima di navigation',
-            'created_at'       => \Carbon\Carbon::now(),
-          ]
-        );
-
-        DB::table('t_task')->insert(
+          ],
+          [
+            'task_code'        => 'RECIPIENT_ADD',
+            'task_description' => 'Menambahkan Data Penerima',
+          ],
+          [
+            'task_code'        => 'RECIPIENT_EDIT',
+            'task_description' => 'Mengedit Data Penerima',
+          ],
+          [
+            'task_code'        => 'RECIPIENT_DELETE',
+            'task_description' => 'Menghapus Data Penerima',
+          ],
           [
             'task_code'        => 'SENDER_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Pengirim di navigation',
-            'created_at'       => \Carbon\Carbon::now(),
-          ]
-        );
+          ],
+          [
+            'task_code'        => 'SENDER_ADD',
+            'task_description' => 'Menambahkan Data Pengirim',
+          ],
+          [
+            'task_code'        => 'SENDER_EDIT',
+            'task_description' => 'Mengedit Data Pengirim',
+          ],
+          [
+            'task_code'        => 'SENDER_DELETE',
+            'task_description' => 'Menghapus Data Pengirim',
+          ],
 
-
-        DB::table('t_task')->insert(
           [
             'task_code'        => 'BAPB_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu BAPB di navigation',
-            'created_at'       => \Carbon\Carbon::now(),
-          ]
-        );
-
-        DB::table('t_task')->insert(
+          ],
+          [
+            'task_code'        => 'BAPB_ADD',
+            'task_description' => 'Input data BAPB',
+          ],
+          [
+            'task_code'        => 'BAPB_EDIT',
+            'task_description' => 'Edit data BAPB',
+          ],
+          [
+            'task_code'        => 'BAPB_DELETE',
+            'task_description' => 'Delete data BAPB',
+          ],
+          [
+            'task_code'        => 'BAPB_PRINT_PDF',
+            'task_description' => 'Print Hasil PDF BAPB',
+          ],
+          [
+            'task_code'        => 'BAPB_VERIFY',
+            'task_description' => 'Verify data BAPB',
+          ],
           [
             'task_code'        => 'INVOICE_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Invoice di navigation',
-            'created_at'       => \Carbon\Carbon::now(),
-          ]
-        );
-
-        DB::table('t_task')->insert(
+          ],
+          [
+            'task_code'        => 'INVOICE_ADD',
+            'task_description' => 'Menambah data invoice',
+          ],
+          [
+            'task_code'        => 'INVOICE_DELETE',
+            'task_description' => 'Hapus data invoice',
+          ],
+          [
+            'task_code'        => 'INVOICE_PRINT_INVOICE',
+            'task_description' => 'Print Hasil PDF Invoice',
+          ],
+          [
+            'task_code'        => 'INVOICE_PRINT_KWITANSI',
+            'task_description' => 'Print Hasil PDF Kwitansi',
+          ],
           [
             'task_code'        => 'PAYMENT_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Payment di navigation',
-            'created_at'       => \Carbon\Carbon::now(),
-          ]
-        );
-
-        DB::table('t_task')->insert(
+          ],
           [
             'task_code'        => 'CONTAINER_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Container di navigation',
-            'created_at'       => \Carbon\Carbon::now(),
-          ]
+          ],
+          [
+            'task_code'        => 'CONTAINER_PRINT_EXCEL',
+            'task_description' => 'Export to excel Container',
+          ],
+        ];
+
+        $data = collect($data)->map(
+          function ($i)
+          {
+              return [
+                'task_code'        => strtoupper($i['task_code']),
+                'task_description' => strtoupper($i['task_description']),
+                'created_at'       => \Carbon\Carbon::now(),
+              ];
+          }
         );
+
+        DB::table('t_task')->insert($data->toArray());
     }
 }
