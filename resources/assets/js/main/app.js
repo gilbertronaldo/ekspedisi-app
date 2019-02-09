@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    const NAME = 'oneTimeIf';
+
     angular
         .module('Ekspedisi.app', [
                 'ui.router',
@@ -96,6 +98,25 @@
                 $location.path('/login');
             }
         })
+        .directive(NAME, function (ngIfDirective) {
+            const ngIf = ngIfDirective[0];
+
+            return {
+                transclude: ngIf.transclude,
+                priority: ngIf.priority,
+                terminal: ngIf.terminal,
+                restrict: ngIf.restrict,
+                link: function ($scope, $element, $attr) {
+                    const value = $attr[NAME];
+                    const yourCustomValue = $scope.$eval(value);
+
+                    $attr.ngIf = function () {
+                        return yourCustomValue;
+                    };
+                    ngIf.link.apply(ngIf, arguments);
+                }
+            };
+        })
         .directive('uiCurrency', function ($filter, $parse, $locale) {
 
             // For input validation
@@ -147,7 +168,7 @@
             };
         });
 
-    function run($rootScope, $http, $location, $localStorage, $locale) {
+    function run($rootScope, $http, $location, $localStorage, $locale, HomeService) {
         // redirect to login page if not logged in and trying to access a restricted page
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             var publicPages = ['/login'];
@@ -156,9 +177,19 @@
                 event.preventDefault();
                 $location.path('/login');
             }
-        });
+        });'a'
 
         $locale.NUMBER_FORMATS.GROUP_SEP = ".";
         $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
+        $rootScope.authCan = (tasks) => {
+            tasks = tasks.split(",").map(item => item.trim());
+
+            if (!$localStorage.authTasks) {
+                return false;
+            }
+
+            return $localStorage.authTasks.some(r => tasks.indexOf(r) >= 0);
+        }
     }
 })();

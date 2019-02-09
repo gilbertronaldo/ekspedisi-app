@@ -30,6 +30,8 @@ class UserController extends Controller
     {
         try {
 
+//            sleep(5);
+
             $user = auth()->user();
 
             if ($user->id === 1) {
