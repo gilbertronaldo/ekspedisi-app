@@ -60,11 +60,13 @@
                                             <button class="btn btn-warning btn-xs" one-time-if="authCan('ROLE_EDIT')"
                                                     ui-sref="admin.role-edit({id: role.role_id})">EDIT
                                             </button>
-                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('ROLE_DELETE')" ng-click="delete(role.role_id)">
+                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('ROLE_DELETE')"
+                                                    ng-click="delete(role.role_id)">
                                                 DELETE
                                             </button>
                                             <button class="btn btn-primary btn-xs"
-                                                    one-time-if="authCan('ROLE_MANAGE_TASKS')">MANAGE TASKS
+                                                    one-time-if="authCan('ROLE_MANAGE_TASKS')"
+                                                    ui-sref="admin.role-task({id: role.role_id})">MANAGE TASKS
                                             </button>
                                         </div>
                                     </td>

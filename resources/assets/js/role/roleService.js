@@ -10,7 +10,9 @@
             all: all,
             get: get,
             save: save,
-            destroy: destroy
+            destroy: destroy,
+            tasks: tasks,
+            saveTasks: saveTasks
         };
 
         function all() {
@@ -36,6 +38,19 @@
 
         function destroy(id) {
             return $http.delete(`/api/role/${id}`)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function tasks(id) {
+            return $http.get(`/api/role/${id}/tasks`)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+        function saveTasks(id, tasks) {
+            return $http.post(`/api/role/${id}/tasks`, tasks)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

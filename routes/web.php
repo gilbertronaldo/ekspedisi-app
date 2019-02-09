@@ -46,6 +46,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/edit', function () {
             return view('role.roleEdit');
         });
+        Route::get('/task', function () {
+            return view('role.roleTask');
+        });
     });
 
 

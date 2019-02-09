@@ -14,6 +14,7 @@ use App\User;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -37,7 +38,23 @@ class UserController extends Controller
             if ($user->id === 1) {
                 $tasks = TTask::all()->pluck('task_code');
             } else {
-                $tasks = [];
+                $tasks = DB::select("
+                    SELECT D.task_code
+                    FROM users A  
+                    INNER JOIN t_user_role B
+                       ON A.id = B.user_id
+                    INNER JOIN t_role_task C 
+                        ON B.role_id = C.role_id
+                    INNER JOIN t_task D 
+                        ON C.task_id = D.task_id
+                        AND D.deleted_at IS NULL
+                    WHERE A.id = $user->id
+                    GROUP BY D.task_code
+                ");
+
+                $tasks = collect($tasks)->map(function ($i) {
+                   return strtoupper($i->task_code);
+                });
             }
 
             $res = [
