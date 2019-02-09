@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -11,10 +12,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // Truncate data
+        DB::table('users')->truncate();
+
+
         DB::table('users')->insert([
             'name' => 'Gilbert Ronaldo',
-            'email' => 'me@gilbertronaldo.com',
-            'password' => bcrypt('password'),
+            'email' => 'superadmin',
+            'password' => bcrypt('superadmin'),
             'created_at' => \Carbon\Carbon::now()
         ]);
 
@@ -24,5 +29,20 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'created_at' => \Carbon\Carbon::now()
         ]);
+    }
+
+    private function seedRole()
+    {
+
+    }
+
+    private function seedTask()
+    {
+
+    }
+
+    private function seedRoleTask()
+    {
+
     }
 }
