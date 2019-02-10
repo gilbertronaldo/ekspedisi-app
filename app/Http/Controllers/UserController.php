@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\TTask;
+use App\TUserRole;
 use App\User;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
@@ -38,7 +39,8 @@ class UserController extends Controller
             if ($user->id === 1) {
                 $tasks = TTask::all()->pluck('task_code');
             } else {
-                $tasks = DB::select("
+                $tasks = DB::select(
+                  "
                     SELECT D.task_code
                     FROM users A  
                     INNER JOIN t_user_role B
@@ -50,11 +52,15 @@ class UserController extends Controller
                         AND D.deleted_at IS NULL
                     WHERE A.id = $user->id
                     GROUP BY D.task_code
-                ");
+                "
+                );
 
-                $tasks = collect($tasks)->map(function ($i) {
-                   return strtoupper($i->task_code);
-                });
+                $tasks = collect($tasks)->map(
+                  function ($i)
+                  {
+                      return strtoupper($i->task_code);
+                  }
+                );
             }
 
             $res = [
@@ -76,9 +82,12 @@ class UserController extends Controller
     public function all()
     {
         try {
-            $userList = User::all()->filter(function ($i) {
-                return !in_array($i->id, [1]);
-            });
+            $userList = User::all()->filter(
+              function ($i)
+              {
+                  return ! in_array($i->id, [1]);
+              }
+            );
 
             $response = CoreResponse::ok(compact('userList'));
         } catch (CoreException $exception) {
@@ -99,6 +108,31 @@ class UserController extends Controller
             $user = User::findOrFail($id);
 
             $response = CoreResponse::ok($user);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function roles($id)
+    {
+        try {
+            $user  = User::findOrFail($id);
+            $roles = DB::select(
+              "
+                SELECT A.user_id, A.role_id, A.city_code
+                FROM t_user_role A
+                WHERE A.user_id = $user->id
+            "
+            );
+
+            $response = CoreResponse::ok(compact('user', 'roles'));
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }
@@ -147,6 +181,47 @@ class UserController extends Controller
             $user->save();
 
             $response = CoreResponse::ok($user);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param                          $id
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function saveRoles($id, Request $request)
+    {
+        try {
+            $user  = User::findOrFail($id);
+
+            TUserRole::where('user_id', '=', $user->id)->delete();
+
+            $roles = $request->input('roles');
+            $roles = collect($roles)->unique(function ($i) {
+                return $i['role_id'].$i['city_code'];
+            })->filter(function ($i) {
+                return !is_null($i['role_id']) && !is_null($i['city_code']);
+            });
+
+            if ($roles->isEmpty()) {
+                throw new CoreException('Error blank roles');
+            }
+
+            foreach ($roles->toArray() as $role) {
+                $userRole = new TUserRole();
+                $userRole->user_id = $user->id;
+                $userRole->role_id = $role['role_id'];
+                $userRole->city_code = $role['city_code'];
+                $userRole->save();
+            }
+
+            $response = CoreResponse::ok(compact('user'));
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }

@@ -63,7 +63,7 @@
                                                 <th width="40%">Description</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="table-hover">
                                             <tr ng-repeat="task in tasks">
                                                 <td class="text-center">
                                                     <div>

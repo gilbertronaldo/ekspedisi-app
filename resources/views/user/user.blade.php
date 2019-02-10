@@ -65,11 +65,13 @@
                                             <button class="btn btn-warning btn-xs" one-time-if="authCan('USER_EDIT')"
                                                     ui-sref="admin.user-edit({id: user.id})">EDIT
                                             </button>
-                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('USER_DELETE')" ng-click="deleteUser(user.id)">
+                                            <button class="btn btn-danger btn-xs" one-time-if="authCan('USER_DELETE')"
+                                                    ng-click="deleteUser(user.id)">
                                                 DELETE
                                             </button>
                                             <button class="btn btn-primary btn-xs"
-                                                    one-time-if="authCan('USER_MANAGE_ROLES')">MANAGE ROLES
+                                                    one-time-if="authCan('USER_MANAGE_ROLES')"
+                                                    ui-sref="admin.user-role({id: user.id})">MANAGE ROLES
                                             </button>
                                         </div>
                                     </td>

@@ -27,6 +27,14 @@ Route::group(
             Route::get('/', 'UserController@all');
             Route::post('/', 'UserController@save');
             Route::get('/{id}', 'UserController@get')->where('id', '[0-9]+');
+            Route::get('/{id}/roles', 'UserController@roles')->where(
+              'id',
+              '[0-9]+'
+            );
+            Route::post('/{id}/roles', 'UserController@saveRoles')->where(
+              'id',
+              '[0-9]+'
+            );
             Route::delete('/{id}', 'UserController@destroy')->where(
               'id',
               '[0-9]+'

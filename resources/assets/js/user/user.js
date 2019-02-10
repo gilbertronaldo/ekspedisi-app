@@ -19,8 +19,13 @@
                 templateUrl: '/user/edit',
                 controller: 'EditUserController as editUserController',
                 params: {
-                    id: { squash: true, value: null },
+                    id: {squash: true, value: null},
                 }
+            })
+            .state('admin.user-role', {
+                url: '/user/role/:id',
+                templateUrl: '/user/role',
+                controller: 'RoleUserController as roleUserController'
             })
     });
 })();

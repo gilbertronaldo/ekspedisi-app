@@ -10,6 +10,7 @@ require('./admin/adminController.js');
 require('./user/user.js');
 require('./user/userController.js');
 require('./user/editUserController.js');
+require('./user/roleUserController');
 require('./user/userService.js');
 
 require('./role/role.js');

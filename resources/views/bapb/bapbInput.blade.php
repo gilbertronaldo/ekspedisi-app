@@ -354,9 +354,11 @@
                                     <table class="table table-bordered">
                                         <caption class="text-right">
                                             <a class="btn btn-circle btn-outline-warning btn-sm text-dark"
-                                               ng-click="vm.senderItemPop(senderIdx)">-</a>
+                                               ng-click="vm.senderItemPop(senderIdx)" style="padding: 0.5em"><i
+                                                        class="mdi mdi-minus"></i></a>
                                             <a class="btn btn-circle btn-outline-info btn-sm text-dark"
-                                               ng-click="vm.senderItemPush(senderIdx)">+</a>
+                                               ng-click="vm.senderItemPush(senderIdx)" style="padding: 0.5em"><i
+                                                        class="mdi mdi-plus"></i></a>
                                         </caption>
                                         <thead>
                                         <tr class="text-center">
@@ -417,9 +419,11 @@
                                             <table class="table table-bordered">
                                                 <caption class="text-right">
                                                     <a class="btn btn-circle btn-outline-warning btn-sm text-dark"
-                                                       ng-click="vm.senderCostPop(senderIdx)">-</a>
+                                                       ng-click="vm.senderCostPop(senderIdx)" style="padding: 0.5em"><i
+                                                                class="mdi mdi-minus"></i></a>
                                                     <a class="btn btn-circle btn-outline-info btn-sm text-dark"
-                                                       ng-click="vm.senderCostPush(senderIdx)">+</a>
+                                                       ng-click="vm.senderCostPush(senderIdx)" style="padding: 0.5em"><i
+                                                                class="mdi mdi-plus"></i></a>
                                                 </caption>
                                                 <thead>
                                                 <tr class="text-center">

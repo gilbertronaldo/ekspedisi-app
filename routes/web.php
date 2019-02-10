@@ -37,6 +37,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/edit', function () {
             return view('user.userEdit');
         });
+        Route::get('/role', function () {
+            return view('user.userRole');
+        });
     });
 
     Route::prefix('role')->group(function () {
