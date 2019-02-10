@@ -13,6 +13,7 @@ use App\TrBapb;
 use App\TrInvoice;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class DashboardController
@@ -31,10 +32,18 @@ class DashboardController extends Controller
     {
         try {
             $total    = [
-              'staff'   => 0,
+              'staff'   => DB::select("
+                    SELECT COUNT(DISTINCT A.user_id)
+                    FROM t_user_role A 
+                    WHERE A.role_id = 3
+              ")[0]->count,
               'bapb'    => TrBapb::all()->count(),
               'invoice' => TrInvoice::all()->count(),
-              'profit'  => 0,
+              'profit'  => DB::select("
+                   SELECT SUM(COALESCE(A.harga,0) + COALESCE(A.cost,0)) AS total
+                   FROM tr_bapb A
+                   WHERE A.deleted_at IS NULL
+              ")[0]->total,
             ];
             $response = CoreResponse::ok(compact('total'));
         } catch (CoreException $exception) {

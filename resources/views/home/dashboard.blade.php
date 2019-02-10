@@ -108,7 +108,9 @@
 
                         </div>
                         <div class="ml-auto">
-                            <h2 class="m-b-0 font-light" ng-bind-html="vm.header.total.profit"></h2>
+                            <h4 class="m-b-0 font-light">
+                                {{'{{'. 'vm.header.total.profit | currency:"":0' .'}'.'}'}}
+                            </h4>
                         </div>
                     </div>
                 </div>
