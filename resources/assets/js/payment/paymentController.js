@@ -101,6 +101,20 @@
                 })
         }
 
+        ctrl.onClickContainer = idx => {
+            ctrl.containerList[idx].checked = !ctrl.containerList[idx].checked;
+
+            console.log(ctrl.containerList[idx].checked);
+
+            ctrl.checkedContainer = ctrl.containerList.filter(i => i.checked);
+
+            if (ctrl.checkedContainer.length === 0) {
+                return;
+            }
+
+            getBapbList();
+        };
+
         ctrl.onCheckedContainer = () => {
             ctrl.checkedContainer = ctrl.containerList.filter(i => i.checked);
 
@@ -152,6 +166,12 @@
             ctrl.inputMode = ctrl.bapbList.filter(i => i.is_input).length > 0;
         };
 
+        ctrl.onCancelPayment = () => {
+            ctrl.bapbList.forEach(i => {
+                i.is_input = false;
+            });
+        };
+
         ctrl.onSavePayment = idx => {
             ctrl.loading[1] = true;
             ctrl.bapbList.forEach(i => {
@@ -161,7 +181,7 @@
             BapbService.paymentSave(ctrl.bapbList[idx])
                 .then(function (result) {
                     ctrl.loading[1] = false;
-                    console.log('save')
+                    getBapbList();
                 })
                 .catch(err => {
                     ctrl.loading[1] = false;

@@ -559,31 +559,35 @@ class BapbController extends Controller
     public function paymentList(Request $request)
     {
         try {
-            $shipId = $request->input('ship_id');
+            $shipId     = $request->input('ship_id');
             $containers = $request->input('containers');
 
             if (collect($containers)->isEmpty()) {
                 $bapbList = [];
+
                 return CoreResponse::ok(compact('bapbList'));
             }
 
 
             $containers = collect($containers)
-              ->map(function ($container) {
-                  return preg_replace('/\s+/', '', strtoupper($container));
-              })
+              ->map(
+                function ($container)
+                {
+                    return preg_replace('/\s+/', '', strtoupper($container));
+                }
+              )
               ->implode("', '");
 
 
-            $bapbList = DB::select("
+            $bapbList = DB::select(
+              "
                 SELECT A.bapb_id, A.bapb_no,
                        A.koli,
+                       CAST(A.payment_total AS INT) AS payment_total,
+                       to_char(A.payment_date, 'dd-mm-yyyy') as payment_date,
+                       A.is_paid,
                        B.recipient_name_bapb,
-                       NULL as payment_total,
-                       --to_char(NOW(), 'dd-mm-yyyy') as payment_date,
-                       NULL as payment_date,
-                       FALSE as is_input,
-                       FALSE as is_paid
+                       FALSE as is_input
                 FROM tr_bapb A
                 INNER JOIN ms_recipient B
                     ON A.recipient_id = B.recipient_id
@@ -592,7 +596,8 @@ class BapbController extends Controller
                 AND A.ship_id = $shipId
                 AND REPLACE(UPPER(CONCAT(A.no_container_1, A.no_container_2)), ' ', '') IN ('$containers')
                 ORDER BY A.created_at DESC
-            ");
+            "
+            );
 
 
             $response = CoreResponse::ok(compact('bapbList'));
@@ -602,6 +607,7 @@ class BapbController extends Controller
 
         return $response;
     }
+
     /**
      * @param \Illuminate\Http\Request $request
      *
@@ -611,6 +617,13 @@ class BapbController extends Controller
     {
         try {
 
+            $bapb = TrBapb::findOrFail($request->input('bapb_id'));
+
+            $bapb->payment_total = $request->input('payment_total');
+            $bapb->payment_date  = Carbon::parse(
+              $request->input('payment_date')
+            );
+            $bapb->save();
 
             $response = CoreResponse::ok([]);
         } catch (CoreException $exception) {

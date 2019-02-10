@@ -19,7 +19,7 @@ class AlterTableTrBapbAddPayment extends Migration
           function (Blueprint $table)
           {
               $table->boolean('is_paid')->default(false);
-              $table->decimal('payment_total')->nullable();
+              $table->decimal('payment_total', 15, 0)->nullable();
               $table->date('payment_date')->nullable();
           }
         );
