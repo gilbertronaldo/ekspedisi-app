@@ -37,8 +37,8 @@ class DashboardController extends Controller
                     FROM t_user_role A 
                     WHERE A.role_id = 3
               ")[0]->count,
-              'bapb'    => TrBapb::all()->count(),
-              'invoice' => TrInvoice::all()->count(),
+              'bapb'    => TrBapb::count(),
+              'invoice' => TrInvoice::count(),
               'profit'  => DB::select("
                    SELECT SUM(COALESCE(A.harga,0) + COALESCE(A.cost,0)) AS total
                    FROM tr_bapb A
