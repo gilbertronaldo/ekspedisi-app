@@ -224,6 +224,10 @@ class UserSeeder extends Seeder
             'task_description' => 'Menampilkan Menu Payment di navigation',
           ],
           [
+            'task_code'        => 'PAYMENT_INPUT',
+            'task_description' => 'Input BAPB Payment',
+          ],
+          [
             'task_code'        => 'CONTAINER_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Container di navigation',
           ],

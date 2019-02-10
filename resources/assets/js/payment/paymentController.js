@@ -19,6 +19,7 @@
         'ShipService',
         'BapbService',
         '$http',
+        '$rootScope'
     ];
 
     function PaymentController(
@@ -35,6 +36,7 @@
         ShipService,
         BapbService,
         $http,
+        $rootScope
     ) {
         let ctrl = this;
         ctrl.input = {};
@@ -152,6 +154,10 @@
 
         ctrl.onInputPayment = idx => {
 
+            if (!$rootScope.authCan('PAYMENT_INPUT')) {
+                return;
+            }
+
             if (ctrl.bapbList[idx].is_paid || ctrl.bapbList[idx].is_input) {
                 return;
             }
@@ -173,6 +179,10 @@
         };
 
         ctrl.onSavePayment = idx => {
+            if (!$rootScope.authCan('PAYMENT_INPUT')) {
+                return;
+            }
+
             ctrl.loading[1] = true;
             ctrl.bapbList.forEach(i => {
                 i.is_input = false;

@@ -155,7 +155,7 @@
                                                 <th width="5%">Koli</th>
                                                 <th width="20%">Total</th>
                                                 <th width="15%">Tanggal</th>
-                                                <th width="20">Action</th>
+                                                <th width="20" one-time-if="authCan('PAYMENT_INPUT')">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -166,7 +166,7 @@
                                                 </td>
                                             </tr>
                                             <tr ng-repeat="bapb in vm.bapbList"
-                                                ng-style="{ 'cursor' : (!bapb.is_paid && !bapb.is_input) ? 'pointer' : 'auto' }">
+                                                ng-style="{ 'cursor' : (!bapb.is_paid && !bapb.is_input && authCan('PAYMENT_INPUT')) ? 'pointer' : 'auto' }">
                                                 <td ng-click="vm.onInputPayment($index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.bapb_no' .'}'.'}'}}
@@ -219,7 +219,7 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td class="text-center align-middle">
+                                                <td class="text-center align-middle" one-time-if="authCan('PAYMENT_INPUT')">
                                                     <div ng-if="!bapb.is_input" ng-click="vm.onInputPayment($index)">
                                                         <button class="btn btn-warning">EDIT</button>
                                                     </div>
