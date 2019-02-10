@@ -235,23 +235,23 @@
 <link href="../../assets/libs/morris.js/morris.css" rel="stylesheet">
 {{--<link href="../../dist/css/style.min.css" rel="stylesheet">--}}
 
-{{--<script defer src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>--}}
-{{--<script defer src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>--}}
-{{--<script defer src="../../assets/libs/jquery/dist/jquery.min.js"></script>--}}
-{{--<script defer src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>--}}
-{{--<script defer src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>--}}
-{{--<script defer src="../../dist/js/app.min.js"></script>--}}
-{{--<script defer src="../../dist/js/app.init.js"></script>--}}
-{{--<script defer src="../../dist/js/app-style-switcher.js"></script>--}}
-{{--<script defer src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>--}}
-{{--<script defer src="../../assets/extra-libs/sparkline/sparkline.js"></script>--}}
-{{--<script defer src="../../dist/js/waves.js"></script>--}}
-{{--<script defer src="../../dist/js/sidebarmenu.js"></script>--}}
-{{--<script defer src="../../dist/js/custom.min.js"></script>--}}
-<script defer src="../../assets/libs/chartist/dist/chartist.min.js"></script>
-<script defer src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script defer src="../../assets/extra-libs/c3/d3.min.js"></script>
-<script defer src="../../assets/extra-libs/c3/c3.min.js"></script>
-<script defer src="../../assets/libs/raphael/raphael.min.js"></script>
-<script defer src="../../assets/libs/morris.js/morris.min.js"></script>
-{{--<script defer src="../../dist/js/pages/dashboards/dashboard1.js"></script>--}}
+{{--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>--}}
+{{--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>--}}
+{{--<script src="../../assets/libs/jquery/dist/jquery.min.js"></script>--}}
+{{--<script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>--}}
+{{--<script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>--}}
+{{--<script src="../../dist/js/app.min.js"></script>--}}
+{{--<script src="../../dist/js/app.init.js"></script>--}}
+{{--<script src="../../dist/js/app-style-switcher.js"></script>--}}
+{{--<script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>--}}
+{{--<script src="../../assets/extra-libs/sparkline/sparkline.js"></script>--}}
+{{--<script src="../../dist/js/waves.js"></script>--}}
+{{--<script src="../../dist/js/sidebarmenu.js"></script>--}}
+{{--<script src="../../dist/js/custom.min.js"></script>--}}
+<script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
+<script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+{{--<script src="../../assets/extra-libs/c3/d3.min.js"></script>--}}
+{{--<script src="../../assets/extra-libs/c3/c3.min.js"></script>--}}
+<script src="../../assets/libs/raphael/raphael.min.js"></script>
+<script src="../../assets/libs/morris.js/morris.min.js"></script>
+{{--<script src="../../dist/js/pages/dashboards/dashboard1.js"></script>--}}
