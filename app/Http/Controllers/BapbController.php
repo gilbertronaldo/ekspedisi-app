@@ -576,9 +576,12 @@ class BapbController extends Controller
 
 
             $bapbList = DB::select("
-                SELECT A.bapb_no,
+                SELECT A.bapb_id, A.bapb_no,
                        A.koli,
                        B.recipient_name_bapb,
+                       NULL as payment_total,
+                       --to_char(NOW(), 'dd-mm-yyyy') as payment_date,
+                       NULL as payment_date,
                        FALSE as is_input,
                        FALSE as is_paid
                 FROM tr_bapb A
@@ -593,6 +596,23 @@ class BapbController extends Controller
 
 
             $response = CoreResponse::ok(compact('bapbList'));
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function paymentSave(Request $request)
+    {
+        try {
+
+
+            $response = CoreResponse::ok([]);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }

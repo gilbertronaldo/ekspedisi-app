@@ -135,6 +135,7 @@ Route::group(
               '[0-9]+'
             );
             Route::post('/payment-list', 'BapbController@paymentList');
+            Route::post('/payment-save', 'BapbController@paymentSave');
 
             Route::get('/generate/{id}', 'BapbController@generatePrint')->where(
               'id',

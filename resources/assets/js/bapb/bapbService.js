@@ -13,7 +13,8 @@
             delete: _delete,
             latest: latest,
             verify: verify,
-            paymentList: paymentList
+            paymentList: paymentList,
+            paymentSave: paymentSave
         };
 
         function get(id = '') {
@@ -60,6 +61,13 @@
 
         function paymentList(param) {
             return $http.post(`/api/bapb/payment-list`, param)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function paymentSave(input) {
+            return $http.post(`/api/bapb/payment-save`, input)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

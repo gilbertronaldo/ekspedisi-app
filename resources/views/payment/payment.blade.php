@@ -167,48 +167,67 @@
                                                 </td>
                                             </tr>
                                             <tr ng-repeat="bapb in vm.bapbList"
-                                                ng-style="{ 'cursor' : (bapb.is_paid && !bapb.is_input) ? 'auto' : 'pointer' }" ng-click="vm.onInputPayment($index)">
-                                                <td>
+                                                ng-style="{ 'cursor' : (!bapb.is_paid && !bapb.is_input) ? 'pointer' : 'auto' }">
+                                                <td ng-click="vm.onInputPayment($index)">
                                                     <span>
                                                         {{'{{'. 'bapb.bapb_no' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td>
+                                                <td ng-click="vm.onInputPayment($index)">
                                                     <span>
                                                         {{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td>
+                                                <td ng-click="vm.onInputPayment($index)">
                                                     <span>
                                                         {{'{{'. 'bapb.koli' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td>
+                                                <td ng-click="vm.onInputPayment($index)">
                                                     <div ng-if="!bapb.is_input">
-                                                        <span>Rp. 100000</span>
+                                                        <span ng-if="bapb.payment_total != null">
+                                                            {{'{{'. 'bapb.payment_total | currency:"Rp.":0' .'}'.'}'}}
+                                                        </span>
+                                                        <span ng-if="bapb.payment_total == null">
+                                                            -
+                                                        </span>
                                                     </div>
                                                     <div ng-if="bapb.is_input" class="form-group">
                                                         <label>
-                                                            <input type="text" class="form-control" placeholder="Input Payment total">
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Input Payment total"
+                                                                   ng-model="bapb.payment_total">
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td ng-click="vm.onInputPayment($index)">
                                                     <div ng-if="!bapb.is_input">
-                                                        <span>13 Agustus 2019</span>
+                                                        <span ng-if="bapb.payment_date != null">
+                                                              {{'{{'. 'bapb.payment_date_' .'}'.'}'}}
+                                                        </span>
+                                                        <span ng-if="bapb.payment_date == null">
+                                                              -
+                                                        </span>
                                                     </div>
                                                     <div ng-if="bapb.is_input" class="form-group">
                                                         <label>
-                                                            <input type="text" class="form-control" placeholder="Input Payment date">
+                                                            <input class="form-control"
+                                                                   ng-model="bapb.payment_date"
+                                                                   ng-model-options="{ updateOn: 'blur' }"
+                                                                   placeholder="Select a date..."
+                                                                   format="DD-MM-YYYY"
+                                                                   moment-picker="bapb.payment_date">
                                                         </label>
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
-                                                    <div ng-if="!bapb.is_input">
+                                                    <div ng-if="!bapb.is_input" ng-click="vm.onInputPayment($index)">
                                                         <button class="btn btn-warning">EDIT</button>
                                                     </div>
                                                     <div ng-if="bapb.is_input">
-                                                        <button class="btn btn-primary" ng-click="vm.onSavePayment($index)">SAVE</button>
+                                                        <button class="btn btn-primary"
+                                                                ng-click="vm.onSavePayment($index)">SAVE
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>

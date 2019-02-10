@@ -51,6 +51,8 @@
             false
         ];
 
+        ctrl.inputMode = false;
+
         ctrl.checkedContainer = [];
 
         ctrl.searchShipList = (searchText, page) => {
@@ -119,6 +121,12 @@
             })
                 .then(function (result) {
                     ctrl.loading[1] = false;
+                    result.data.bapbList.forEach(i => {
+                        if (i.payment_date) {
+                            i.payment_date_ = i.payment_date;
+                            i.payment_date = moment(i.payment_date, "DD-MM-YYYY");
+                        }
+                    })
                     ctrl.bapbList = result.data.bapbList;
                 })
                 .catch(err => {
@@ -130,22 +138,36 @@
 
         ctrl.onInputPayment = idx => {
 
-            if (ctrl.bapbList[idx].is_paid) {
+            if (ctrl.bapbList[idx].is_paid || ctrl.bapbList[idx].is_input) {
                 return;
             }
 
+            console.log('input');
             ctrl.bapbList.forEach(i => {
                 i.is_input = false;
             });
 
-            ctrl.bapbList[0].is_input = true;
+            ctrl.bapbList[idx].is_input = true;
+
+            ctrl.inputMode = ctrl.bapbList.filter(i => i.is_input).length > 0;
         };
 
         ctrl.onSavePayment = idx => {
-            console.log(idx);
+            ctrl.loading[1] = true;
             ctrl.bapbList.forEach(i => {
                 i.is_input = false;
             });
+
+            BapbService.paymentSave(ctrl.bapbList[idx])
+                .then(function (result) {
+                    ctrl.loading[1] = false;
+                    console.log('save')
+                })
+                .catch(err => {
+                    ctrl.loading[1] = false;
+                    console.log(err);
+                    swangular.alert("Error Container List");
+                })
         }
     }
 })();
