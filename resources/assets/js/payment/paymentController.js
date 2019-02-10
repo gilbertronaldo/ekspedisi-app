@@ -128,5 +128,24 @@
                 })
         }
 
+        ctrl.onInputPayment = idx => {
+
+            if (ctrl.bapbList[idx].is_paid) {
+                return;
+            }
+
+            ctrl.bapbList.forEach(i => {
+                i.is_input = false;
+            });
+
+            ctrl.bapbList[0].is_input = true;
+        };
+
+        ctrl.onSavePayment = idx => {
+            console.log(idx);
+            ctrl.bapbList.forEach(i => {
+                i.is_input = false;
+            });
+        }
     }
 })();

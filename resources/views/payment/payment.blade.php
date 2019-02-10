@@ -156,6 +156,7 @@
                                                 <th>Koli</th>
                                                 <th>Total</th>
                                                 <th>Tanggal</th>
+                                                <th>Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -165,7 +166,8 @@
                                                                  class="mdi mdi-alert-circle"></i>&nbsp;Tidak ada data !</span>
                                                 </td>
                                             </tr>
-                                            <tr ng-repeat="bapb in vm.bapbList">
+                                            <tr ng-repeat="bapb in vm.bapbList"
+                                                ng-style="{ 'cursor' : (bapb.is_paid && !bapb.is_input) ? 'auto' : 'pointer' }" ng-click="vm.onInputPayment($index)">
                                                 <td>
                                                     <span>
                                                         {{'{{'. 'bapb.bapb_no' .'}'.'}'}}
@@ -181,8 +183,34 @@
                                                         {{'{{'. 'bapb.koli' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td>Rp. 100000</td>
-                                                <td>13 Agustus 2019</td>
+                                                <td>
+                                                    <div ng-if="!bapb.is_input">
+                                                        <span>Rp. 100000</span>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input" class="form-group">
+                                                        <label>
+                                                            <input type="text" class="form-control" placeholder="Input Payment total">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div ng-if="!bapb.is_input">
+                                                        <span>13 Agustus 2019</span>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input" class="form-group">
+                                                        <label>
+                                                            <input type="text" class="form-control" placeholder="Input Payment date">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div ng-if="!bapb.is_input">
+                                                        <button class="btn btn-warning">EDIT</button>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input">
+                                                        <button class="btn btn-primary" ng-click="vm.onSavePayment($index)">SAVE</button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>

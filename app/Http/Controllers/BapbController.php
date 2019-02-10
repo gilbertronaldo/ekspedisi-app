@@ -578,7 +578,9 @@ class BapbController extends Controller
             $bapbList = DB::select("
                 SELECT A.bapb_no,
                        A.koli,
-                       B.recipient_name_bapb
+                       B.recipient_name_bapb,
+                       FALSE as is_input,
+                       FALSE as is_paid
                 FROM tr_bapb A
                 INNER JOIN ms_recipient B
                     ON A.recipient_id = B.recipient_id
