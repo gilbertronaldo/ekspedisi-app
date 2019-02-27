@@ -40,6 +40,7 @@
         vm.input = {};
         vm.detail = {};
         vm.id = $stateParams.id;
+        vm.next_id = 0;
 
         vm.bapbList = [];
         vm.newBapbList = [];
@@ -52,8 +53,19 @@
         function init() {
             if (!vm.id) {
                 noInvoice();
+                getNextId();
             } else {
             }
+        }
+
+        function getNextId() {
+            InvoiceService.next()
+                .then(res => {
+                    vm.next_id = parseInt(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
 
         init();
@@ -191,6 +203,8 @@
                                 swangular.success("Berhasil Menyimpan INVOICE", {
                                     preConfirm: function () {
                                         if (!vm.id) {
+                                            const win = window.open(`http://${window.location.hostname}/api/invoice/generate/${vm.next_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+                                            win.focus();
                                             $state.reload();
                                         } else {
                                             $state.go('admin.invoice');
