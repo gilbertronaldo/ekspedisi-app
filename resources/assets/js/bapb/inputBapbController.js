@@ -41,6 +41,7 @@
         BapbService
     ) {
         let ctrl = this;
+        ctrl.next_id = 0;
         ctrl.input = {};
         ctrl.codeList = [
             {code_id: 1, name: 'BJM - Banjarmasin'},
@@ -97,9 +98,22 @@
         function init() {
             if (!ctrl.id) {
                 resetForm();
+                getNextId();
             } else {
                 getBapb();
+                ctrl.next_id = ctrl.id;
             }
+        }
+
+        function getNextId() {
+            BapbService.next()
+                .then(res => {
+                    ctrl.next_id = parseInt(res.data);
+                    console.log(ctrl.next_id);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
 
         init();
@@ -636,6 +650,8 @@
                                     preConfirm: function () {
                                         if (!ctrl.id) {
                                             $state.reload();
+                                            const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${ctrl.next_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+                                            win.focus();
                                         } else {
                                             $state.go('admin.bapb');
                                         }

@@ -121,6 +121,7 @@ Route::group(
       Route::prefix('bapb')->group(
         function ()
         {
+            Route::get('/next', 'BapbController@nextId');
             Route::get('/no/{code}', 'BapbController@no');
             Route::get('/', 'BapbController@all');
             Route::get('/{id}', 'BapbController@get')->where('id', '[0-9]+');

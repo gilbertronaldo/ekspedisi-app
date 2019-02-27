@@ -45,6 +45,25 @@ class BapbController extends Controller
     }
 
     /**
+     * get new bapb no
+     *
+     * @return array
+     */
+    public function nextId()
+    {
+        try {
+            $bapbNo   = DB::select("
+                SELECT last_value FROM tr_bapb_bapb_id_seq;
+            ");
+            $response = CoreResponse::ok($bapbNo[0]->last_value + 1);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
      * @param Request $request
      *
      * @return array

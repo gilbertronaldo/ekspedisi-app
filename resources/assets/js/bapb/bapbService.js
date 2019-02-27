@@ -14,7 +14,8 @@
             latest: latest,
             verify: verify,
             paymentList: paymentList,
-            paymentSave: paymentSave
+            paymentSave: paymentSave,
+            next: next
         };
 
         function get(id = '') {
@@ -26,6 +27,13 @@
 
         function no(code) {
             return $http.get(`/api/bapb/no/${code}`)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function next() {
+            return $http.get(`/api/bapb/next`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });
