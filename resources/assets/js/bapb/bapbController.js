@@ -112,7 +112,8 @@
                     BapbService.verify(id)
                         .then(res => {
                             swangular.success("Berhasil Verified Bapb");
-                            vm.dtInstance.rerender();
+                            // vm.dtInstance.rerender();
+                            $state.reload();
                         })
                         .catch(err => {
                             console.log(err);
@@ -129,7 +130,9 @@
                     BapbService.delete(id)
                         .then(res => {
                             swangular.success("Berhasil Menghapus Bapb");
-                            vm.dtInstance.rerender();
+                            // vm.dtInstance.rerender();
+
+                            $state.reload();
                         })
                         .catch(err => {
                             console.log(err);

@@ -42,7 +42,23 @@
             printKwitansi: $rootScope.authCan('INVOICE_PRINT_KWITANSI')
         };
 
+        $scope.dtInstance = {};
+        $scope.dtInstanceCallback = function (instance) {
+            $scope.dtInstance = instance;
+        };
+
         vm.dtInstance = {};
+        vm.dtInstanceCallback = (dtInstance) => {
+            vm.dtInstance = dtInstance;
+            console.log(vm.dtInstance);
+            dtInstance.DataTable.on('draw.dt', () => {
+                let elements = angular.element("#" + dtInstance.id + " .ng-scope");
+                angular.forEach(elements, (element) => {
+                    $compile(element)($scope)
+                })
+            });
+        }
+        ;
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
                 url: '/api/invoice',
@@ -108,7 +124,8 @@
                     InvoiceService.delete(id)
                         .then(res => {
                             swangular.success("Berhasil Menghapus Invoice");
-                            vm.dtInstance.rerender();
+                            console.log(vm, $scope.dtInstance);
+                            $state.reload();
                         })
                         .catch(err => {
                             console.log(err);

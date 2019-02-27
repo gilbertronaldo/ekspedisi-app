@@ -10,11 +10,19 @@
             no: no,
             store: store,
             delete: _delete,
-            getBapbList: getBapbList
+            getBapbList: getBapbList,
+            next: next
         };
 
         function getBapbList(param) {
             return $http.post(`/api/invoice/bapb-list`, param)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function next() {
+            return $http.get(`/api/invoice/next`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

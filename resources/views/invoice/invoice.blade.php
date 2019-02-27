@@ -40,8 +40,8 @@
                             </button>
                         </div>
                         <div class="table-responsive">
-                            <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"
-                                   dt-instance="vm.dtInstance" class="table table-bordered" width="100%"
+                            <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" id="invoice-table"
+                                   dt-instance="dtInstanceCallback" class="table table-bordered" width="100%"
                                    cellspacing="0">
                             </table>
                         </div>
