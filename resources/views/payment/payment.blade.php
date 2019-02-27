@@ -153,8 +153,9 @@
                                                 <th width="10%">No Bapb</th>
                                                 <th width="30%">Penerima</th>
                                                 <th width="5%">Koli</th>
-                                                <th width="20%">Total</th>
-                                                <th width="15%">Tanggal</th>
+                                                <th>Total</th>
+                                                <th width="20%">Total Bayar</th>
+                                                <th width="15%">Tanggal Bayar</th>
                                                 <th width="20" one-time-if="authCan('PAYMENT_INPUT')">Action</th>
                                             </tr>
                                             </thead>
@@ -180,6 +181,11 @@
                                                 <td ng-click="vm.onInputPayment($index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.koli' .'}'.'}'}}
+                                                    </span>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <span>
+                                                        {{'{{'. 'bapb.total | currency:"Rp.":0' .'}'.'}'}}
                                                     </span>
                                                 </td>
                                                 <td ng-click="vm.onInputPayment($index)" class="align-middle">

@@ -602,6 +602,7 @@ class BapbController extends Controller
               "
                 SELECT A.bapb_id, A.bapb_no,
                        A.koli,
+                       COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total,
                        CAST(A.payment_total AS INT) AS payment_total,
                        to_char(A.payment_date, 'dd-mm-yyyy') as payment_date,
                        A.is_paid,
