@@ -95,7 +95,8 @@
                     ShipService.delete(shipId)
                         .then(res => {
                             swangular.success("Berhasil Menghapus Kapal");
-                            vm.dtInstance.rerender();
+                            // vm.dtInstance.rerender();
+                            $state.reload();
                         })
                         .catch(err => {
                             console.log(err);

@@ -88,7 +88,8 @@
                     RecipientService.delete(id)
                         .then(res => {
                             swangular.success("Berhasil Menghapus Penerima");
-                            vm.dtInstance.rerender();
+                            // vm.dtInstance.rerender();
+                            $state.reload();
                         })
                         .catch(err => {
                             console.log(err);

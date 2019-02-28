@@ -87,7 +87,8 @@
                     SenderService.delete(id)
                         .then(res => {
                             swangular.success("Berhasil Menghapus Pengirim");
-                            vm.dtInstance.rerender();
+                            // vm.dtInstance.rerender();
+                            $state.reload();
                         })
                         .catch(err => {
                             console.log(err);
