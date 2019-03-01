@@ -375,32 +375,32 @@
                                         <tr ng-repeat="sItem in sender.items" ng-init="sItemIdx = $index">
                                             <th scope="row">{{'{{'. 'sItemIdx + 1' .'}'.'}'}}</th>
                                             <td>
-                                                <input class="form-control form-control-sm" type="text"
+                                                <input class="form-control " type="text"
                                                        ng-model="sItem.bapb_sender_item_name"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="number"
+                                                <input class="form-control " type="number"
                                                        ng-model="sItem.koli" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="number"
+                                                <input class="form-control " type="number"
                                                        ng-model="sItem.panjang" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="number"
+                                                <input class="form-control " type="number"
                                                        ng-model="sItem.lebar" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="number"
+                                                <input class="form-control " type="number"
                                                        ng-model="sItem.tinggi" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" type="number"
+                                                <input class="form-control " type="number"
                                                        ng-model="sItem.berat" min="0"
                                                        ng-change="vm.senderItemCalculate(senderIdx)">
                                             </td>
@@ -436,12 +436,12 @@
                                                 <tr ng-repeat="sCost in sender.costs" ng-init="sCostIdx = $index">
                                                     <th scope="row">{{'{{'. 'sCostIdx + 1' .'}'.'}'}}</th>
                                                     <td>
-                                                        <input class="form-control form-control-sm" type="text"
+                                                        <input class="form-control " type="text"
                                                                ng-model="sCost.bapb_sender_cost_name"
                                                                ng-change="vm.senderItemCalculate(senderIdx)">
                                                     </td>
                                                     <td>
-                                                        <input class="form-control form-control-sm" type="text"
+                                                        <input class="form-control " type="text"
                                                                ng-model="sCost.price" ui-currency
                                                                ng-change="vm.senderItemCalculate(senderIdx)">
                                                     </td>
