@@ -223,8 +223,8 @@
                                                     <span> Ton</span>
                                                 @else
                                                     <span>
-                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->volume / 1000000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->volume / 1000000), 3, ",", "."))) }}</span>
-                                                    {{ number_format(($item->volume / 1000000), 3, ",", ".") }}
+                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->dimensi / 1000000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->dimensi / 1000000), 3, ",", "."))) }}</span>
+                                                    {{ number_format(($item->dimensi / 1000000), 3, ",", ".") }}
                                                 </span>
                                                     <span> M<sup>3</sup></span>
                                                 @endif

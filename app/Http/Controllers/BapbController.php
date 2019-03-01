@@ -26,6 +26,8 @@ use Yajra\DataTables\DataTables;
 
 class BapbController extends Controller
 {
+    public $berat = 0;
+    public $dimensi = 0;
 
     /**
      * get new bapb no
@@ -342,6 +344,7 @@ class BapbController extends Controller
     public function generatePrint($bapbId)
     {
         try {
+
             $bapb = TrBapb::findOrFail($bapbId);
 
             if ($bapb->show_calculation == true) {
@@ -367,7 +370,7 @@ class BapbController extends Controller
                                STRING_AGG(B.bapb_sender_item_name, ', ') AS bapb_sender_item_name,
                                SUM(B.price) AS price,
                                SUM(B.berat * B.koli) AS berat,
-                               SUM((B.panjang * B.lebar * B.tinggi) * B.koli) AS volume
+                               SUM((B.panjang * B.lebar * B.tinggi) * B.koli) AS dimensi
                         FROM tr_bapb_sender A 
                         INNER JOIN tr_bapb_sender_item B
                             ON A.bapb_sender_id = B.bapb_sender_id
@@ -376,6 +379,11 @@ class BapbController extends Controller
                         WHERE A.deleted_at IS NULL
                     "
                       );
+
+                      foreach ($items as $item_) {
+                          $this->berat += !is_null($item_->berat) ? $item_->berat : 0;
+                          $this->dimensi += !is_null($item_->dimensi) ? $item_->dimensi : 0;
+                      }
 
                       $sender->items = collect($items);
                   }
@@ -419,6 +427,10 @@ class BapbController extends Controller
                                      && $bapb->total_price != ($bapb->harga
                                                                + $bapb->cost);
 
+            if ($bapb->squeeze) {
+                $bapb->berat = $this->berat / 1000;
+                $bapb->dimensi = $this->dimensi / 1000000;
+            }
 
             $data = [
               'bapb' => $bapb,
