@@ -214,6 +214,21 @@
                                                     <span> M<sup>3</sup></span>
                                                 @endif
                                             @endif
+                                            @if(!$bapb->show_calculation && $bapb->squeeze)
+                                                @if(!is_null($item->berat))
+                                                    <span>
+                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
+                                                    {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
+                                                </span>
+                                                    <span> Ton</span>
+                                                @else
+                                                    <span>
+                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->volume / 1000000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->volume / 1000000), 3, ",", "."))) }}</span>
+                                                    {{ number_format(($item->volume / 1000000), 3, ",", ".") }}
+                                                </span>
+                                                    <span> M<sup>3</sup></span>
+                                                @endif
+                                            @endif
                                         </td>
                                         <td style="margin: 0;padding: 2px 5px;"
                                             width="15%">

@@ -52,9 +52,11 @@ class BapbController extends Controller
     public function nextId()
     {
         try {
-            $bapbNo   = DB::select("
+            $bapbNo   = DB::select(
+              "
                 SELECT last_value FROM tr_bapb_bapb_id_seq;
-            ");
+            "
+            );
             $response = CoreResponse::ok($bapbNo[0]->last_value + 1);
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
@@ -152,6 +154,7 @@ class BapbController extends Controller
             $bapb->ship_id          = $request->input('ship_id');
             $bapb->recipient_id     = $request->input('recipient_id');
             $bapb->show_calculation = $request->input('show_calculation');
+            $bapb->squeeze          = $request->input('squeeze');
 
             $total         = $request->input('total');
             $bapb->harga   = isset($total['harga']) ? $total['harga'] : 0;
@@ -362,7 +365,9 @@ class BapbController extends Controller
                         "
                         SELECT SUM(B.koli) AS koli, 
                                STRING_AGG(B.bapb_sender_item_name, ', ') AS bapb_sender_item_name,
-                               SUM(B.price) AS price
+                               SUM(B.price) AS price,
+                               SUM(B.berat * B.koli) AS berat,
+                               SUM((B.panjang * B.lebar * B.tinggi) * B.koli) AS volume
                         FROM tr_bapb_sender A 
                         INNER JOIN tr_bapb_sender_item B
                             ON A.bapb_sender_id = B.bapb_sender_id
