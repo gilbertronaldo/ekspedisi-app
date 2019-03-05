@@ -26,7 +26,9 @@ use Yajra\DataTables\DataTables;
 
 class BapbController extends Controller
 {
+
     public $berat = 0;
+
     public $dimensi = 0;
 
     /**
@@ -156,6 +158,7 @@ class BapbController extends Controller
             $bapb->ship_id          = $request->input('ship_id');
             $bapb->recipient_id     = $request->input('recipient_id');
             $bapb->show_calculation = $request->input('show_calculation');
+            $bapb->show_price       = $request->input('show_price');
             $bapb->squeeze          = $request->input('squeeze');
 
             $total         = $request->input('total');
@@ -381,8 +384,10 @@ class BapbController extends Controller
                       );
 
                       foreach ($items as $item_) {
-                          $this->berat += !is_null($item_->berat) ? $item_->berat : 0;
-                          $this->dimensi += !is_null($item_->dimensi) ? $item_->dimensi : 0;
+                          $this->berat   += ! is_null($item_->berat)
+                            ? $item_->berat : 0;
+                          $this->dimensi += ! is_null($item_->dimensi)
+                            ? $item_->dimensi : 0;
                       }
 
                       $sender->items = collect($items);
@@ -428,7 +433,7 @@ class BapbController extends Controller
                                                                + $bapb->cost);
 
             if ($bapb->squeeze) {
-                $bapb->berat = $this->berat / 1000;
+                $bapb->berat   = $this->berat / 1000;
                 $bapb->dimensi = $this->dimensi / 1000000;
             }
 

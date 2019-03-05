@@ -613,50 +613,81 @@
 
                                 </div>
                             </div>
+                            {{--<div class="row">--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
+                                    {{--<div class="form-group row">--}}
+                                        {{--<label for="show-calculation"--}}
+                                               {{--class="col-sm-3 text-left control-label col-form-label">--}}
+                                            {{--Tampilkan Kalkulasi--}}
+                                        {{--</label>--}}
+                                        {{--<div class="col-sm-9">--}}
+                                            {{--<select class="custom-select col-sm-5" id="show-calculation"--}}
+                                                    {{--ng-model="vm.input.show_calculation"--}}
+                                                    {{--ng-init="vm.input.show_calculation = true"--}}
+                                                    {{--ng-disabled="vm.input.squeeze"--}}
+                                                    {{--ng-options="o.v as o.n for o in [{ n: 'Tidak', v: false }, { n: 'Ya', v: true }]">--}}
+                                            {{--</select>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-12 col-lg-6">--}}
+
+                                {{--</div>--}}
+                            {{--</div>--}}
+
                             <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="show-calculation"
-                                               class="col-sm-3 text-left control-label col-form-label">
-                                            Tampilkan Kalkulasi
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <select class="custom-select col-sm-5" id="show-calculation"
-                                                    ng-model="vm.input.show_calculation"
-                                                    ng-init="vm.input.show_calculation = true"
-                                                    ng-disabled="vm.input.squeeze"
-                                                    ng-options="o.v as o.n for o in [{ n: 'Tidak', v: false }, { n: 'Ya', v: true }]">
-                                            </select>
+                                <div class="col-12">
+                                    <label>Tampilkan : </label>
+                                </div>
+                                <div class="col-sm-12 col-lg-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="input-calculation"
+                                                       ng-model="vm.input.show_calculation"
+                                                       ng-init="vm.input.show_calculation = true"
+                                                       ng-disabled="vm.input.squeeze">
+                                                <label class="custom-control-label" for="input-calculation">Kalkulasi</label>
+                                            </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="input-squeeze"
+                                                       ng-model="vm.input.squeeze" ng-init="vm.input.squeeze = false"
+                                                       ng-change="(vm.input.squeeze == true) ? vm.input.show_calculation = false : vm.input.show_calculation = vm.input.show_calculation">
+                                                <label class="custom-control-label" for="input-squeeze">Squeeze</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="input-price"
+                                                       ng-model="vm.input.show_price" ng-init="vm.input.show_price = true">
+                                                <label class="custom-control-label" for="input-price">Harga</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        {{--<label for="show-calculation"--}}
+                                        {{--class="col-sm-3 text-left control-label col-form-label">--}}
+                                        {{--Squeeze--}}
+                                        {{--</label>--}}
+                                        {{--<div class="col-sm-9">--}}
+                                        {{--<select class="custom-select col-sm-5" id="show-calculation"--}}
+                                        {{--ng-model="vm.input.squeeze"--}}
+                                        {{--ng-init="vm.input.squeeze = false"--}}
+                                        {{--ng-change="(vm.input.squeeze == true) ? vm.input.show_calculation = false : vm.input.show_calculation = vm.input.show_calculation"--}}
+                                        {{--ng-options="o.v as o.n for o in [{ n: 'Tidak', v: false }, { n: 'Ya', v: true }]">--}}
+                                        {{--</select>--}}
+                                        {{--</div>--}}
+                                        {{----}}
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
 
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="show-calculation"
-                                               class="col-sm-3 text-left control-label col-form-label">
-                                            Squeeze
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <select class="custom-select col-sm-5" id="show-calculation"
-                                                    ng-model="vm.input.squeeze"
-                                                    ng-init="vm.input.squeeze = false"
-                                                    ng-change="(vm.input.squeeze == true) ? vm.input.show_calculation = false : vm.input.show_calculation = vm.input.show_calculation"
-                                                    ng-options="o.v as o.n for o in [{ n: 'Tidak', v: false }, { n: 'Ya', v: true }]">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-
-                                </div>
-                            </div>
-
+                        </div>
+                        <div class="card-body bg-light">
                             <h4 class="card-title m-t-10 p-b-20">Detail Bapb</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12">
@@ -728,7 +759,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body bg-light">
+                        <div class="card-body">
                             <div class="form-group m-b-0 text-right">
                                 <button type="button" class="btn btn-dark waves-effect waves-light"
                                         ui-sref="admin.bapb">Batal
@@ -743,4 +774,9 @@
             </div>
         </div>
     </div>
+    <style>
+        .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+            background-image: none !important;
+        }
+    </style>
 </data>
