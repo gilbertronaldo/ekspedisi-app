@@ -238,7 +238,12 @@
                         <div class="card-body bg-light">
                             <h4 class="card-title m-t-10 p-b-20">Detail Pengirim</h4>
                             <div class="pl-5 pt-3" ng-repeat="sender in vm.senders" ng-init="senderIdx = $index">
-                                <h6 class="card-title m-t-10 p-b-20">Pengirim {{'{{'. 'senderIdx + 1' .'}'.'}'}}</h6>
+                                <h6 class="card-title m-t-10 p-b-20">
+                                    <a class="btn btn-circle btn-outline-danger btn-sm text-dark"
+                                       ng-click="vm.senderSplice(senderIdx)" style="padding: 0.5em"><i
+                                                class="mdi mdi-close"></i></a>
+                                    Pengirim {{'{{'. 'senderIdx + 1' .'}'.'}'}}
+                                </h6>
                                 <div class="row">
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="form-group row">

@@ -340,7 +340,15 @@
             if (ctrl.senders.length === 1)
                 return;
             ctrl.senders.pop();
-        }
+            ctrl.senderItemCalculateAll();
+        };
+
+        ctrl.senderSplice = (idx) => {
+            if (ctrl.senders.length === 1)
+                return;
+            ctrl.senders.splice(idx, 1);
+            ctrl.senderItemCalculateAll();
+        };
 
         ctrl.senderItemPush = (idx) => {
             ctrl.senders[idx].items.push(senderItemNew());
