@@ -269,7 +269,7 @@
                                             </label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
-                                                       ng-model="sender.detail.city.city_name"
+                                                       ng-model="sender.city_name"
                                                        placeholder="" ng-disabled="true">
                                             </div>
                                         </div>

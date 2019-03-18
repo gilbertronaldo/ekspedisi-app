@@ -619,6 +619,7 @@
             }
 
             ctrl.senders[idx].detail = ctrl.detail.senderList.find(i => i.sender_id === ctrl.senders[idx].sender_id);
+            console.log(ctrl.senders[idx].detail);
         }
 
         function bapbIsValid(data) {
