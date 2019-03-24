@@ -65,13 +65,13 @@
             });
         vm.dtColumns = [
             DTColumnBuilder.newColumn('bapb_no').withTitle('No Bapb'),
+            DTColumnBuilder.newColumn('senders').withTitle('Sender'),
+            DTColumnBuilder.newColumn('no_ttb').withTitle('TTB'),
             DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Penerima'),
             DTColumnBuilder.newColumn('ship_name').withTitle('Kapal'),
             DTColumnBuilder.newColumn('sailing_date').withTitle('Brngkt'),
             DTColumnBuilder.newColumn('no_voyage').withTitle('Voyage'),
             DTColumnBuilder.newColumn('no_container').withTitle('Cont'),
-            DTColumnBuilder.newColumn('no_seal').withTitle('Seal'),
-            DTColumnBuilder.newColumn('no_ttb').withTitle('TTB'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
 

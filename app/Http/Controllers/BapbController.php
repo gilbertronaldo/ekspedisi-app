@@ -95,6 +95,7 @@ class BapbController extends Controller
           SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, 
                  A.no_seal, A.verified,
               B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb,
+                 string_agg(DISTINCT E.sender_name_bapb, ', ') as senders,
               COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total,
               B.ship_name, to_char(B.sailing_date, 'dd/mm/yy') as sailing_date
             FROM tr_bapb A
@@ -107,6 +108,9 @@ class BapbController extends Controller
             LEFT JOIN tr_bapb_sender D 
               ON A.bapb_id = D.bapb_id
               AND D.deleted_at IS NULL
+            LEFT JOIN ms_sender E 
+              ON D.sender_id = E.sender_id
+              AND E.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
             GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb,
                      A.harga, A.berat, B.ship_name, B.sailing_date
