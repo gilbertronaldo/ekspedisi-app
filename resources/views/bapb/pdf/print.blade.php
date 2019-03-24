@@ -137,15 +137,15 @@
                 </td>
             </tr>
             <tr>
-                <td>NO. CONT
-                    <span class="d-ib" style="width: 55.8px;"></span>:
-                    <span class="t-b">{{ $bapb->no_container_1 . "" . $bapb->no_container_2 }}</span>
-                </td>
-            </tr>
-            <tr>
                 <td>TGL. BERANGKAT
                     <span class="d-ib" style="width: 1.3px;"></span>:
                     <span class="t-b">{{ \Carbon\Carbon::parse($bapb->ship->sailing_date)->format('d F Y') }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>NO. CONTAINER
+                    <span class="d-ib" style="width: 13px;"></span>:
+                    <span class="t-b">{{ $bapb->no_container_1 . "" . $bapb->no_container_2 }}</span>
                 </td>
             </tr>
         </table>
