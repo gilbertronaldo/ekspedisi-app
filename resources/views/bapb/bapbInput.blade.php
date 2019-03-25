@@ -767,10 +767,10 @@
                         <div class="card-body">
                             <div class="form-group m-b-0 text-right">
                                 <button type="button" class="btn btn-dark waves-effect waves-light"
-                                        ui-sref="admin.bapb">Batal
+                                        ui-sref="admin.bapb" ng-disabled="isSaving">Batal
                                 </button>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light"
-                                        ng-click="vm.onSubmit()">Simpan
+                                        ng-click="vm.onSubmit()" ng-disabled="isSaving"><i ng-if="isSaving" class='fa fa-spinner fa-spin '></i>Simpan
                                 </button>
                             </div>
                         </div>

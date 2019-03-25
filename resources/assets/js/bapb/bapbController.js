@@ -81,15 +81,16 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            return '<div ng-controller="BapbController"><button class="btn btn-warning btn-xs" ng-click="editBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.edit + ')">' +
-                '   EDIT' +
+            return '<div ng-controller="BapbController">' +
+                '<button class="btn btn-warning btn-xs" ng-click="editBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.edit + ')">' +
+                '   VIEW' +
                 '</button>&nbsp;' +
                 '<button class="btn btn-danger btn-xs" ng-click="deleteBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.delete + ')">' +
                 '   DELETE' +
                 '</button>&nbsp;' +
-                '<button class="btn btn-success btn-xs" ng-click="printBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.print + ')">' +
-                '   {{ "PRINT" }}' +
-                '</button>&nbsp;' +
+                // '<button class="btn btn-success btn-xs" ng-click="printBapb(' + data.bapb_id + ')" one-time-if="(' + vm.can.print + ')">' +
+                // '   {{ "PRINT" }}' +
+                // '</button>&nbsp;' +
                 '<button class="btn btn-info btn-xs" ng-click="verifyBapb(' + data.bapb_id + ')" one-time-if="' + (data.verified == false && vm.can.verify) + '">' +
                 '   {{ "VERIFY" }}' +
                 '</button></div>';

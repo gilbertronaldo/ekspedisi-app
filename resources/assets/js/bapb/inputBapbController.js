@@ -40,6 +40,9 @@
         SenderService,
         BapbService
     ) {
+
+        $scope.isSaving = false;
+
         let ctrl = this;
         ctrl.next_id = 0;
         ctrl.input = {};
@@ -648,34 +651,55 @@
                 return;
             }
 
-            swangular.confirm('Konfirmasi BAPB', {
-                showCancelButton: true,
-                preConfirm: () => {
-                    console.log(data);
-                    BapbService.store(data)
-                        .then(res => {
-                            if (res.status == 'OK') {
-                                swangular.success("Berhasil Menyimpan BAPB", {
-                                    preConfirm: function () {
-                                        if (!ctrl.id) {
-                                            $state.reload();
-                                            const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${ctrl.next_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
-                                            win.focus();
-                                        } else {
-                                            $state.go('admin.bapb');
-                                        }
-                                    }
-                                });
+            $scope.isSaving = true;
+
+            BapbService.store(data)
+                .then(res => {
+                    if (res.status == 'OK') {
+
+                        swangular.confirm('Print BAPB ?', {
+                            showCancelButton: true,
+                            confirmButtonText: 'Print',
+                            cancelButtonText: 'Tidak',
+                            preConfirm: () => {
+                                console.log(data);
+
+                            },
+                        }).then(status => {
+
+                            if (!ctrl.id) {
+                                $state.reload();
                             } else {
-                                swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
+                                $state.go('admin.bapb');
                             }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                            swangular.alert("Error");
-                        })
-                },
-            })
+
+                            if (status.value) {
+                                const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${ctrl.next_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+                                win.focus();
+                            }
+
+                        });
+
+                        // swangular.success("Berhasil Menyimpan BAPB", {
+                        //     preConfirm: function () {
+                        //         if (!ctrl.id) {
+                        //
+                        //         } else {
+                        //             $state.go('admin.bapb');
+                        //         }
+                        //     }
+                        // });
+                    } else {
+
+                        $scope.isSaving = false;
+                        swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
+                    }
+                })
+                .catch(err => {
+                    $scope.isSaving = false;
+                    console.log(err);
+                    swangular.alert("Error");
+                });
         }
     }
 })();
