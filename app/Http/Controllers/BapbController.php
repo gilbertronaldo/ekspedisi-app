@@ -136,7 +136,7 @@ class BapbController extends Controller
                 );
 
                 if (!is_null($sender->detail) && !is_null($sender->detail->city)) {
-                    $sender->city_name = $sender->detail->city->city_name;
+                    $sender->detail->city_name = $sender->detail->city->city_name;
                 }
             }
             $response = CoreResponse::ok($bapb);

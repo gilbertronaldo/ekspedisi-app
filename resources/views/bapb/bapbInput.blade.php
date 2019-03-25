@@ -201,7 +201,7 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control"
-                                                   ng-value="vm.detail.recipient.city.city_code + ' - ' + vm.detail.recipient.city_name"
+                                                   ng-value="vm.detail.recipient.city_name"
                                                    ng-disabled="true">
                                         </div>
                                     </div>
@@ -269,7 +269,7 @@
                                             </label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
-                                                       ng-model="sender.city_name"
+                                                       ng-model="sender.detail.city_name"
                                                        placeholder="" ng-disabled="true">
                                             </div>
                                         </div>
