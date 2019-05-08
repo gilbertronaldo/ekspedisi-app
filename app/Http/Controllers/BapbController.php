@@ -275,7 +275,9 @@ class BapbController extends Controller
                         ->delete();
 
             DB::commit();
-            $response = CoreResponse::ok();
+            $response = CoreResponse::ok([
+              'bapb_id' => $bapb->bapb_id
+            ]);
         } catch (CoreException $exception) {
 
             DB::rollBack();

@@ -657,6 +657,8 @@
                 .then(res => {
                     if (res.status == 'OK') {
 
+                        const bapb_id = res.data.bapb_id;
+
                         swangular.confirm('Print BAPB ?', {
                             showCancelButton: true,
                             confirmButtonText: 'Print',
@@ -674,21 +676,11 @@
                             }
 
                             if (status.value) {
-                                const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${ctrl.next_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+                                const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${bapb_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
                                 win.focus();
                             }
 
                         });
-
-                        // swangular.success("Berhasil Menyimpan BAPB", {
-                        //     preConfirm: function () {
-                        //         if (!ctrl.id) {
-                        //
-                        //         } else {
-                        //             $state.go('admin.bapb');
-                        //         }
-                        //     }
-                        // });
                     } else {
 
                         $scope.isSaving = false;
