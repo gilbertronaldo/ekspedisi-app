@@ -18,7 +18,8 @@
                 'Ekspedisi.sender',
                 'Ekspedisi.bapb',
                 'Ekspedisi.invoice',
-                'Ekspedisi.payment'
+                'Ekspedisi.payment',
+                'Ekspedisi.search',
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

@@ -62,3 +62,7 @@ require('./invoice/inputInvoiceController.js');
 require('./payment/payment.js');
 require('./payment/paymentService.js');
 require('./payment/paymentController.js');
+
+require('./search/search.js');
+require('./search/searchService.js');
+require('./search/searchController.js');

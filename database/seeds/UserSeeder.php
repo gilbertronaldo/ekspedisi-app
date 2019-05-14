@@ -131,6 +131,10 @@ class UserSeeder extends Seeder
             'task_description' => 'Manage role tasks',
           ],
           [
+            'task_code'        => 'SEARCH_NAVIGATION_SIDEBAR',
+            'task_description' => 'Search Data',
+          ],
+          [
             'task_code'        => 'SHIP_NAVIGATION_SIDEBAR',
             'task_description' => 'Menampilkan Menu Kapal di navigation',
           ],

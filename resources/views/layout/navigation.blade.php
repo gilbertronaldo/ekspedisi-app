@@ -67,6 +67,15 @@
             </a>
         </li>
 
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('SEARCH_NAVIGATION_SIDEBAR')">
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link"
+               ui-sref="admin.search"
+               aria-expanded="false">
+                <i class="mdi mdi-magnify"></i>
+                <span class="hide-menu">Search</span>
+            </a>
+        </li>
+
         <li class="nav-small-cap" ng-if="authCan('USER_NAVIGATION_SIDEBAR, ROLE_NAVIGATION_SIDEBAR')">
             <i class="mdi mdi-settings"></i>
             <span class="hide-menu">Settings</span>

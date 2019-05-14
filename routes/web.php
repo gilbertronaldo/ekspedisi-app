@@ -127,4 +127,10 @@ Route::middleware('auth:api')->group(function () {
             return view('payment.payment');
         });
     });
+
+    Route::prefix('search')->group(function () {
+        Route::get('/', function () {
+            return view('search.search');
+        });
+    });
 });
