@@ -112,6 +112,9 @@
 @include('bapb.pdf.footer')
 
 <main class="page_break">
+    <div style="width: 100%;font-size: 16px;margin: -20px 5px 5px;text-align: left">
+        <span>No.</span>&nbsp;<span class="t-b">{{ $bapb->bapb_no }}</span>
+    </div>
     <div>
         <table class="table-bordered">
             <tr>
