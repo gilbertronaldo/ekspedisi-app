@@ -169,7 +169,9 @@ class InvoiceController extends Controller
             }
 
             DB::commit();
-            $response = CoreResponse::ok();
+            $response = CoreResponse::ok([
+              'invoice_id' => $invoice->invoice_id
+            ]);
         } catch (CoreException $exception) {
 
             DB::rollBack();

@@ -200,10 +200,12 @@
                     InvoiceService.store(data)
                         .then(res => {
                             if (res.status == 'OK') {
+                                const invoice_id = res.data.invoice_id;
+
                                 swangular.success("Berhasil Menyimpan INVOICE", {
                                     preConfirm: function () {
                                         if (!vm.id) {
-                                            const win = window.open(`http://${window.location.hostname}/api/invoice/generate/${vm.next_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+                                            const win = window.open(`http://${window.location.hostname}/api/invoice/generate/${invoice_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
                                             win.focus();
                                             $state.reload();
                                         } else {
