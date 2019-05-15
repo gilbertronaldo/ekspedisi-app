@@ -259,7 +259,7 @@
                 @endforeach
                 <tr>
                     <td colspan="3">
-                        @if($bapb->kena_min_charge)
+                        @if($bapb->show_price)
                             @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
                                 <span style="font-weight: normal;font-size: 14px;">
                                     Minimal Charge = Rp. {{ number_format($bapb->recipient->minimum_charge, 0, ".", ".") }}
