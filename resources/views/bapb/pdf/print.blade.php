@@ -271,15 +271,17 @@
                             @endif
 
                             @if($bapb->show_price)
-                                <br>
                                 @if($bapb->berat != 0)
+                                    <br>
                                     <span style="font-weight: normal;font-size: 14px;">
                                     Harga =
                                     <span
                                             class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
                                                 class="t-small">ton</span>
                                 </span>
-                                @else
+                                @endif
+                                @if($bapb->dimensi != 0)
+                                    <br>
                                     <span style="font-weight: normal;font-size: 14px;">
                                     Harga =
                                     <span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
