@@ -259,7 +259,7 @@
                 @endforeach
                 <tr>
                     <td colspan="3">
-                        @if($bapb->show_price)
+                        @if($bapb->kena_min_charge || $bapb->show_price)
                             @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
                                 <span style="font-weight: normal;font-size: 14px;">
                                     Minimal Charge = Rp. {{ number_format($bapb->recipient->minimum_charge, 0, ".", ".") }}
@@ -269,19 +269,22 @@
                                     Minimal Charge = {{ number_format($bapb->recipient->minimum_charge / 1000, 3, ",", ".") }} ton/m3
                                 </span>
                                 <br>
+                            @endif
+
+                            @if($bapb->show_price)
                                 @if($bapb->berat != 0)
                                     <span style="font-weight: normal;font-size: 14px;">
-                                        Harga =
-                                        <span
-                                                class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                    Harga =
+                                    <span
+                                            class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
                                                 class="t-small">ton</span>
-                                    </span>
+                                </span>
                                 @else
                                     <span style="font-weight: normal;font-size: 14px;">
-                                        Harga =
-                                        <span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
+                                    Harga =
+                                    <span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
                                                 class="t-small">m<sup>3</sup></span>
-                                    </span>
+                                </span>
                                 @endif
                             @endif
                         @endif
