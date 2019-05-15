@@ -167,7 +167,7 @@ class BapbController extends Controller
             $bapb->recipient_id     = $request->input('recipient_id');
             $bapb->show_calculation = $request->input('show_calculation');
             $bapb->show_price       = $request->input('show_price');
-            $bapb->squeeze          = $request->input('squeeze');
+            $bapb->squeeze          = $request->has('squeeze') ? !is_null($request->input('squeeze')) ? $request->input('squeeze') : FALSE : FALSE;
 
             $total         = $request->input('total');
             $bapb->harga   = isset($total['harga']) ? $total['harga'] : 0;
