@@ -268,10 +268,10 @@
                                 <span style="font-weight: normal;font-size: 14px;">
                                     Minimal Charge = {{ number_format($bapb->recipient->minimum_charge / 1000, 3, ",", ".") }} ton/m3
                                 </span>
-                                <br>
                             @endif
 
                             @if($bapb->show_price)
+                                <br>
                                 @if($bapb->berat != 0)
                                     <span style="font-weight: normal;font-size: 14px;">
                                     Harga =
