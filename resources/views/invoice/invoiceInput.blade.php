@@ -103,9 +103,10 @@
                                         <tr>
                                             <th>No BAPB</th>
                                             <th>No Cont</th>
-                                            <th>Tujuan</th>
+                                            <th>Voyage</th>
+{{--                                            <th>Tujuan</th>--}}
                                             <th>Tgl Brngkt</th>
-                                            <th>Pengirim</th>
+{{--                                            <th>Pengirim</th>--}}
                                             <th>Jumlah (Rp)</th>
                                             <th>Status</th>
                                         </tr>
@@ -115,9 +116,10 @@
                                         <tr ng-repeat="bapb in vm.bapbList track by bapb.bapb_id">
                                             <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>
                                             <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.no_voyage' .'}'.'}'}}</td>
+{{--                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>--}}
                                             <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>
+{{--                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>--}}
                                             <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
                                             <td>
                                                 <button class="btn btn-primary btn-xs"
@@ -138,9 +140,10 @@
                                         <tr>
                                             <th>No BAPB</th>
                                             <th>No Cont</th>
-                                            <th>Tujuan</th>
+                                            <th>Voyage</th>
+{{--                                            <th>Tujuan</th>--}}
                                             <th>Tgl Brngkt</th>
-                                            <th>Pengirim</th>
+{{--                                            <th>Pengirim</th>--}}
                                             <th>Jumlah (Rp)</th>
                                             <th>Status</th>
                                         </tr>
@@ -150,9 +153,10 @@
                                         <tr ng-repeat="bapb in vm.newBapbList track by bapb.bapb_id">
                                             <td>{{'{{'. 'bapb.bapb_no' .'}'.'}'}}</td>
                                             <td>{{'{{'. 'bapb.no_container' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>
+                                            <td>{{'{{'. 'bapb.no_voyage' .'}'.'}'}}</td>
+{{--                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>--}}
                                             <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
-                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>
+{{--                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>--}}
                                             <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
                                             <td>
                                                 <button class="btn btn-danger btn-xs"
