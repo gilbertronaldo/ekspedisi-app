@@ -122,6 +122,7 @@ class InvoiceController extends Controller
                   AND D.deleted_at IS NULL
                 WHERE A.deleted_at IS NULL
                 AND A.recipient_id = $recipientId
+                AND A.verified IS TRUE
                 AND A.bapb_id NOT IN (
                   SELECT X.bapb_id
                   FROM tr_invoice_bapb X 
