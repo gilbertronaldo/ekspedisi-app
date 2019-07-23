@@ -109,7 +109,6 @@
 <body>
 
 @include('bapb.pdf.header')
-@include('bapb.pdf.footer')
 
 <main class="page_break">
     <div style="width: 100%;font-size: 16px;margin: -20px 5px 5px;text-align: left">
@@ -338,6 +337,7 @@
             </table>
         </div>
     </div>
+    @include('bapb.pdf.footer')
 </main>
 
 {{--@foreach($bapb->senders as $sender)
