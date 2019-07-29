@@ -370,7 +370,7 @@ class InvoiceController extends Controller
         $query = "
          SELECT AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb,
                string_agg(DISTINCT CC.bapb_no, ', ') AS bapb_no,
-               string_agg(DD.no_ttb, ', ') AS no_ttb
+               string_agg(DD.no_voyage, ', ') AS no_voyage
             FROM (
                    SELECT A.invoice_id, A.invoice_no,
                           D.recipient_name_bapb
@@ -393,8 +393,8 @@ class InvoiceController extends Controller
             INNER JOIN tr_bapb CC
                 ON BB.bapb_id = CC.bapb_id
                 AND CC.deleted_at IS NULL
-            LEFT JOIN tr_bapb_sender DD
-                ON CC.bapb_id = DD.bapb_id
+            INNER JOIN ms_ship DD 
+                ON CC.ship_id = DD.ship_id
                 AND DD.deleted_at IS NULL
             GROUP BY AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb
 
