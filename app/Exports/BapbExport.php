@@ -74,7 +74,7 @@ class BapbExport implements FromView, WithEvents
     private function getItems($noContainer)
     {
         $get = DB::SELECT("
-            SELECT TO_CHAR(C.entry_date, 'dd FMMon') as date,
+            SELECT TO_CHAR(C.entry_date, 'dd FMMon yyyy') as date,
                    B.recipient_name,
                    D.sender_name,
                    SUM(E.koli) AS koli, 

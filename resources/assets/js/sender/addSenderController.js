@@ -77,12 +77,12 @@
             }
 
             if (!ctrl.input.city_id) {
-                swangular.alert("Kota Penerima wajib di isi");
+                swangular.alert("Kota pengirim wajib di isi");
                 return;
             }
 
             if (!ctrl.input.sender_address) {
-                swangular.alert("Alamat Penerima wajib di isi");
+                swangular.alert("Alamat pengirim wajib di isi");
                 return;
             }
 
@@ -101,7 +101,7 @@
                         swangular.alert(res.data.message);
                     } else if (res.status === 'OK') {
                         $state.go('admin.sender');
-                        swangular.success("Data Penerima Berhasil Tersimpan");
+                        swangular.success("Data pengirim Berhasil Tersimpan");
                         ctrl.is_saving = false;
                     }
                 })

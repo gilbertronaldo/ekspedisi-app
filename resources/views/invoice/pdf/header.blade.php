@@ -1,4 +1,4 @@
-<header>
+a<header>
     <div style="float: left;margin-left: 50px;">
         <img src="{{ public_path('img/logo.png') }}" alt="" width="100" height="100">
     </div>
