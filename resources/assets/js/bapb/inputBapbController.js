@@ -130,6 +130,7 @@
                 .then(res => {
                     res.data.no_container_2 = parseInt(res.data.no_container_2);
                     ctrl.input = res.data;
+                    console.log(res.data);
 
                     getShip();
                     getRecipient();

@@ -769,7 +769,7 @@
                                 <button type="button" class="btn btn-dark waves-effect waves-light"
                                         ui-sref="admin.bapb" ng-disabled="isSaving">Batal
                                 </button>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light"
+                                <button type="submit" class="btn btn-primary waves-effect waves-light" ng-if="!vm.input.verified"
                                         ng-click="vm.onSubmit()" ng-disabled="isSaving"><i ng-if="isSaving" class='fa fa-spinner fa-spin '></i>Simpan
                                 </button>
                             </div>
