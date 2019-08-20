@@ -57,6 +57,7 @@
             DTColumnBuilder.newColumn('destination').withTitle('Tujuan'),
             DTColumnBuilder.newColumn('no_voyage').withTitle('No. Voyage'),
             DTColumnBuilder.newColumn('ship_name').withTitle('Nama Kapal'),
+            DTColumnBuilder.newColumn('sailing_date').withTitle('Tgl Brngkt'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
 
