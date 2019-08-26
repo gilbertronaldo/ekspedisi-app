@@ -53,8 +53,8 @@
             });
         vm.dtColumns = [
             DTColumnBuilder.newColumn('sender_code').withTitle('Kode Pengirim').withOption('width', '10%'),
-            DTColumnBuilder.newColumn('sender_name').withTitle('Nama Pengirim'),
             DTColumnBuilder.newColumn('sender_name_bapb').withTitle('Nama Pengirim BAPB'),
+            DTColumnBuilder.newColumn('price').withTitle('Harga'),
             DTColumnBuilder.newColumn('sender_phone').withTitle('Telepon').withOption('width', '10%'),
             DTColumnBuilder.newColumn('city.city_code').withTitle('Kota').withOption('width', '10%'),
             DTColumnBuilder.newColumn('sender_address').withTitle('Alamat').withOption('font-size', '0.7em'),

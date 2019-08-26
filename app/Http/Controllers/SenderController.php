@@ -22,8 +22,20 @@ class SenderController extends Controller
         $query = MsSender::get();
         foreach ($query as $q) {
             $q->city_name = '';
+            $q->price = '';
             if ($q->city) {
                 $q->city_name = $q->city->city_name;
+            }
+
+            if ($q->price_ton) {
+                $q->price .= 'Rp. ' . $q->price_ton . '/ton';
+            }
+
+            if ($q->price_meter) {
+                if ($q->price_ton) {
+                    $q->price .= ' - ';
+                }
+                $q->price .= 'Rp. ' . $q->price_meter . '/m';
             }
         }
         return datatables()->of($query)->toJson();
