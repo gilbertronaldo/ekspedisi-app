@@ -475,11 +475,16 @@
 
             let harga = 0;
 
+            ctrl.senders[idx].total_dimensi = null;
+            ctrl.senders[idx].total_berat = null;
+
             if (ctrl.senders[idx].total.dimensi !== 0) {
                 harga += ctrl.senders[idx].total.dimensi * price_meter;
+                ctrl.senders[idx].total_dimensi = ctrl.senders[idx].total.dimensi;
             }
             if (ctrl.senders[idx].total.berat !== 0) {
                 harga += ctrl.senders[idx].total.berat * price_ton;
+                ctrl.senders[idx].total_berat = ctrl.senders[idx].total.berat;
             }
 
             if (ctrl.input.tagih_di === 'sender') {

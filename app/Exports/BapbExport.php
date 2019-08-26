@@ -38,6 +38,8 @@ class BapbExport implements FromView, WithEvents
             'items' => $this->getItems($this->noContainer)
         ];
 
+        dd($input);
+
         return view('bapb.excel.bapb', $input);
     }
 
