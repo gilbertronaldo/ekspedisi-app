@@ -57,7 +57,7 @@
             <td>{{ $item->bapb_sender_item_name }}</td>
             <td>{{ $item->kemasan }}</td>
             <td>{{ $item->description }}</td>
-            <td>{!! $item->berat == 0 ? sprintf("%.3f", ($item->dimensi / 1000000 * $item->koli)) : sprintf("%.3f", ($item->berat / 1000 * $item->koli)) !!}</td>
+            <td>{!! $item->berat ?? $item->dimensi !!}</td>
         </tr>
     @endforeach
     </tbody>

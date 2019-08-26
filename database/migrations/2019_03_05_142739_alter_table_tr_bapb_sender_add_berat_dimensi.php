@@ -17,8 +17,8 @@ class AlterTableTrBapbSenderAddBeratDimensi extends Migration
           'tr_bapb_sender',
           function (Blueprint $table)
           {
-              $table->integer('dimensi')->nullable();
-              $table->integer('berat')->nullable();
+              $table->float('dimensi', 3)->nullable();
+              $table->float('berat', 3)->nullable();
           }
         );
     }

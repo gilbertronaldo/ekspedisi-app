@@ -665,6 +665,15 @@
 
                         const bapb_id = res.data.bapb_id;
 
+                        if (ctrl.input.verified) {
+                            if (!ctrl.id) {
+                                $state.reload();
+                            } else {
+                                $state.go('admin.bapb');
+                            }
+                            return;
+                        }
+
                         swangular.confirm('Print BAPB ?', {
                             showCancelButton: true,
                             confirmButtonText: 'Print',
