@@ -29,14 +29,14 @@ class RecipientController extends Controller
             }
 
             if ($q->price_ton) {
-                $q->price .= 'Rp. ' . $q->price_ton . '/ton';
+                $q->price .= 'Rp. ' . number_format($q->price_ton, 0, ',', '.') . '/ton';
             }
 
             if ($q->price_meter) {
                 if ($q->price_ton) {
                     $q->price .= ' - ';
                 }
-                $q->price .= 'Rp. ' . $q->price_meter . '/m';
+                $q->price .= 'Rp. ' . number_format($q->price_meter, 0, ',', '.') . '/m';
             }
         }
         return datatables()->of($query)->toJson();
