@@ -246,8 +246,10 @@
                                             <td style="margin: 0;padding: 2px 5px;"
                                                 colspan="3">{{ $cost->bapb_sender_cost_name }}</td>
                                             <td style="margin: 0;padding: 2px 5px;">
+                                                @if ($bapb->show_price)
                                                 <span>Rp. <span
                                                             style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endif
