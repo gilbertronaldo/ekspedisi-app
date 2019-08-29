@@ -83,7 +83,7 @@
                 });
             });
         vm.dtColumns = [
-            // DTColumnBuilder.newColumn('invoice_no').withTitle('No Invoice'),
+            DTColumnBuilder.newColumn('invoice_no').withTitle('No Invoice'),
             DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Penerima'),
             DTColumnBuilder.newColumn('bapb_no').withTitle('Bapb'),
             DTColumnBuilder.newColumn('no_voyage').withTitle('No. Voyage'),
