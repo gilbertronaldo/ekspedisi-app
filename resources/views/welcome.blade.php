@@ -73,7 +73,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Sumber Rejeki Sinar Mandiri
+            Sumber Rejeki
         </div>
 
         <div class="links">

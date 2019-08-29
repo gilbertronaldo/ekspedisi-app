@@ -204,7 +204,7 @@
                     {{--__________________--}}
                 </td>
                 <td style="font-size: 13px;">
-                    (PT.SUMBER REJEKI SINAR MANDIRI)
+                    SUMBER REJEKI
                 </td>
             </tr>
         </table>

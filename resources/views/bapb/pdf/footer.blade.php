@@ -5,12 +5,12 @@
             <td width="50%" style="font-size: 10px;line-height: 12px;" valign="top">
                 {{--<span class="t-b">Perjanjian :</span>--}}
                 <ol style="margin-left: -10px;">
-                    <li>Sumber Rejeki Sinar Mandiri tidak bertanggung jawab atas kekurangan atau kerusakan isi karena
+                    <li>Sumber Rejeki tidak bertanggung jawab atas kekurangan atau kerusakan isi karena
                         perusahaan
                         hanya bertanggung jawab atas jumlah koli, isi tidak diperiksa. Klaim atas kekurangan jumlah
                         koli, hanya akan kami layani paling lambat 3 hari setelah barang diterima.
                     </li>
-                    <li>Sumber Rejeki Sinar Mandiri hanya akan mengganti kerugian yang disebabkan oleh kesalahan
+                    <li>Sumber Rejeki hanya akan mengganti kerugian yang disebabkan oleh kesalahan
                         pengiriman kami dan tidak bertanggung jawab atas kesalahan yang disebabkan oleh pelayaran maupun
                         bencana alam.
                     </li>
@@ -57,7 +57,7 @@
                             __________________
                         </td>
                         <td style="font-size: 13px;">
-                            (PT.SUMBER REJEKI SINAR MANDIRI)
+                            SUMBER REJEKI
                         </td>
                     </tr>
                 </table>
