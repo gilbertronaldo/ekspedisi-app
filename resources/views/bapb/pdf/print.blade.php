@@ -220,7 +220,7 @@
                                                 @if(!is_null($item->berat))
                                                     <span>
                                                     <span style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
-                                                    {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
+                                                    {{ number_format(($item->berat / 1000), 3, ",", ".") }}
                                                 </span>
                                                     <span> Ton</span>
                                                 @else
