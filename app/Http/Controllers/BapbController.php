@@ -96,7 +96,8 @@ class BapbController extends Controller
               B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb,
                  string_agg(DISTINCT E.sender_name_bapb, ', ') as senders,
               COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total,
-              B.ship_name, to_char(B.sailing_date, 'dd/mm/yy') as sailing_date
+              B.ship_name, to_char(B.sailing_date, 'dd/mm/yy') as sailing_date,
+              G.name AS creator
             FROM tr_bapb A
             INNER JOIN ms_ship B
               ON A.ship_id = B.ship_id
@@ -110,9 +111,15 @@ class BapbController extends Controller
             LEFT JOIN ms_sender E 
               ON D.sender_id = E.sender_id
               AND E.deleted_at IS NULL
+            LEFT JOIN audits F 
+                ON F.auditable_id = A.bapb_id
+                AND F.auditable_type = 'App\TrBapb'
+                AND F.event = 'created'
+            LEFT JOIN users G
+                ON G.id = F.user_id
             WHERE A.deleted_at IS NULL
             GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb,
-                     A.harga, A.berat, B.ship_name, B.sailing_date
+                     A.harga, A.berat, B.ship_name, B.sailing_date, G.name
         ";
 
         return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
