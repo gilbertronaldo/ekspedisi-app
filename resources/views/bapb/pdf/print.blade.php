@@ -171,7 +171,8 @@
                             {{--                            <span style="font-size: 11px">({{ $sender->sender->sender_address }})</span>--}}
                         </td>
                         <td class="table-bordered-body-td" colspan="4" style="padding: 0;margin: 0;">
-                            <table style="table-layout: fixed;width: 100%;border-collapse: collapse;margin: 0;padding: 0">
+                            <table
+                                style="table-layout: fixed;width: 100%;border-collapse: collapse;margin: 0;padding: 0">
                                 @foreach($sender->items as $itemIdx => $item)
                                     <tr>
                                         <td style="margin: 0;padding: 2px 5px;"
@@ -182,15 +183,15 @@
                                                 @if(!is_null($item->berat))
                                                     <span style="font-size: 0.9em">
                                                     ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span
-                                                                class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
-                                                                class="t-small">ton</span>)
+                                                            class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                                            class="t-small">ton</span>)
                                                 </span>
                                                 @else
                                                     <span style="font-size: 0.9em">
                                                     ({!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!} =  {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }} <span
-                                                                class="t-small">m<sup>3</sup></span>)
+                                                            class="t-small">m<sup>3</sup></span>)
                                                     (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
-                                                                class="t-small">m<sup>3</sup></span>)
+                                                            class="t-small">m<sup>3</sup></span>)
                                                 </span>
                                                 @endif
                                             @endif
@@ -204,13 +205,15 @@
                                             @if($bapb->show_calculation)
                                                 @if(!is_null($item->berat))
                                                     <span>
-                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
+                                                    <span
+                                                        style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
                                                 </span>
                                                     <span> Ton</span>
                                                 @else
                                                     <span>
-                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."))) }}</span>
+                                                    <span
+                                                        style="color: white;">{{ substr(str_pad(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}
                                                 </span>
                                                     <span> M<sup>3</sup></span>
@@ -219,13 +222,15 @@
                                             @if(!$bapb->show_calculation && $bapb->squeeze)
                                                 @if(!is_null($item->berat))
                                                     <span>
-                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->berat / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat / 1000), 3, ",", "."))) }}</span>
+                                                    <span
+                                                        style="color: white;">{{ substr(str_pad(number_format(($item->berat / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat / 1000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->berat / 1000), 3, ",", ".") }}
                                                 </span>
                                                     <span> Ton</span>
                                                 @else
                                                     <span>
-                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->dimensi / 1000000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->dimensi / 1000000), 3, ",", "."))) }}</span>
+                                                    <span
+                                                        style="color: white;">{{ substr(str_pad(number_format(($item->dimensi / 1000000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->dimensi / 1000000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->dimensi / 1000000), 3, ",", ".") }}
                                                 </span>
                                                     <span> M<sup>3</sup></span>
@@ -236,7 +241,7 @@
                                             width="15%">
                                             @if($bapb->show_price && !$bapb->kena_min_charge)
                                                 <span>Rp.<span
-                                                            style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
+                                                        style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
                                             @endif
                                         </td>
                                 @endforeach
@@ -247,7 +252,7 @@
                                                 colspan="3">{{ $cost->bapb_sender_cost_name }}</td>
                                             <td style="margin: 0;padding: 2px 5px;">
                                                 @if ($bapb->show_price)
-                                                <span>Rp. <span
+                                                    <span>Rp. <span
                                                             style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
                                                 @endif
                                             </td>
@@ -267,22 +272,24 @@
                     </td>
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                             <span>
-                                <span style="color: white;">{{ substr(str_pad(number_format($bapb->berat, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->berat, 3, ",", "."))) }}</span>
+                                <span
+                                    style="color: white;">{{ substr(str_pad(number_format($bapb->berat, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->berat, 3, ",", "."))) }}</span>
                                 {{ number_format($bapb->berat, 3, ",", ".") }}
                             </span>
                         <span> Ton</span>
                         <br>
                         <span>
-                            <span style="color: white;">{{ substr(str_pad(number_format($bapb->dimensi, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->dimensi, 3, ",", "."))) }}</span>
+                            <span
+                                style="color: white;">{{ substr(str_pad(number_format($bapb->dimensi, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->dimensi, 3, ",", "."))) }}</span>
                             {{ number_format($bapb->dimensi, 3, ",", ".") }}
                         </span>
                         <span> M<sup>3</sup></span>
                     </td>
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                         @if ($bapb->show_price)
-                        <span>Rp. <span
-                                style="color: white;">{{ substr(str_pad(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
-                            @endif
+                            <span>Rp. <span
+                                    style="color: white;">{{ substr(str_pad(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
+                        @endif
                     </td>
                 </tr>
                 <tr>
@@ -304,8 +311,8 @@
                                     <span style="font-weight: normal;font-size: 14px;">
                                     Harga =
                                     <span
-                                            class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
-                                                class="t-small">ton</span>
+                                        class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                            class="t-small">ton</span>
                                 </span>
                                 @endif
                                 @if($bapb->dimensi != 0)
@@ -313,7 +320,7 @@
                                     <span style="font-weight: normal;font-size: 14px;">
                                     Harga =
                                     <span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
-                                                class="t-small">m<sup>3</sup></span>
+                                            class="t-small">m<sup>3</sup></span>
                                 </span>
                                 @endif
                             @endif
@@ -324,56 +331,58 @@
                     </td>
                     <td class="table-bordered-body-td">
                         @if ($bapb->show_price)
-                        <span>
+                            <span>
                         Rp.<span style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
                     </span>
-                            @endif
+                        @endif
                     </td>
                 </tr>
                 <tr style="border-left: none">
                     <td class="table-bordered-body-td" colspan="3" rowspan="7" valign="bottom"
                         style="border: none;text-transform: uppercase;">
-                        TERBILANG ( {{ $bapb->terbilang }} RUPIAH )
+                        @if ($bapb->show_price)
+                            TERBILANG ( {{ $bapb->terbilang }} RUPIAH )
+                        @endif
                     </td>
                     <td style="text-align: right">
                         <span>Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </td>
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                         @if ($bapb->show_price)
-                        <span>Rp. <span
-                                style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
+                            <span>Rp. <span
+                                    style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
                         @endif
                     </td>
                 </tr>
-{{--                <tr>--}}
-{{--                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">&nbsp;</td>--}}
-{{--                </tr>--}}
-{{--                <tr>--}}
-{{--                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">TOTAL</td>--}}
-{{--                </tr>--}}
-{{--                <tr>--}}
-{{--                    <td class="table-bordered-body-td">Koli</td>--}}
-{{--                    <td class="table-bordered-body-td">{{ $bapb->koli }}</td>--}}
-{{--                </tr>--}}
-{{--                <tr>--}}
-{{--                    <td class="table-bordered-body-td">M<sup>3</sup></td>--}}
-{{--                    <td class="table-bordered-body-td">--}}
-{{--                        <span>{{ number_format($bapb->dimensi, 3, ",", ".") }}</span>--}}
-{{--                        <span> M<sup>3</sup></span>--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-{{--                <tr>--}}
-{{--                    <td class="table-bordered-body-td">Ton</td>--}}
-{{--                    <td class="table-bordered-body-td">--}}
-{{--                        <span>{{ number_format($bapb->berat, 3, ",", ".") }}</span>--}}
-{{--                        <span> Ton</span>--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-{{--                <tr>--}}
-{{--                    <td class="table-bordered-body-td">Biaya</td>--}}
-{{--                    <td class="table-bordered-body-td">--}}
-{{--                        Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</td>--}}
-{{--                </tr>--}}
+                {{--                <tr>--}}
+                {{--                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">&nbsp;</td>--}}
+                {{--                </tr>--}}
+                {{--                <tr>--}}
+                {{--                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">TOTAL</td>--}}
+                {{--                </tr>--}}
+                {{--                <tr>--}}
+                {{--                    <td class="table-bordered-body-td">Koli</td>--}}
+                {{--                    <td class="table-bordered-body-td">{{ $bapb->koli }}</td>--}}
+                {{--                </tr>--}}
+                {{--                <tr>--}}
+                {{--                    <td class="table-bordered-body-td">M<sup>3</sup></td>--}}
+                {{--                    <td class="table-bordered-body-td">--}}
+                {{--                        <span>{{ number_format($bapb->dimensi, 3, ",", ".") }}</span>--}}
+                {{--                        <span> M<sup>3</sup></span>--}}
+                {{--                    </td>--}}
+                {{--                </tr>--}}
+                {{--                <tr>--}}
+                {{--                    <td class="table-bordered-body-td">Ton</td>--}}
+                {{--                    <td class="table-bordered-body-td">--}}
+                {{--                        <span>{{ number_format($bapb->berat, 3, ",", ".") }}</span>--}}
+                {{--                        <span> Ton</span>--}}
+                {{--                    </td>--}}
+                {{--                </tr>--}}
+                {{--                <tr>--}}
+                {{--                    <td class="table-bordered-body-td">Biaya</td>--}}
+                {{--                    <td class="table-bordered-body-td">--}}
+                {{--                        Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</td>--}}
+                {{--                </tr>--}}
             </table>
         </div>
     </div>
