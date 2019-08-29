@@ -246,7 +246,7 @@
             }
             const ship = ctrl.detail.shipList.find(i => i.ship_id === ctrl.input.ship_id);
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
-            if (ship) {
+            if (ship && ctrl.code !== 5) {
                 if (code.name.substr(0, 3) != ship.city_to.city_code) {
                     ctrl.input.ship_id = null;
                     ctrl.detail.ship = {};
@@ -286,7 +286,7 @@
 
             const recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
-            if (recipient) {
+            if (recipient && ctrl.code !== 5) {
                 if (code.name.substr(0, 3) != recipient.city_code) {
                     ctrl.input.recipient_id = null;
                     ctrl.detail.recipient = {};

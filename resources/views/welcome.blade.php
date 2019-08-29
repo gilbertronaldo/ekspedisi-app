@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SRSM</title>
+    <title>SR</title>
     <link rel="shortcut icon" type="image/png" href="assets/images/logo-light-icon.png"/>
 
     <!-- Fonts -->

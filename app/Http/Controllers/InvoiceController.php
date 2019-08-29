@@ -71,6 +71,9 @@ class InvoiceController extends Controller
         $year  = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
 
+        # CODE UNTUK INVOICE, FIX
+        $month = '06';
+
         $invoice = TrInvoice::whereRaw("LEFT(invoice_no, 4) = '$year$month'")
                             ->selectRaw(
                               'CAST(RIGHT(invoice_no, 5) AS INT) AS invoice_no'
@@ -368,12 +371,12 @@ class InvoiceController extends Controller
     {
 
         $query = "
-         SELECT AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb,
+         SELECT AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb, AA.creator,
                string_agg(DISTINCT CC.bapb_no, ', ') AS bapb_no,
                string_agg(DD.no_voyage, ', ') AS no_voyage
             FROM (
                    SELECT A.invoice_id, A.invoice_no,
-                          D.recipient_name_bapb
+                          D.recipient_name_bapb, G.name AS creator
                    FROM tr_invoice A
                           INNER JOIN tr_invoice_bapb B
                                      ON A.invoice_id = B.invoice_id
@@ -384,8 +387,14 @@ class InvoiceController extends Controller
                           INNER JOIN ms_recipient D
                                      ON C.recipient_id = D.recipient_id
                                        AND D.deleted_at IS NULL
+                           LEFT JOIN audits F 
+                                ON F.auditable_id = A.invoice_id
+                                AND F.auditable_type = 'App\TrInvoice'
+                                AND F.event = 'created'
+                            LEFT JOIN users G
+                                ON G.id = F.user_id
                    WHERE A.deleted_at IS NULL
-                   GROUP BY A.invoice_id, A.invoice_no, D.recipient_name_bapb
+                   GROUP BY A.invoice_id, A.invoice_no, D.recipient_name_bapb, G.name
              ) AA
             INNER JOIN tr_invoice_bapb BB
                 ON AA.invoice_id = BB.invoice_id
@@ -397,7 +406,7 @@ class InvoiceController extends Controller
             INNER JOIN ms_ship DD 
                 ON CC.ship_id = DD.ship_id
                 AND DD.deleted_at IS NULL
-            GROUP BY AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb
+            GROUP BY AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb, AA.creator
 
         ";
 
