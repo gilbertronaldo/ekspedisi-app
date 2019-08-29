@@ -219,7 +219,7 @@
                                             @if(!$bapb->show_calculation && $bapb->squeeze)
                                                 @if(!is_null($item->berat))
                                                     <span>
-                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
+                                                    <span style="color: white;">{{ substr(str_pad(number_format(($item->berat / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat / 1000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->berat / 1000), 3, ",", ".") }}
                                                 </span>
                                                     <span> Ton</span>
@@ -260,16 +260,25 @@
                     <td colspan="2" style="text-align: right">
                         Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
-                    <td class="table-bordered-body-td">
-                        <span>{{ number_format($bapb->dimensi, 3, ",", ".") }}</span>
+                    <td class="table-bordered-body-td text-center">
+                        {{ $bapb->koli }}
+                    </td>
+                    <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
+                            <span>
+                                <span style="color: white;">{{ substr(str_pad(number_format($bapb->berat, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->berat, 3, ",", "."))) }}</span>
+                                {{ number_format($bapb->berat, 3, ",", ".") }}
+                            </span>
+                        <span> Ton</span>
+                        <br>
+                        <span>
+                            <span style="color: white;">{{ substr(str_pad(number_format($bapb->dimensi, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->dimensi, 3, ",", "."))) }}</span>
+                            {{ number_format($bapb->dimensi, 3, ",", ".") }}
+                        </span>
                         <span> M<sup>3</sup></span>
                     </td>
-                    <td class="table-bordered-body-td">
-                        <span>{{ number_format($bapb->berat, 3, ",", ".") }}</span>
-                        <span> Ton</span>
-                    </td>
-                    <td class="table-bordered-body-td">
-                        Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}
+                    <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
+                        <span>Rp. <span
+                                style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
                     </td>
                 </tr>
                 <tr>
