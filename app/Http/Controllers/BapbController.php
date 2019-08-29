@@ -440,7 +440,7 @@ class BapbController extends Controller
 
             $bapb->total_price += $bapb->total_price_document;
 
-            $bapb->terbilang = $this->terbilang($bapb->harga);
+            $bapb->terbilang = $this->terbilang($bapb->harga + $bapb->cost);
 
             $bapb->kena_min_charge = $bapb->tagih_di == 'recipient'
                 && $bapb->total_price != ($bapb->harga
