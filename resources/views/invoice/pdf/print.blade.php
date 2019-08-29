@@ -211,7 +211,7 @@
                     __________________
                 </td>
                 <td style="font-size: 13px;">
-                    SUMBER REJEKI
+                    (SUMBER REJEKI)
                 </td>
             </tr>
         </table>
