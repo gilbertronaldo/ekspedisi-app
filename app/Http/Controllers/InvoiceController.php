@@ -393,6 +393,7 @@ class InvoiceController extends Controller
             INNER JOIN tr_bapb CC
                 ON BB.bapb_id = CC.bapb_id
                 AND CC.deleted_at IS NULL
+                AND CC.payment_date IS NULL
             INNER JOIN ms_ship DD 
                 ON CC.ship_id = DD.ship_id
                 AND DD.deleted_at IS NULL
