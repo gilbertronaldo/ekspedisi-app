@@ -8,7 +8,7 @@
             <div id="loginform">
                 <div class="logo mb-3">
                     <h3 class="font-medium m-b-20">Ekspedisi</h3>
-                    <h4 class="font-medium m-b-20">PT. SUMBER REJEKI SINAR MANDIRI</h4>
+                    <h4 class="font-medium m-b-20">SUMBER REJEKI</h4>
                 </div>
                 <!-- Form -->
                 <div class="row mt-5">

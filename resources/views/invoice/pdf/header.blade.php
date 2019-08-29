@@ -4,7 +4,7 @@
     </div>
     <div>
         <h4 style="margin: 2px;padding: 0;">EKSPEDISI</h4>
-        <h2 style="margin: 2px;padding: 0;">PT. SUMBER REJEKI SINAR MANDIRI</h2>
+        <h2 style="margin: 2px;padding: 0;">SUMBER REJEKI</h2>
         <h4 style="margin: 2px;padding: 0;">Jasa Angukatan Container System</h4>
         <h5 style="margin: 2px;padding: 0;">Jl. Mangga Dua Raya, Ruko Grand Boutique Centre Blok D No. 62 Jakarta
             Utara</h5>
