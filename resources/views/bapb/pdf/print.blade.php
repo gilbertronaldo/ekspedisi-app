@@ -277,8 +277,10 @@
                         <span> M<sup>3</sup></span>
                     </td>
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
+                        @if ($bapb->show_price)
                         <span>Rp. <span
                                 style="color: white;">{{ substr(str_pad(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
+                            @endif
                     </td>
                 </tr>
                 <tr>
@@ -319,9 +321,11 @@
                         <span>Dokumen&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </td>
                     <td class="table-bordered-body-td">
+                        @if ($bapb->show_price)
                         <span>
                         Rp.<span style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
                     </span>
+                            @endif
                     </td>
                 </tr>
                 <tr style="border-left: none">
@@ -333,8 +337,10 @@
                         <span>Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </td>
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
+                        @if ($bapb->show_price)
                         <span>Rp. <span
                                 style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
+                        @endif
                     </td>
                 </tr>
 {{--                <tr>--}}
