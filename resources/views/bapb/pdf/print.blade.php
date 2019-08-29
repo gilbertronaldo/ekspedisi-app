@@ -258,7 +258,7 @@
                 @endforeach
                 <tr>
                     <td colspan="2" style="text-align: right">
-                        Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
+                        Sub Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td class="table-bordered-body-td text-center">
                         {{ $bapb->koli }}
@@ -278,7 +278,7 @@
                     </td>
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                         <span>Rp. <span
-                                style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
+                                style="color: white;">{{ substr(str_pad(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -315,7 +315,9 @@
                             @endif
                         @endif
                     </td>
-                    <td class="table-bordered-body-td">Dokumen</td>
+                    <td style="text-align: right">
+                        <span>Dokumen&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </td>
                     <td class="table-bordered-body-td">
                         <span>
                         Rp.<span style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
@@ -327,8 +329,13 @@
                         style="border: none;text-transform: uppercase;">
                         TERBILANG ( {{ $bapb->terbilang }} RUPIAH )
                     </td>
-                    <td style="border: none;"></td>
-                    <td style="border: none;"></td>
+                    <td style="text-align: right">
+                        <span>Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </td>
+                    <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
+                        <span>Rp. <span
+                                style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
+                    </td>
                 </tr>
 {{--                <tr>--}}
 {{--                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">&nbsp;</td>--}}
