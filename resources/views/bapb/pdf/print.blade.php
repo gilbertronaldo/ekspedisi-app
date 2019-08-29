@@ -317,14 +317,14 @@
                                         ton/m3
                                 </span>
                                 @endif
-                                    @if($bapb->tagih_di != 'recipient')
-                                        <span style="font-weight: normal;font-size: 14px;">
+                                @if($bapb->tagih_di != 'recipient')
+                                    <span style="font-weight: normal;font-size: 14px;">
 
                                         Minimal Charge
                                         = {{ number_format($bapb->senders[0]->minimum_charge / 1000, 3, ",", ".") }}
                                         ton/m3
                                 </span>
-                                    @endif
+                                @endif
                             @endif
 
                             @if($bapb->show_price)
@@ -353,9 +353,18 @@
                     </td>
                     <td class="table-bordered-body-td">
                         @if ($bapb->show_price)
-                            <span>
-                        Rp.<span style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
-                    </span>
+                            @if($bapb->tagih_di == 'recipient')
+                                <span>
+                                Rp.<span
+                                        style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
+                                </span>
+                            @endif
+                            @if( $bapb->tagih_di != 'recipient')
+                                <span>
+                                Rp.<span
+                                        style="color: white;">{{ substr(str_pad(number_format($bapb->senders[0]->price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->senders[0]->price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->senders[0]->price_document, 0, ".", ".") }}
+                                </span>
+                            @endif
                         @endif
                     </td>
                 </tr>
@@ -371,8 +380,14 @@
                     </td>
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                         @if ($bapb->show_price)
-                            <span>Rp. <span
-                                    style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
+                            @if($bapb->tagih_di == 'recipient')
+                                <span>Rp. <span
+                                        style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
+                            @endif
+                            @if($bapb->tagih_di != 'recipient')
+                                <span>Rp. <span
+                                        style="color: white;">{{ substr(str_pad(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($bapb->harga + $bapb->cost)-$bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
+                            @endif
                         @endif
                     </td>
                 </tr>
