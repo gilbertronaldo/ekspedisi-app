@@ -44,6 +44,8 @@
         $scope.isSaving = false;
 
         let ctrl = this;
+        ctrl.is_admin = $localStorage.authUser.roles.some(r => ['ADMIN', 'SUPERADMIN'].includes(r));
+        console.log(ctrl.is_admin, $localStorage.authUser.roles);
         ctrl.next_id = 0;
         ctrl.input = {};
         ctrl.codeList = [
@@ -664,15 +666,6 @@
                     if (res.status == 'OK') {
 
                         const bapb_id = res.data.bapb_id;
-
-                        if (ctrl.input.verified) {
-                            if (!ctrl.id) {
-                                $state.reload();
-                            } else {
-                                $state.go('admin.bapb');
-                            }
-                            return;
-                        }
 
                         swangular.confirm('Print BAPB ?', {
                             showCancelButton: true,
