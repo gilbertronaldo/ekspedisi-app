@@ -12,10 +12,8 @@
     </div>
     <div style="text-align: center;width: 100%;">
         <h2>INVOICE</h2>
-        <br>
-        <h3>No.&nbsp;{{ $invoice->invoice_no }}</h3>
     </div>
     <div style="width: 100%;font-size: 16px;margin: -30px 5px 5px;text-align: left">
-        {{--<span>No.</span>&nbsp;<span class="t-b">{{ $invoice->invoice_no }}</span>--}}
+        <span>No.</span>&nbsp;<span class="t-b">{{ $invoice->invoice_no }}</span>
     </div>
 </header>
