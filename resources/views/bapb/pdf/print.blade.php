@@ -257,6 +257,22 @@
                     </tr>
                 @endforeach
                 <tr>
+                    <td colspan="2" style="text-align: right">
+                        Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td class="table-bordered-body-td">
+                        <span>{{ number_format($bapb->dimensi, 3, ",", ".") }}</span>
+                        <span> M<sup>3</sup></span>
+                    </td>
+                    <td class="table-bordered-body-td">
+                        <span>{{ number_format($bapb->berat, 3, ",", ".") }}</span>
+                        <span> Ton</span>
+                    </td>
+                    <td class="table-bordered-body-td">
+                        Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="3">
                         @if($bapb->kena_min_charge || $bapb->show_price)
                             @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
@@ -305,35 +321,35 @@
                     <td style="border: none;"></td>
                     <td style="border: none;"></td>
                 </tr>
-                <tr>
-                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">TOTAL</td>
-                </tr>
-                <tr>
-                    <td class="table-bordered-body-td">Koli</td>
-                    <td class="table-bordered-body-td">{{ $bapb->koli }}</td>
-                </tr>
-                <tr>
-                    <td class="table-bordered-body-td">M<sup>3</sup></td>
-                    <td class="table-bordered-body-td">
-                        <span>{{ number_format($bapb->dimensi, 3, ",", ".") }}</span>
-                        <span> M<sup>3</sup></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="table-bordered-body-td">Ton</td>
-                    <td class="table-bordered-body-td">
-                        <span>{{ number_format($bapb->berat, 3, ",", ".") }}</span>
-                        <span> Ton</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="table-bordered-body-td">Biaya</td>
-                    <td class="table-bordered-body-td">
-                        Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">&nbsp;</td>--}}
+{{--                </tr>--}}
+{{--                <tr>--}}
+{{--                    <td class="table-bordered-body-td text-center t-b" colspan="2" style="border: none;">TOTAL</td>--}}
+{{--                </tr>--}}
+{{--                <tr>--}}
+{{--                    <td class="table-bordered-body-td">Koli</td>--}}
+{{--                    <td class="table-bordered-body-td">{{ $bapb->koli }}</td>--}}
+{{--                </tr>--}}
+{{--                <tr>--}}
+{{--                    <td class="table-bordered-body-td">M<sup>3</sup></td>--}}
+{{--                    <td class="table-bordered-body-td">--}}
+{{--                        <span>{{ number_format($bapb->dimensi, 3, ",", ".") }}</span>--}}
+{{--                        <span> M<sup>3</sup></span>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--                <tr>--}}
+{{--                    <td class="table-bordered-body-td">Ton</td>--}}
+{{--                    <td class="table-bordered-body-td">--}}
+{{--                        <span>{{ number_format($bapb->berat, 3, ",", ".") }}</span>--}}
+{{--                        <span> Ton</span>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--                <tr>--}}
+{{--                    <td class="table-bordered-body-td">Biaya</td>--}}
+{{--                    <td class="table-bordered-body-td">--}}
+{{--                        Rp. {{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</td>--}}
+{{--                </tr>--}}
             </table>
         </div>
     </div>
