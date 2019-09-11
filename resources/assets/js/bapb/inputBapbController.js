@@ -374,8 +374,6 @@
         };
 
         ctrl.senderCostPop = (idx) => {
-            if (ctrl.senders[idx].costs.length === 1)
-                return;
             ctrl.senders[idx].costs.pop();
             ctrl.senderItemCalculate(idx);
         };
