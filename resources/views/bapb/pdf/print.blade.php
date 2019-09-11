@@ -34,7 +34,7 @@
 
         main {
             width: 100%;
-            margin: 77px 0 -80px;
+            margin: 77px 0 0;
             /*padding-left: 10px;*/
             /*background-color: pink;*/
         }
@@ -130,7 +130,7 @@
                 </td>
             </tr>
             <tr>
-                <td rowspan="3" valign="top">ALAMAT
+                <td rowspan="3" valign="middle">ALAMAT
                     <span class="d-ib" style="width: 14.5px;"></span>:
                     <span class="t-b">{{ $bapb->recipient->recipient_address }}</span>
                 </td>
@@ -164,105 +164,104 @@
                     <th width="15%">BIAYA</th>
                 </tr>
                 @foreach($bapb->senders as $senderIdx => $sender)
-                    <tr>
-                        <td class="table-bordered-body-td" valign="top"
-                            width="20%">
-                            {{ $sender->sender->sender_name_bapb }}
-                            <br>
-                            {{--                            <span style="font-size: 11px">({{ $sender->sender->sender_address }})</span>--}}
-                        </td>
-                        <td class="table-bordered-body-td" colspan="4" style="padding: 0;margin: 0;">
-                            <table
-                                style="table-layout: fixed;width: 100%;border-collapse: collapse;margin: 0;padding: 0">
-                                @foreach($sender->items as $itemIdx => $item)
-                                    <tr>
-                                        <td style="margin: 0;padding: 2px 5px;"
-                                            width="43%">
-                                            <span>{{ $item->bapb_sender_item_name }}</span>
-                                            @if($bapb->show_calculation)
-                                                <br>
-                                                @if(!is_null($item->berat))
-                                                    <span style="font-size: 0.9em">
+                    @foreach($sender->items as $itemIdx => $item)
+                        <tr>
+                            <td class="table-bordered-body-td" valign="middle"
+                                width="20%">
+                                {{ $sender->sender->sender_name_bapb }}
+                                <br>
+                                {{--                            <span style="font-size: 11px">({{ $sender->sender->sender_address }})</span>--}}
+                            </td>
+                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                width="43%">
+                                <span>{{ $item->bapb_sender_item_name }}</span>
+                                @if($bapb->show_calculation)
+                                    <br>
+                                    @if(!is_null($item->berat))
+                                        <span style="font-size: 0.9em">
                                                     ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span
-                                                            class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
-                                                            class="t-small">ton</span>)
+                                                class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                                class="t-small">ton</span>)
                                                 </span>
-                                                @else
-                                                    <span style="font-size: 0.9em">
+                                    @else
+                                        <span style="font-size: 0.9em">
                                                     ({!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!} =  {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }} <span
-                                                            class="t-small">m<sup>3</sup></span>)
+                                                class="t-small">m<sup>3</sup></span>)
                                                     (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
-                                                            class="t-small">m<sup>3</sup></span>)
+                                                class="t-small">m<sup>3</sup></span>)
                                                 </span>
-                                                @endif
-                                            @endif
-                                        </td>
-                                        <td style="margin: 0;padding: 2px 5px;"
-                                            width="7%" class="text-center">
-                                            {{ $item->koli }}
-                                        </td>
-                                        <td style="margin: 0;padding: 2px 5px;"
-                                            width="15%">
-                                            @if($bapb->show_calculation)
-                                                @if(!is_null($item->berat))
-                                                    <span>
+                                    @endif
+                                @endif
+                            </td>
+                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                width="7%" class="text-center">
+                                {{ $item->koli }}
+                            </td>
+                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                width="15%">
+                                @if($bapb->show_calculation)
+                                    @if(!is_null($item->berat))
+                                        <span>
                                                     <span
                                                         style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
                                                 </span>
-                                                    <span> Ton</span>
-                                                @else
-                                                    <span>
+                                        <span> Ton</span>
+                                    @else
+                                        <span>
                                                     <span
                                                         style="color: white;">{{ substr(str_pad(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}
                                                 </span>
-                                                    <span> M<sup>3</sup></span>
-                                                @endif
-                                            @endif
-                                            @if(!$bapb->show_calculation && $bapb->squeeze)
-                                                @if(!is_null($item->berat))
-                                                    <span>
+                                        <span> M<sup>3</sup></span>
+                                    @endif
+                                @endif
+                                @if(!$bapb->show_calculation && $bapb->squeeze)
+                                    @if(!is_null($item->berat))
+                                        <span>
                                                     <span
                                                         style="color: white;">{{ substr(str_pad(number_format(($item->berat / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat / 1000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->berat / 1000), 3, ",", ".") }}
                                                 </span>
-                                                    <span> Ton</span>
-                                                @else
-                                                    <span>
+                                        <span> Ton</span>
+                                    @else
+                                        <span>
                                                     <span
                                                         style="color: white;">{{ substr(str_pad(number_format(($item->dimensi / 1000000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->dimensi / 1000000), 3, ",", "."))) }}</span>
                                                     {{ number_format(($item->dimensi / 1000000), 3, ",", ".") }}
                                                 </span>
-                                                    <span> M<sup>3</sup></span>
-                                                @endif
-                                            @endif
-                                        </td>
-                                        <td style="margin: 0;padding: 2px 5px;"
-                                            width="15%">
-                                            @if($bapb->show_price && !$bapb->kena_min_charge)
-                                                <span>Rp.<span
-                                                        style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
-                                            @endif
-                                        </td>
-                                @endforeach
-                                @foreach($sender->costs as $cost)
-                                    @if(!is_null($cost->price))
-                                        <tr>
-                                            <td style="margin: 0;padding: 2px 5px;"
-                                                colspan="3">{{ $cost->bapb_sender_cost_name }}</td>
-                                            <td style="margin: 0;padding: 2px 5px;">
-                                                @if ($bapb->show_price)
-                                                    <span>Rp. <span
-                                                            style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
-                                                @endif
-                                            </td>
-                                        </tr>
+                                        <span> M<sup>3</sup></span>
                                     @endif
-                                @endforeach
-                            </table>
-                        </td>
-                    </tr>
+                                @endif
+                            </td>
+                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                width="15%">
+                                @if($bapb->show_price && !$bapb->kena_min_charge)
+                                    <span>Rp.<span
+                                            style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
+                                @endif
+                            </td>
+                    @endforeach
+                    @foreach($sender->costs as $cost)
+                        @if(!is_null($cost->price))
+                            <tr>
+                                <td class="table-bordered-body-td" valign="middle"
+                                    width="20%">
+                                    {{ $sender->sender->sender_name_bapb }}
+                                    <br>
+                                    {{--                            <span style="font-size: 11px">({{ $sender->sender->sender_address }})</span>--}}
+                                </td>
+                                <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                    colspan="3">{{ $cost->bapb_sender_cost_name }}</td>
+                                <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
+                                    @if ($bapb->show_price)
+                                        <span>Rp. <span
+                                                style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
                 @endforeach
                 <tr>
                     <td colspan="2" style="text-align: right">
@@ -458,7 +457,7 @@
                         <span class="d-ib" style="width: 29px;"></span>:
                         <span class="t-b">{{ $bapb->ship->ship_name }}</span>
                     </td>
-                    <td rowspan="2" valign="top">
+                    <td rowspan="2" valign="middle">
                         ALAMAT
                         <span class="d-ib" style="width: 16px;"></span>:
                         <span class="t-b">{{ $bapb->recipient->recipient_address }}</span>
