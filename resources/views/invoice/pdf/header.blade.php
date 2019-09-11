@@ -15,6 +15,7 @@
     </div>
     <div style="width: 100%;font-size: 16px;margin: -30px 5px 5px;text-align: left">
         <span>No.</span>&nbsp;<span class="t-b">{{ $invoice->invoice_no }}</span>
+        <br>
         <span class="t-b">{{ $invoice->tgl }}</span>
     </div>
 </header>
