@@ -423,7 +423,7 @@
             </table>
         </div>
     </div>
-    @include('bapb.pdf.footer')
+{{--    @include('bapb.pdf.footer')--}}
 </main>
 
 {{--@foreach($bapb->senders as $sender)
