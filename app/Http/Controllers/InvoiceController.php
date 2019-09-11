@@ -196,6 +196,8 @@ class InvoiceController extends Controller
 
         $invoice = TrInvoice::findOrFail($invoiceId);
 
+        $invoice->tgl = Carbon::parse($invoice->created_at)->format('d/m/Y');
+
         $bapb = DB::select(
           "
           SELECT A.invoice_id, A.invoice_no,
@@ -204,7 +206,6 @@ class InvoiceController extends Controller
                  UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
                  CONCAT(E.city_code) as destination,
                  to_char(D.sailing_date, 'dd/mm/yyyy') as sailing_date,
-                 to_char(A.created_at, 'dd/mm/yyyy') as tgl,
                  JSON_AGG(DISTINCT G.sender_name_bapb) AS senders
           FROM tr_invoice A 
           INNER JOIN tr_invoice_bapb B
@@ -273,6 +274,7 @@ class InvoiceController extends Controller
           'officeBranch' => $officeBranch,
         ];
 
+//        return view('invoice.pdf.print', $input);
         $pdf = PDF::loadView('invoice.pdf.print', $input);
 
         return $pdf->stream('invoice.pdf');
