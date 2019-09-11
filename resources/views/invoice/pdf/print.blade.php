@@ -20,7 +20,7 @@
 
             /** Extra personal styles **/
             /*background-color: darkgrey;*/
-            text-align: center;
+            text-align: left;
             line-height: 16px;
         }
 
