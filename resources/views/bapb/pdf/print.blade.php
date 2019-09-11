@@ -8,7 +8,7 @@
     <title>BAPB</title>
     <style>
         @page {
-            margin: 150px 25px 250px;
+            margin: 150px 45px 250px;
         }
 
         header {
@@ -34,7 +34,8 @@
 
         main {
             width: 100%;
-            margin: 10px 0 -80px;
+            margin: 77px 0 -80px;
+            /*padding-left: 10px;*/
             /*background-color: pink;*/
         }
 
