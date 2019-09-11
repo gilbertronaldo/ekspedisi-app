@@ -8,15 +8,15 @@
     <title>BAPB</title>
     <style>
         @page {
-            margin: 150px 45px 250px;
+            margin: 230px 45px 250px;
         }
 
         header {
             position: fixed;
-            top: -140px;
+            top: -180px;
             left: 0;
             right: 0;
-            height: 150px;
+            height: 0px;
 
             /** Extra personal styles **/
             /*background-color: darkgrey;*/
@@ -26,7 +26,7 @@
 
         footer {
             position: fixed;
-            bottom: -240px;
+            bottom: -210px;
             left: 0;
             right: 0;
             height: 150px;
@@ -109,13 +109,13 @@
 </head>
 <body>
 
-@include('bapb.pdf.header')
+{{--@include('bapb.pdf.header')--}}
 
 <main class="page_break">
-    <div style="width: 100%;font-size: 16px;margin: -20px 5px 5px;text-align: left">
-        <span>No.</span>&nbsp;<span class="t-b">{{ $bapb->bapb_no }}</span>
-    </div>
-    <div>
+    <div style="margin-top: -77px;">
+        <div style="width: 100%;font-size: 16px;margin: -20px 5px 5px;text-align: left">
+            <span>No.</span>&nbsp;<span class="t-b">{{ $bapb->bapb_no }}</span>
+        </div>
         <table class="table-bordered">
             <tr>
                 <td>
