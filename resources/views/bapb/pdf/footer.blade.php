@@ -1,9 +1,9 @@
 
 <footer>
-    <table style="width: 100%;height: 100px" border="0">
+    <table style="width: 100%;height: 150px" border="0">
         <tr>
             <td width="50%" style="font-size: 10px;line-height: 12px;" valign="top">
-                {{--<span class="t-b">Perjanjian :</span>--}}
+                <span class="t-b">Perjanjian :</span>
                 <ol style="margin-left: -10px;">
                     <li>Sumber Rejeki tidak bertanggung jawab atas kekurangan atau kerusakan isi karena
                         perusahaan
@@ -21,10 +21,10 @@
                         Pengirim atau Penerima diharapkan mengasuransikan barang yang dikirimkan.
                     </li>
                 </ol>
-                {{--<span class="t-b">Himbauan : </span>--}}
-                {{--<ul>--}}
-                {{--<li>Pengirim atau Penerima diharapkan mengasuransikan barang yang dikirimkan.</li>--}}
-                {{--</ul>--}}
+                <span class="t-b">Himbauan : </span>
+                <ul>
+                    <li>Pengirim atau Penerima diharapkan mengasuransikan barang yang dikirimkan.</li>
+                </ul>
             </td>
             <td width="50%" valign="top">
                 <table style="text-align: center !important;">
@@ -40,6 +40,15 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    
                     <tr>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
