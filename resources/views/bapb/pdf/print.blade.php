@@ -203,14 +203,14 @@
                                     @if(!is_null($item->berat))
                                         <span>
                                                     <span
-                                                        style="color: white;">{{ substr(str_pad(number_format(($item->berat * $item->koli / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat * $item->koli / 1000), 3, ",", "."))) }}</span>
+                                                        style="color: white;"></span>
                                                     {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
                                                 </span>
                                         <span> Ton</span>
                                     @else
                                         <span>
                                                     <span
-                                                        style="color: white;">{{ substr(str_pad(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", "."))) }}</span>
+                                                        style="color: white;"></span>
                                                     {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}
                                                 </span>
                                         <span> M<sup>3</sup></span>
@@ -220,14 +220,14 @@
                                     @if(!is_null($item->berat))
                                         <span>
                                                     <span
-                                                        style="color: white;">{{ substr(str_pad(number_format(($item->berat / 1000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->berat / 1000), 3, ",", "."))) }}</span>
+                                                        style="color: white;"></span>
                                                     {{ number_format(($item->berat / 1000), 3, ",", ".") }}
                                                 </span>
                                         <span> Ton</span>
                                     @else
                                         <span>
                                                     <span
-                                                        style="color: white;">{{ substr(str_pad(number_format(($item->dimensi / 1000000), 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($item->dimensi / 1000000), 3, ",", "."))) }}</span>
+                                                        style="color: white;"></span>
                                                     {{ number_format(($item->dimensi / 1000000), 3, ",", ".") }}
                                                 </span>
                                         <span> M<sup>3</sup></span>
@@ -238,7 +238,7 @@
                                 width="15%">
                                 @if($bapb->show_price && !$bapb->kena_min_charge)
                                     <span>Rp.<span
-                                            style="color: white;">{{ substr(str_pad(number_format($item->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($item->price, 0, ".", "."))) }}</span>{{ number_format($item->price, 0, ".", ".") }}</span>
+                                            style="color: white;"></span>{{ number_format($item->price, 0, ".", ".") }}</span>
                                 @endif
                             </td>
                     @endforeach
@@ -256,7 +256,7 @@
                                 <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                                     @if ($bapb->show_price)
                                         <span>Rp. <span
-                                                style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
+                                                style="color: white;"></span>{{ number_format($cost->price, 0, ".", ".") }}</span>
                                     @endif
                                 </td>
                             </tr>
@@ -273,14 +273,14 @@
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                             <span>
                                 <span
-                                    style="color: white;">{{ substr(str_pad(number_format($bapb->berat, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->berat, 3, ",", "."))) }}</span>
+                                    style="color: white;"></span>
                                 {{ number_format($bapb->berat, 3, ",", ".") }}
                             </span>
                         <span> Ton</span>
                         <br>
                         <span>
                             <span
-                                style="color: white;">{{ substr(str_pad(number_format($bapb->dimensi, 3, ",", "."), 10, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->dimensi, 3, ",", "."))) }}</span>
+                                style="color: white;"></span>
                             {{ number_format($bapb->dimensi, 3, ",", ".") }}
                         </span>
                         <span> M<sup>3</sup></span>
@@ -288,7 +288,7 @@
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                         @if ($bapb->show_price)
                             <span>Rp. <span
-                                    style="color: white;">{{ substr(str_pad(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
+                                    style="color: white;"></span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
                         @endif
                     </td>
                 </tr>
@@ -356,13 +356,13 @@
                             @if($bapb->tagih_di == 'recipient')
                                 <span>
                                 Rp.<span
-                                        style="color: white;">{{ substr(str_pad(number_format($bapb->total_price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
+                                        style="color: white;"></span>{{ number_format($bapb->total_price_document, 0, ".", ".") }}
                                 </span>
                             @endif
                             @if( $bapb->tagih_di != 'recipient')
                                 <span>
                                 Rp.<span
-                                        style="color: white;">{{ substr(str_pad(number_format($bapb->senders[0]->price_document, 0, ".", "."), 15, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->senders[0]->price_document, 0, ".", "."))) }}</span>{{ number_format($bapb->senders[0]->price_document, 0, ".", ".") }}
+                                        style="color: white;"></span>{{ number_format($bapb->senders[0]->price_document, 0, ".", ".") }}
                                 </span>
                             @endif
                         @endif
@@ -382,11 +382,11 @@
                         @if ($bapb->show_price)
                             @if($bapb->tagih_di == 'recipient')
                                 <span>Rp. <span
-                                        style="color: white;">{{ substr(str_pad(number_format($bapb->harga + $bapb->cost, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga + $bapb->cost, 0, ".", "."))) }}</span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
+                                        style="color: white;"></span>{{ number_format($bapb->harga + $bapb->cost, 0, ".", ".") }}</span>
                             @endif
                             @if($bapb->tagih_di != 'recipient')
                                 <span>Rp. <span
-                                        style="color: white;">{{ substr(str_pad(number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", "."), 14, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format(($bapb->harga + $bapb->cost)-$bapb->total_price_document, 0, ".", "."))) }}</span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
+                                        style="color: white;"></span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
                             @endif
                         @endif
                     </td>
