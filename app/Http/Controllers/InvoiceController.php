@@ -204,6 +204,7 @@ class InvoiceController extends Controller
                  UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
                  CONCAT(E.city_code) as destination,
                  to_char(D.sailing_date, 'dd/mm/yyyy') as sailing_date,
+                 to_char(A.created_at, 'dd/mm/yyyy') as tgl,
                  JSON_AGG(DISTINCT G.sender_name_bapb) AS senders
           FROM tr_invoice A 
           INNER JOIN tr_invoice_bapb B
