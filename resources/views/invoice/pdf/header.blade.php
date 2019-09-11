@@ -2,7 +2,7 @@
     <div style="float: left;margin-left: 50px;">
         <img src="{{ public_path('img/logo.png') }}" alt="" width="100" height="100">
     </div>
-    <div>
+    <div style="margin-left: 50px;">
         <h4 style="margin: 2px;padding: 0;">EKSPEDISI</h4>
         <h2 style="margin: 2px;padding: 0;">SUMBER REJEKI</h2>
         <h4 style="margin: 2px;padding: 0;">Jasa Angukatan Container System</h4>
