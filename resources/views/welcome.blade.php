@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SR</title>
+    <title>PLATO</title>
     <link rel="shortcut icon" type="image/png" href="assets/images/logo-light-icon.png"/>
 
     <!-- Fonts -->
@@ -73,7 +73,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Sumber Rejeki
+            PLATO
         </div>
 
         <div class="links">

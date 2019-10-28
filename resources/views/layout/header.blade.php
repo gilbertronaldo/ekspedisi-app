@@ -23,7 +23,7 @@
                             {{--<img src="../../assets/images/logo-text.png" alt="homepage" class="dark-logo"/>--}}
             <!-- Light Logo text -->
                 {{--<img src="../../assets/images/logo-light-text.png" class="light-logo" alt="homepage"/>--}}
-                            S&nbsp;R&nbsp;S&nbsp;M
+                            PLATO
                         </h3>
         </a>
         <!-- ============================================================== -->

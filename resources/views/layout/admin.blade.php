@@ -30,7 +30,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by <a href="https://gilbertronaldo.com">Gilbert Ronaldo</a>.
+                All Rights Reserved by <a href="https://gilbert.id">PLATO</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
