@@ -2,7 +2,7 @@
     <div class="navbar-header">
         <!-- This is for the sidebar toggle which is visible on mobile only -->
         <a class="nav-toggler waves-effect waves-light d-block d-md-none">
-            <i class="mdi mdi-sort-variant" style="color: white;font-size: 2em"></i>
+            <i class="mdi mdi-sort-variant" style="color: black !important;font-size: 2em"></i>
         </a>
         <!-- ============================================================== -->
         <!-- Logo -->
@@ -47,9 +47,9 @@
         <!-- ============================================================== -->
         <ul class="navbar-nav float-left mr-auto">
             <li class="nav-item d-none d-md-block">
-                <a class="nav-link sidebartoggler waves-effect waves-light""
+                <a class="nav-link sidebartoggler waves-effect waves-light"
                 data-sidebartype="mini-sidebar">
-                <i class="mdi mdi-sort-variant" style="font-size: 2em"></i>
+                <i class="mdi mdi-sort-variant" style="font-size: 2em;color: black !important;"></i>
                 </a>
             </li>
         </ul>
