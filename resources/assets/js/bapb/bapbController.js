@@ -72,6 +72,7 @@
             DTColumnBuilder.newColumn('sailing_date').withTitle('Brngkt'),
             DTColumnBuilder.newColumn('no_voyage').withTitle('Voyage'),
             DTColumnBuilder.newColumn('no_container').withTitle('Cont'),
+            DTColumnBuilder.newColumn('invoice_no').withTitle('No Invoice'),
             DTColumnBuilder.newColumn('creator').withTitle('Creator'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];

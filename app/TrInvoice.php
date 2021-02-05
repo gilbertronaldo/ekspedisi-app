@@ -12,11 +12,14 @@ namespace App;
 /**
  * Class TrInvoice
  *
- * @property integer invoice_id
- * @property string  invoice_no
- * @property boolean is_paid
- * @property integer payment_total
+ * @property integer        invoice_id
+ * @property string         invoice_no
+ * @property boolean        is_paid
+ * @property integer        payment_total
  * @property \Carbon\Carbon payment_date
+ *
+ * @property  string        pajak
+ * @property boolean        is_pph
  *
  * @package App
  */

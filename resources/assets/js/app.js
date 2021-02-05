@@ -66,3 +66,7 @@ require('./payment/paymentController.js');
 require('./search/search.js');
 require('./search/searchService.js');
 require('./search/searchController.js');
+
+require('./ppn/ppn.js');
+require('./ppn/ppnService.js');
+require('./ppn/ppnController.js');

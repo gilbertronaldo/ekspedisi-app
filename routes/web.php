@@ -133,4 +133,10 @@ Route::middleware('auth:api')->group(function () {
             return view('search.search');
         });
     });
+
+    Route::prefix('ppn')->group(function () {
+        Route::get('/', function () {
+            return view('ppn.ppn');
+        });
+    });
 });

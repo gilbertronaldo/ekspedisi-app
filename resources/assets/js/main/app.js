@@ -20,6 +20,7 @@
                 'Ekspedisi.invoice',
                 'Ekspedisi.payment',
                 'Ekspedisi.search',
+                'Ekspedisi.ppn',
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

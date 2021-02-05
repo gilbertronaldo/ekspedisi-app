@@ -183,6 +183,46 @@
             getBapbList();
         };
 
+        vm.printInvoice = (id) => {
+            let pajak = 'perusahaan';
+            let pph = false;
+            swangular.confirm('Pajak?', {
+                showCancelButton: true,
+                confirmButtonText: 'Pribadi',
+                cancelButtonText: 'Perusahaan',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#3085d6',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            }).then((res1) => {
+
+                if (res1.value) {
+                    pajak = 'pribadi';
+                }
+
+                swangular.confirm('Invoice dengan PPH?', {
+                    showCancelButton: true,
+                    confirmButtonText: 'Pakai PPH',
+                    cancelButtonText: 'Tidak',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false
+                }).then((res2) => {
+                    if (res2.value) {
+                        pph = true;
+                    }
+
+                    const url = `http://${window.location.hostname}/api/invoice/generate/${id}?pajak=${pajak}&pph=${pph}&token=${$localStorage.currentUser.access_token}`;
+                    const win = window.open(url, '_blank');
+                    win.focus();
+
+                    $state.reload();
+                });
+            });
+        }
+
+
 
         vm.onSubmit = () => {
             let data = {
@@ -204,15 +244,16 @@
 
                                 swangular.success("Berhasil Menyimpan INVOICE", {
                                     preConfirm: function () {
-                                        if (!vm.id) {
-                                            const win = window.open(`http://${window.location.hostname}/api/invoice/generate/${invoice_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
-                                            win.focus();
-                                            $state.reload();
-                                        } else {
-                                            $state.go('admin.invoice');
-                                        }
+
                                     }
-                                });
+                                }).then(res => {
+                                    if (!vm.id) {
+
+                                        vm.printInvoice(invoice_id)
+                                    } else {
+                                        $state.go('admin.invoice');
+                                    }
+                                })
                             } else {
                                 swangular.alert("Error, terjadi kesalahan ketika memproses bapb");
                             }

@@ -91,35 +91,42 @@ class BapbController extends Controller
         //        });
 
         $query = "
-          SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container, 
+          SELECT A.bapb_id, A.bapb_no, CONCAT(A.no_container_1, ' ', A.no_container_2) as no_container,
                  A.no_seal, A.verified,
               B.no_voyage, C.recipient_name_bapb, string_agg(D.no_ttb, ', ') as no_ttb,
                  string_agg(DISTINCT E.sender_name_bapb, ', ') as senders,
               COALESCE(A.harga,0) + COALESCE(A.cost,0) AS total,
               B.ship_name, to_char(B.sailing_date, 'dd/mm/yy') as sailing_date,
-              G.name AS creator
+              G.name AS creator,
+              tr_invoice.invoice_no
             FROM tr_bapb A
             INNER JOIN ms_ship B
               ON A.ship_id = B.ship_id
               AND B.deleted_at IS NULL
-            INNER JOIN ms_recipient C 
+            INNER JOIN ms_recipient C
               ON A.recipient_id = C.recipient_id
               AND C.deleted_at IS NULL
-            LEFT JOIN tr_bapb_sender D 
+            LEFT JOIN tr_bapb_sender D
               ON A.bapb_id = D.bapb_id
               AND D.deleted_at IS NULL
-            LEFT JOIN ms_sender E 
+            LEFT JOIN ms_sender E
               ON D.sender_id = E.sender_id
               AND E.deleted_at IS NULL
-            LEFT JOIN audits F 
+            LEFT JOIN audits F
                 ON F.auditable_id = A.bapb_id
                 AND F.auditable_type = 'App\TrBapb'
                 AND F.event = 'created'
             LEFT JOIN users G
                 ON G.id = F.user_id
+            LEFT JOIN tr_invoice_bapb
+                ON A.bapb_id = tr_invoice_bapb.bapb_id
+                AND tr_invoice_bapb.deleted_at IS NULL
+            LEFT JOIN tr_invoice
+                ON tr_invoice.invoice_id = tr_invoice_bapb.invoice_id
+                AND tr_invoice.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
             GROUP BY A.bapb_id, A.bapb_no, no_container, no_seal, no_voyage, recipient_name_bapb,
-                     A.harga, A.berat, B.ship_name, B.sailing_date, G.name
+                     A.harga, A.berat, B.ship_name, B.sailing_date, G.name, tr_invoice.invoice_no
         ";
 
         return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
@@ -386,12 +393,12 @@ class BapbController extends Controller
 
                         $items = DB::select(
                             "
-                        SELECT SUM(B.koli) AS koli, 
+                        SELECT SUM(B.koli) AS koli,
                                STRING_AGG(B.bapb_sender_item_name, ', ') AS bapb_sender_item_name,
                                SUM(B.price) AS price,
                                SUM(B.berat * B.koli) AS berat,
                                SUM((B.panjang * B.lebar * B.tinggi) * B.koli) AS dimensi
-                        FROM tr_bapb_sender A 
+                        FROM tr_bapb_sender A
                         INNER JOIN tr_bapb_sender_item B
                             ON A.bapb_sender_id = B.bapb_sender_id
                             AND A.bapb_sender_id = $sender->bapb_sender_id
@@ -459,7 +466,7 @@ class BapbController extends Controller
                 'bapb' => $bapb,
             ];
 
-//            return view('bapb.pdf.print', $data);
+            return view('bapb.pdf.print', $data);
             $pdf = PDF::loadView('bapb.pdf.print', $data);
 
             return $pdf->stream('bapb.pdf');
@@ -590,7 +597,7 @@ class BapbController extends Controller
         $query = "
             SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) as no_container, A.no_seal,
                    UPPER(CONCAT(A.no_container_1, A.no_container_2)) as _no_container,
-                   B.no_voyage, B.ship_name, to_char(B.sailing_date, 'dd FMMonth yyyy') as sailing_date, 
+                   B.no_voyage, B.ship_name, to_char(B.sailing_date, 'dd FMMonth yyyy') as sailing_date,
                    CONCAT(C.city_code, ' - ', C.city_name) as destination,
                    COUNT(A.bapb_id) total,
                    to_char(MAX(D.entry_date), 'dd FMMonth yyyy') as last_entry
@@ -598,7 +605,7 @@ class BapbController extends Controller
             INNER JOIN ms_ship B
              ON A.ship_id = B.ship_id
              AND B.deleted_at IS NULL
-            INNER JOIN ms_city C 
+            INNER JOIN ms_city C
               ON B.city_id_to = C.city_id
               AND C.deleted_at IS NULL
             LEFT JOIN tr_bapb_sender D
@@ -647,7 +654,8 @@ class BapbController extends Controller
                        to_char(A.payment_date, 'dd-mm-yyyy') as payment_date,
                        A.is_paid,
                        B.recipient_name_bapb,
-                       FALSE as is_input
+                       FALSE as is_input,
+                       A.potongan
                 FROM tr_bapb A
                 INNER JOIN ms_recipient B
                     ON A.recipient_id = B.recipient_id
@@ -680,6 +688,7 @@ class BapbController extends Controller
             $bapb = TrBapb::findOrFail($request->input('bapb_id'));
 
             $bapb->payment_total = $request->input('payment_total');
+            $bapb->potongan = $request->input('potongan');
             $bapb->payment_date = Carbon::parse(
                 $request->input('payment_date')
             );

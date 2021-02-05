@@ -57,6 +57,16 @@
 
         ctrl.checkedContainer = [];
 
+        ctrl.filterSudahBayar = function (val){
+            console.log(val)
+            return !!val.payment_date;
+        }
+
+        ctrl.filterBelomBayar = function (val){
+            console.log('keong', val)
+            return !val.payment_date;
+        }
+
         ctrl.searchShipList = (searchText, page) => {
             if (!searchText) {
                 return [];

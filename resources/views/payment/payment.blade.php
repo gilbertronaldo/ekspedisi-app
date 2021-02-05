@@ -102,7 +102,7 @@
                                         </div>
                                         <div class="col-12" ng-if="vm.input.ship_id && !vm.loading[0]">
                                             <div class="table-responsive" style="max-height: 15em">
-                                                <table class="table table-striped table-hover">
+                                                <table class="table table-hover">
                                                     <thead class="bg-dark text-white">
                                                     <tr>
                                                         <th width="50%" class="text-center">No Container</th>
@@ -121,9 +121,9 @@
                                                             style="vertical-align: middle">{{'{{'. 'container.no_container' .'}'.'}'}}</td>
                                                         <td class="text-center" style="font-size: 1.5em;">
                                                             <div>
-                                                                <input type="checkbox" id="fruit1" name="fruit-1"
+                                                                <input type="checkbox" id="fruit-{{'{{'. '$index' .'}'.'}'}}" name="fruit-{{'{{'. '$index' .'}'.'}'}}"
                                                                        value="true" ng-model="container.checked" ng-change="vm.onCheckedContainer()">
-                                                                <label for="fruit1"></label>
+                                                                <label for="fruit-{{'{{'. '$index' .'}'.'}'}}"></label>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -137,7 +137,7 @@
                         </div>
 
                         <div class="card-body" ng-if="vm.checkedContainer.length !== 0">
-                            <h4 class="card-title m-t-10 p-b-20">Bapb List</h4>
+                            <h4 class="card-title m-t-10 p-b-20">Bapb List (BELOM bayar)</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12" ng-if="vm.loading[1]">
                                     <span class="text-warning">
@@ -154,19 +154,14 @@
                                                 <th width="30%">Penerima</th>
                                                 <th width="5%">Koli</th>
                                                 <th>Total</th>
+                                                <th width="20%">Potongan</th>
                                                 <th width="20%">Total Bayar</th>
                                                 <th width="15%">Tanggal Bayar</th>
                                                 <th width="20" one-time-if="authCan('PAYMENT_INPUT')">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-if="vm.bapbList.length == 0">
-                                                <td colspan="5">
-                                                     <span class="text-warning"><i
-                                                                 class="mdi mdi-alert-circle"></i>&nbsp;Tidak ada data !</span>
-                                                </td>
-                                            </tr>
-                                            <tr ng-repeat="bapb in vm.bapbList"
+                                            <tr ng-repeat="bapb in vm.bapbList | filter: vm.filterBelomBayar as resultsBelomBayar"
                                                 ng-style="{ 'cursor' : (!bapb.is_paid && !bapb.is_input && authCan('PAYMENT_INPUT')) ? 'pointer' : 'auto' }">
                                                 <td ng-click="vm.onInputPayment($index)" class="align-middle">
                                                     <span>
@@ -187,6 +182,23 @@
                                                     <span>
                                                         {{'{{'. 'bapb.total | currency:"Rp.":0' .'}'.'}'}}
                                                     </span>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <div ng-if="!bapb.is_input">
+                                                        <span ng-if="bapb.potongan != null">
+                                                            {{'{{'. 'bapb.potongan | currency:"Rp. ":0' .'}'.'}'}}
+                                                        </span>
+                                                        <span ng-if="bapb.potongan == null">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input" class="form-group p-0 m-0">
+                                                        <label>
+                                                            <input type="text" class="form-control" ui-currency
+                                                                   placeholder="Input Potongan"
+                                                                   ng-model="bapb.potongan">
+                                                        </label>
+                                                    </div>
                                                 </td>
                                                 <td ng-click="vm.onInputPayment($index)" class="align-middle">
                                                     <div ng-if="!bapb.is_input">
@@ -237,6 +249,140 @@
                                                                 ng-click="vm.onSavePayment($index)">SAVE
                                                         </button>
                                                     </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="resultsBelomBayar.length == 0 ">
+                                                <td colspan="8">
+                                                     <span class="text-warning"><i
+                                                             class="mdi mdi-alert-circle"></i>&nbsp;Tidak ada data !</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body" ng-if="vm.checkedContainer.length !== 0">
+                            <h4 class="card-title m-t-10 p-b-20">Bapb List (SUDAH bayar)</h4>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12" ng-if="vm.loading[1]">
+                                    <span class="text-warning">
+                                        <span><i class='fa fa-spinner fa-spin'></i> </span>
+                                        Loading
+                                    </span>
+                                </div>
+                                <div class="col-sm-12 col-lg-12" ng-if="!vm.loading[1]">
+                                    <div class="table-responsive" style="max-height: 20em">
+                                        <table class="table table-bordered table-hover text-center">
+                                            <thead>
+                                            <tr>
+                                                <th width="10%">No Bapb</th>
+                                                <th width="30%">Penerima</th>
+                                                <th width="5%">Koli</th>
+                                                <th>Total</th>
+                                                <th width="20%">Potongan</th>
+                                                <th width="20%">Total Bayar</th>
+                                                <th width="15%">Tanggal Bayar</th>
+                                                <th width="20" one-time-if="authCan('PAYMENT_INPUT')">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="bapb in vm.bapbList | filter: vm.filterSudahBayar as resultsSudahBayar"
+                                                ng-style="{ 'cursor' : (!bapb.is_paid && !bapb.is_input && authCan('PAYMENT_INPUT')) ? 'pointer' : 'auto' }">
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <span>
+                                                        {{'{{'. 'bapb.bapb_no' .'}'.'}'}}
+                                                    </span>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="text-left align-middle">
+                                                    <span>
+                                                        {{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}
+                                                    </span>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <span>
+                                                        {{'{{'. 'bapb.koli' .'}'.'}'}}
+                                                    </span>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <span>
+                                                        {{'{{'. 'bapb.total | currency:"Rp.":0' .'}'.'}'}}
+                                                    </span>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <div ng-if="!bapb.is_input">
+                                                        <span ng-if="bapb.potongan != null">
+                                                            {{'{{'. 'bapb.potongan | currency:"Rp. ":0' .'}'.'}'}}
+                                                        </span>
+                                                        <span ng-if="bapb.potongan == null">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input" class="form-group p-0 m-0">
+                                                        <label>
+                                                            <input type="text" class="form-control" ui-currency
+                                                                   placeholder="Input Potongan"
+                                                                   ng-model="bapb.potongan">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <div ng-if="!bapb.is_input">
+                                                        <span ng-if="bapb.payment_total != null">
+                                                            {{'{{'. 'bapb.payment_total | currency:"Rp. ":0' .'}'.'}'}}
+                                                        </span>
+                                                        <span ng-if="bapb.payment_total == null">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input" class="form-group p-0 m-0">
+                                                        <label>
+                                                            <input type="text" class="form-control" ui-currency
+                                                                   placeholder="Input Payment total"
+                                                                   ng-model="bapb.payment_total">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                    <div ng-if="!bapb.is_input">
+                                                        <span ng-if="bapb.payment_date != null">
+                                                              {{'{{'. 'bapb.payment_date_' .'}'.'}'}}
+                                                        </span>
+                                                        <span ng-if="bapb.payment_date == null">
+                                                              -
+                                                        </span>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input" class="form-group p-0 m-0">
+                                                        <label>
+                                                            <input class="form-control"
+                                                                   ng-model="bapb.payment_date"
+                                                                   ng-model-options="{ updateOn: 'blur' }"
+                                                                   placeholder="Select a date..."
+                                                                   format="DD-MM-YYYY"
+                                                                   moment-picker="bapb.payment_date">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center align-middle" one-time-if="authCan('PAYMENT_INPUT')">
+                                                    <div ng-if="!bapb.is_input" ng-click="vm.onInputPayment($index)">
+                                                        <button class="btn btn-warning">EDIT</button>
+                                                    </div>
+                                                    <div ng-if="bapb.is_input" class="d-inline">
+                                                        <button class="btn btn-sm btn-secondary" ng-click="vm.onCancelPayment()">
+                                                            CANCEL
+                                                        </button>
+                                                        <button class="btn btn-sm btn-primary"
+                                                                ng-click="vm.onSavePayment($index)">SAVE
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="resultsSudahBayar.length == 0">
+                                                <td colspan="8">
+                                                     <span class="text-warning"><i
+                                                             class="mdi mdi-alert-circle"></i>&nbsp;Tidak ada data !</span>
                                                 </td>
                                             </tr>
                                             </tbody>

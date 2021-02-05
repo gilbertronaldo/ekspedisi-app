@@ -71,7 +71,7 @@
                     return vm.bapbList;
                 }
             })
-            .withOption('order', [0, 'desc'])
+            .withOption('order', [4, 'desc'])
             .withOption('lengthMenu', [[10, 25, 50, 100, 1000, -1], [10, 25, 50, 100, 1000, 'All']])
             .withDataProp('data')
             .withOption('processing', true)
@@ -87,6 +87,7 @@
             DTColumnBuilder.newColumn('recipient_name_bapb').withTitle('Penerima'),
             DTColumnBuilder.newColumn('bapb_no').withTitle('Bapb'),
             DTColumnBuilder.newColumn('no_voyage').withTitle('No. Voyage'),
+            DTColumnBuilder.newColumn('payment_date').withTitle('Payment date'),
             DTColumnBuilder.newColumn('creator').withTitle('Creator'),
             DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
         ];
@@ -109,8 +110,40 @@
         }
 
         $scope.printInvoice = id => {
-            const win = window.open(`http://${window.location.hostname}/api/invoice/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
-            win.focus();
+            let pajak = 'perusahaan';
+            let pph = false;
+            swangular.confirm('Pajak?', {
+                showCancelButton: true,
+                confirmButtonText: 'Pribadi',
+                cancelButtonText: 'Perusahaan',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#3085d6',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            }).then((res1) => {
+
+                if (res1.value) {
+                    pajak = 'pribadi';
+                }
+
+                swangular.confirm('Invoice dengan PPH?', {
+                    showCancelButton: true,
+                    confirmButtonText: 'Pakai PPH',
+                    cancelButtonText: 'Tidak',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false
+                }).then((res2) => {
+                    if (res2.value) {
+                        pph = true;
+                    }
+
+                    const url = `http://${window.location.hostname}/api/invoice/generate/${id}?pajak=${pajak}&pph=${pph}&token=${$localStorage.currentUser.access_token}`;
+                    const win = window.open(url, '_blank');
+                    win.focus();
+                });
+            });
         };
 
         $scope.printKwitansi = id => {

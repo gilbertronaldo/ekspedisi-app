@@ -51,6 +51,13 @@
                 <span class="hide-menu">Invoice</span>
             </a>
         </li>
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('PPN_NAVIGATION_SIDEBAR')">
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.ppn"
+               aria-expanded="false">
+                <i class="icon-Receipt-3"></i>
+                <span class="hide-menu">PPN</span>
+            </a>
+        </li>
         <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('PAYMENT_NAVIGATION_SIDEBAR')">
             <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.payment"
                aria-expanded="false">
