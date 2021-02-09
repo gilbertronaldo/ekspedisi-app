@@ -34,8 +34,10 @@
 
         $scope.userList = [];
         $scope.loading = [false];
+        $scope.password = null;
 
         init();
+
         function init() {
             getUserList();
         }
@@ -69,6 +71,38 @@
                         })
                 },
             })
+        }
+
+        $scope.changePassword = id => {
+            $scope.password = null;
+            swangular.swal({
+                type: 'warning',
+                title: 'Ganti Password',
+                html: '<input id="swal-password" class="form-control" type="text" ng-model="password" placeholder="Input Password baru user disini">',
+                showCancelButton: true,
+                confirmButtonText: 'Ganti Password!',
+                preConfirm: function() {
+                    return document.getElementById('swal-password').value;
+                }
+            }).then(function (res) {
+                console.log(res);
+                if (!res.value || res.value === true) {
+                    $scope.password = null;
+                    return;
+                }
+
+                UserService.changePassword({
+                    id: id,
+                    password: res.value,
+                })
+                    .then(res => {
+                        swangular.success("Password berhasil terganti!");
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        swangular.alert("Error");
+                    })
+            });
         }
     }
 })();

@@ -54,12 +54,12 @@ class UserController extends Controller
                 $tasks = DB::select(
                     "
                     SELECT D.task_code
-                    FROM users A  
+                    FROM users A
                     INNER JOIN t_user_role B
                        ON A.id = B.user_id
-                    INNER JOIN t_role_task C 
+                    INNER JOIN t_role_task C
                         ON B.role_id = C.role_id
-                    INNER JOIN t_task D 
+                    INNER JOIN t_task D
                         ON C.task_id = D.task_id
                         AND D.deleted_at IS NULL
                     WHERE A.id = $user->id
@@ -247,6 +247,24 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id)->delete();
+
+            $response = CoreResponse::ok($user);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    public function changePassword(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $password = $request->input('password');
+
+            $user = User::findOrFail($id);
+            $user->password = Hash::make($password);
+            $user->save();
 
             $response = CoreResponse::ok($user);
         } catch (CoreException $exception) {

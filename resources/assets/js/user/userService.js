@@ -12,7 +12,8 @@
             roles: roles,
             save: save,
             saveRoles: saveRoles,
-            destroy: destroy
+            destroy: destroy,
+            changePassword: changePassword,
         };
 
         function all() {
@@ -45,6 +46,13 @@
 
         function save(data) {
             return $http.post(`/api/user`, data)
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function changePassword(data) {
+            return $http.post(`/api/user/change-password`, data)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

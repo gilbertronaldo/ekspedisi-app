@@ -47,9 +47,9 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th width="35%">Name</th>
-                                    <th width="35%">Username</th>
-                                    <th width="30%" class="text-center">Action</th>
+                                    <th width="30%">Name</th>
+                                    <th width="30%">Username</th>
+                                    <th width="40%" class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +72,10 @@
                                             <button class="btn btn-primary btn-xs"
                                                     one-time-if="authCan('USER_MANAGE_ROLES')"
                                                     ui-sref="admin.user-role({id: user.id})">MANAGE ROLES
+                                            </button>
+                                            <button class="btn btn-warning btn-xs"
+                                                    one-time-if="authCan('USER_CHANGE_PASSWORD')"
+                                                    ng-click="changePassword(user.id)">CHANGE PASSWORD
                                             </button>
                                         </div>
                                     </td>

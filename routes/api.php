@@ -26,6 +26,7 @@ Route::group(
         {
             Route::get('/', 'UserController@all');
             Route::post('/', 'UserController@save');
+            Route::post('/change-password', 'UserController@changePassword');
             Route::get('/{id}', 'UserController@get')->where('id', '[0-9]+');
             Route::get('/{id}/roles', 'UserController@roles')->where(
               'id',
