@@ -176,6 +176,7 @@ class BapbController extends Controller
             $bapb->no_container_2 = $request->input('no_container_2');
             $bapb->no_seal = $request->input('no_seal');
             $bapb->tagih_di = $request->input('tagih_di');
+            $bapb->langsung_tagih = $request->input('langsung_tagih');
             $bapb->ship_id = $request->input('ship_id');
             $bapb->recipient_id = $request->input('recipient_id');
             $bapb->show_calculation = $request->input('show_calculation');

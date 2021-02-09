@@ -132,6 +132,7 @@
                 .then(res => {
                     res.data.no_container_2 = parseInt(res.data.no_container_2);
                     ctrl.input = res.data;
+                    ctrl.input.langsung_tagih = ctrl.input.langsung_tagih === true ? 'true' : 'false';
                     console.log(res.data);
 
                     getShip();
@@ -652,6 +653,8 @@
         ctrl.onSubmit = () => {
             let data = ctrl.input;
             data.senders = ctrl.senders;
+
+            data.langsung_tagih = (data.langsung_tagih === true || data.langsung_tagih === "true");
 
             if (!bapbIsValid(data)) {
                 return;

@@ -603,13 +603,34 @@
                                             Tagih di
                                         </label>
                                         <div class="col-sm-9">
-                                            <select class="custom-select col-sm-5" id="inputGroupSelect01"
+                                            <select class="custom-select col-sm-5" id="tagih-di"
                                                     ng-model="vm.input.tagih_di"
                                                     ng-init="vm.input.tagih_di = 'recipient'"
                                                     ng-change="vm.changeCalculation()">
                                                 {{--<option value="">Tagih di</option>--}}
                                                 <option value="recipient">Penerima</option>
                                                 <option value="sender">Pengirim</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="langsung-tagih"
+                                               class="col-sm-3 text-left control-label col-form-label">
+                                            Langsung Tagih
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select col-sm-5" id="langsung-tagih"
+                                                    ng-model="vm.input.langsung_tagih"">
+                                                {{--<option value="">Tagih di</option>--}}
+                                                <option value="true">Ya</option>
+                                                <option value="false">Tidak</option>
                                             </select>
                                         </div>
                                     </div>
