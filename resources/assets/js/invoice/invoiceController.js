@@ -130,7 +130,7 @@
                 swangular.confirm('Invoice dengan PPH?', {
                     showCancelButton: true,
                     confirmButtonText: 'Pakai PPH',
-                    cancelButtonText: 'Tidak',
+                    cancelButtonText: 'NonPPH',
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     allowEnterKey: false

@@ -172,5 +172,6 @@ Route::group(
 
 
       Route::get('/container', 'BapbController@container');
+      Route::get('/ppn', 'BapbController@ppn');
   }
 );

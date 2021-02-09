@@ -16,10 +16,11 @@
         '$compile',
         'PpnService',
         '$rootScope',
-        '$timeout'
+        '$timeout',
+        '$filter'
     ];
 
-    function PpnController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, PpnService, $rootScope, $timeout) {
+    function PpnController($state, $scope, swangular, $q, DTOptionsBuilder, DTColumnBuilder, $localStorage, $compile, PpnService, $rootScope, $timeout, $filter) {
         let vm = this;
 
         vm.can = {
@@ -39,7 +40,7 @@
         ;
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
-                url: '/api/ship/',
+                url: '/api/ppn/',
                 type: 'GET',
                 'beforeSend': function (request) {
                     request.setRequestHeader("Authorization", 'Bearer ' + $localStorage.currentUser.access_token);
@@ -60,14 +61,20 @@
                 $timeout(() => {
                 });
             });
+
+        vm.fnRenderMoney = function (data, type, full) {
+            return $filter('currency')(data, 'Rp. ', 0);
+        };
+
         vm.dtColumns = [
+            DTColumnBuilder.newColumn('customer').withTitle('Customer'),
+            DTColumnBuilder.newColumn('invoice_no').withTitle('No. Invoice'),
             DTColumnBuilder.newColumn('no_voyage').withTitle('No. Voyage'),
-            DTColumnBuilder.newColumn('ship_name').withTitle('Nama Kapal').withOption('width', '25%'),
-            DTColumnBuilder.newColumn('ship_description').withTitle('Deskripsi'),
-            DTColumnBuilder.newColumn('city_code_from').withTitle('Dari'),
-            DTColumnBuilder.newColumn('city_code_to').withTitle('Ke'),
-            DTColumnBuilder.newColumn('sailing_date').withTitle('Tanggal Keberangkatan').withOption('width', '15%'),
-            DTColumnBuilder.newColumn(null).withTitle('Action').notSortable().renderWith(actionButtons).withOption('searchable', false)
+            DTColumnBuilder.newColumn('bapb_no').withTitle('No. Bapb'),
+            DTColumnBuilder.newColumn('no_container').withTitle('No. Container'),
+            DTColumnBuilder.newColumn('dpp').withTitle('DPP').renderWith(vm.fnRenderMoney),
+            DTColumnBuilder.newColumn('ppn').withTitle('PPN').renderWith(vm.fnRenderMoney),
+            DTColumnBuilder.newColumn('final').withTitle('Final').renderWith(vm.fnRenderMoney),
         ];
 
         function createdRow(row, data, dataIndex) {
