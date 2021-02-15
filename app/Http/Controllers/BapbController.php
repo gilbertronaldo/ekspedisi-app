@@ -719,7 +719,7 @@ SELECT ms_recipient.recipient_name_bapb                                   AS cus
        UPPER(CONCAT(tr_bapb.no_container_1, ' ', tr_bapb.no_container_2)) as no_container,
        tr_bapb.harga                                                      AS dpp,
        round(tr_bapb.harga * 0.01)                                        AS ppn,
-       tr_bapb.harga - round(tr_bapb.harga * 0.01)                        as final
+       tr_bapb.harga + round(tr_bapb.harga * 0.01)                        as final
 FROM tr_bapb
          INNER JOIN ms_ship
                     ON tr_bapb.ship_id = ms_ship.ship_id
