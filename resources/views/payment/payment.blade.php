@@ -161,29 +161,29 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="bapb in vm.bapbList | filter: vm.filterBelomBayar as resultsBelomBayar"
+                                            <tr ng-repeat="bapb in vm.bapbList[0]"
                                                 ng-style="{ 'cursor' : (!bapb.is_paid && !bapb.is_input && authCan('PAYMENT_INPUT')) ? 'pointer' : 'auto' }">
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(0, $index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.bapb_no' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="text-left align-middle">
+                                                <td ng-click="vm.onInputPayment(0, $index)" class="text-left align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(0, $index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.koli' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(0, $index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.total | currency:"Rp.":0' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(0, $index)" class="align-middle">
                                                     <div ng-if="!bapb.is_input">
                                                         <span ng-if="bapb.potongan != null">
                                                             {{'{{'. 'bapb.potongan | currency:"Rp. ":0' .'}'.'}'}}
@@ -200,7 +200,7 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(0, $index)" class="align-middle">
                                                     <div ng-if="!bapb.is_input">
                                                         <span ng-if="bapb.payment_total != null">
                                                             {{'{{'. 'bapb.payment_total | currency:"Rp. ":0' .'}'.'}'}}
@@ -217,7 +217,7 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(0, $index)" class="align-middle">
                                                     <div ng-if="!bapb.is_input">
                                                         <span ng-if="bapb.payment_date != null">
                                                               {{'{{'. 'bapb.payment_date_' .'}'.'}'}}
@@ -238,7 +238,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center align-middle" one-time-if="authCan('PAYMENT_INPUT')">
-                                                    <div ng-if="!bapb.is_input" ng-click="vm.onInputPayment($index)">
+                                                    <div ng-if="!bapb.is_input" ng-click="vm.onInputPayment(0, $index)">
                                                         <button class="btn btn-warning">EDIT</button>
                                                     </div>
                                                     <div ng-if="bapb.is_input" class="d-inline">
@@ -246,7 +246,7 @@
                                                             CANCEL
                                                         </button>
                                                         <button class="btn btn-sm btn-primary"
-                                                                ng-click="vm.onSavePayment($index)">SAVE
+                                                                ng-click="vm.onSavePayment(0, $index)">SAVE
                                                         </button>
                                                     </div>
                                                 </td>
@@ -289,29 +289,29 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="bapb in vm.bapbList | filter: vm.filterSudahBayar as resultsSudahBayar"
+                                            <tr ng-repeat="bapb in vm.bapbList[1]"
                                                 ng-style="{ 'cursor' : (!bapb.is_paid && !bapb.is_input && authCan('PAYMENT_INPUT')) ? 'pointer' : 'auto' }">
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(1, $index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.bapb_no' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="text-left align-middle">
+                                                <td ng-click="vm.onInputPayment(1, $index)" class="text-left align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(1, $index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.koli' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(1, $index)" class="align-middle">
                                                     <span>
                                                         {{'{{'. 'bapb.total | currency:"Rp.":0' .'}'.'}'}}
                                                     </span>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(1, $index)" class="align-middle">
                                                     <div ng-if="!bapb.is_input">
                                                         <span ng-if="bapb.potongan != null">
                                                             {{'{{'. 'bapb.potongan | currency:"Rp. ":0' .'}'.'}'}}
@@ -328,7 +328,7 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(1, $index)" class="align-middle">
                                                     <div ng-if="!bapb.is_input">
                                                         <span ng-if="bapb.payment_total != null">
                                                             {{'{{'. 'bapb.payment_total | currency:"Rp. ":0' .'}'.'}'}}
@@ -345,7 +345,7 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td ng-click="vm.onInputPayment($index)" class="align-middle">
+                                                <td ng-click="vm.onInputPayment(1, $index)" class="align-middle">
                                                     <div ng-if="!bapb.is_input">
                                                         <span ng-if="bapb.payment_date != null">
                                                               {{'{{'. 'bapb.payment_date_' .'}'.'}'}}
@@ -366,7 +366,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center align-middle" one-time-if="authCan('PAYMENT_INPUT')">
-                                                    <div ng-if="!bapb.is_input" ng-click="vm.onInputPayment($index)">
+                                                    <div ng-if="!bapb.is_input" ng-click="vm.onInputPayment(1, $index)">
                                                         <button class="btn btn-warning">EDIT</button>
                                                     </div>
                                                     <div ng-if="bapb.is_input" class="d-inline">
@@ -374,7 +374,7 @@
                                                             CANCEL
                                                         </button>
                                                         <button class="btn btn-sm btn-primary"
-                                                                ng-click="vm.onSavePayment($index)">SAVE
+                                                                ng-click="vm.onSavePayment(1, $index)">SAVE
                                                         </button>
                                                     </div>
                                                 </td>

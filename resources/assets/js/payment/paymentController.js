@@ -98,7 +98,7 @@
             ctrl.loading[0] = true;
             ctrl.checkedContainer = [];
             ctrl.containerList = [];
-            ctrl.bapbList = [];
+            ctrl.bapbList = [[], []];
             ShipService.searchContainer({
                 ship_id: ctrl.input.ship_id
             })
@@ -139,7 +139,7 @@
 
         function getBapbList() {
             ctrl.loading[1] = true;
-            ctrl.bapbList = [];
+            ctrl.bapbList = [[], []];
 
             BapbService.paymentList({
                 ship_id: ctrl.input.ship_id,
@@ -153,7 +153,8 @@
                             i.payment_date = moment(i.payment_date, "DD-MM-YYYY");
                         }
                     })
-                    ctrl.bapbList = result.data.bapbList;
+                    ctrl.bapbList[0] = result.data.bapbList.filter(i => !i.payment_date);
+                    ctrl.bapbList[1] = result.data.bapbList.filter(i => !!i.payment_date);
                 })
                 .catch(err => {
                     ctrl.loading[1] = false;
@@ -162,43 +163,46 @@
                 })
         }
 
-        ctrl.onInputPayment = idx => {
+        ctrl.onInputPayment = (x, idx) => {
 
             if (!$rootScope.authCan('PAYMENT_INPUT')) {
                 return;
             }
 
-            if (ctrl.bapbList[idx].is_paid || ctrl.bapbList[idx].is_input) {
+            if (ctrl.bapbList[x][idx].is_paid || ctrl.bapbList[x][idx].is_input) {
                 return;
             }
 
             console.log('input');
-            ctrl.bapbList.forEach(i => {
+            ctrl.bapbList[x].forEach(i => {
                 i.is_input = false;
             });
 
-            ctrl.bapbList[idx].is_input = true;
+            ctrl.bapbList[x][idx].is_input = true;
 
-            ctrl.inputMode = ctrl.bapbList.filter(i => i.is_input).length > 0;
+            ctrl.inputMode = ctrl.bapbList[x].filter(i => i.is_input).length > 0;
         };
 
         ctrl.onCancelPayment = () => {
-            ctrl.bapbList.forEach(i => {
+            ctrl.bapbList[0].forEach(i => {
+                i.is_input = false;
+            });
+            ctrl.bapbList[1].forEach(i => {
                 i.is_input = false;
             });
         };
 
-        ctrl.onSavePayment = idx => {
+        ctrl.onSavePayment = (x, idx) => {
             if (!$rootScope.authCan('PAYMENT_INPUT')) {
                 return;
             }
 
             ctrl.loading[1] = true;
-            ctrl.bapbList.forEach(i => {
+            ctrl.bapbList[x].forEach(i => {
                 i.is_input = false;
             });
 
-            BapbService.paymentSave(ctrl.bapbList[idx])
+            BapbService.paymentSave(ctrl.bapbList[x][idx])
                 .then(function (result) {
                     ctrl.loading[1] = false;
                     getBapbList();
