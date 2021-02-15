@@ -161,6 +161,28 @@
                     </td>
                 </tr>
             @endforeach
+            @if($invoice->is_pph === true)
+                <tr>
+                    <td colspan="5"></td>
+                    <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
+                        Total
+                    </td>
+                    <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
+                    <span>Rp. <span
+                            style="color: white;">{{ substr(str_pad(number_format($total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($total, 0, ".", "."))) }}</span>{{ number_format($total, 0, ".", ".") }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
+                        Potongan PPH 2%
+                    </td>
+                    <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
+                    <span>Rp. <span
+                            style="color: white;">{{ substr(str_pad(number_format($totalPph, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($totalPph, 0, ".", "."))) }}</span>{{ number_format($totalPph, 0, ".", ".") }}</span>
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td colspan="5"></td>
                 <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
@@ -168,7 +190,7 @@
                 </td>
                 <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
                     <span>Rp. <span
-                                style="color: white;">{{ substr(str_pad(number_format($total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($total, 0, ".", "."))) }}</span>{{ number_format($total, 0, ".", ".") }}</span>
+                                style="color: white;">{{ substr(str_pad(number_format($totalAll, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($totalAll, 0, ".", "."))) }}</span>{{ number_format($totalAll, 0, ".", ".") }}</span>
                 </td>
             </tr>
         </table>

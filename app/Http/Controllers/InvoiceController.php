@@ -208,7 +208,7 @@ class InvoiceController extends Controller
 
             $bapb = DB::select(
                 "
-          SELECT A.invoice_id, A.invoice_no,
+          SELECT A.invoice_id, A.invoice_no, A.is_pph,
                  C.bapb_id, C.bapb_no, H.recipient_id,
                  COALESCE(C.harga,0) + COALESCE(C.cost,0) AS total,
                  UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
@@ -272,17 +272,25 @@ class InvoiceController extends Controller
                 }
             );
 
+            $pph = 0;
+            if ($invoice->is_pph === true) {
+                $pph = round($total * 2 / 100, 0);
+            }
+            $totalAll = $total + $pph;
+
             $input = [
                 'invoice'      => $invoice,
                 'bapbList'     => $bapb,
                 'total'        => $total,
+                'totalPph'     => $pph,
+                'totalAll'     => $totalAll,
                 'recipient'    => $recipient,
                 'officeBranch' => $officeBranch,
             ];
 
             DB::commit();
 
-//        return view('invoice.pdf.print', $input);
+//            return view('invoice.pdf.print', $input);
             $pdf = PDF::loadView('invoice.pdf.print', $input);
 
             return $pdf->stream('invoice.pdf');
