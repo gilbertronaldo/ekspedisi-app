@@ -85,6 +85,7 @@ Route::group(
               'id',
               '[0-9]+'
             );
+            Route::get('/export/{id}', 'ShipController@exportExcelLangsungTagih');
         }
       );
 

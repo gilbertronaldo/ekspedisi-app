@@ -79,6 +79,9 @@
             return '<div ng-controller="ShipController"><button class="btn btn-warning btn-xs" ng-click="editShip(' + data.ship_id + ')" one-time-if="(' + vm.can.edit + ')">' +
                 '   EDIT' +
                 '</button>&nbsp;' +
+                '<div ng-controller="ShipController"><button class="btn btn-success btn-xs" ng-click="exportLangsungTagih(' + data.ship_id + ')">' +
+                '   EXPORT LGSNG. TAGIH' +
+                '</button>&nbsp;' +
                 '<button class="btn btn-danger btn-xs" ng-click="deleteShip(' + data.ship_id + ')" one-time-if="(' + vm.can.delete + ')">' +
                 '   DELETE' +
                 '</button></div>';
@@ -86,6 +89,12 @@
 
         $scope.editShip = shipId => {
             $state.go('admin.ship-edit', {id: shipId});
+        }
+
+        $scope.exportLangsungTagih = shipId => {
+            const url = `http://${window.location.hostname}/api/ship/export/${shipId}?token=${$localStorage.currentUser.access_token}`;
+            const win = window.open(url, '_blank');
+            win.focus();
         }
 
         $scope.deleteShip = shipId => {

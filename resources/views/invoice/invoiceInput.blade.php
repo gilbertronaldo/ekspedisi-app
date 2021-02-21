@@ -120,7 +120,9 @@
 {{--                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>--}}
                                             <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
 {{--                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>--}}
-                                            <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
+                                            <td>
+                                                {{'{{'. 'bapb.total | currency:"":0' .'}'.'}'}}
+                                            </td>
                                             <td>
                                                 <button class="btn btn-primary btn-xs"
                                                         ng-click="vm.addBapb(bapb)">
@@ -157,7 +159,9 @@
 {{--                                            <td>{{'{{'. 'bapb.city_code' .'}'.'}'}}</td>--}}
                                             <td>{{'{{'. 'bapb.sailing_date' .'}'.'}'}}</td>
 {{--                                            <td>{{'{{'. 'bapb.recipient_name_bapb' .'}'.'}'}}</td>--}}
-                                            <td>{{'{{'. 'bapb.total' .'}'.'}'}}</td>
+                                            <td>
+                                                {{'{{'. 'bapb.total | currency:"":0' .'}'.'}'}}
+                                            </td>
                                             <td>
                                                 <button class="btn btn-danger btn-xs"
                                                         ng-click="vm.removeBapb(bapb)">

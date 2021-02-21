@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Exports\ShipLangsungTagihExports;
 use App\MsCity;
 use App\MsShip;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Contracts\DataTable;
 
 /**
@@ -174,7 +176,7 @@ class ShipController extends Controller
             $containerList = DB::select("
                 SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) AS no_container,
                        FALSE AS checked
-                FROM tr_bapb A 
+                FROM tr_bapb A
                 WHERE A.deleted_at IS NULL
                 AND A.ship_id = $shipId
                 GROUP BY A.no_container_1, A.no_container_2
@@ -186,5 +188,10 @@ class ShipController extends Controller
         }
 
         return $response;
+    }
+
+    public function exportExcelLangsungTagih($id)
+    {
+        return Excel::download(new ShipLangsungTagihExports($id), 'users.xlsx');
     }
 }
