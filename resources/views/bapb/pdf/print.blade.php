@@ -236,7 +236,7 @@
                             </td>
                             <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
                                 width="15%">
-                                @if($bapb->show_price && !$bapb->kena_min_charge)
+                                @if($bapb->show_price)
                                     <span>Rp.<span
                                             style="color: white;"></span>{{ number_format($item->price, 0, ".", ".") }}</span>
                                 @endif
