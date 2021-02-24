@@ -247,11 +247,12 @@
             }
             const ship = ctrl.detail.shipList.find(i => i.ship_id === ctrl.input.ship_id);
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
+            console.log(ctrl.detail, code, ship);
             if (ship && ctrl.code !== 5) {
-                if (code.name.substr(0, 3) != ship.city_to.city_code) {
+                if (code.name.substr(0, 3) != ship.city_from.city_code) {
                     ctrl.input.ship_id = null;
                     ctrl.detail.ship = {};
-                    swangular.alert("Kode BAPB dengan tujuan kapal tidak sesuai");
+                    swangular.alert("Kode BAPB dengan asal kapal tidak sesuai");
                     return;
                 }
             }
@@ -287,8 +288,9 @@
 
             const recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
+            console.log(ctrl.detail, recipient);
             if (recipient && ctrl.code !== 5) {
-                if (code.name.substr(0, 3) != recipient.city_code) {
+                if (ctrl.detail.ship.city_code_to !== recipient.city_code) {
                     ctrl.input.recipient_id = null;
                     ctrl.detail.recipient = {};
                     swangular.alert("Kode BAPB dengan kota penerima tidak sesuai");
