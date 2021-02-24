@@ -199,6 +199,7 @@
                         }
                         i.total = {};
 
+                        console.log(i);
                         i.detail.price_ton = parseInt(i.detail.price_ton || 0);
                         i.detail.price_meter = parseInt(i.detail.price_meter || 0);
                         i.detail.price_document = parseInt(i.detail.price_document || 0);
@@ -632,6 +633,7 @@
 
             ctrl.senders[idx].detail = ctrl.detail.senderList.find(i => i.sender_id === ctrl.senders[idx].sender_id);
             console.log(ctrl.senders[idx].detail);
+            ctrl.senderItemCalculateAll()
         }
 
         function bapbIsValid(data) {
