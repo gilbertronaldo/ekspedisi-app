@@ -258,7 +258,7 @@ class InvoiceController extends Controller
 
             $cityCodeRecipient = $recipient->city->city_code;
 
-            $officeBranch = MsOfficeBranch::whereCityCode($cityCodeRecipient);
+            $officeBranch = MsOfficeBranch::whereCityCode($cityCodeRecipient, $invoice->is_pph);
 
             collect($bapb)->each(
                 function ($i) {

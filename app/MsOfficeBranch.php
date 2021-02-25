@@ -15,12 +15,12 @@ use phpDocumentor\Reflection\Types\Integer;
 /**
  * Class MsOfficeBranch
  *
- * @property integer office_branch_id
- * @property string  office_branch_name
- * @property integer city_id
- * @property string  bank_account
- * @property string  bank_account_name
- * @property string  bank_account_number
+ * @property integer     office_branch_id
+ * @property string      office_branch_name
+ * @property integer     city_id
+ * @property string      bank_account
+ * @property string      bank_account_name
+ * @property string      bank_account_number
  *
  * @property \App\MsCity city
  *
@@ -45,12 +45,16 @@ class MsOfficeBranch extends BaseModel
 
     /**
      * @param string $cityCode
+     * @param bool   $isPph
      *
      * @return string
      */
-    public static function whereCityCode(string $cityCode)
+    public static function whereCityCode(string $cityCode, bool $isPph)
     {
-        return self::with('city')->get()->where('city.city_code', '=', $cityCode)->first();
+        return self::with('city')
+            ->where('ms_office_branch.is_pph', $isPph)
+            ->get()
+            ->where('city.city_code', '=', $cityCode)->first();
     }
 
     /**
@@ -63,61 +67,123 @@ class MsOfficeBranch extends BaseModel
         }
 
         $offices = [
-          self::newData(
-            'Banjarmasin',
-            2,
-            'BCA',
-            'LELY LAY',
-            '8790 139 667'
-          ),
-          self::newData(
-            'Samarinda',
-            3,
-            'BCA',
-            'Hendra Gunawan Kurniawan',
-            '7460 205 772'
-          ),
-          self::newData(
-            'Balikpapan',
-            4,
-            'BCA',
-            'Hendra Gunawan Kurniawan',
-            '8790 140 011'
-          ),
-          self::newData(
-            'Makassar',
-            5,
-            'BCA',
-            'Lely Lay',
-            '879 008 3637'
-          ),
+            /**
+             * PPH
+             */
+            self::newData(
+                'Jakarta',
+                1,
+                'BCA',
+                'LELY LAY',
+                '8790 139 667',
+                true
+            ),
+            self::newData(
+                'Banjarmasin',
+                2,
+                'BCA',
+                'PT SUMBER REJEKI SINAR MANDIRI',
+                '8790 766 777',
+                true
+            ),
+            self::newData(
+                'Samarinda',
+                3,
+                'BCA',
+                'PT SUMBER REJEKI SINAR MANDIRI',
+                '8790 766 777',
+                true
+            ),
+            self::newData(
+                'Balikpapan',
+                4,
+                'BCA',
+                'PT SUMBER REJEKI SINAR MANDIRI',
+                '8790 766 777',
+                true
+            ),
+            self::newData(
+                'Makassar',
+                5,
+                'BCA',
+                'PT SUMBER REJEKI SINAR MANDIRI',
+                '8790 766 777',
+                true
+            ),
+            /**
+             * NON PPH
+             */
+            self::newData(
+                'Jakarta',
+                1,
+                'BCA',
+                'LELY LAY',
+                '8790 139 667',
+                false
+            ),
+            self::newData(
+                'Banjarmasin',
+                2,
+                'BCA',
+                'LELY LAY',
+                '8790 139 667',
+                false
+            ),
+            self::newData(
+                'Samarinda',
+                3,
+                'BCA',
+                'Hendra Gunawan Kurniawan',
+                '7460 205 772',
+                false
+            ),
+            self::newData(
+                'Balikpapan',
+                4,
+                'BCA',
+                'Hendra Gunawan Kurniawan',
+                '8790 140 011',
+                false
+            ),
+            self::newData(
+                'Makassar',
+                5,
+                'BCA',
+                'Lely Lay',
+                '879 008 3637',
+                false
+            ),
         ];
 
         MsOfficeBranch::insert($offices);
     }
 
     /**
-     * @param $officeBranchName
-     * @param $cityId
-     * @param $bankAccount
-     * @param $bankAccountName
-     * @param $bankAccountNumber
+     * @param string $officeBranchName
+     * @param int    $cityId
+     * @param string $bankAccount
+     * @param string $bankAccountName
+     * @param string $bankAccountNumber
+     * @param bool   $isPph
      *
      * @return array
      */
     private static function newData(
-      string $officeBranchName,
-      int $cityId,
-      string $bankAccount,
-      string $bankAccountName,
-      string $bankAccountNumber
-    ) {
+        string $officeBranchName,
+        int $cityId,
+        string $bankAccount,
+        string $bankAccountName,
+        string $bankAccountNumber,
+        bool $isPph
+    )
+    {
         return [
-          'office_branch_name'  => $officeBranchName,
-          'city_id'             => $cityId,
-          'bank_account'        => $bankAccount,
-          'bank_account_name'   => $bankAccountName,
-          'bank_account_number' => $bankAccountNumber,
+            'office_branch_name'  => $officeBranchName,
+            'city_id'             => $cityId,
+            'bank_account'        => $bankAccount,
+            'bank_account_name'   => $bankAccountName,
+            'bank_account_number' => $bankAccountNumber,
+            'is_pph'              => $isPph,
         ];
     }
 }
