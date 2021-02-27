@@ -223,9 +223,11 @@
         </table>
     </div>
     <div style="margin-top: 10px">
-        <p>Pembayaran diatas harap ditransfer ke rekening {{ $officeBranch->bank_account }}
-            an: {{ $officeBranch->bank_account_name }} acc: {{ $officeBranch->bank_account_number }}</p>
-        <p>Bukti transfer harap di fax ke (021) 6240380</p>
+        <span>Pembayaran diatas ditransfer ke rekening {{ $officeBranch->bank_account }}</span>
+        <br><span>Atas nama: {{ $officeBranch->bank_account_name }}</span>
+        <br><span>Acc: {{ $officeBranch->bank_account_number }}</span>
+        <br><span>Bukti transfer harap mencantumkan no. Invoice dan di fax ke (021) 6240380</span>
+        <br><span>atau WA 085775959469</span>
         <p>Terima kasih atas kerjasamanya</p>
 
         <p>Diterima tgl:</p>
