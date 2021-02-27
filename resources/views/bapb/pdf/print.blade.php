@@ -193,8 +193,9 @@
                                     @endif
                                 @endif
                             </td>
-                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
-                                width="7%" class="text-center">
+                            <td class="table-bordered-body-td text-center" style="margin: 0;padding: 2px 5px;"
+                                valign="middle"
+                                width="7%">
                                 {{ $item->koli }}
                             </td>
                             <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
