@@ -300,7 +300,7 @@ class InvoiceController extends Controller
                 $pph = round($subTotal * 2 / 100, 0);
             }
 
-            $totalAll = $subTotal + $pph + $costTotal;
+            $totalAll = $subTotal - $pph + $costTotal;
 
             $input = [
                 'invoice'      => $invoice,

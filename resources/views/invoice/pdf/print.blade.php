@@ -8,6 +8,7 @@
     <title>Invoice</title>
     <style>
         @page {
+            size: 9.5in 13in;
             margin: 150px 45px 250px;
         }
 
@@ -157,7 +158,7 @@
                     </td>
                     <td class="table-bordered-body-td" valign="middle">
                         <span>Rp. <span
-                                    style="color: white;">{{ substr(str_pad(number_format($bapb->harga, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga, 0, ".", "."))) }}</span>{{ number_format($bapb->harga, 0, ".", ".") }}</span>
+                                style="color: white;">{{ substr(str_pad(number_format($bapb->harga, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga, 0, ".", "."))) }}</span>{{ number_format($bapb->harga, 0, ".", ".") }}</span>
                     </td>
                 </tr>
             @endforeach
@@ -189,24 +190,24 @@
                     </td>
                     <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
                     <span>Rp. <span
-                            style="color: white;">{{ substr(str_pad(number_format($subTotal + $totalPph, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($subTotal + $totalPph, 0, ".", "."))) }}</span>{{ number_format($subTotal + $totalPph, 0, ".", ".") }}</span>
+                            style="color: white;">{{ substr(str_pad(number_format($subTotal - $totalPph, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($subTotal - $totalPph, 0, ".", "."))) }}</span>{{ number_format($subTotal - $totalPph, 0, ".", ".") }}</span>
                     </td>
                 </tr>
             @endif
             @foreach($bapbList as $bapbIdx => $bapb)
                 @foreach($bapb->costs as $costIdx => $cost)
-                <tr>
-                    <td class="table-bordered-body-td text-left" valign="middle"  width="20%" colspan="3">
-                        {{ $cost->sender }}
-                    </td>
-                    <td class="table-bordered-body-td text-left" valign="middle"  width="20%" colspan="3">
-                        {{ $cost->name }}
-                    </td>
-                    <td class="table-bordered-body-td" valign="middle">
+                    <tr>
+                        <td class="table-bordered-body-td text-left" valign="middle" width="20%" colspan="3">
+                            {{ $cost->sender }}
+                        </td>
+                        <td class="table-bordered-body-td text-left" valign="middle" width="20%" colspan="3">
+                            {{ $cost->name }}
+                        </td>
+                        <td class="table-bordered-body-td" valign="middle">
                         <span>Rp. <span
                                 style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 @endforeach
             @endforeach
             <tr>
@@ -216,13 +217,14 @@
                 </td>
                 <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
                     <span>Rp. <span
-                                style="color: white;">{{ substr(str_pad(number_format($totalAll, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($totalAll, 0, ".", "."))) }}</span>{{ number_format($totalAll, 0, ".", ".") }}</span>
+                            style="color: white;">{{ substr(str_pad(number_format($totalAll, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($totalAll, 0, ".", "."))) }}</span>{{ number_format($totalAll, 0, ".", ".") }}</span>
                 </td>
             </tr>
         </table>
     </div>
     <div style="margin-top: 10px">
-        <p>Pembayaran diatas harap ditransfer ke rekening {{ $officeBranch->bank_account }} an: {{ $officeBranch->bank_account_name }} acc: {{ $officeBranch->bank_account_number }}</p>
+        <p>Pembayaran diatas harap ditransfer ke rekening {{ $officeBranch->bank_account }}
+            an: {{ $officeBranch->bank_account_name }} acc: {{ $officeBranch->bank_account_number }}</p>
         <p>Bukti transfer harap di fax ke (021) 6240380</p>
         <p>Terima kasih atas kerjasamanya</p>
 
