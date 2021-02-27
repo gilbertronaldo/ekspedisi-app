@@ -139,7 +139,7 @@
                         pph = true;
                     }
 
-                    const url = `http://${window.location.hostname}/api/invoice/generate/${id}?pajak=${pajak}&pph=${pph}&token=${$localStorage.currentUser.access_token}`;
+                    const url = `${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/generate/${id}?pajak=${pajak}&pph=${pph}&token=${$localStorage.currentUser.access_token}`;
                     const win = window.open(url, '_blank');
                     win.focus();
                 });
@@ -147,7 +147,7 @@
         };
 
         $scope.printKwitansi = id => {
-            const win = window.open(`http://${window.location.hostname}/api/invoice/kwitansi/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+            const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/kwitansi/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
 

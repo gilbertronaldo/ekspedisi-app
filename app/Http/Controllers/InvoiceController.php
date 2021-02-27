@@ -209,12 +209,20 @@ class InvoiceController extends Controller
             $bapb = DB::select(
                 "
           SELECT A.invoice_id, A.invoice_no, A.is_pph,
-                 C.bapb_id, C.bapb_no, H.recipient_id,
-                 COALESCE(C.harga,0) + COALESCE(C.cost,0) AS total,
+                 C.bapb_id, C.bapb_no, C.tagih_di, H.recipient_id,
+                 COALESCE(C.harga,0) AS harga,
+                 COALESCE(C.cost,0) AS cost,
+                 H.price_document,
                  UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
                  CONCAT(E.city_code) as destination,
                  to_char(D.sailing_date, 'dd/mm/yyyy') as sailing_date,
-                 JSON_AGG(DISTINCT G.sender_name_bapb) AS senders
+                 JSON_AGG(DISTINCT G.sender_name_bapb) AS senders,
+                 case when count(I) = 0
+                     then '[]'
+                     else JSON_AGG(json_build_object('id', I.bapb_sender_cost_id,
+                         'sender', G.sender_name,
+                         'name', I.bapb_sender_cost_name, 'price', I.price))
+                 end as costs
           FROM tr_invoice A
           INNER JOIN tr_invoice_bapb B
             ON A.invoice_id = B.invoice_id
@@ -232,6 +240,10 @@ class InvoiceController extends Controller
           LEFT JOIN ms_sender G
             ON F.sender_id = G.sender_id
             AND G.deleted_at IS NULL
+          LEFT JOIN tr_bapb_sender_cost I
+            ON I.bapb_sender_id = F.bapb_sender_id
+            AND I.price IS NOT NULL
+            AND I.deleted_at IS NULL
           INNER JOIN ms_recipient H
             ON C.recipient_id = H.recipient_id
             AND H.deleted_at IS NULL
@@ -263,25 +275,37 @@ class InvoiceController extends Controller
             collect($bapb)->each(
                 function ($i) {
                     $i->senders = implode(", ", json_decode($i->senders));
+                    $i->costs = json_decode($i->costs);
+
+                    if ($i->tagih_di != 'recipient') {
+                        $i->harga += $i->price_document;
+                    }
                 }
             );
 
-            $total = collect($bapb)->reduce(
+            $subTotal = collect($bapb)->reduce(
                 function ($i, $j) {
-                    return $i + $j->total;
+                    return $i + $j->harga;
+                }
+            );
+
+            $costTotal = collect($bapb)->reduce(
+                function ($i, $j) {
+                    return $i + $j->cost;
                 }
             );
 
             $pph = 0;
             if ($invoice->is_pph === true) {
-                $pph = round($total * 2 / 100, 0);
+                $pph = round($subTotal * 2 / 100, 0);
             }
-            $totalAll = $total + $pph;
+
+            $totalAll = $subTotal + $pph + $costTotal;
 
             $input = [
                 'invoice'      => $invoice,
                 'bapbList'     => $bapb,
-                'total'        => $total,
+                'subTotal'     => $subTotal,
                 'totalPph'     => $pph,
                 'totalAll'     => $totalAll,
                 'recipient'    => $recipient,
@@ -290,7 +314,7 @@ class InvoiceController extends Controller
 
             DB::commit();
 
-//            return view('invoice.pdf.print', $input);
+            return view('invoice.pdf.print', $input);
             $pdf = PDF::loadView('invoice.pdf.print', $input);
 
             return $pdf->stream('invoice.pdf');

@@ -689,7 +689,7 @@
                             }
 
                             if (status.value) {
-                                const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${bapb_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+                                const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/bapb/generate/${bapb_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
                                 win.focus();
                             }
 

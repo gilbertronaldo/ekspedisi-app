@@ -104,7 +104,7 @@
         }
 
         $scope.printBapb = id => {
-            const win = window.open(`http://${window.location.hostname}/api/bapb/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+            const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/bapb/generate/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
 

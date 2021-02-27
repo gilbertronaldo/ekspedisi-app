@@ -92,7 +92,7 @@
         }
 
         $scope.exportLangsungTagih = shipId => {
-            const url = `http://${window.location.hostname}/api/ship/export/${shipId}?token=${$localStorage.currentUser.access_token}`;
+            const url = `${window.location.href.split('/').slice(0, 3).join('/')}/api/ship/export/${shipId}?token=${$localStorage.currentUser.access_token}`;
             const win = window.open(url, '_blank');
             win.focus();
         }

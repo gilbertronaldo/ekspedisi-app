@@ -157,21 +157,21 @@
                     </td>
                     <td class="table-bordered-body-td" valign="middle">
                         <span>Rp. <span
-                                    style="color: white;">{{ substr(str_pad(number_format($bapb->total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->total, 0, ".", "."))) }}</span>{{ number_format($bapb->total, 0, ".", ".") }}</span>
+                                    style="color: white;">{{ substr(str_pad(number_format($bapb->harga, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga, 0, ".", "."))) }}</span>{{ number_format($bapb->harga, 0, ".", ".") }}</span>
                     </td>
                 </tr>
             @endforeach
-            @if($invoice->is_pph === true)
-                <tr>
-                    <td colspan="5"></td>
-                    <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
-                        Total
-                    </td>
-                    <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
+            <tr>
+                <td colspan="5"></td>
+                <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
+                    Sub Total
+                </td>
+                <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
                     <span>Rp. <span
-                            style="color: white;">{{ substr(str_pad(number_format($total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($total, 0, ".", "."))) }}</span>{{ number_format($total, 0, ".", ".") }}</span>
-                    </td>
-                </tr>
+                            style="color: white;">{{ substr(str_pad(number_format($subTotal, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($subTotal, 0, ".", "."))) }}</span>{{ number_format($subTotal, 0, ".", ".") }}</span>
+                </td>
+            </tr>
+            @if($invoice->is_pph === true)
                 <tr>
                     <td colspan="5"></td>
                     <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
@@ -182,7 +182,33 @@
                             style="color: white;">{{ substr(str_pad(number_format($totalPph, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($totalPph, 0, ".", "."))) }}</span>{{ number_format($totalPph, 0, ".", ".") }}</span>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
+                        Total setelah potongan PPH
+                    </td>
+                    <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
+                    <span>Rp. <span
+                            style="color: white;">{{ substr(str_pad(number_format($subTotal + $totalPph, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($subTotal + $totalPph, 0, ".", "."))) }}</span>{{ number_format($subTotal + $totalPph, 0, ".", ".") }}</span>
+                    </td>
+                </tr>
             @endif
+            @foreach($bapbList as $bapbIdx => $bapb)
+                @foreach($bapb->costs as $costIdx => $cost)
+                <tr>
+                    <td class="table-bordered-body-td text-left" valign="middle"  width="20%" colspan="3">
+                        {{ $cost->sender }}
+                    </td>
+                    <td class="table-bordered-body-td text-left" valign="middle"  width="20%" colspan="3">
+                        {{ $cost->name }}
+                    </td>
+                    <td class="table-bordered-body-td" valign="middle">
+                        <span>Rp. <span
+                                style="color: white;">{{ substr(str_pad(number_format($cost->price, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($cost->price, 0, ".", "."))) }}</span>{{ number_format($cost->price, 0, ".", ".") }}</span>
+                    </td>
+                </tr>
+                @endforeach
+            @endforeach
             <tr>
                 <td colspan="5"></td>
                 <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
