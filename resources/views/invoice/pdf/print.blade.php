@@ -8,7 +8,7 @@
     <title>Invoice</title>
     <style>
         @page {
-            size: 9.5in 13in;
+            size: 21.5cm 28cm;
             margin: 150px 45px 250px;
         }
 
