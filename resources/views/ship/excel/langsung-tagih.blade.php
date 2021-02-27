@@ -27,7 +27,7 @@
     </tr>
     <tr style="background-color: yellow;">
         <th>NO CONT</th>
-        <th>NOTA</th>
+        <th>NO BAPB</th>
         <th>JUMLAH</th>
         <th>PENERIMA</th>
         <th>***</th>
@@ -37,9 +37,9 @@
     @foreach($items as $itemIdx => $item)
         <tr>
             <td>{{ $item->no_container }}</td>
-            <td>{{ $item->invoice_no }}</td>
+            <td>{{ $item->bapb_no }}</td>
             <td data-format="#,##0_-">{{ $item->total }}</td>
-            <td>{{ $item->recipient_name }}</td>
+            <td>{{ $item->recipient_name_bapb }}</td>
             <td></td>
         </tr>
     @endforeach

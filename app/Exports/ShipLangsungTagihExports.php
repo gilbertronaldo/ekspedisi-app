@@ -54,28 +54,22 @@ class ShipLangsungTagihExports implements FromView, WithEvents
         return DB::select("
             SELECT
                 UPPER(CONCAT(tr_bapb.no_container_1, ' ', tr_bapb.no_container_2)) as no_container,
-                COALESCE( tr_invoice.invoice_no, '-') AS invoice_no,
+                tr_bapb.bapb_no,
                 tr_bapb.harga AS total,
-                ms_recipient.recipient_name
+                ms_recipient.recipient_name_bapb
             FROM tr_bapb
             INNER JOIN ms_recipient
                 ON tr_bapb.recipient_id = ms_recipient.recipient_id
                 AND ms_recipient.deleted_at IS NULL
-            LEFT JOIN tr_invoice_bapb
-                ON tr_invoice_bapb.bapb_id = tr_bapb.bapb_id
-                AND tr_invoice_bapb.deleted_at IS NULL
-            LEFT JOIN tr_invoice
-                ON tr_invoice.invoice_id = tr_invoice_bapb.invoice_id
-                AND tr_invoice.deleted_at IS NULL
             WHERE tr_bapb.ship_id = $this->shipId
             AND tr_bapb.langsung_tagih IS TRUE
             GROUP BY
+                tr_bapb.bapb_no,
                 tr_bapb.no_container_1,
                 tr_bapb.no_container_2,
-                tr_invoice.invoice_no,
                 tr_bapb.harga,
-                ms_recipient.recipient_name
-            ORDER BY tr_invoice.invoice_no
+                ms_recipient.recipient_name_bapb
+            ORDER BY  tr_bapb.bapb_no;
         ");
     }
 
