@@ -314,8 +314,13 @@ class InvoiceController extends Controller
 
             DB::commit();
 
-            return view('invoice.pdf.print', $input);
-            $pdf = PDF::loadView('invoice.pdf.print', $input);
+//            return view('invoice.pdf.print', $input);
+            $pdf = PDF::loadView('invoice.pdf.print', $input)
+                ->setPaper('a4')
+                ->setOptions([
+                    'margin-left'   => 10,
+                    'margin-right'  => 10,
+                ]);
 
             return $pdf->stream('invoice.pdf');
 
