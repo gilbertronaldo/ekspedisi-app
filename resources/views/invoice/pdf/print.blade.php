@@ -8,7 +8,7 @@
     <title>Invoice</title>
     <style>
         @page {
-            margin: 150px 25px 250px;
+            margin: 150px 45px 250px;
         }
 
         header {
