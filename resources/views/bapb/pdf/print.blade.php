@@ -375,7 +375,7 @@
                     <td colspan="3" rowspan="7" valign="top"
                         style="border: none;text-transform: uppercase;">
                         @if ($bapb->show_price)
-                            TERBILANG ( {{ $bapb->terbilang }} RUPIAH )
+                            <span style="font-weight: normal;font-size: 14px;">TERBILANG ( {{ $bapb->terbilang }} RUPIAH )</span>
                         @endif
                     </td>
                     <td style="text-align: right">
