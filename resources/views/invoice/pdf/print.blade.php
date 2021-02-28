@@ -128,8 +128,8 @@
     <div style="margin-top: 10px">
         <table class="table-bordered-body" style="table-layout: fixed">
             <tr>
-                <th width="7%">NO</th>
-                <th width="10%">NO. BAPB</th>
+                <th width="5%">NO</th>
+                <th width="12%">NO. BAPB</th>
                 <th width="10%">NO. CONT</th>
                 <th width="10%">TUJUAN</th>
                 <th width="10%">TGL BRKT</th>
