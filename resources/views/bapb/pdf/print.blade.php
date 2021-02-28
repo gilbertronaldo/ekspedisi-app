@@ -372,7 +372,7 @@
                     </td>
                 </tr>
                 <tr style="border-left: none">
-                    <td class="table-bordered-body-td" colspan="3" rowspan="7" valign="bottom"
+                    <td colspan="3" rowspan="7" valign="top"
                         style="border: none;text-transform: uppercase;">
                         @if ($bapb->show_price)
                             TERBILANG ( {{ $bapb->terbilang }} RUPIAH )

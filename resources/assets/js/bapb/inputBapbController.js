@@ -124,6 +124,7 @@
         init();
 
         ctrl.changeCode = () => {
+            console.log(ctrl.code);
             resetForm();
         };
 
@@ -169,10 +170,9 @@
                 .then(res => {
                     ctrl.detail.ship = res.data;
 
-                    if (!ctrl.id) {
-                        const code = ctrl.codeList.find(code => code.name.substr(0, 3) == ctrl.detail.ship.city_to.city_code);
-                        ctrl.code = code.code_id;
-                    }
+                    const code = ctrl.codeList.find(code => code.name.substr(0, 3) === ctrl.detail.ship.city_to.city_code);
+                    console.log(code, ctrl.detail.ship);
+                    ctrl.code = code.code_id;
                 })
                 .catch(err => {
                     console.log(err);
@@ -250,7 +250,7 @@
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
             console.log(ctrl.detail, code, ship);
             if (ship && ctrl.code !== 5) {
-                if (code.name.substr(0, 3) != ship.city_from.city_code) {
+                if (code.name.substr(0, 3) != ship.city_code_to) {
                     ctrl.input.ship_id = null;
                     ctrl.detail.ship = {};
                     swangular.alert("Kode BAPB dengan asal kapal tidak sesuai");

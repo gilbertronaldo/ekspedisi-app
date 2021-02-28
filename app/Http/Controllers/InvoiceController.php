@@ -213,7 +213,7 @@ class InvoiceController extends Controller
                  COALESCE(C.harga,0) AS harga,
                  COALESCE(C.cost,0) AS cost,
                  H.price_document,
-                 UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
+                 UPPER(C.no_container_2) as no_container,
                  CONCAT(E.city_code) as destination,
                  to_char(D.sailing_date, 'dd/mm/yyyy') as sailing_date,
                  JSON_AGG(DISTINCT G.sender_name_bapb) AS senders,
