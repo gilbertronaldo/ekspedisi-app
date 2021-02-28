@@ -467,7 +467,7 @@ class BapbController extends Controller
                 'bapb' => $bapb,
             ];
 
-            return view('bapb.pdf.print', $data);
+//            return view('bapb.pdf.print', $data);
             $pdf = PDF::loadView('bapb.pdf.print', $data);
 
             return $pdf->stream('bapb.pdf');
