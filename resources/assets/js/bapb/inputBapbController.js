@@ -682,17 +682,35 @@
                             },
                         }).then(status => {
 
-                            if (!ctrl.id) {
-                                $state.reload();
-                            } else {
-                                $state.go('admin.bapb');
-                            }
-
                             if (status.value) {
-                                const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/bapb/generate/${bapb_id}?token=${$localStorage.currentUser.access_token}`, '_blank');
-                                win.focus();
-                            }
+                                swangular.confirm('LOGO?', {
+                                    showCancelButton: true,
+                                    confirmButtonText: 'SR',
+                                    cancelButtonText: 'SRSM',
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#3085d6',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                    allowEnterKey: false
+                                }).then((res1) => {
 
+                                    const tipe = res1.value ? 'sr' : 'srsm';
+                                    const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/bapb/generate/${bapb_id}?tipe=${tipe}&token=${$localStorage.currentUser.access_token}`, '_blank');
+                                    win.focus();
+
+                                    if (!ctrl.id) {
+                                        $state.reload();
+                                    } else {
+                                        $state.go('admin.bapb');
+                                    }
+                                });
+                            } else {
+                                if (!ctrl.id) {
+                                    $state.reload();
+                                } else {
+                                    $state.go('admin.bapb');
+                                }
+                            }
                         });
                     } else {
 

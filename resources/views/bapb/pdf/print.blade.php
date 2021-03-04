@@ -110,7 +110,8 @@
 </head>
 <body>
 
-{{--@include('bapb.pdf.header')--}}
+@include('bapb.pdf.header')
+@include('bapb.pdf.footer')
 
 <main class="page_break">
     <div style="margin-top: -77px;">

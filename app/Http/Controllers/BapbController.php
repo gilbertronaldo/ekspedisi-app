@@ -370,7 +370,7 @@ class BapbController extends Controller
      *
      * @return array
      */
-    public function generatePrint($bapbId)
+    public function generatePrint(Request $request, $bapbId)
     {
         try {
 
@@ -463,7 +463,9 @@ class BapbController extends Controller
                 $bapb->dimensi = $this->dimensi / 1000000;
             }
 
+            $tipe = $request->input('tipe');
             $data = [
+                'tipe' => $tipe,
                 'bapb' => $bapb,
             ];
 

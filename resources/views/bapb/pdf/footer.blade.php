@@ -48,7 +48,7 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
-                    
+
                     <tr>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -65,9 +65,15 @@
                         <td style="">
                             __________________
                         </td>
+                        @if($tipe === 'sr')
                         <td style="font-size: 13px;">
                             (SUMBER REJEKI)
                         </td>
+                        @else
+                            <td style="font-size: 10px !important;">
+                                (PT. SUMBER REJEKI SINAR MANDIRI)
+                            </td>
+                        @endif
                     </tr>
                 </table>
             </td>

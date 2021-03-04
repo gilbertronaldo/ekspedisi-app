@@ -110,7 +110,7 @@
 <body>
 
 @include('invoice.pdf.header')
-{{--@include('invoice.pdf.footer')--}}
+@include('invoice.pdf.footer')
 
 <main class="page_break">
     <div>
@@ -231,7 +231,7 @@
 
         <p>Diterima tgl:</p>
     </div>
-    <div style="width: 100%;">
+    <div style="width: 100%;display: none">
         <table style="text-align: center !important;width: 100%">
             <tr style="">
                 <td style="text-align: center">
