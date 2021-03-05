@@ -27,7 +27,7 @@
 
         footer {
             position: fixed;
-            bottom: -150px;
+            bottom: -120px;
             left: 0;
             right: 0;
             height: 150px;
