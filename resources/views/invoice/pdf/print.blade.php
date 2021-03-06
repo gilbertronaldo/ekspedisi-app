@@ -261,9 +261,15 @@
                 <td style="">
                     __________________
                 </td>
-                <td style="font-size: 13px;">
-                    (SUMBER REJEKI)
-                </td>
+                @if($invoice->pajak === 'pribadi' && $invoice->is_pph !== true)
+                    <td style="font-size: 13px;">
+                        (SUMBER REJEKI)
+                    </td>
+                @else
+                    <td style="font-size: 13px !important;">
+                        (PT. SUMBER REJEKI SINAR MANDIRI)
+                    </td>
+                @endif
             </tr>
         </table>
     </div>
