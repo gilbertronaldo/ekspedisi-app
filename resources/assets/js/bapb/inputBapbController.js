@@ -45,7 +45,7 @@
 
         let ctrl = this;
         ctrl.is_admin = $localStorage.authUser.roles.some(r => ['ADMIN', 'SUPERADMIN'].includes(r));
-        console.log(ctrl.is_admin, $localStorage.authUser.roles);
+        ctrl.can_edit = false;
         ctrl.next_id = 0;
         ctrl.input = {};
         ctrl.codeList = [
@@ -135,13 +135,26 @@
                     ctrl.input = res.data;
                     ctrl.input.langsung_tagih = ctrl.input.langsung_tagih === true ? 'true' : 'false';
                     console.log(res.data);
-
+                    validateCanEdit();
                     getShip();
                     getRecipient();
                 })
                 .catch(err => {
                     console.log(err);
                 })
+        }
+
+        function validateCanEdit() {
+            console.log(ctrl.is_admin, $localStorage.authUser.roles);
+            // !(vm.input.verified && !vm.is_admin)
+            if (ctrl.is_admin) {
+                ctrl.can_edit = true;
+                return;
+            }
+
+            if (!ctrl.input.verified) {
+                ctrl.can_edit = true;
+            }
         }
 
         function latestBapb() {
