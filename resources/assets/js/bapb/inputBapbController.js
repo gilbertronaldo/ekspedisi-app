@@ -104,6 +104,7 @@
             if (!ctrl.id) {
                 resetForm();
                 getNextId();
+                ctrl.can_edit = true;
             } else {
                 getBapb();
                 ctrl.next_id = ctrl.id;
@@ -145,7 +146,8 @@
         }
 
         function validateCanEdit() {
-            console.log(ctrl.is_admin, $localStorage.authUser.roles);
+            console.log('is_admin', ctrl.is_admin);
+            console.log('roles', $localStorage.authUser.roles);
             // !(vm.input.verified && !vm.is_admin)
             if (ctrl.is_admin) {
                 ctrl.can_edit = true;
