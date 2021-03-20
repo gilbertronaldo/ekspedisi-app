@@ -21,6 +21,9 @@ namespace App;
  * @property integer berat
  * @property integer koli
  *
+ * @property string  perusahaan
+ * @property bool    full_container
+ * @property array   full_container_data
  * @package App
  */
 class TrBapb extends BaseModel
@@ -31,6 +34,10 @@ class TrBapb extends BaseModel
     protected $table = 'tr_bapb';
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    protected $casts = [
+        'full_container_data' => 'array',
+    ];
 
 
     public function recipient()

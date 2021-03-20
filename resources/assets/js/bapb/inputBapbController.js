@@ -85,6 +85,13 @@
 
         ctrl.id = $stateParams.id;
 
+        ctrl.fullContainer = {
+            price: 0,
+            items: [fullContainerItemNew()],
+            costs: [fullContainerCostNew()],
+            description: null,
+        };
+
         function resetForm() {
             ctrl.input = {};
             ctrl.detail = {};
@@ -223,6 +230,20 @@
 
                         ctrl.senderItemCalculate(idx);
                     })
+
+                    if (ctrl.input.full_container) {
+                        ctrl.fullContainer = ctrl.input.full_container_data;
+
+                        ctrl.fullContainer.items.forEach(item => {
+
+                            SenderService.get(item.sender_id)
+                                .then(function (result) {
+                                    item.sender_detail = result.data;
+                                });
+                        });
+
+                        ctrl.fullContainerCalculate();
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -397,6 +418,69 @@
             ctrl.senderItemCalculate(idx);
         };
 
+        function fullContainerItemNew() {
+            return {
+                'id': null,
+                'sender_id': null,
+                'name': null,
+                'koli': null,
+                'sender_detail': null,
+            };
+        }
+
+        ctrl.fullContainerItemPop = () => {
+            ctrl.fullContainer.items.pop();
+        }
+
+        ctrl.fullContainerItemPush = () => {
+            ctrl.fullContainer.items.push(fullContainerItemNew());
+        }
+
+        function fullContainerCostNew() {
+            return {
+                'id': null,
+                'name': null,
+                'price': null,
+            };
+        }
+
+        ctrl.fullContainerCostPop = () => {
+            ctrl.fullContainer.costs.pop();
+        }
+
+        ctrl.fullContainerCostPush = () => {
+            ctrl.fullContainer.costs.push(fullContainerCostNew());
+        }
+
+        ctrl.getSenderDetailFullContainer = (idx) => {
+            if (!ctrl.fullContainer.items[idx].sender_id) {
+                return;
+            }
+
+            ctrl.fullContainer.items[idx].sender_detail = ctrl.detail.senderList.find(i => i.sender_id === ctrl.fullContainer.items[idx].sender_id);
+            ctrl.senderItemCalculateAll()
+        }
+
+        ctrl.fullContainerCalculate = () => {
+
+            ctrl.input.total = {};
+            ctrl.input.total.koli = 0;
+            ctrl.input.total.dimensi = 0;
+            ctrl.input.total.berat = 0;
+            ctrl.input.total.harga = 0;
+            ctrl.input.total.cost = 0;
+
+            ctrl.fullContainer.items.forEach(item => {
+                ctrl.input.total.koli += item.koli;
+            })
+            ctrl.fullContainer.costs.forEach(item => {
+                ctrl.input.total.cost += item.price;
+            })
+
+            ctrl.input.total.harga += ctrl.fullContainer.price;
+            ctrl.input.total.harga += ctrl.detail.calculation.price_document;
+        }
+
         ctrl.changeCalculation = () => {
             if (ctrl.input.tagih_di != 'sender') {
                 if (ctrl.input.recipient_id) {
@@ -412,6 +496,11 @@
         };
 
         ctrl.senderItemCalculateAll = () => {
+            if (ctrl.input.full_container) {
+                ctrl.fullContainerCalculate();
+                return;
+            }
+
             ctrl.senders.forEach((item, idx) => {
                 ctrl.senderItemCalculate(idx);
             });
@@ -658,11 +747,21 @@
                 return false;
             }
 
-            for (let i of data.senders) {
-                if (!i.sender_id) {
-                    console.log(i)
-                    swangular.alert("Nama pengirim wajib diisi");
-                    return false;
+            if (!data.full_container) {
+                for (let i of data.senders) {
+                    if (!i.sender_id) {
+                        console.log(i)
+                        swangular.alert("Nama pengirim wajib diisi");
+                        return false;
+                    }
+                }
+            } else {
+                for (let i of data.full_container_data.items) {
+                    if (!i.sender_id) {
+                        console.log(i)
+                        swangular.alert("Nama pengirim wajib diisi");
+                        return false;
+                    }
                 }
             }
 
@@ -674,6 +773,14 @@
             data.senders = ctrl.senders;
 
             data.langsung_tagih = (data.langsung_tagih === true || data.langsung_tagih === "true");
+
+            if (data.full_container) {
+                data.full_container_data = ctrl.fullContainer;
+                data.senders = [];
+                data.full_container_data.items.forEach(i => {
+                    delete i.sender_detail;
+                })
+            }
 
             if (!bapbIsValid(data)) {
                 return;

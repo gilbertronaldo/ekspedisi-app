@@ -159,12 +159,34 @@
         <div style="margin-top: 10px">
             <table class="table-bordered-body" style="table-layout: fixed">
                 <tr>
-                    <th width="20%">PENGIRIM</th>
+                    <th width="20%" colspan="{{ $bapb->full_container ? 2 : 1 }}">PENGIRIM</th>
                     <th width="43%">JENIS BARANG</th>
                     <th width="7%">KOLI</th>
-                    <th width="15%">M<sup>3</sup>/TON</th>
+                    @if(!$bapb->full_container)
+                        <th width="15%">M<sup>3</sup>/TON</th>
+                    @endif
                     <th width="15%">BIAYA</th>
                 </tr>
+                @foreach($fullContainer['items'] as $item)
+                    <tr>
+                        <td class="table-bordered-body-td" valign="middle" colspan="2"
+                            width="20%">
+                            {{ $item['sender_name'] }}
+                        </td>
+                        <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                            width="43%">
+                            <span>{{ $item['name']}}</span>
+                        </td>
+                        <td class="table-bordered-body-td text-center" style="margin: 0;padding: 2px 5px;"
+                            valign="middle"
+                            width="7%">
+                            {{ $item['koli'] }}
+                        </td>
+                        <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                            width="15%">
+
+                        </td>
+                @endforeach
                 @foreach($bapb->senders as $senderIdx => $sender)
                     @foreach($sender->items as $itemIdx => $item)
                         <tr>
@@ -246,27 +268,29 @@
                     @endforeach
                 @endforeach
                 <tr>
-                    <td colspan="2" style="text-align: right">
+                    <td colspan="{{ $bapb->full_container ? 3 : 2 }}" style="text-align: right">
                         Sub Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td class="table-bordered-body-td text-center">
                         {{ $bapb->koli }}
                     </td>
-                    <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
+                    @if(!$bapb->full_container)
+                        <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                             <span>
                                 <span
                                     style="color: white;"></span>
                                 {{ number_format($bapb->berat, 3, ",", ".") }}
                             </span>
-                        <span> Ton</span>
-                        <br>
-                        <span>
+                            <span> Ton</span>
+                            <br>
+                            <span>
                             <span
                                 style="color: white;"></span>
                             {{ number_format($bapb->dimensi, 3, ",", ".") }}
                         </span>
-                        <span> M<sup>3</sup></span>
-                    </td>
+                            <span> M<sup>3</sup></span>
+                        </td>
+                    @endif
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                         @if ($bapb->show_price)
                             <span>Rp. <span

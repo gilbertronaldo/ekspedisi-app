@@ -12,7 +12,7 @@
             <b class="logo-icon">
                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                 <!-- Dark Logo icon -->
-            <img src="../../assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
+            <img src="../img/logo-srsm.png" alt="homepage" class="dark-logo" width="50" height="50"/>
             <!-- Light Logo icon -->
                 {{--<img src="../../assets/images/logo-light-icon.png" alt="homepage" class="light-logo"/>--}}
             </b>

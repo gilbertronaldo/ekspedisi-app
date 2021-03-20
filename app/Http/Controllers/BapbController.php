@@ -183,6 +183,9 @@ class BapbController extends Controller
             $bapb->show_price = $request->input('show_price');
             $bapb->squeeze = $request->has('squeeze') ? ! is_null($request->input('squeeze')) ? $request->input('squeeze') : false : false;
 
+            $bapb->full_container = $request->input('full_container');
+            $bapb->full_container_data = $request->input('full_container_data');
+
             $total = $request->input('total');
             $bapb->harga = isset($total['harga']) ? $total['harga'] : 0;
             $bapb->cost = isset($total['cost']) ? $total['cost'] : 0;
@@ -463,11 +466,24 @@ class BapbController extends Controller
                 $bapb->dimensi = $this->dimensi / 1000000;
             }
 
+            $fullContainer = $bapb->full_container_data;
+            if ($bapb->full_container) {
+                foreach ($fullContainer['items'] as $itemIdx => $item) {
+                    $fullContainer['items'][$itemIdx]['sender_name'] = MsSender::findOrFail($item['sender_id'])->sender_name_bapb;
+                }
+            }
+
             $tipe = $request->input('tipe');
             $data = [
                 'tipe' => $tipe,
                 'bapb' => $bapb,
+                'fullContainer' => $fullContainer,
             ];
+
+            $bapbUpdate = TrBapb::findOrFail($bapbId);
+            $bapbUpdate->perusahaan = $tipe;
+            $bapbUpdate->save();
+
 
 //            return view('bapb.pdf.print', $data);
             $pdf = PDF::loadView('bapb.pdf.print', $data);
