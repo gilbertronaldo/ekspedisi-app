@@ -94,22 +94,11 @@ class RecipientController extends Controller
             } else {
                 $data = new MsRecipient();
 
-                $existName = MsRecipient::where('recipient_name', $request->input('recipient_name'))->first();
+                $existCode = MsRecipient::where('recipient_code', $request->input('recipient_code'))->first();
+                $existName = MsRecipient::where('recipient_name_bapb', $request->input('recipient_name_bapb'))->first();
 
-                if ($existName) {
-                    $existAddress = MsRecipient::where('recipient_name', $request->input('recipient_name'))
-                        ->where('recipient_address', $request->input('recipient_address'))->first();
-
-                    if ($existAddress) {
-                        $existPhone = MsRecipient::where('recipient_name', $request->input('recipient_name'))
-                            ->where('recipient_address', $request->input('recipient_address'))
-                            ->where('recipient_phone', $request->input('recipient_phone'))
-                            ->first();
-
-                        if ($existPhone) {
-                            throw new CoreException("Data recipient sudah ada !");
-                        }
-                    }
+                if ($existCode || $existName) {
+                    throw new CoreException("Data penerima sudah ada! (kode & nama di BAPB)");
                 }
             }
 
