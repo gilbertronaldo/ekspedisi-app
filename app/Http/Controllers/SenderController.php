@@ -10,6 +10,8 @@ namespace App\Http\Controllers;
 
 
 use App\MsSender;
+use App\TrBapb;
+use App\TrBapbSender;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
@@ -108,7 +110,6 @@ class SenderController extends Controller
             }
 
 
-
             $data->sender_code = $request->input('sender_code');
             $data->sender_name = $request->input('sender_name');
             $data->sender_name_bapb = $request->input('sender_name_bapb');
@@ -140,7 +141,19 @@ class SenderController extends Controller
     public function destroy($id)
     {
         try {
-            MsSender::findOrFail($id)->delete();
+            $sender = MsSender::findOrFail($id);
+
+            $exist = TrBapbSender::query()
+                ->select('sender_id')
+                ->where('sender_id', '=', $id)
+                ->exists();
+
+            if ($exist) {
+                throw new CoreException('Penerima telah diinput di BAPB');
+            } else {
+                $sender->delete();
+            }
+
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);

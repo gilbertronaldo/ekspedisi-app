@@ -86,9 +86,12 @@
                 preConfirm: () => {
                     SenderService.delete(id)
                         .then(res => {
-                            swangular.success("Berhasil Menghapus Pengirim");
-                            // vm.dtInstance.rerender();
-                            $state.reload();
+                            if (res.status === 'OK') {
+                                swangular.success("Berhasil Menghapus Pengirim");
+                                $state.reload();
+                            } else {
+                                swangular.alert(res.data.message);
+                            }
                         })
                         .catch(err => {
                             console.log(err);

@@ -87,9 +87,12 @@
                 preConfirm: () => {
                     RecipientService.delete(id)
                         .then(res => {
-                            swangular.success("Berhasil Menghapus Penerima");
-                            // vm.dtInstance.rerender();
-                            $state.reload();
+                            if (res.status === 'OK') {
+                                swangular.success("Berhasil Menghapus Penerima");
+                                $state.reload();
+                            } else {
+                                swangular.alert(res.data.message);
+                            }
                         })
                         .catch(err => {
                             console.log(err);

@@ -195,103 +195,119 @@ class BapbController extends Controller
 
             $bapb->save();
 
-            $unDeletedSender = [];
-            $unDeletedItem = [];
-            $unDeletedCost = [];
-            foreach ($request->input('senders') as $sender) {
-                if (isset($sender['bapb_sender_id'])) {
-                    $bapbSender = TrBapbSender::findOrFail(
-                        $sender['bapb_sender_id']
-                    );
-                } else {
+            if ($bapb->full_container) {
+                TrBapbSender::query()
+                    ->where('bapb_id', '=', $bapb->bapb_id)
+                    ->forceDelete();
+
+                foreach ($bapb->full_container_data['items'] as $item) {
                     $bapbSender = new TrBapbSender();
+                    $bapbSender->bapb_id = $bapb->bapb_id;
+                    $bapbSender->sender_id = $item['sender_id'];
+                    $bapbSender->save();
                 }
-                $bapbSender->bapb_id = $bapb->bapb_id;
-                $bapbSender->sender_id = $sender['sender_id'];
-                $bapbSender->kemasan = isset($sender['kemasan'])
-                    ? $sender['kemasan'] : null;
-                $bapbSender->krani = isset($sender['krani'])
-                    ? $sender['krani'] : null;
-                $bapbSender->no_ttb = isset($sender['no_ttb'])
-                    ? $sender['no_ttb'] : null;
-                $bapbSender->description = isset($sender['description'])
-                    ? $sender['description'] : null;
-                $bapbSender->entry_date = isset($sender['entry_date'])
-                    ? Carbon::parse($sender['entry_date']) : null;
-                $bapbSender->price = isset($sender['total_price'])
-                    ? $sender['total_price'] : 0;
-                $bapbSender->dimensi = $sender['total_dimensi'];
-                $bapbSender->berat = $sender['total_berat'];
-                $bapbSender->save();
+            } else {
 
-                $unDeletedSender[] = $bapbSender->bapb_sender_id;
-                foreach ($sender['items'] as $item) {
-                    if (isset($item['bapb_sender_item_id'])) {
-                        $bapbSenderItem = TrBapbSenderItem::findOrFail(
-                            $item['bapb_sender_item_id']
+                $unDeletedSender = [];
+                $unDeletedItem = [];
+                $unDeletedCost = [];
+                foreach ($request->input('senders') as $sender) {
+                    if (isset($sender['bapb_sender_id'])) {
+                        $bapbSender = TrBapbSender::findOrFail(
+                            $sender['bapb_sender_id']
                         );
                     } else {
-                        $bapbSenderItem = new TrBapbSenderItem();
+                        $bapbSender = new TrBapbSender();
                     }
-                    $bapbSenderItem->bapb_sender_id
-                        = $bapbSender->bapb_sender_id;
-                    $bapbSenderItem->bapb_sender_item_name
-                        = $item['bapb_sender_item_name'];
-                    $bapbSenderItem->koli = $item['koli'];
-                    $bapbSenderItem->panjang = $item['panjang'];
-                    $bapbSenderItem->lebar = $item['lebar'];
-                    $bapbSenderItem->tinggi = $item['tinggi'];
-                    $bapbSenderItem->berat = $item['berat'];
-                    $bapbSenderItem->price
-                        = isset($item['price'])
-                        ? $item['price'] : 0;
-                    $bapbSenderItem->save();
+                    $bapbSender->bapb_id = $bapb->bapb_id;
+                    $bapbSender->sender_id = $sender['sender_id'];
+                    $bapbSender->kemasan = isset($sender['kemasan'])
+                        ? $sender['kemasan'] : null;
+                    $bapbSender->krani = isset($sender['krani'])
+                        ? $sender['krani'] : null;
+                    $bapbSender->no_ttb = isset($sender['no_ttb'])
+                        ? $sender['no_ttb'] : null;
+                    $bapbSender->description = isset($sender['description'])
+                        ? $sender['description'] : null;
+                    $bapbSender->entry_date = isset($sender['entry_date'])
+                        ? Carbon::parse($sender['entry_date']) : null;
+                    $bapbSender->price = isset($sender['total_price'])
+                        ? $sender['total_price'] : 0;
+                    $bapbSender->dimensi = $sender['total_dimensi'];
+                    $bapbSender->berat = $sender['total_berat'];
+                    $bapbSender->save();
 
-                    $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
+                    $unDeletedSender[] = $bapbSender->bapb_sender_id;
+                    foreach ($sender['items'] as $item) {
+                        if (isset($item['bapb_sender_item_id'])) {
+                            $bapbSenderItem = TrBapbSenderItem::findOrFail(
+                                $item['bapb_sender_item_id']
+                            );
+                        } else {
+                            $bapbSenderItem = new TrBapbSenderItem();
+                        }
+                        $bapbSenderItem->bapb_sender_id
+                            = $bapbSender->bapb_sender_id;
+                        $bapbSenderItem->bapb_sender_item_name
+                            = $item['bapb_sender_item_name'];
+                        $bapbSenderItem->koli = $item['koli'];
+                        $bapbSenderItem->panjang = $item['panjang'];
+                        $bapbSenderItem->lebar = $item['lebar'];
+                        $bapbSenderItem->tinggi = $item['tinggi'];
+                        $bapbSenderItem->berat = $item['berat'];
+                        $bapbSenderItem->price
+                            = isset($item['price'])
+                            ? $item['price'] : 0;
+                        $bapbSenderItem->save();
+
+                        $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
+                    }
+
+                    foreach ($sender['costs'] as $cost) {
+                        if (isset($cost['bapb_sender_cost_id'])) {
+                            $bapbSenderCost = TrBapbSenderCost::findOrFail(
+                                $cost['bapb_sender_cost_id']
+                            );
+                        } else {
+                            $bapbSenderCost = new TrBapbSenderCost();
+                        }
+                        $bapbSenderCost->bapb_sender_id
+                            = $bapbSender->bapb_sender_id;
+                        $bapbSenderCost->bapb_sender_cost_name
+                            = $cost['bapb_sender_cost_name'];
+                        $bapbSenderCost->price = $cost['price'];
+                        $bapbSenderCost->save();
+
+                        $unDeletedCost[] = $bapbSenderCost->bapb_sender_cost_id;
+                    }
+
+                    TrBapbSenderItem::where(
+                        'bapb_sender_id',
+                        $bapbSender->bapb_sender_id
+                    )
+                        ->whereNotIn(
+                            'bapb_sender_item_id',
+                            $unDeletedItem
+                        )
+                        ->delete();
+
+                    TrBapbSenderCost::where(
+                        'bapb_sender_id',
+                        $bapbSender->bapb_sender_id
+                    )
+                        ->whereNotIn(
+                            'bapb_sender_cost_id',
+                            $unDeletedCost
+                        )
+                        ->delete();
                 }
 
-                foreach ($sender['costs'] as $cost) {
-                    if (isset($cost['bapb_sender_cost_id'])) {
-                        $bapbSenderCost = TrBapbSenderCost::findOrFail(
-                            $cost['bapb_sender_cost_id']
-                        );
-                    } else {
-                        $bapbSenderCost = new TrBapbSenderCost();
-                    }
-                    $bapbSenderCost->bapb_sender_id
-                        = $bapbSender->bapb_sender_id;
-                    $bapbSenderCost->bapb_sender_cost_name
-                        = $cost['bapb_sender_cost_name'];
-                    $bapbSenderCost->price = $cost['price'];
-                    $bapbSenderCost->save();
-
-                    $unDeletedCost[] = $bapbSenderCost->bapb_sender_cost_id;
-                }
-
-                TrBapbSenderItem::where(
-                    'bapb_sender_id',
-                    $bapbSender->bapb_sender_id
-                )
-                    ->whereNotIn(
-                        'bapb_sender_item_id',
-                        $unDeletedItem
-                    )
+                TrBapbSender::where('bapb_id', $bapb->bapb_id)
+                    ->whereNotIn('bapb_sender_id', $unDeletedSender)
                     ->delete();
 
-                TrBapbSenderCost::where(
-                    'bapb_sender_id',
-                    $bapbSender->bapb_sender_id
-                )
-                    ->whereNotIn(
-                        'bapb_sender_cost_id',
-                        $unDeletedCost
-                    )
-                    ->delete();
             }
 
-            TrBapbSender::where('bapb_id', $bapb->bapb_id)
-                ->whereNotIn('bapb_sender_id', $unDeletedSender)
-                ->delete();
 
             DB::commit();
             $response = CoreResponse::ok([

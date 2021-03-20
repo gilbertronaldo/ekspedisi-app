@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use App\Exports\ShipLangsungTagihExports;
 use App\MsCity;
 use App\MsShip;
+use App\TrBapb;
 use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
@@ -152,8 +153,19 @@ class ShipController extends Controller
     public function destroy($shipId)
     {
         try {
+
             $ship = MsShip::findOrFail($shipId);
-            $ship->delete();
+
+            $exist = TrBapb::query()
+                ->select('ship_id')
+                ->where('ship_id', '=', $shipId)
+                ->exists();
+
+            if ($exist) {
+                throw new CoreException('Kapal telah diinput di BAPB');
+            } else {
+                $ship->delete();
+            }
 
             $response = CoreResponse::ok($ship);
         } catch (CoreException $e) {

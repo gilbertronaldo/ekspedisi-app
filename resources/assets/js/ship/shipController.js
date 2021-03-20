@@ -103,9 +103,12 @@
                 preConfirm: () => {
                     ShipService.delete(shipId)
                         .then(res => {
-                            swangular.success("Berhasil Menghapus Kapal");
-                            // vm.dtInstance.rerender();
-                            $state.reload();
+                            if (res.status === 'OK') {
+                                swangular.success("Berhasil Menghapus Kapal");
+                                $state.reload();
+                            } else {
+                                swangular.alert(res.data.message);
+                            }
                         })
                         .catch(err => {
                             console.log(err);

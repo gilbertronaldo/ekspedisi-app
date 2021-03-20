@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\MsRecipient;
+use App\TrBapb;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
@@ -144,7 +145,18 @@ class RecipientController extends Controller
     public function destroy($id)
     {
         try {
-            MsRecipient::findOrFail($id)->delete();
+            $recipient = MsRecipient::findOrFail($id);
+
+            $exist = TrBapb::query()
+                ->select('recipient_id')
+                ->where('recipient_id', '=', $id)
+                ->exists();
+
+            if ($exist) {
+                throw new CoreException('Penerima telah diinput di BAPB');
+            } else {
+                $recipient->delete();
+            }
             $response = CoreResponse::ok();
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
