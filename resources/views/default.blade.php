@@ -9,8 +9,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SR</title>
-    <link rel="shortcut icon" type="image/png" href="assets/images/logo-light-icon.png"/>
+    <title>S&nbsp;R&nbsp;S&nbsp;M</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
 
     {{--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>--}}
     {{--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'/>--}}

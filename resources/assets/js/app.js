@@ -70,3 +70,7 @@ require('./search/searchController.js');
 require('./ppn/ppn.js');
 require('./ppn/ppnService.js');
 require('./ppn/ppnController.js');
+
+require('./tracing/tracing.js');
+require('./tracing/tracingService.js');
+require('./tracing/tracingController.js');

@@ -21,6 +21,7 @@
                 'Ekspedisi.payment',
                 'Ekspedisi.search',
                 'Ekspedisi.ppn',
+                'Ekspedisi.tracing',
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',
@@ -180,6 +181,18 @@
             if (restrictedPage && !$localStorage.currentUser) {
                 event.preventDefault();
                 $location.path('/login');
+            }
+        });
+
+        $rootScope.$on('$locationChangeSuccess', function (event, next, current) {
+            if ($location.path()) {
+                const excludes = ['', 'admin'];
+                const arr = $location.path().split('/').filter(i => !excludes.includes(i));
+
+                const text = arr.join(' ').replace('-', ' ');
+
+                const title = `S R S M`;
+                document.title = `${title} | ${text}`;
             }
         });
 

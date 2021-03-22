@@ -171,6 +171,13 @@ Route::group(
         }
       );
 
+      Route::prefix('tracing')->group(
+          function ()
+          {
+              Route::post('/', 'TracingController@detail');
+              Route::post('/save', 'TracingController@save');
+          }
+      );
 
       Route::get('/container', 'BapbController@container');
       Route::get('/ppn', 'BapbController@ppn');

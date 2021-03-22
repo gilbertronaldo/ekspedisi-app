@@ -18,8 +18,8 @@ class AlterTableTrBapbUpdate2 extends Migration
           function (Blueprint $table)
           {
               $table->string('perusahaan', 10)->nullable();
-              $table->boolean('full_container')->default(false);
-              $table->json('full_container_data')->default('{}');
+              $table->boolean('full_container')->nullable()->default(false);
+              $table->json('full_container_data')->nullable()->default('{}');
           }
         );
     }

@@ -139,4 +139,10 @@ Route::middleware('auth:api')->group(function () {
             return view('ppn.ppn');
         });
     });
+
+    Route::prefix('tracing')->group(function () {
+        Route::get('/', function () {
+            return view('tracing.tracing');
+        });
+    });
 });

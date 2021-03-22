@@ -22,7 +22,8 @@
         "owen-it/laravel-auditing": "^10.0",
         "predis/predis": "^1.1",
         "tymon/jwt-auth": "1.0.*",
-        "yajra/laravel-datatables-oracle": "^9.0"
+        "yajra/laravel-datatables-oracle": "^9.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "composer/composer": "^2.0",

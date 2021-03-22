@@ -41,9 +41,9 @@ class ShipController extends Controller
         $ships = MsShip::get();
         foreach ($ships as $ship) {
             $ship->city_code_from = $ship->cityFrom ? $ship->cityFrom->city_code
-              : '';
-            $ship->city_code_to   = $ship->cityTo ? $ship->cityTo->city_code
-              : '';
+                : '';
+            $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code
+                : '';
         }
 
         return datatables()->of($ships)->toJson();
@@ -56,16 +56,16 @@ class ShipController extends Controller
                 $ship = MsShip::get();
                 foreach ($ship as $s) {
                     $s->city_code_from = $s->cityFrom ? $s->cityFrom->city_code
-                      : '';
-                    $s->city_code_to   = $s->cityTo ? $s->cityTo->city_code
-                      : '';
+                        : '';
+                    $s->city_code_to = $s->cityTo ? $s->cityTo->city_code
+                        : '';
                 }
             } else {
-                $ship                 = MsShip::findOrFail($id);
+                $ship = MsShip::findOrFail($id);
                 $ship->city_code_from = $ship->cityFrom
-                  ? $ship->cityFrom->city_code : '';
-                $ship->city_code_to   = $ship->cityTo ? $ship->cityTo->city_code
-                  : '';
+                    ? $ship->cityFrom->city_code : '';
+                $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code
+                    : '';
             }
             $response = CoreResponse::ok($ship);
         } catch (CoreException $exception) {
@@ -78,24 +78,24 @@ class ShipController extends Controller
     public function search(Request $request)
     {
         try {
-            $text  = (string)$request->input('text');
-            $page  = (int)$request->input('page');
+            $text = (string)$request->input('text');
+            $page = (int)$request->input('page');
             $limit = (int)$request->input('limit');
 
             $shipList = MsShip::where('ship_name', 'ilike', "%$text%")
-                              ->orWhere('no_voyage', 'ilike', "%$text%")
-                              ->offset($page - 1)
-                              ->limit($limit)
-                              ->get();
-            $count    = MsShip::where('ship_name', 'ilike', "%$text%")
-                              ->orWhere('no_voyage', 'ilike', "%$text%")
-                              ->count();
+                ->orWhere('no_voyage', 'ilike', "%$text%")
+                ->offset($page - 1)
+                ->limit($limit)
+                ->get();
+            $count = MsShip::where('ship_name', 'ilike', "%$text%")
+                ->orWhere('no_voyage', 'ilike', "%$text%")
+                ->count();
 
             foreach ($shipList as $ship) {
                 $ship->city_code_from = $ship->cityFrom
-                  ? $ship->cityFrom->city_code : '';
-                $ship->city_code_to   = $ship->cityTo ? $ship->cityTo->city_code
-                  : '';
+                    ? $ship->cityFrom->city_code : '';
+                $ship->city_code_to = $ship->cityTo ? $ship->cityTo->city_code
+                    : '';
             }
             $response = CoreResponse::ok(compact('shipList', 'count'));
         } catch (CoreException $exception) {
@@ -115,29 +115,29 @@ class ShipController extends Controller
                 $ship = new MsShip();
 
                 $existNoVoyage = MsShip::where(
-                  "no_voyage",
-                  "=",
-                  str_replace(' ', '', strtoupper($request->input('no_voyage')))
+                    "no_voyage",
+                    "=",
+                    str_replace(' ', '', strtoupper($request->input('no_voyage')))
                 )
-                                       ->first();
+                    ->first();
 
                 if ($existNoVoyage) {
                     throw new CoreException("Nomor Voyage Kapal sudah ada !");
                 }
             }
 
-            $ship->no_voyage        = str_replace(
-              ' ',
-              '',
-              strtoupper($request->input('no_voyage'))
+            $ship->no_voyage = str_replace(
+                ' ',
+                '',
+                strtoupper($request->input('no_voyage'))
             );
-            $ship->ship_name        = strtoupper($request->input('ship_name'));
+            $ship->ship_name = strtoupper($request->input('ship_name'));
             $ship->ship_description = $request->input('ship_description');
-            $ship->sailing_date     = Carbon::parse(
-              $request->input('sailing_date')
+            $ship->sailing_date = Carbon::parse(
+                $request->input('sailing_date')
             );
-            $ship->city_id_from     = $request->input('city_id_from');
-            $ship->city_id_to       = $request->input('city_id_to');
+            $ship->city_id_from = $request->input('city_id_from');
+            $ship->city_id_to = $request->input('city_id_to');
             $ship->save();
 
             DB::commit();
@@ -184,15 +184,28 @@ class ShipController extends Controller
     {
         try {
 
-            $shipId = $request->input('ship_id');
-            $containerList = DB::select("
-                SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) AS no_container,
-                       FALSE AS checked
-                FROM tr_bapb A
-                WHERE A.deleted_at IS NULL
-                AND A.ship_id = $shipId
-                GROUP BY A.no_container_1, A.no_container_2
-            ");
+            $query = DB::table('tr_bapb')
+                ->select([
+                    DB::raw(" UPPER(CONCAT(tr_bapb.no_container_1, ' ', tr_bapb.no_container_2)) AS no_container"),
+                    DB::raw(" UPPER(tr_bapb.no_container_1) AS no_container_1"),
+                    DB::raw(" UPPER(tr_bapb.no_container_2) AS no_container_2"),
+                    DB::raw(' FALSE AS checked'),
+                ])
+                ->whereNull('tr_bapb.deleted_at')
+                ->groupBy([
+                    'tr_bapb.no_container_1',
+                    'tr_bapb.no_container_2',
+                ]);
+
+            if ($request->has('ship_id')) {
+                $query = $query
+                    ->where('tr_bapb.ship_id', '=', $request->input('ship_id'));
+            } else if ($request->has('recipient_id')) {
+                $query = $query
+                    ->where('tr_bapb.recipient_id', '=', $request->input('recipient_id'));
+            }
+
+            $containerList = $query->get();
 
             $response = CoreResponse::ok(compact('containerList'));
         } catch (CoreException $e) {
