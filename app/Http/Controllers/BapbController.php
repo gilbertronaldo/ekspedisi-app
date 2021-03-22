@@ -483,7 +483,7 @@ class BapbController extends Controller
             }
 
             $fullContainer = $bapb->full_container_data;
-            if ($bapb->full_container) {
+            if ($bapb->full_container && isset($fullContainer['items'])) {
                 foreach ($fullContainer['items'] as $itemIdx => $item) {
                     $fullContainer['items'][$itemIdx]['sender_name'] = MsSender::findOrFail($item['sender_id'])->sender_name_bapb;
                 }

@@ -167,6 +167,7 @@
                     @endif
                     <th width="15%">BIAYA</th>
                 </tr>
+                @if(isset($fullContainer['items']))
                 @foreach($fullContainer['items'] as $item)
                     <tr>
                         <td class="table-bordered-body-td" valign="middle" colspan="2"
@@ -187,6 +188,7 @@
 
                         </td>
                 @endforeach
+                @endif
                 @foreach($bapb->senders as $senderIdx => $sender)
                     @foreach($sender->items as $itemIdx => $item)
                         <tr>
