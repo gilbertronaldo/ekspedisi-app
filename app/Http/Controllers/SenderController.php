@@ -90,8 +90,12 @@ class SenderController extends Controller
             } else {
                 $data = new MsSender();
 
-                $existCode = MsSender::where('sender_code', $request->input('sender_code'))->first();
-                $existName = MsSender::where('sender_name_bapb', $request->input('sender_name_bapb'))->first();
+                $existCode = MsSender::where('sender_code', $request->input('sender_code'))
+                    ->where('city_id', '=', $request->input('city_id'))
+                    ->first();
+                $existName = MsSender::where('sender_name_bapb', $request->input('sender_name_bapb'))
+                    ->where('city_id', '=', $request->input('city_id'))
+                    ->first();
 
                 if ($existCode || $existName) {
                     throw new CoreException("Data pengirim sudah ada! (kode & nama di BAPB)");
