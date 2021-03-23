@@ -49,13 +49,25 @@
         ctrl.next_id = 0;
         ctrl.input = {};
         ctrl.codeList = [
-            {code_id: 1, name: 'BJM - Banjarmasin'},
-            {code_id: 2, name: 'SMD - Samarinda'},
-            {code_id: 3, name: 'BPP - Balikpapan'},
-            {code_id: 4, name: 'MKS - Makassar'},
-            {code_id: 5, name: 'KJ - Retur'},
+            /**
+             * JKT
+             */
+            {code_id: '01', name: 'JB # JKT - BJM (Banjarmasin)'},
+            {code_id: '02', name: 'JM # JKT - SMD (Samarinda)'},
+            {code_id: '03', name: 'JP # JKT - BPP (Balikpapan)'},
+            {code_id: '04', name: 'JK # JKT - MKS (Makassar)'},
+            {code_id: '05', name: 'BJ # BJM - JKT (Retur)'},
+
+            /**
+             * SBY
+             */
+            {code_id: '11', name: 'SB # SBY - BJM (Banjarmasin)'},
+            {code_id: '12', name: 'SM # SBY - SMD (Samarinda)'},
+            {code_id: '13', name: 'SP # SBY - BPP (Balikpapan)'},
+            {code_id: '14', name: 'SK # SBY - MKS (Makassar)'},
+            {code_id: '15', name: 'BS # BJM - SBY (Retur)'},
         ];
-        ctrl.code = 1;
+        ctrl.code = '01';
         ctrl.detail = {};
         ctrl.detail.calculation = {
             price_ton: 0,
@@ -192,7 +204,7 @@
                 .then(res => {
                     ctrl.detail.ship = res.data;
 
-                    const code = ctrl.codeList.find(code => code.name.substr(0, 3) === ctrl.detail.ship.city_to.city_code);
+                    const code = ctrl.codeList.find(code => code.name.substr(11, 3) === ctrl.detail.ship.city_to.city_code);
                     console.log(code, ctrl.detail.ship);
                     ctrl.code = code.code_id;
                 })
@@ -285,8 +297,8 @@
             const ship = ctrl.detail.shipList.find(i => i.ship_id === ctrl.input.ship_id);
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
             console.log(ctrl.detail, code, ship);
-            if (ship && ctrl.code !== 5) {
-                if (code.name.substr(0, 3) != ship.city_code_to) {
+            if (ship && ctrl.code !== '05' && ctrl.code !== '15') {
+                if (code.name.substr(11, 3) != ship.city_code_to) {
                     ctrl.input.ship_id = null;
                     ctrl.detail.ship = {};
                     swangular.alert("Kode BAPB dengan asal kapal tidak sesuai");
@@ -326,7 +338,7 @@
             const recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
             const code = ctrl.codeList.find(i => i.code_id === ctrl.code);
             console.log(ctrl.detail, recipient);
-            if (recipient && ctrl.code !== 5) {
+            if (recipient && ctrl.code !== '05' && ctrl.code !== '15') {
                 if (ctrl.detail.ship.city_code_to !== recipient.city_code) {
                     ctrl.input.recipient_id = null;
                     ctrl.detail.recipient = {};

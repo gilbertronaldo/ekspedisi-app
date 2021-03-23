@@ -39,8 +39,8 @@
                                             CODE
                                         </label>
                                         <div class="col-sm-9">
-                                            <select class="custom-select col-sm-6" id="inputGroupSelect01"
-                                                    ng-init="vm.code = 1"
+                                            <select class="custom-select col-sm-12" id="inputGroupSelect01"
+                                                    ng-init="vm.code = '01'"
                                                     ng-model="vm.code" ng-change="vm.changeCode()"
                                                     ng-options="code.code_id as code.name for code in vm.codeList">
                                             </select>

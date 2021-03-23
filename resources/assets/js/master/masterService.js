@@ -39,6 +39,11 @@
                         city_id: 5,
                         city_code: 'MKS',
                         city_name: 'Makassar'
+                    },
+                    {
+                        city_id: 14,
+                        city_code: 'SBY',
+                        city_name: 'Surabaya'
                     }
                 ];
                 resolve({
