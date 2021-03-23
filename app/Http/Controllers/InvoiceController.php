@@ -14,6 +14,7 @@ use App\MsRecipient;
 use App\TrBapb;
 use App\TrInvoice;
 use App\TrInvoiceBapb;
+use App\TrPajak;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
@@ -295,9 +296,20 @@ class InvoiceController extends Controller
                 }
             );
 
+            $pph23 = 0;
             $pph = 0;
             if ($invoice->is_pph === true) {
-                $pph = round($subTotal * 2 / 100, 0);
+                $pajak = TrPajak::query()
+                    ->where('date', '=', $invoice->created_at->toDateString())
+                    ->first();
+
+                if ($pajak) {
+                    $pph23 = $pajak->pph_23;
+                } else {
+                    $pph23 = 2;
+                }
+
+                $pph = round($subTotal * $pph23 / 100, 0);
             }
 
             $totalAll = $subTotal - $pph + $costTotal;
@@ -310,6 +322,7 @@ class InvoiceController extends Controller
                 'totalAll'     => $totalAll,
                 'recipient'    => $recipient,
                 'officeBranch' => $officeBranch,
+                'pph23'        => $pph23,
             ];
 
             DB::commit();

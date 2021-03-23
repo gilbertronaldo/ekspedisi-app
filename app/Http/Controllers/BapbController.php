@@ -491,8 +491,8 @@ class BapbController extends Controller
 
             $tipe = $request->input('tipe');
             $data = [
-                'tipe' => $tipe,
-                'bapb' => $bapb,
+                'tipe'          => $tipe,
+                'bapb'          => $bapb,
                 'fullContainer' => $fullContainer,
             ];
 
@@ -752,8 +752,16 @@ SELECT ms_recipient.recipient_name_bapb                                   AS cus
        tr_bapb.bapb_no,
        UPPER(CONCAT(tr_bapb.no_container_1, ' ', tr_bapb.no_container_2)) as no_container,
        tr_bapb.harga                                                      AS dpp,
-       round(tr_bapb.harga * 0.01)                                        AS ppn,
-       tr_bapb.harga + round(tr_bapb.harga * 0.01)                        as final
+       CASE
+           WHEN tr_pajak.date is null
+           THEN  round(tr_bapb.harga * 0.01)
+           ELSE  round(tr_bapb.harga * tr_pajak.ppn / 100)
+       END AS ppn,
+        CASE
+           WHEN tr_pajak.date is null
+           THEN tr_bapb.harga + round(tr_bapb.harga * 0.01)
+           ELSE tr_bapb.harga + round(tr_bapb.harga * tr_pajak.ppn / 100)
+       END AS final
 FROM tr_bapb
          INNER JOIN ms_ship
                     ON tr_bapb.ship_id = ms_ship.ship_id
@@ -767,6 +775,8 @@ FROM tr_bapb
          JOIN ms_recipient
               ON tr_bapb.recipient_id = ms_recipient.recipient_id
                   AND ms_recipient.deleted_at IS NULL
+         LEFT JOIN tr_pajak
+              ON tr_bapb.created_at::DATE = tr_pajak.date
 WHERE tr_bapb.deleted_at IS NULL
         ";
 

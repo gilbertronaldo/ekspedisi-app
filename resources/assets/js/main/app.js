@@ -22,6 +22,7 @@
                 'Ekspedisi.search',
                 'Ekspedisi.ppn',
                 'Ekspedisi.tracing',
+                'Ekspedisi.pajak',
             ],
             [
                 '$interpolateProvider', '$urlRouterProvider', '$httpProvider',

@@ -176,7 +176,7 @@
                 <tr>
                     <td colspan="5"></td>
                     <td style="text-align: center;margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;">
-                        Potongan PPH 2%
+                        Potongan PPH {{ $pph23 }}%
                     </td>
                     <td style="margin: 0;padding: 2px 5px;font-weight: normal;font-size: 14px;border: 1px solid black">
                     <span>Rp. <span

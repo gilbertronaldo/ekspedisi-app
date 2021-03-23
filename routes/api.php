@@ -179,6 +179,15 @@ Route::group(
           }
       );
 
+      Route::prefix('pajak')->group(
+          function ()
+          {
+              Route::get('/', 'PajakController@list');
+              Route::put('/', 'PajakController@save');
+          }
+      );
+
+
       Route::get('/container', 'BapbController@container');
       Route::get('/ppn', 'BapbController@ppn');
   }

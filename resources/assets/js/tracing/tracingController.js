@@ -251,6 +251,8 @@
                     TracingService.save(formData)
                         .then(function (result) {
                             ctrl.isSaving = false;
+
+                            swangular.success("Berhasil Menyimpan Tracing");
                             getTracing();
                         })
                         .catch(err => {

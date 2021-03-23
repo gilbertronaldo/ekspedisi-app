@@ -74,3 +74,7 @@ require('./ppn/ppnController.js');
 require('./tracing/tracing.js');
 require('./tracing/tracingService.js');
 require('./tracing/tracingController.js');
+
+require('./pajak/pajak.js');
+require('./pajak/pajakService.js');
+require('./pajak/pajakController.js');

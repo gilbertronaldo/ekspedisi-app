@@ -145,4 +145,10 @@ Route::middleware('auth:api')->group(function () {
             return view('tracing.tracing');
         });
     });
+
+    Route::prefix('pajak')->group(function () {
+        Route::get('/', function () {
+            return view('pajak.pajak');
+        });
+    });
 });

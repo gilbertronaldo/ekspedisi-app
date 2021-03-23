@@ -97,6 +97,15 @@
             <span class="hide-menu">Settings</span>
         </li>
 
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('PAJAK_NAVIGATION_SIDEBAR')">
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link"
+               ui-sref="admin.pajak"
+               aria-expanded="false">
+                <i class="icon-Receipt"></i>
+                <span class="hide-menu">PPN & PPH23</span>
+            </a>
+        </li>
+
         <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('USER_NAVIGATION_SIDEBAR')">
             <a class="sidebar-link active waves-effect waves-dark sidebar-link"
                ui-sref="admin.user"
