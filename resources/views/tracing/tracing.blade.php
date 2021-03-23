@@ -163,6 +163,7 @@
                                             <div class="form-group">
                                                 <label for="input-penerima">Penerima</label>
                                                 <input type="text" class="form-control" id="input-penerima"
+                                                       ng-disabled="!vm.canEdit"
                                                        placeholder="Nama Penerima" ng-model="vm.tracing.name"
                                                        required>
                                             </div>
@@ -170,6 +171,7 @@
                                                 <label for="input-date">Tanggal Terima</label>
                                                 <input type="text" class="form-control" id="input-date"
                                                        placeholder="Tanggal terima"
+                                                       ng-disabled="!vm.canEdit"
                                                        ng-model="vm.tracing.tanggal_terima"
                                                        ng-model-options="{ updateOn: 'blur' }"
                                                        format="DD-MM-YYYY HH:mm"
@@ -179,20 +181,31 @@
                                             <div class="form-group">
                                                 <label for="input-koli">Koli</label>
                                                 <input type="number" class="form-control" id="input-koli"
+                                                       ng-disabled="!vm.canEdit"
                                                        placeholder="Total koli" ng-model="vm.tracing.koli"
                                                        required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="input-keterangan">Keterangan</label>
                                                 <textarea type="text" class="form-control"
+                                                          ng-disabled="!vm.canEdit"
                                                           ng-model="vm.tracing.description"
                                                           placeholder="Masukkan keterangan" rows="5"></textarea>
+                                            </div>
+
+                                            <div class="form-group" ng-if="vm.tracing.tracing_id">
+                                                <label for="input-penerima">Di input oleh</label>
+                                                <input type="text" class="form-control" id="input-penerima"
+                                                       disabled
+                                                       placeholder="Nama Penerima" ng-model="vm.tracing.created_by"
+                                                       required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="input-file">Foto</label>
                                                 <input type="file" class="form-control" id="input-file"
+                                                       ng-disabled="!vm.canEdit"
                                                        multiple accept="image/*"
                                                        onchange="angular.element(this).scope().fileSelected(this)">
                                                 {{--                                                <button ng-click="vm.addFile()">Add</button>--}}
@@ -208,6 +221,7 @@
                                         </div>
                                         <div class="col-md-12 text-center">
                                             <button type="submit" class="btn btn-primary waves-effect waves-light"
+                                                    ng-if="vm.canEdit"
                                                     ng-click="vm.onSubmit()" ng-disabled="vm.isSaving"><i ng-if="vm.isSaving"
                                                                                                        class='fa fa-spinner fa-spin '></i>Simpan
                                             </button>

@@ -45,6 +45,7 @@
         ctrl.input = {};
         ctrl.code = 1;
         ctrl.detail = {};
+        ctrl.canEdit = false;
 
         ctrl.tracing = {};
         $scope.attachmentsPreview = [];
@@ -160,6 +161,8 @@
                 .then(function (result) {
                     ctrl.loading[1] = false;
                     if (result.data.tracing) {
+                        ctrl.canEdit = false;
+
                         ctrl.tracing = result.data.tracing;
 
                         if (ctrl.tracing.tanggal_terima) {
@@ -170,6 +173,9 @@
                             $scope.attachmentsPreview.push(i.url);
                         })
                         ctrl.tracing.attachments_deleted = [];
+                    } else {
+
+                        ctrl.canEdit = true;
                     }
                 })
                 .catch(err => {
@@ -222,33 +228,41 @@
         }
 
         ctrl.onSubmit = () => {
-            ctrl.isSaving = true;
-            console.log(ctrl.tracing, $scope.attachments);
+            swangular.confirm('Apakah anda yakin ingin menginput data ini', {
+                showCancelButton: true,
+                preConfirm: () => {
 
-            const data = JSON.parse(JSON.stringify(ctrl.tracing));
-            data.attachments = JSON.stringify(data.attachments);
-            data.attachments_deleted = JSON.stringify(data.attachments_deleted);
+                    ctrl.isSaving = true;
+                    console.log(ctrl.tracing, $scope.attachments);
 
-            console.log(data);
-            const formData = new $window.FormData();
-            for (var key in data) {
-                formData.append(key, data[key]);
-            }
-            $scope.attachments.forEach(file => {
-                formData.append("files[]", file);
-            })
+                    const data = JSON.parse(JSON.stringify(ctrl.tracing));
+                    data.attachments = JSON.stringify(data.attachments);
+                    data.attachments_deleted = JSON.stringify(data.attachments_deleted);
 
-            TracingService.save(formData)
-                .then(function (result) {
-                    ctrl.isSaving = false;
-                    getTracing();
-                })
-                .catch(err => {
-                    ctrl.isSaving = false;
-                    console.log(err);
-                    swangular.alert("Error Container List");
-                })
+                    console.log(data);
+                    const formData = new $window.FormData();
+                    for (var key in data) {
+                        formData.append(key, data[key]);
+                    }
+                    $scope.attachments.forEach(file => {
+                        formData.append("files[]", file);
+                    })
+
+                    TracingService.save(formData)
+                        .then(function (result) {
+                            ctrl.isSaving = false;
+                            getTracing();
+                        })
+                        .catch(err => {
+                            ctrl.isSaving = false;
+                            console.log(err);
+                            swangular.alert("Error Container List");
+                        })
+                },
+            });
         }
 
+        }
     }
-})();
+
+)();

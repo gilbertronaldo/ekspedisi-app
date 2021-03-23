@@ -51,6 +51,15 @@ class TracingController extends Controller
                     ];
                 }
                 $tracing->attachments = $attachments;
+
+                $creator = $tracing->audits()
+                    ->where('event', '=', 'created')
+                    ->with('user')
+                    ->first();
+
+                if ($creator && $creator->user) {
+                    $tracing->created_by =  $creator->user->name;
+                }
             }
 
             $response = CoreResponse::ok([
