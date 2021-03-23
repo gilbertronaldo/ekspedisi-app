@@ -65,6 +65,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/edit', function () {
             return view('ship.shipEdit');
         });
+        Route::get('/departure', function () {
+            return view('ship.shipDeparture');
+        });
     });
 
 

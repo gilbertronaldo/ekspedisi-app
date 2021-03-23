@@ -35,6 +35,7 @@ require('./ship/shipService.js');
 require('./ship/shipController.js');
 require('./ship/editShipController.js');
 require('./ship/addShipController.js');
+require('./ship/departureShipController.js');
 
 require('./sender/sender.js');
 require('./sender/senderService.js');

@@ -24,5 +24,10 @@
                 templateUrl: '/ship/edit',
                 controller: 'EditShipController as editShipController',
             })
+            .state('admin.ship-departure', {
+                url: '/ship/departure',
+                templateUrl: '/ship/departure',
+                controller: 'DepartureShipController as departureShipController',
+            })
     });
 })();

@@ -51,26 +51,11 @@
                 <span class="hide-menu">Invoice</span>
             </a>
         </li>
-        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('PPN_NAVIGATION_SIDEBAR')">
-            <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.ppn"
-               aria-expanded="false">
-                <i class="icon-Receipt-3"></i>
-                <span class="hide-menu">PPN</span>
-            </a>
-        </li>
         <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('PAYMENT_NAVIGATION_SIDEBAR')">
             <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.payment"
                aria-expanded="false">
                 <i class="ti-money"></i>
                 <span class="hide-menu">Payment</span>
-            </a>
-        </li>
-        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('CONTAINER_NAVIGATION_SIDEBAR')">
-            <a class="sidebar-link active waves-effect waves-dark sidebar-link"
-               ui-sref="admin.container"
-               aria-expanded="false">
-                <i class="mdi mdi-content-paste"></i>
-                <span class="hide-menu">Container</span>
             </a>
         </li>
 
@@ -92,7 +77,38 @@
 {{--            </a>--}}
 {{--        </li>--}}
 
-        <li class="nav-small-cap" ng-if="authCan('USER_NAVIGATION_SIDEBAR, ROLE_NAVIGATION_SIDEBAR')">
+        <li class="nav-small-cap" ng-if="authCan('PPN_NAVIGATION_SIDEBAR, CONTAINER_NAVIGATION_SIDEBAR')">
+            <i class="mdi mdi-settings"></i>
+            <span class="hide-menu">REPORTS</span>
+        </li>
+
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('PPN_NAVIGATION_SIDEBAR')">
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.ppn"
+               aria-expanded="false">
+                <i class="icon-Receipt-3"></i>
+                <span class="hide-menu">PPN</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('CONTAINER_NAVIGATION_SIDEBAR')">
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link"
+               ui-sref="admin.container"
+               aria-expanded="false">
+                <i class="mdi mdi-content-paste"></i>
+                <span class="hide-menu">Container</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('SHIP_DEPARTURE_NAVIGATION_SIDEBAR')">
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link"
+               ui-sref="admin.ship-departure"
+               aria-expanded="false">
+                <i class="mdi mdi-content-paste"></i>
+                <span class="hide-menu">Keberangkatan Kapal</span>
+            </a>
+        </li>
+
+        <li class="nav-small-cap" ng-if="authCan('PAJAK_NAVIGATION_SIDEBAR, USER_NAVIGATION_SIDEBAR, ROLE_NAVIGATION_SIDEBAR')">
             <i class="mdi mdi-settings"></i>
             <span class="hide-menu">Settings</span>
         </li>

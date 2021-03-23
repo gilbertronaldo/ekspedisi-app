@@ -11,11 +11,14 @@ namespace App\Http\Controllers;
 
 use App\Exports\ShipLangsungTagihExports;
 use App\MsCity;
+use App\MsRecipient;
 use App\MsShip;
 use App\TrBapb;
+use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -218,5 +221,86 @@ class ShipController extends Controller
     public function exportExcelLangsungTagih($id)
     {
         return Excel::download(new ShipLangsungTagihExports($id), 'users.xlsx');
+    }
+
+    public function departureList(Request $request)
+    {
+        $query = TrBapb::query()
+            ->select([
+                'ms_ship.ship_id',
+                'ms_ship.no_voyage',
+                'ms_ship.ship_name',
+                DB::raw("to_char(ms_ship.sailing_date, 'dd FMMonth yyyy') as sailing_date"),
+                'ms_recipient.recipient_id',
+                'ms_recipient.recipient_name',
+            ])
+            ->join('ms_ship', static function (JoinClause $clause) {
+                $clause->on('ms_ship.ship_id', '=', 'tr_bapb.ship_id');
+                $clause->whereNull('ms_ship.deleted_at');
+            })
+            ->join('ms_recipient', static function (JoinClause $clause) {
+                $clause->on('ms_recipient.recipient_id', '=', 'tr_bapb.recipient_id');
+                $clause->whereNull('ms_recipient.deleted_at');
+            })
+            ->toSql();
+
+        return datatables()->of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
+    }
+
+    /**
+     * @param $shipId
+     * @param $recipientId
+     *
+     * @throws \Exception
+     */
+    public function departurePrint($shipId, $recipientId)
+    {
+        try {
+
+            $recipient = MsRecipient::findOrFail($recipientId);
+            $ship = MsShip::findOrFail($shipId);
+
+            $items = TrBapb::query()
+                ->select([
+                    'no_container_1',
+                    'no_container_2',
+                    'ms_sender.sender_name_bapb',
+                    'tr_bapb_sender_item.bapb_sender_item_name',
+                    'tr_bapb_sender_item.koli',
+                ])
+                ->join('tr_bapb_sender', static function (JoinClause $clause) {
+                    $clause->on('tr_bapb_sender.bapb_id', '=', 'tr_bapb.bapb_id');
+                    $clause->whereNull('tr_bapb_sender.deleted_at');
+                })
+                ->join('ms_sender', static function (JoinClause $clause) {
+                    $clause->on('ms_sender.sender_id', '=', 'tr_bapb_sender.sender_id');
+                    $clause->whereNull('ms_sender.deleted_at');
+                })
+                ->join('tr_bapb_sender_item', static function (JoinClause $clause) {
+                    $clause->on('tr_bapb_sender_item.bapb_sender_id', '=', 'tr_bapb_sender.bapb_sender_id');
+                    $clause->whereNull('tr_bapb_sender_item.deleted_at');
+                })
+                ->where('ship_id', '=', $ship->ship_id)
+                ->where('recipient_id', '=', $recipient->recipient_id)
+                ->groupBy([
+                    'no_container_1',
+                    'no_container_2',
+                    'ms_sender.sender_name_bapb',
+                    'tr_bapb_sender_item.bapb_sender_item_name',
+                    'tr_bapb_sender_item.koli',
+                ])
+                ->get();
+
+            $input = [
+                'recipient' => $recipient,
+                'ship'      => $ship,
+                'items'     => $items,
+            ];
+            $pdf = PDF::loadView('ship.pdf.print', $input);
+
+            return $pdf->stream('invoice.pdf');
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 }
