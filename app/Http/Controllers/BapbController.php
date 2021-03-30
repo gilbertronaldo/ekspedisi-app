@@ -525,7 +525,7 @@ class BapbController extends Controller
 
             $latestBapb = TrBapb::whereNotNull('no_container_1')
                 ->whereNotNull('no_container_2')
-                ->whereRaw("LEFT(bapb_no, 3) = '$year$code'")
+                ->whereRaw("LEFT(bapb_no, 4) = '$year$code'")
                 ->orderBy('created_at', 'desc')
                 ->first();
 
