@@ -265,8 +265,8 @@ class ShipController extends Controller
                     'no_container_1',
                     'no_container_2',
                     'ms_sender.sender_name_bapb',
-                    'tr_bapb_sender_item.bapb_sender_item_name',
-                    'tr_bapb_sender_item.koli',
+//                    'tr_bapb_sender_item.bapb_sender_item_name',
+                    DB::raw('SUM(tr_bapb_sender_item.koli) AS koli'),
                 ])
                 ->join('tr_bapb_sender', static function (JoinClause $clause) {
                     $clause->on('tr_bapb_sender.bapb_id', '=', 'tr_bapb.bapb_id');
@@ -286,15 +286,48 @@ class ShipController extends Controller
                     'no_container_1',
                     'no_container_2',
                     'ms_sender.sender_name_bapb',
-                    'tr_bapb_sender_item.bapb_sender_item_name',
-                    'tr_bapb_sender_item.koli',
+//                    'tr_bapb_sender_item.bapb_sender_item_name',
+//                    'tr_bapb_sender_item.koli',
                 ])
                 ->get();
+
+            $codes = [
+                [
+                    'city'  => 'BPP',
+                    'name'  => 'Bpk ACO',
+                    'phone' => '0852 4690 1000',
+                ],
+                [
+                    'city'  => 'SMD',
+                    'name'  => 'Bpk Supri',
+                    'phone' => '0821 1155 0943',
+                ],
+                [
+                    'city'  => 'BJM',
+                    'name'  => 'Bpk Birin',
+                    'phone' => '0813 4538 8506',
+                ],
+                [
+                    'city'  => 'MKS',
+                    'name'  => 'Bpk Yanto',
+                    'phone' => '0852 4290 2538',
+                ],
+            ];
+
+            $contact = collect($codes)
+                ->where('city', '=',$ship->cityFrom->city_code)
+                ->first();
+            if (!$contact) {
+                $contact = collect($codes)
+                    ->where('city', '=',$ship->cityTo->city_code)
+                    ->first();
+            }
 
             $input = [
                 'recipient' => $recipient,
                 'ship'      => $ship,
                 'items'     => $items,
+                'contact'   => $contact,
             ];
             $pdf = PDF::loadView('ship.pdf.print', $input);
 

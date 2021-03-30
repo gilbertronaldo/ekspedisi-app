@@ -141,20 +141,20 @@
         <tr>
             <th>No. Container</th>
             <th>Pengirim</th>
-            <th>Nama Barang</th>
+{{--            <th>Nama Barang</th>--}}
             <th>Jumlah</th>
         </tr>
         @foreach($items as $item)
             <tr>
                 <td class="table-bordered-body-td text-center">{{ $item->no_container_1 . ' ' . $item->no_container_2 }}</td>
                 <td class="table-bordered-body-td">{{ $item->sender_name_bapb  }}</td>
-                <td class="table-bordered-body-td">{{ $item->bapb_sender_item_name }}</td>
+{{--                <td class="table-bordered-body-td">{{ $item->bapb_sender_item_name }}</td>--}}
                 <td class="table-bordered-body-td text-center">{{ $item->koli }} Koli</td>
             </tr>
         @endforeach
     </table>
 
-    <p>Untuk perwakilan di Banjarmasin dapat menghubungi Bpk. Birin (0813 4538 8506) mengenai pengiriman barang ke tempat saudara
+    <p>Untuk perwakilan di Banjarmasin dapat menghubungi {{ $contact['name'] }} ({{ $contact['phone'] }}) mengenai pengiriman barang ke tempat saudara
         dengan menyebutkan nama kapal dan no. container. Terima Kasih</p>
 
 </main>
