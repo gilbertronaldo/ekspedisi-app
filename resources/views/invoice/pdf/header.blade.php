@@ -1,14 +1,14 @@
 <header>
     <div style="float: left;margin-left: 50px;">
 
-        @if($invoice->pajak === 'pribadi' && $invoice->is_pph !== true)
+        @if($invoice->pajak === 'pribadi')
             <img src="{{ public_path('img/logo-sr.png') }}" alt="" width="100" height="100">
         @else
             <img src="{{ public_path('img/logo-srsm.png') }}" alt="" width="100" height="100">
         @endif
 
     </div>
-    @if($invoice->pajak === 'pribadi' && $invoice->is_pph !== true)
+    @if($invoice->pajak === 'pribadi')
         <div style="margin-left: 50px;font-family: 'Times New Roman',serif;">
             <h4 style="margin: 2px;padding: 0;">EKSPEDISI</h4>
             <h2 style="margin: 2px;padding: 0;">SUMBER REJEKI</h2>
