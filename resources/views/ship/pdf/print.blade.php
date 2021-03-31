@@ -154,7 +154,7 @@
         @endforeach
     </table>
 
-    <p>Untuk perwakilan di Banjarmasin dapat menghubungi {{ $contact['name'] }} ({{ $contact['phone'] }}) mengenai pengiriman barang ke tempat saudara
+    <p>Untuk perwakilan di {{ $contact['city_full'] }} dapat menghubungi {{ $contact['name'] }} ({{ $contact['phone'] }}) mengenai pengiriman barang ke tempat saudara
         dengan menyebutkan nama kapal dan no. container. Terima Kasih</p>
 
 </main>

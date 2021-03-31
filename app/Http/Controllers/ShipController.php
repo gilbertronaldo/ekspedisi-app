@@ -293,33 +293,37 @@ class ShipController extends Controller
 
             $codes = [
                 [
-                    'city'  => 'BPP',
-                    'name'  => 'Bpk ACO',
-                    'phone' => '0852 4690 1000',
+                    'city'      => 'BPP',
+                    'city_full' => 'Balikpapan',
+                    'name'      => 'Bpk ACO',
+                    'phone'     => '0852 4690 1000',
                 ],
                 [
-                    'city'  => 'SMD',
-                    'name'  => 'Bpk Supri',
-                    'phone' => '0821 1155 0943',
+                    'city'      => 'SMD',
+                    'city_full' => 'Samarinda',
+                    'name'      => 'Bpk Supri',
+                    'phone'     => '0821 1155 0943',
                 ],
                 [
-                    'city'  => 'BJM',
-                    'name'  => 'Bpk Birin',
-                    'phone' => '0813 4538 8506',
+                    'city'      => 'BJM',
+                    'city_full' => 'Banjarmasin',
+                    'name'      => 'Bpk Birin',
+                    'phone'     => '0813 4538 8506',
                 ],
                 [
-                    'city'  => 'MKS',
-                    'name'  => 'Bpk Yanto',
-                    'phone' => '0852 4290 2538',
+                    'city'      => 'MKS',
+                    'city_full' => 'Makassar',
+                    'name'      => 'Bpk Yanto',
+                    'phone'     => '0852 4290 2538',
                 ],
             ];
 
             $contact = collect($codes)
-                ->where('city', '=',$ship->cityFrom->city_code)
+                ->where('city', '=', $ship->cityFrom->city_code)
                 ->first();
-            if (!$contact) {
+            if (! $contact) {
                 $contact = collect($codes)
-                    ->where('city', '=',$ship->cityTo->city_code)
+                    ->where('city', '=', $ship->cityTo->city_code)
                     ->first();
             }
 
