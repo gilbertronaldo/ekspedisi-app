@@ -8,7 +8,7 @@
     <title>BAPB</title>
     <style>
         @page {
-            size: 21.5cm 30cm;
+            size: 21.5cm 28cm;
             margin: 200px 45px 240px;
         }
 
