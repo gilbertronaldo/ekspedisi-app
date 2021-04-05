@@ -428,6 +428,7 @@ class InvoiceController extends Controller
      */
     public function all(Request $request, $paid = 'false')
     {
+        $user = auth()->user();
 
         if ($paid === 'true') {
             $paid = 'AND CC.payment_date IS NOT NULL';
@@ -438,6 +439,15 @@ class InvoiceController extends Controller
         $param = $request->all();
         if (isset($param['search'], $param['search']['value']) && $param['search']['value'] !== null && $param['search']['value'] !== '') {
             $paid = '';
+        }
+
+        // INVOICE SEARCH HANYA BOLEH SUPERADMIN SAJA
+        $limit = '';
+        if ($paid === '') {
+            if ($user->id !== 1) {
+//                $limit = 'LIMIT 0';
+                $paid = 'AND CC.payment_date IS NULL';
+            }
         }
 
         $query = "
@@ -478,7 +488,7 @@ class InvoiceController extends Controller
                 ON CC.ship_id = DD.ship_id
                 AND DD.deleted_at IS NULL
             GROUP BY AA.invoice_id, AA.invoice_no, AA.recipient_name_bapb, AA.creator, CC.payment_date
-
+            $limit
         ";
 
         return DataTables::of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->make();
