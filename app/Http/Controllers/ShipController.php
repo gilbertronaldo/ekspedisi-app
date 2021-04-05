@@ -210,6 +210,8 @@ class ShipController extends Controller
 
             $containerList = $query->get();
 
+            $containerList = $containerList->unique();
+
             $response = CoreResponse::ok(compact('containerList'));
         } catch (CoreException $e) {
             $response = CoreResponse::fail($e);
