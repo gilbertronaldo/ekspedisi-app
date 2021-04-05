@@ -9,7 +9,7 @@
     <style>
         @page {
             size: 21.5cm 28cm;
-            margin: 200px 45px 240px;
+            margin: 180px 45px 240px;
         }
 
         header {
@@ -30,7 +30,8 @@
             bottom: -100px;
             left: 0;
             right: 0;
-            height: 150px;
+            height: 200px;
+            /*background: red;*/
         }
 
         main {
