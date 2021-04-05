@@ -428,10 +428,16 @@ class InvoiceController extends Controller
      */
     public function all(Request $request, $paid = 'false')
     {
+
         if ($paid === 'true') {
             $paid = 'AND CC.payment_date IS NOT NULL';
         } else {
             $paid = 'AND CC.payment_date IS NULL';
+        }
+
+        $param = $request->all();
+        if (isset($param['search'], $param['search']['value']) && $param['search']['value'] !== null && $param['search']['value'] !== '') {
+            $paid = '';
         }
 
         $query = "
