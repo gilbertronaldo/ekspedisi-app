@@ -9,7 +9,7 @@
     <div>
         @if($tipe === 'sr')
             <div style="text-align:left;margin-left: 50px;font-family: 'Times New Roman',serif;">
-                <h4 style="margin: 2px;padding: 0;">EKSPEDISI</h4>
+                <h4 style="margin-bottom: 6px;padding: 0;">EKSPEDISI</h4>
                 <h2 style="margin: 2px;padding: 0;">SUMBER REJEKI</h2>
                 <h4 style="margin: 2px;padding: 0;">Jasa Angukatan Container System</h4>
                 <h5 style="margin: 2px;padding: 0;">Jl. Mangga Dua Raya, Ruko Grand Boutique Centre Blok D No. 62
@@ -19,7 +19,7 @@
             </div>
         @else
             <div style="margin-right: 50px;text-align: center;">
-                <h4 style="margin: 2px;padding: 0;">EKSPEDISI</h4>
+                <h4 style="margin-bottom: 6px;padding: 0;">EKSPEDISI</h4>
                 <h2 style="margin: 2px;padding: 0;">PT. SUMBER REJEKI SINAR MANDIRI</h2>
                 <h4 style="margin: 2px;padding: 0;">Jasa Angukatan Container System</h4>
                 <h5 style="margin: 2px;padding: 0;">Jl. Mangga Dua Raya, Ruko Grand Boutique Centre Blok D No. 62

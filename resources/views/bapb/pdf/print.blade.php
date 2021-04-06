@@ -9,7 +9,7 @@
     <style>
         @page {
             size: 21.5cm 28cm;
-            margin: 200px 45px 240px;
+            margin: 210px 45px 50px;
         }
 
         header {
@@ -27,7 +27,7 @@
 
         footer {
             position: fixed;
-            bottom: -100px;
+            bottom: 0px;
             left: 0;
             right: 0;
             height: 200px;
