@@ -9,7 +9,7 @@
     <style>
         @page {
             size: 21.5cm 28cm;
-            margin: 180px 45px 240px;
+            margin: 200px 45px 240px;
         }
 
         header {
