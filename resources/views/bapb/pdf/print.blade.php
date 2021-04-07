@@ -168,7 +168,7 @@
                     @endif
                     <th width="15%">BIAYA</th>
                 </tr>
-                @if(isset($fullContainer['items']))
+                @if($bapb->full_container && isset($fullContainer['items']))
                     @foreach($fullContainer['items'] as $item)
                         <tr>
                             <td class="table-bordered-body-td" valign="middle" colspan="2"
@@ -190,86 +190,88 @@
                             </td>
                     @endforeach
                 @endif
-                @foreach($bapb->senders as $senderIdx => $sender)
-                    @foreach($sender->items as $itemIdx => $item)
-                        <tr>
-                            <td class="table-bordered-body-td" valign="middle"
-                                width="20%">
-                                {{ $sender->sender->sender_name_bapb }}
-                                <br>
-                            </td>
-                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
-                                width="43%">
-                                <span>{{ $item->bapb_sender_item_name }}</span>
-                                @if($bapb->show_calculation)
+                @if(!$bapb->full_container)
+                    @foreach($bapb->senders as $senderIdx => $sender)
+                        @foreach($sender->items as $itemIdx => $item)
+                            <tr>
+                                <td class="table-bordered-body-td" valign="middle"
+                                    width="20%">
+                                    {{ $sender->sender->sender_name_bapb }}
                                     <br>
-                                    @if(!is_null($item->berat))
-                                        <span style="font-size: 0.9em">
+                                </td>
+                                <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                    width="43%">
+                                    <span>{{ $item->bapb_sender_item_name }}</span>
+                                    @if($bapb->show_calculation)
+                                        <br>
+                                        @if(!is_null($item->berat))
+                                            <span style="font-size: 0.9em">
                                                     ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span
-                                                class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
-                                                class="t-small">ton</span>)
+                                                    class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
+                                                    class="t-small">ton</span>)
                                                 </span>
-                                    @else
-                                        <span style="font-size: 0.9em">
+                                        @else
+                                            <span style="font-size: 0.9em">
                                                     ({!! $item->panjang . '<span class="t-small">cm</span> * ' . $item->lebar .  '<span class="t-small">cm</span> * ' . $item->tinggi  . '<span class="t-small">cm</span>'!!} =  {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }} <span
-                                                class="t-small">m<sup>3</sup></span>)
+                                                    class="t-small">m<sup>3</sup></span>)
                                                     (<span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
-                                                class="t-small">m<sup>3</sup></span>)
+                                                    class="t-small">m<sup>3</sup></span>)
                                                 </span>
+                                        @endif
                                     @endif
-                                @endif
-                            </td>
-                            <td class="table-bordered-body-td text-center" style="margin: 0;padding: 2px 5px;"
-                                valign="middle"
-                                width="7%">
-                                {{ $item->koli }}
-                            </td>
-                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
-                                width="15%">
-                                @if($bapb->show_calculation)
-                                    @if(!is_null($item->berat))
-                                        <span>
+                                </td>
+                                <td class="table-bordered-body-td text-center" style="margin: 0;padding: 2px 5px;"
+                                    valign="middle"
+                                    width="7%">
+                                    {{ $item->koli }}
+                                </td>
+                                <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                    width="15%">
+                                    @if($bapb->show_calculation)
+                                        @if(!is_null($item->berat))
+                                            <span>
                                                     <span
                                                         style="color: white;"></span>
                                                     {{ number_format(($item->berat * $item->koli / 1000), 3, ",", ".") }}
                                                 </span>
-                                        <span> Ton</span>
-                                    @else
-                                        <span>
+                                            <span> Ton</span>
+                                        @else
+                                            <span>
                                                     <span
                                                         style="color: white;"></span>
                                                     {{ number_format(($item->panjang * $item->lebar * $item->tinggi / 1000000 * $item->koli), 3, ",", ".") }}
                                                 </span>
-                                        <span> M<sup>3</sup></span>
+                                            <span> M<sup>3</sup></span>
+                                        @endif
                                     @endif
-                                @endif
-                                @if(!$bapb->show_calculation && $bapb->squeeze)
-                                    @if(!is_null($item->berat))
-                                        <span>
+                                    @if(!$bapb->show_calculation && $bapb->squeeze)
+                                        @if(!is_null($item->berat))
+                                            <span>
                                                     <span
                                                         style="color: white;"></span>
                                                     {{ number_format(($item->berat / 1000), 3, ",", ".") }}
                                                 </span>
-                                        <span> Ton</span>
-                                    @else
-                                        <span>
+                                            <span> Ton</span>
+                                        @else
+                                            <span>
                                                     <span
                                                         style="color: white;"></span>
                                                     {{ number_format(($item->dimensi / 1000000), 3, ",", ".") }}
                                                 </span>
-                                        <span> M<sup>3</sup></span>
+                                            <span> M<sup>3</sup></span>
+                                        @endif
                                     @endif
-                                @endif
-                            </td>
-                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
-                                width="15%">
-                                @if($bapb->show_price && !$bapb->kena_min_charge)
-                                    <span>Rp.<span
-                                            style="color: white;"></span>{{ number_format($item->price, 0, ".", ".") }}</span>
-                                @endif
-                            </td>
+                                </td>
+                                <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                    width="15%">
+                                    @if($bapb->show_price && !$bapb->kena_min_charge)
+                                        <span>Rp.<span
+                                                style="color: white;"></span>{{ number_format($item->price, 0, ".", ".") }}</span>
+                                    @endif
+                                </td>
+                        @endforeach
                     @endforeach
-                @endforeach
+                @endif
                 <tr>
                     <td colspan="{{ $bapb->full_container ? 3 : 2 }}" style="text-align: right">
                         Sub Total&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
