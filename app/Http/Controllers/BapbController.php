@@ -18,6 +18,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -196,6 +197,20 @@ class BapbController extends Controller
             $bapb->save();
 
             if ($bapb->full_container) {
+                TrBapbSenderCost::query()
+                    ->join('tr_bapb_sender', static function (JoinClause $clause) {
+                        $clause->on('tr_bapb_sender.bapb_sender_id', '=', 'tr_bapb_sender_cost.bapb_sender_id');
+                    })
+                    ->where('bapb_id', '=', $bapb->bapb_id)
+                    ->forceDelete();
+
+                TrBapbSenderItem::query()
+                    ->join('tr_bapb_sender', static function (JoinClause $clause) {
+                        $clause->on('tr_bapb_sender.bapb_sender_id', '=', 'tr_bapb_sender_item.bapb_sender_id');
+                    })
+                    ->where('bapb_id', '=', $bapb->bapb_id)
+                    ->forceDelete();
+
                 TrBapbSender::query()
                     ->where('bapb_id', '=', $bapb->bapb_id)
                     ->forceDelete();

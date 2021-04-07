@@ -169,26 +169,26 @@
                     <th width="15%">BIAYA</th>
                 </tr>
                 @if(isset($fullContainer['items']))
-                @foreach($fullContainer['items'] as $item)
-                    <tr>
-                        <td class="table-bordered-body-td" valign="middle" colspan="2"
-                            width="20%">
-                            {{ $item['sender_name'] }}
-                        </td>
-                        <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
-                            width="43%">
-                            <span>{{ $item['name']}}</span>
-                        </td>
-                        <td class="table-bordered-body-td text-center" style="margin: 0;padding: 2px 5px;"
-                            valign="middle"
-                            width="7%">
-                            {{ $item['koli'] }}
-                        </td>
-                        <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
-                            width="15%">
+                    @foreach($fullContainer['items'] as $item)
+                        <tr>
+                            <td class="table-bordered-body-td" valign="middle" colspan="2"
+                                width="20%">
+                                {{ $item['sender_name'] }}
+                            </td>
+                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                width="43%">
+                                <span>{{ $item['name']}}</span>
+                            </td>
+                            <td class="table-bordered-body-td text-center" style="margin: 0;padding: 2px 5px;"
+                                valign="middle"
+                                width="7%">
+                                {{ $item['koli'] }}
+                            </td>
+                            <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
+                                width="15%">
 
-                        </td>
-                @endforeach
+                            </td>
+                    @endforeach
                 @endif
                 @foreach($bapb->senders as $senderIdx => $sender)
                     @foreach($sender->items as $itemIdx => $item)
@@ -325,56 +325,58 @@
                 @endforeach
                 <tr>
                     <td colspan="3">
-                        @if($bapb->kena_min_charge || $bapb->show_price)
-                            @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
-                                @if($bapb->tagih_di == 'recipient')
-                                    <span style="font-weight: normal;font-size: 14px;">
+                        @if(!$bapb->full_container)
+                            @if($bapb->kena_min_charge || $bapb->show_price)
+                                @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
+                                    @if($bapb->tagih_di == 'recipient')
+                                        <span style="font-weight: normal;font-size: 14px;">
                                         Minimal Charge =
                                         Rp. {{ number_format($bapb->recipient->minimum_charge, 0, ".", ".") }}
                                     </span>
-                                @endif
-                                @if($bapb->tagih_di != 'recipient')
-                                    <span style="font-weight: normal;font-size: 14px;">
+                                    @endif
+                                    @if($bapb->tagih_di != 'recipient')
+                                        <span style="font-weight: normal;font-size: 14px;">
                                         Minimal Charge =
                                         Rp. {{ number_format($bapb->senders[0]->minimum_charge, 0, ".", ".") }}
                                     </span>
-                                @endif
-                            @else
-                                @if($bapb->tagih_di == 'recipient')
-                                    <span style="font-weight: normal;font-size: 14px;">
+                                    @endif
+                                @else
+                                    @if($bapb->tagih_di == 'recipient')
+                                        <span style="font-weight: normal;font-size: 14px;">
 
                                         Minimal Charge
                                         = {{ number_format($bapb->recipient->minimum_charge / 1000, 3, ",", ".") }}
                                         ton/m3
                                 </span>
-                                @endif
-                                @if($bapb->tagih_di != 'recipient')
-                                    <span style="font-weight: normal;font-size: 14px;">
+                                    @endif
+                                    @if($bapb->tagih_di != 'recipient')
+                                        <span style="font-weight: normal;font-size: 14px;">
 
                                         Minimal Charge
                                         = {{ number_format($bapb->senders[0]->minimum_charge / 1000, 3, ",", ".") }}
                                         ton/m3
                                 </span>
+                                    @endif
                                 @endif
-                            @endif
 
-                            @if($bapb->show_price)
-                                @if($bapb->berat != 0)
-                                    <br>
-                                    <span style="font-weight: normal;font-size: 14px;">
+                                @if($bapb->show_price)
+                                    @if($bapb->berat != 0)
+                                        <br>
+                                        <span style="font-weight: normal;font-size: 14px;">
                                     Harga =
                                     <span
                                         class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
-                                            class="t-small">ton</span>
+                                                class="t-small">ton</span>
                                 </span>
-                                @endif
-                                @if($bapb->dimensi != 0)
-                                    <br>
-                                    <span style="font-weight: normal;font-size: 14px;">
+                                    @endif
+                                    @if($bapb->dimensi != 0)
+                                        <br>
+                                        <span style="font-weight: normal;font-size: 14px;">
                                     Harga =
                                     <span class="t-small">Rp. </span>{!! number_format($item->price_meter, 0, ".", ".") !!} / <span
-                                            class="t-small">m<sup>3</sup></span>
+                                                class="t-small">m<sup>3</sup></span>
                                 </span>
+                                    @endif
                                 @endif
                             @endif
                         @endif
