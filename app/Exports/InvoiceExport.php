@@ -199,8 +199,10 @@ class InvoiceExport implements FromView, WithEvents
                     }
                 }
 
+                $pph = $this->input['invoice']->is_pph ? 4 : 2;
+
                 $event->sheet->styleCells(
-                    'A5:G' . (5 + count($this->input['bapbList']) + $costTotal + 4),
+                    'A5:G' . (5 + count($this->input['bapbList']) + $costTotal + $pph),
                     [
                         'borders' => [
                             'allBorders' => [
