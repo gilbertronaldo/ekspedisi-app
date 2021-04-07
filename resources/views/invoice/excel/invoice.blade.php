@@ -40,18 +40,20 @@
             {{ $subTotal  }}
         </td>
     </tr>
-    <tr>
-        <td colspan="6" align="right">Potongan PPH {{ $pph23 }}%</td>
-        <td>
-            {{ $totalPph }}
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6" align="right">Total setelah potongan PPH</td>
-        <td>
-            {{ $subTotal - $totalPph  }}
-        </td>
-    </tr>
+    @if($invoice->is_pph === true)
+        <tr>
+            <td colspan="6" align="right">Potongan PPH {{ $pph23 }}%</td>
+            <td>
+                {{ $totalPph }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" align="right">Total setelah potongan PPH</td>
+            <td>
+                {{ $subTotal - $totalPph  }}
+            </td>
+        </tr>
+    @endif
     @foreach($bapbList as $bapbIdx => $bapb)
         @foreach($bapb->costs as $costIdx => $cost)
             <tr>
