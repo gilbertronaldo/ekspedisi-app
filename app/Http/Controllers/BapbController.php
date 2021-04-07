@@ -202,18 +202,18 @@ class BapbController extends Controller
                         $clause->on('tr_bapb_sender.bapb_sender_id', '=', 'tr_bapb_sender_cost.bapb_sender_id');
                     })
                     ->where('bapb_id', '=', $bapb->bapb_id)
-                    ->forceDelete();
+                    ->delete();
 
                 TrBapbSenderItem::query()
                     ->join('tr_bapb_sender', static function (JoinClause $clause) {
                         $clause->on('tr_bapb_sender.bapb_sender_id', '=', 'tr_bapb_sender_item.bapb_sender_id');
                     })
                     ->where('bapb_id', '=', $bapb->bapb_id)
-                    ->forceDelete();
+                    ->delete();
 
                 TrBapbSender::query()
                     ->where('bapb_id', '=', $bapb->bapb_id)
-                    ->forceDelete();
+                    ->delete();
 
                 foreach ($bapb->full_container_data['items'] as $item) {
                     $bapbSender = new TrBapbSender();
