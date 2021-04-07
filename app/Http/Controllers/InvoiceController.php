@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Exports\InvoiceExport;
 use App\MsOfficeBranch;
 use App\MsRecipient;
 use App\TrBapb;
@@ -21,6 +22,7 @@ use GilbertRonaldo\CoreSystem\CoreException;
 use GilbertRonaldo\CoreSystem\CoreResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class InvoiceController extends Controller
@@ -330,7 +332,7 @@ class InvoiceController extends Controller
 //            return view('invoice.pdf.print', $input);
             $pdf = PDF::loadView('invoice.pdf.print', $input);
 
-            return $pdf->stream('invoice.pdf');
+            return $pdf->stream('invoice_' . $invoice->invoice_no . '.pdf');
 
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -417,7 +419,7 @@ class InvoiceController extends Controller
 
         $pdf = PDF::loadView('invoice.kwitansi.print', $input);
 
-        return $pdf->stream('kwitansi.pdf');
+        return $pdf->stream('kwitansi_' . $invoice->invoice_no . '.pdf');
     }
 
     /**
@@ -511,4 +513,17 @@ class InvoiceController extends Controller
 
         return $response;
     }
+
+    /**
+     * @param $invoiceId
+     *
+     * @return mixed
+     */
+    public function exportExcel($invoiceId)
+    {
+        $invoice = TrInvoice::findOrFail($invoiceId);
+
+        return Excel::download(new InvoiceExport($invoiceId), 'invoice_' . $invoice->invoice_no . '.xlsx');
+    }
+
 }

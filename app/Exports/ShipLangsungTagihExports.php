@@ -79,7 +79,7 @@ class ShipLangsungTagihExports implements FromView, WithEvents
         return [
             // Handle by a closure.
             BeforeExport::class  => function (BeforeExport $event) {
-                $event->writer->getProperties()->setCreator('Patrick');
+                $event->writer->getProperties()->setCreator('SRSM');
             },
 
             // Array callable, refering to a static method.

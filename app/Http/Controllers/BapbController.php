@@ -504,7 +504,7 @@ class BapbController extends Controller
 //            return view('bapb.pdf.print', $data);
             $pdf = PDF::loadView('bapb.pdf.print', $data);
 
-            return $pdf->stream('bapb.pdf');
+            return $pdf->stream('bapb_' . $bapb->bapb_no . '.pdf');
         } catch (CoreException $exception) {
             $response = CoreResponse::fail($exception);
         }
@@ -544,7 +544,7 @@ class BapbController extends Controller
      */
     public function exportExcel($noContainer)
     {
-        return Excel::download(new BapbExport($noContainer), 'users.xlsx');
+        return Excel::download(new BapbExport($noContainer), 'bapb_' . $noContainer . '.xlsx');
     }
 
     /**

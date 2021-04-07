@@ -163,6 +163,7 @@ Route::group(
               '/generate/{invoiceId}',
               'InvoiceController@generatePrint'
             );
+            Route::get('/export/{invoiceId}', 'InvoiceController@exportExcel');
             Route::get(
               '/kwitansi/{invoiceId}',
               'InvoiceController@generateKwitansi'

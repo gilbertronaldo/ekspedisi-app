@@ -222,7 +222,9 @@ class ShipController extends Controller
 
     public function exportExcelLangsungTagih($id)
     {
-        return Excel::download(new ShipLangsungTagihExports($id), 'users.xlsx');
+        $ship = MsShip::findOrFail($id);
+
+        return Excel::download(new ShipLangsungTagihExports($id), 'ship_' . $ship->no_voyage . '.xlsx');
     }
 
     public function departureList(Request $request)
@@ -337,7 +339,7 @@ class ShipController extends Controller
             ];
             $pdf = PDF::loadView('ship.pdf.print', $input);
 
-            return $pdf->stream('invoice.pdf');
+            return $pdf->stream('ship_' . $ship->no_voyage . '.pdf');
         } catch (\Exception $exception) {
             throw $exception;
         }

@@ -104,6 +104,9 @@
                 '<button class="btn btn-success btn-xs" ng-click="printInvoice(' + data.invoice_id + ')" one-time-if="(' + vm.can.printInvoice + ')">' +
                 '   PRINT INVOICE' +
                 '</button>&nbsp;' +
+                '<button class="btn btn-success btn-xs" ng-click="exportInvoice(' + data.invoice_id + ')" one-time-if="(' + vm.can.printInvoice + ')">' +
+                '   EXPORT INVOICE' +
+                '</button>&nbsp;' +
                 '<button class="btn btn-success btn-xs" ng-click="printKwitansi(' + data.invoice_id + ')" one-time-if="(' + vm.can.printKwitansi + ')">' +
                 '   PRINT KWITANSI' +
                 '</button></div>';
@@ -148,6 +151,11 @@
 
         $scope.printKwitansi = id => {
             const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/kwitansi/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
+            win.focus();
+        };
+
+        $scope.exportInvoice = id => {
+            const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/export/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
             win.focus();
         };
 
