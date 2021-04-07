@@ -226,7 +226,7 @@
         <span>Pembayaran diatas ditransfer ke rekening {{ $officeBranch->bank_account }}</span>
         <br><span>Atas nama: {{ $officeBranch->bank_account_name }}</span>
         <br><span>Acc: {{ $officeBranch->bank_account_number }}</span>
-        <br><span>Bukti transfer harap mencantumkan no. Invoice dan di fax ke (021) 6240380 atau WA 0857 7595 9469</span>
+        <br><span>Bukti transfer harap mencantumkan no. Invoice dan di fax ke (021) 6122087 atau WA 0857 7595 9469</span>
         <p>Terima kasih atas kerjasamanya</p>
 
         <p>Diterima tgl:</p>

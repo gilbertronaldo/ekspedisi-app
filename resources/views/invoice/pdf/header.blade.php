@@ -15,7 +15,7 @@
             <h4 style="margin: 2px;padding: 0;">Jasa Angukatan Container System</h4>
             <h5 style="margin: 2px;padding: 0;">Jl. Mangga Dua Raya, Ruko Grand Boutique Centre Blok D No. 62 Jakarta
                 Utara</h5>
-            <h5 style="margin: 2px;padding: 0;">Telp. 021-6122087, 0858 7595 9469, Fax.: 021-6240380</h5>
+            <h5 style="margin: 2px;padding: 0;">Telp. 021-6122087, 0858 7595 9469, Fax.: 021-6122087</h5>
         </div>
     @else
         <div style="margin-right: 50px;text-align: center;">
@@ -24,7 +24,7 @@
             <h4 style="margin: 2px;padding: 0;">Jasa Angukatan Container System</h4>
             <h5 style="margin: 2px;padding: 0;">Jl. Mangga Dua Raya, Ruko Grand Boutique Centre Blok D No. 62 Jakarta
                 Utara</h5>
-            <h5 style="margin: 2px;padding: 0;">Telp. 021-6122087, 0858 7595 9469, Fax.: 021-6240380</h5>
+            <h5 style="margin: 2px;padding: 0;">Telp. 021-6122087, 0858 7595 9469, Fax.: 021-6122087</h5>
         </div>
     @endif
     <div style="text-align: center;width: 100%;">
