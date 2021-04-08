@@ -74,7 +74,8 @@ class BapbExport implements FromView, WithEvents
     private function getItems($noContainer)
     {
         $get = DB::SELECT("
-            SELECT TO_CHAR(C.entry_date, 'dd FMMon yyyy') as date,
+            SELECT A.bapb_no,
+                   TO_CHAR(C.entry_date, 'dd FMMon yyyy') as date,
                    B.recipient_name,
                    D.sender_name,
                    SUM(E.koli) AS koli,
@@ -99,8 +100,9 @@ class BapbExport implements FromView, WithEvents
               AND E.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
             AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
-            GROUP BY C.entry_date, B.recipient_name, D.sender_name,
+            GROUP BY A.bapb_no, C.entry_date, B.recipient_name, D.sender_name,
                      C.kemasan, C.description, C.price, C.dimensi, C.berat
+            ORDER BY A.bapb_no
         ");
         return $get;
     }
