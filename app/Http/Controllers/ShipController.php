@@ -269,13 +269,13 @@ class ShipController extends Controller
                     'no_container_1',
                     'no_container_2',
                     'ms_sender.sender_name_bapb',
-//                    'tr_bapb_sender_item.bapb_sender_item_name',
+                    DB::raw("JSON_AGG(tr_bapb_sender_item.bapb_sender_item_name) AS bapb_sender_item_name"),
                     DB::raw('SUM(tr_bapb_sender_item.koli) AS koli'),
                 ])
                 ->join('tr_bapb_sender', static function (JoinClause $clause) {
-                    $clause->on('tr_bapb_sender.bapb_id', '=', 'tr_bapb.bapb_id');
-                    $clause->whereNull('tr_bapb_sender.deleted_at');
-                })
+                $clause->on('tr_bapb_sender.bapb_id', '=', 'tr_bapb.bapb_id');
+                $clause->whereNull('tr_bapb_sender.deleted_at');
+            })
                 ->join('ms_sender', static function (JoinClause $clause) {
                     $clause->on('ms_sender.sender_id', '=', 'tr_bapb_sender.sender_id');
                     $clause->whereNull('ms_sender.deleted_at');
@@ -329,6 +329,14 @@ class ShipController extends Controller
                 $contact = collect($codes)
                     ->where('city', '=', $ship->cityTo->city_code)
                     ->first();
+            }
+
+            foreach ($items as $item) {
+                $item->bapb_sender_item_name = json_decode($item->bapb_sender_item_name);
+                $item->bapb_sender_item_name = array_filter($item->bapb_sender_item_name, static function ($i) {
+                    return !is_null($i);
+                });
+                $item->bapb_sender_item_name = implode(", ", $item->bapb_sender_item_name);
             }
 
             $input = [
