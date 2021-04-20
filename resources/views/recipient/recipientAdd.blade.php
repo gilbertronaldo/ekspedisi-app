@@ -117,7 +117,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <label>Harga</label>
+                                    <label>Harga JAKARTA</label>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -140,6 +140,35 @@
                                             <span class="input-group-text">Rp.</span>
                                         </div>
                                         <input type="text" ng-model="ctrl.input.price_ton" class="form-control"
+                                               aria-label="Amount (to the nearest dollar)" ui-currency>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label>Harga SURABAYA</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">per meter kubik</span>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp.</span>
+                                        </div>
+                                        <input type="text" ng-model="ctrl.input.price_meter_surabaya" class="form-control"
+                                               aria-label="Amount (to the nearest dollar)" ui-currency>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">per ton</span>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp.</span>
+                                        </div>
+                                        <input type="text" ng-model="ctrl.input.price_ton_surabaya" class="form-control"
                                                aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>

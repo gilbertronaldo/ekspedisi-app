@@ -130,22 +130,29 @@
                     pajak = 'pribadi';
                 }
 
-                swangular.confirm('Invoice dengan PPH?', {
-                    showCancelButton: true,
-                    confirmButtonText: 'Pakai PPH',
-                    cancelButtonText: 'NonPPH',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    allowEnterKey: false
-                }).then((res2) => {
-                    if (res2.value) {
-                        pph = true;
-                    }
+                if (pajak === 'pribadi') {
 
                     const url = `${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/generate/${id}?pajak=${pajak}&pph=${pph}&token=${$localStorage.currentUser.access_token}`;
                     const win = window.open(url, '_blank');
                     win.focus();
-                });
+                } else {
+                    swangular.confirm('Invoice dengan PPH?', {
+                        showCancelButton: true,
+                        confirmButtonText: 'Pakai PPH',
+                        cancelButtonText: 'NonPPH',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false
+                    }).then((res2) => {
+                        if (res2.value) {
+                            pph = true;
+                        }
+
+                        const url = `${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/generate/${id}?pajak=${pajak}&pph=${pph}&token=${$localStorage.currentUser.access_token}`;
+                        const win = window.open(url, '_blank');
+                        win.focus();
+                    });
+                }
             });
         };
 

@@ -219,6 +219,12 @@
                     ctrl.detail.recipient = res.data;
                     ctrl.detail.recipient.city_code = res.data.city ? res.data.city.city_code : '';
 
+                    console.log(parseInt(ctrl.code));
+                    if (parseInt(ctrl.code) >= 11 && parseInt(ctrl.code) <= 15) {
+                        ctrl.detail.recipient.price_ton = parseInt(ctrl.detail.recipient.price_ton_surabaya || 0);
+                        ctrl.detail.recipient.price_meter = parseInt(ctrl.detail.recipient.price_meter_surabaya || 0);
+                    }
+
                     ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
                     ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
                     ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
@@ -348,6 +354,12 @@
             }
 
             ctrl.detail.recipient = ctrl.detail.recipientList.find(i => i.recipient_id === ctrl.input.recipient_id);
+
+            if (parseInt(ctrl.code) >= 11 && parseInt(ctrl.code) <= 15) {
+                ctrl.detail.recipient.price_ton = parseInt(ctrl.detail.recipient.price_ton_surabaya || 0);
+                ctrl.detail.recipient.price_meter = parseInt(ctrl.detail.recipient.price_meter_surabaya || 0);
+            }
+
             ctrl.changeCalculation();
         };
 

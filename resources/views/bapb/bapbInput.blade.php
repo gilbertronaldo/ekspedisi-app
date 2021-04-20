@@ -815,7 +815,17 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex justify-content-end">
+                                            <div class="custom-control custom-checkbox h5">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="input-tagih-jkt"
+                                                       ng-model="vm.input.tagih_jkt"
+                                                       ng-init="vm.input.tagih_jkt = false">
+                                                <label class="custom-control-label" for="input-tagih-jkt">TAGIH JKT</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -1008,6 +1018,10 @@
     <style>
         .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
             background-image: none !important;
+        }
+
+        code {
+            color: #343a40 !important;
         }
     </style>
 </data>

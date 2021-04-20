@@ -187,6 +187,8 @@ class BapbController extends Controller
             $bapb->full_container = $request->input('full_container');
             $bapb->full_container_data = $request->input('full_container_data');
 
+            $bapb->tagih_jkt = $request->input('tagih_jkt');
+
             $total = $request->input('total');
             $bapb->harga = isset($total['harga']) ? $total['harga'] : 0;
             $bapb->cost = isset($total['cost']) ? $total['cost'] : 0;
