@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use App\Exports\InvoiceExport;
 use App\MsOfficeBranch;
 use App\MsRecipient;
+use App\MsSender;
 use App\TrBapb;
 use App\TrInvoice;
 use App\TrInvoiceBapb;
@@ -212,7 +213,7 @@ class InvoiceController extends Controller
             $bapb = DB::select(
                 "
           SELECT A.invoice_id, A.invoice_no, A.is_pph,
-                 C.bapb_id, C.bapb_no, C.tagih_di, H.recipient_id,
+                 C.bapb_id, C.bapb_no, C.tagih_di, H.recipient_id, G.sender_id, H.recipient_name_bapb,
                  COALESCE(C.harga,0) AS harga,
                  COALESCE(C.cost,0) AS cost,
                  H.price_document,
@@ -256,7 +257,7 @@ class InvoiceController extends Controller
                    C.no_container_1, C.no_container_2,
                    E.city_code, E.city_name,
                    D.sailing_date,
-                   H.recipient_id
+                   H.recipient_id, G.sender_id, H.recipient_name_bapb
         "
             );
 
@@ -264,6 +265,13 @@ class InvoiceController extends Controller
             if (! empty($bapb)) {
                 $recipient = MsRecipient::with('city')->findOrFail(
                     $bapb[0]->recipient_id
+                );
+            }
+
+            $sender = null;
+            if (! empty($bapb)) {
+                $sender = MsSender::with('city')->findOrFail(
+                    $bapb[0]->sender_id
                 );
             }
 
@@ -323,6 +331,7 @@ class InvoiceController extends Controller
                 'totalPph'     => $pph,
                 'totalAll'     => $totalAll,
                 'recipient'    => $recipient,
+                'sender'       => $sender,
                 'officeBranch' => $officeBranch,
                 'pph23'        => $pph23,
             ];
@@ -345,14 +354,16 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function generateKwitansi($invoiceId)
+    public function generateKwitansi(Request $request, $invoiceId)
     {
         $invoice = TrInvoice::findOrFail($invoiceId);
 
+        $pajak = $request->input('pajak');
+
         $bapb = DB::select(
             "
-          SELECT A.invoice_id, A.invoice_no,
-                 C.bapb_id, C.bapb_no, H.recipient_id,
+          SELECT A.invoice_id, A.invoice_no, C.tagih_di,
+                 C.bapb_id, C.bapb_no, H.recipient_id, G.sender_id,
                  COALESCE(C.harga,0) + COALESCE(C.cost,0) AS total,
                  UPPER(CONCAT(C.no_container_1, ' ', C.no_container_2)) as no_container,
                  CONCAT(E.city_code) as destination,
@@ -380,11 +391,11 @@ class InvoiceController extends Controller
             AND H.deleted_at IS NULL
           WHERE A.deleted_at IS NULL
           AND A.invoice_id = $invoiceId
-          GROUP BY A.invoice_id, A.invoice_no, C.bapb_id, C.bapb_no, C.harga, C.cost,
+          GROUP BY A.invoice_id, A.invoice_no, C.bapb_id, C.bapb_no, C.harga, C.cost, C.tagih_di,
                    C.no_container_1, C.no_container_2,
                    E.city_code, E.city_name,
                    D.sailing_date,
-                   H.recipient_id
+                   H.recipient_id, G.sender_id
         "
         );
 
@@ -392,6 +403,13 @@ class InvoiceController extends Controller
         if (! empty($bapb)) {
             $recipient = MsRecipient::with('city')->findOrFail(
                 $bapb[0]->recipient_id
+            );
+        }
+
+        $sender = null;
+        if (! empty($bapb)) {
+            $sender = MsSender::with('city')->findOrFail(
+                $bapb[0]->sender_id
             );
         }
 
@@ -415,6 +433,8 @@ class InvoiceController extends Controller
             'total'     => $total,
             'terbilang' => $terbilang,
             'recipient' => $recipient,
+            'sender'    => $sender,
+            'pajak'     => $pajak,
         ];
 
         $pdf = PDF::loadView('invoice.kwitansi.print', $input);

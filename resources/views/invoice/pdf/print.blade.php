@@ -115,10 +115,17 @@
 <main class="page_break">
     <div>
         <span>Kepada Yth,</span>
-        <br><span>{{ $recipient->recipient_name_bapb }}</span>
-        <br><span>{{ $recipient->recipient_address }}</span>
-        <br><span>TEL&nbsp;&nbsp;: {{ $recipient->recipient_telephone }}</span>
-        <br><span>FAX&nbsp;: {{ $recipient->recipient_fax }}</span>
+        @if($bapbList[0]->tagih_di === 'recipient')
+            <br><span>{{ $recipient->recipient_name_bapb }}</span>
+            <br><span>{{ $recipient->recipient_address }}</span>
+            <br><span>TEL&nbsp;&nbsp;: {{ $recipient->recipient_telephone }}</span>
+            <br><span>FAX&nbsp;: {{ $recipient->recipient_fax }}</span>
+        @else
+            <br><span>{{ $sender->sender_name_bapb }}</span>
+            <br><span>{{ $sender->sender_address }}</span>
+            <br><span>TEL&nbsp;&nbsp;: {{ $sender->sender_telephone }}</span>
+            <br><span>FAX&nbsp;: {{ $sender->sender_fax }}</span>
+        @endif
     </div>
     <div style="margin-top: 10px;">
         <span>Dengan Hormat,</span>
@@ -133,7 +140,11 @@
                 <th width="10%">NO. CONT</th>
                 <th width="10%">TUJUAN</th>
                 <th width="10%">TGL BRKT</th>
-                <th width="38%">PENGIRIM</th>
+                @if($bapbList[0]->tagih_di === 'recipient')
+                    <th width="38%">PENGIRIM</th>
+                @else
+                    <th width="38%">PENERIMA</th>
+                @endif
                 <th width="15%">Jumlah (Rp)</th>
             </tr>
             @foreach($bapbList as $bapbIdx => $bapb)
@@ -153,9 +164,15 @@
                     <td class="table-bordered-body-td text-center" valign="middle">
                         {{ $bapb->sailing_date }}
                     </td>
-                    <td class="table-bordered-body-td" valign="middle">
-                        {{ $bapb->senders }}
-                    </td>
+                    @if($bapbList[0]->tagih_di === 'recipient')
+                        <td class="table-bordered-body-td" valign="middle">
+                            {{ $bapb->senders }}
+                        </td>
+                    @else
+                        <td class="table-bordered-body-td" valign="middle">
+                            {{ $bapb->recipient_name_bapb }}
+                        </td>
+                    @endif
                     <td class="table-bordered-body-td" valign="middle">
                         <span>Rp. <span
                                 style="color: white;">{{ substr(str_pad(number_format($bapb->harga, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($bapb->harga, 0, ".", "."))) }}</span>{{ number_format($bapb->harga, 0, ".", ".") }}</span>
@@ -223,9 +240,15 @@
         </table>
     </div>
     <div style="margin-top: 10px">
-        <span>Pembayaran diatas ditransfer ke rekening {{ $officeBranch->bank_account }}</span>
-        <br><span>Atas nama: {{ $officeBranch->bank_account_name }}</span>
-        <br><span>Acc: {{ $officeBranch->bank_account_number }}</span>
+        @if($invoice->pajak === 'perusahaan')
+            <span>Pembayaran diatas ditransfer ke rekening BCA</span>
+            <br><span>Atas nama: PT SUMBER REJEKI SINAR MANDIRI</span>
+            <br><span>Acc: 8790 766 777</span>
+        @else
+            <span>Pembayaran diatas ditransfer ke rekening {{ $officeBranch->bank_account }}</span>
+            <br><span>Atas nama: {{ $officeBranch->bank_account_name }}</span>
+            <br><span>Acc: {{ $officeBranch->bank_account_number }}</span>
+        @endif
         <br><span>Bukti transfer harap mencantumkan no. Invoice dan di fax ke (021) 6122087 atau WA 0857 7595 9469</span>
         <p>Terima kasih atas kerjasamanya</p>
 

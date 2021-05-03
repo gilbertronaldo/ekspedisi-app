@@ -128,7 +128,11 @@
                 <td width="75%" class="table-bordered-body-td">
                     {{--<span>:&nbsp;</span>--}}
                     <span style="font-weight: bold">
-                        {{ $recipient->recipient_name_bapb }}
+                          @if($bapbList[0]->tagih_di === 'recipient')
+                            {{ $recipient->recipient_name_bapb }}
+                        @else
+                            {{ $sender->sender_name_bapb }}
+                        @endif
                     </span>
                 </td>
             </tr>
@@ -187,7 +191,7 @@
                 <td>
                     <span style="font-style: italic">Jumlah/Amount</span>
                     <span>&nbsp;:&nbsp;<span style="font-weight: bold">Rp. <span
-                                    style="color: white;">{{ substr(str_pad(number_format($total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($total, 0, ".", "."))) }}</span>{{ number_format($total, 0, ".", ".") }}</span></span>
+                                style="color: white;">{{ substr(str_pad(number_format($total, 0, ".", "."), 12, "-", STR_PAD_LEFT), 0, 0 - strlen(number_format($total, 0, ".", "."))) }}</span>{{ number_format($total, 0, ".", ".") }}</span></span>
                 </td>
                 <td>&nbsp;</td>
             </tr>
@@ -204,7 +208,11 @@
                     {{--__________________--}}
                 </td>
                 <td style="font-size: 13px;">
-                    (SUMBER REJEKI)
+                    @if($pajak === 'pribadi')
+                        (SUMBER REJEKI)
+                    @else
+                         (PT. SUMBER REJEKI SINAR MANDIRI)
+                    @endif
                 </td>
             </tr>
         </table>

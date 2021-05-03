@@ -157,8 +157,27 @@
         };
 
         $scope.printKwitansi = id => {
-            const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/kwitansi/${id}?token=${$localStorage.currentUser.access_token}`, '_blank');
-            win.focus();
+            let pajak = 'perusahaan';
+            let pph = false;
+            swangular.confirm('Pajak?', {
+                showCancelButton: true,
+                confirmButtonText: 'Pribadi',
+                cancelButtonText: 'Perusahaan',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#3085d6',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            }).then((res1) => {
+
+                if (res1.value) {
+                    pajak = 'pribadi';
+                }
+
+
+                const win = window.open(`${window.location.href.split('/').slice(0, 3).join('/')}/api/invoice/kwitansi/${id}?pajak=${pajak}&token=${$localStorage.currentUser.access_token}`, '_blank');
+                win.focus();
+            })
         };
 
         $scope.exportInvoice = id => {
