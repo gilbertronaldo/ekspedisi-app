@@ -20,11 +20,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
  */
 class BapbExport implements FromView, WithEvents
 {
-    private $noContainer;
+    private $noVoyage;
 
-    public function __construct($noContainer)
+    public function __construct($noVoyage)
     {
-        $this->noContainer = preg_replace('/\s+/', '', $noContainer);;
+        $this->noVoyage = preg_replace('/\s+/', '', $noVoyage);
     }
 
     /**
@@ -32,16 +32,16 @@ class BapbExport implements FromView, WithEvents
      */
     public function view(): View
     {
-        $header = $this->getHeader($this->noContainer);
+        $header = $this->getHeader($this->noVoyage);
         $input = [
             'header' => $header,
-            'items' => $this->getItems($this->noContainer)
+            'items' => $this->getItems($this->noVoyage)
         ];
 
         return view('bapb.excel.bapb', $input);
     }
 
-    private function getHeader($noContainer)
+    private function getHeader($noVoyage)
     {
         $get = DB::SELECT("
             SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) as no_container, A.no_seal,
@@ -60,7 +60,7 @@ class BapbExport implements FromView, WithEvents
               ON A.bapb_id = D.bapb_id
               AND D.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
-            AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
+            AND B.no_voyage = '$noVoyage'
             GROUP BY no_container, A.no_seal, B.no_voyage, B.ship_name, B.sailing_date, destination
         ");
 
@@ -71,7 +71,7 @@ class BapbExport implements FromView, WithEvents
         return $get[0];
     }
 
-    private function getItems($noContainer)
+    private function getItems($noVoyage)
     {
         $get = DB::SELECT("
             SELECT A.bapb_no,
@@ -89,6 +89,8 @@ class BapbExport implements FromView, WithEvents
             INNER JOIN ms_recipient B
               ON A.recipient_id = B.recipient_id
              AND B.deleted_at IS NULL
+             INNER JOIN ms_ship X
+                  ON X.ship_id = A.ship_id
             INNER JOIN tr_bapb_sender C
              ON A.bapb_id = C.bapb_id
              AND C.deleted_at IS NULL
@@ -99,7 +101,7 @@ class BapbExport implements FromView, WithEvents
               ON C.bapb_sender_id = E.bapb_sender_id
               AND E.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
-            AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
+            AND X.no_voyage = '$noVoyage'
             GROUP BY A.bapb_no, C.entry_date, B.recipient_name, D.sender_name,
                      C.kemasan, C.description, C.price, C.dimensi, C.berat
             ORDER BY A.bapb_no

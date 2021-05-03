@@ -555,13 +555,13 @@ class BapbController extends Controller
     }
 
     /**
-     * @param $noContainer
+     * @param $noVoyage
      *
      * @return mixed
      */
-    public function exportExcel($noContainer)
+    public function exportExcel($noVoyage)
     {
-        return Excel::download(new BapbExport($noContainer), 'bapb_' . $noContainer . '.xlsx');
+        return Excel::download(new BapbExport($noVoyage), 'bapb_' . $noVoyage . '.xlsx');
     }
 
     /**

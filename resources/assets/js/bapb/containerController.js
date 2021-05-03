@@ -67,7 +67,7 @@
 
         // Action buttons added to the last column: to edit and to delete rows
         function actionButtons(data, type, full, meta) {
-            const noContainer = `'${data._no_container}'`;
+            const noContainer = `'${data.no_voyage}'`;
             return '<div ng-controller="ContainerController"><button class="btn btn-success btn-xs" ng-click="printExcel('+ noContainer +')" one-time-if="(' + vm.can.printExcel + ')">'+
                 'PRINT' +
                 '</button></div>';
