@@ -86,6 +86,7 @@ Route::group(
               '[0-9]+'
             );
             Route::get('/export/{id}', 'ShipController@exportExcelLangsungTagih');
+            Route::get('/export-breakout/{id}', 'ShipController@exportExcelBreakout');
 
             Route::get('/departure', 'ShipController@departureList');
             Route::get('/print-departure/{shipId}/{recipientId}', 'ShipController@departurePrint');

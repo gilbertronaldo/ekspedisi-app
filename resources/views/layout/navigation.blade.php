@@ -58,6 +58,13 @@
                 <span class="hide-menu">Payment</span>
             </a>
         </li>
+        <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('BREAKOUT_NAVIGATION_SIDEBAR')">
+            <a class="sidebar-link active waves-effect waves-dark sidebar-link" ui-sref="admin.breakout"
+               aria-expanded="false">
+                <i class="icon-Receipt-2"></i>
+                <span class="hide-menu">Breakout</span>
+            </a>
+        </li>
 
         <li class="sidebar-item" ui-sref-active='selected' ng-if="authCan('TRACING_NAVIGATION_SIDEBAR')">
             <a class="sidebar-link active waves-effect waves-dark sidebar-link"

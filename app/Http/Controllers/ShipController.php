@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Exports\ShipBreakoutExports;
 use App\Exports\ShipLangsungTagihExports;
 use App\MsCity;
 use App\MsRecipient;
@@ -225,6 +226,13 @@ class ShipController extends Controller
         $ship = MsShip::findOrFail($id);
 
         return Excel::download(new ShipLangsungTagihExports($id), 'ship_' . $ship->no_voyage . '.xlsx');
+    }
+
+    public function exportExcelBreakout($id)
+    {
+        $ship = MsShip::findOrFail($id);
+
+        return Excel::download(new ShipBreakoutExports($id), 'ship_' . $ship->no_voyage . '.xlsx');
     }
 
     public function departureList(Request $request)

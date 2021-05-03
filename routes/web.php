@@ -154,4 +154,10 @@ Route::middleware('auth:api')->group(function () {
             return view('pajak.pajak');
         });
     });
+
+    Route::prefix('breakout')->group(function () {
+        Route::get('/', function () {
+            return view('breakout.breakout');
+        });
+    });
 });

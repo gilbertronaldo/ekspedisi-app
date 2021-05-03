@@ -79,3 +79,7 @@ require('./tracing/tracingController.js');
 require('./pajak/pajak.js');
 require('./pajak/pajakService.js');
 require('./pajak/pajakController.js');
+
+require('./breakout/breakout.js');
+require('./breakout/breakoutService.js');
+require('./breakout/breakoutController.js');
