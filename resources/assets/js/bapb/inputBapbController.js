@@ -204,7 +204,10 @@
                 .then(res => {
                     ctrl.detail.ship = res.data;
 
-                    const code = ctrl.codeList.find(code => code.name.substr(11, 3) === ctrl.detail.ship.city_to.city_code);
+                    const code = ctrl.codeList.find(code =>
+                        code.name.substr(11, 3) === ctrl.detail.ship.city_to.city_code
+                        &&  code.name.substr(5, 3) === ctrl.detail.ship.city_from.city_code
+                    );
                     console.log(code, ctrl.detail.ship);
                     ctrl.code = code.code_id;
                 })
@@ -223,6 +226,9 @@
                     if (parseInt(ctrl.code) >= 11 && parseInt(ctrl.code) <= 15) {
                         ctrl.detail.recipient.price_ton = parseInt(ctrl.detail.recipient.price_ton_surabaya || 0);
                         ctrl.detail.recipient.price_meter = parseInt(ctrl.detail.recipient.price_meter_surabaya || 0);
+                        ctrl.detail.recipient.price_document = parseInt(ctrl.detail.recipient.price_document_surabaya || 0);
+                        ctrl.detail.recipient.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge_surabaya || 0);
+                        ctrl.detail.recipient.minimum_charge_calculation_id = parseInt(ctrl.detail.recipient.minimum_charge_calculation_id_surabaya || 0);
                     }
 
                     ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);

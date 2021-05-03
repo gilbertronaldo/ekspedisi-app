@@ -115,7 +115,7 @@
                                           placeholder="Masukkan Alamat Penerima"></textarea>
                                 <small class="form-text text-muted"></small>
                             </div>
-                            <div class="row form-group">
+                            <div class="row form-group border">
                                 <div class="col-md-12">
                                     <label>Harga JAKARTA</label>
                                 </div>
@@ -143,8 +143,37 @@
                                                aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="control-label m-0">Minimum Charge</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                        </div>
+                                        <select class="custom-select col-sm-3" id="inputGroupSelect01"
+                                                ng-model="ctrl.input.minimum_charge_calculation_id"
+                                                ng-options="item.calculation_id as item.calculation_name for item in ctrl.minimumChargeCalculationList">
+                                            <option value="">Pilih Perhitungan</option>
+                                        </select>
+                                        <input type="text" class="form-control" aria-describedby="emailHelp"
+                                               placeholder="Masukkan Minimum Charge"
+                                               ng-model="ctrl.input.minimum_charge" ui-currency>
+                                    </div>
+                                    <small class="form-text text-muted"></small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label m-0">Biaya Dokument</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Rp.</label>
+                                        </div>
+                                        <input type="text" class="form-control" aria-describedby="emailHelp"
+                                               placeholder="Masukkan Biaya Dokument"
+                                               ng-model="ctrl.input.price_document" ui-currency>
+                                    </div>
+                                    <small class="form-text text-muted"></small>
+                                </div>
                             </div>
-                            <div class="row form-group">
+                            <div class="row form-group border">
                                 <div class="col-md-12">
                                     <label>Harga SURABAYA</label>
                                 </div>
@@ -172,37 +201,37 @@
                                                aria-label="Amount (to the nearest dollar)" ui-currency>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-group">
                                 <div class="col-md-6">
-                                    <label class="control-label">Minimum Charge</label>
+                                    <label class="control-label m-0">Minimum Charge</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                            <label class="input-group-text" for="inputGroupSelect02">Options</label>
                                         </div>
-                                        <select class="custom-select col-sm-3" id="inputGroupSelect01"
-                                                ng-model="ctrl.input.minimum_charge_calculation_id"
+                                        <select class="custom-select col-sm-3" id="inputGroupSelect02"
+                                                ng-model="ctrl.input.minimum_charge_calculation_id_surabaya"
                                                 ng-options="item.calculation_id as item.calculation_name for item in ctrl.minimumChargeCalculationList">
                                             <option value="">Pilih Perhitungan</option>
                                         </select>
                                         <input type="text" class="form-control" aria-describedby="emailHelp"
                                                placeholder="Masukkan Minimum Charge"
-                                               ng-model="ctrl.input.minimum_charge" ui-currency>
+                                               ng-model="ctrl.input.minimum_charge_surabaya" ui-currency>
                                     </div>
                                     <small class="form-text text-muted"></small>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label">Biaya Dokument</label>
+                                    <label class="control-label m-0">Biaya Dokument</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Rp.</label>
                                         </div>
                                         <input type="text" class="form-control" aria-describedby="emailHelp"
                                                placeholder="Masukkan Biaya Dokument"
-                                               ng-model="ctrl.input.price_document" ui-currency>
+                                               ng-model="ctrl.input.price_document_surabaya" ui-currency>
                                     </div>
                                     <small class="form-text text-muted"></small>
                                 </div>
+                            </div>
+                            <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="control-label">Ambil di</label>
                                     <div class="input-group mb-3">

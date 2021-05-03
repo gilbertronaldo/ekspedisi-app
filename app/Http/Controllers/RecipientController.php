@@ -121,6 +121,9 @@ class RecipientController extends Controller
             $data->price_document = $request->input('price_document');
             $data->price_ton_surabaya = $request->input('price_ton_surabaya');
             $data->price_meter_surabaya = $request->input('price_meter_surabaya');
+            $data->minimum_charge_surabaya = $request->input('minimum_charge_surabaya');
+            $data->minimum_charge_calculation_id_surabaya = $request->input('minimum_charge_calculation_id_surabaya');
+            $data->price_document_surabaya = $request->input('price_document_surabaya');
             $data->minimum_charge = $request->input('minimum_charge');
             $data->minimum_charge_calculation_id = $request->input('minimum_charge_calculation_id');
             $data->ambil_di = $request->input('ambil_di');
