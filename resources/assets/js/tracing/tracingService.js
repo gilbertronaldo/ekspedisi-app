@@ -9,6 +9,7 @@
         return {
             detail: detail,
             save: save,
+            deleteTracing: deleteTracing,
         };
 
         function detail(param) {
@@ -24,6 +25,13 @@
                     "Content-Type": undefined,
                 }
             })
+                .then((res) => {
+                    return $q.when(res.data.result);
+                });
+        }
+
+        function deleteTracing(tracingId) {
+            return $http.delete(`/api/tracing/${tracingId}`)
                 .then((res) => {
                     return $q.when(res.data.result);
                 });

@@ -148,4 +148,27 @@ class TracingController extends Controller
             Storage::delete($file['path']);
         }
     }
+
+    public function delete($tracingId)
+    {
+        try {
+            DB::beginTransaction();
+
+            $tracing = TrTracing::findOrFail($tracingId);
+            $attachments = $tracing->attachments;
+            $tracing->delete();
+
+            $this->deleteStorageFiles($attachments);
+
+            $response = CoreResponse::ok([
+            ]);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            $response = CoreResponse::fail($e);
+        }
+
+        return $response;
+    }
 }

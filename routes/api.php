@@ -181,6 +181,7 @@ Route::group(
           {
               Route::post('/', 'TracingController@detail');
               Route::post('/save', 'TracingController@save');
+              Route::delete('/{id}', 'TracingController@delete');
           }
       );
 
