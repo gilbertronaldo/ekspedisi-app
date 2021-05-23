@@ -65,7 +65,7 @@
             {code_id: '12', name: 'SM # SBY - SMD (Samarinda)'},
             {code_id: '13', name: 'SP # SBY - BPP (Balikpapan)'},
             {code_id: '14', name: 'SK # SBY - MKS (Makassar)'},
-            {code_id: '15', name: 'BS # BJM - SBY (Retur)'},
+            {code_id: '15', name: 'SJ # BJM - SBY (Retur)'},
         ];
         ctrl.code = '01';
         ctrl.detail = {};
@@ -206,7 +206,7 @@
 
                     const code = ctrl.codeList.find(code =>
                         code.name.substr(11, 3) === ctrl.detail.ship.city_to.city_code
-                        &&  code.name.substr(5, 3) === ctrl.detail.ship.city_from.city_code
+                        && code.name.substr(5, 3) === ctrl.detail.ship.city_from.city_code
                     );
                     console.log(code, ctrl.detail.ship);
                     ctrl.code = code.code_id;
@@ -231,11 +231,13 @@
                         ctrl.detail.recipient.minimum_charge_calculation_id = parseInt(ctrl.detail.recipient.minimum_charge_calculation_id_surabaya || 0);
                     }
 
-                    ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
-                    ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
-                    ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
-                    ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
-                    ctrl.detail.calculation.minimum_charge_calculation_id = parseInt(ctrl.detail.recipient.minimum_charge_calculation_id || 0);
+                    if (ctrl.input.tagih_di !== 'sender') {
+                        ctrl.detail.calculation.price_ton = parseInt(ctrl.detail.recipient.price_ton || 0);
+                        ctrl.detail.calculation.price_meter = parseInt(ctrl.detail.recipient.price_meter || 0);
+                        ctrl.detail.calculation.price_document = parseInt(ctrl.detail.recipient.price_document || 0);
+                        ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
+                        ctrl.detail.calculation.minimum_charge_calculation_id = parseInt(ctrl.detail.recipient.minimum_charge_calculation_id || 0);
+                    }
 
                     ctrl.senders = ctrl.input.senders;
 
@@ -520,6 +522,14 @@
                     ctrl.detail.calculation.minimum_charge = parseInt(ctrl.detail.recipient.minimum_charge || 0);
                     ctrl.detail.calculation.minimum_charge_calculation_id = parseInt(ctrl.detail.recipient.minimum_charge_calculation_id || 0);
                 }
+            } else {
+                ctrl.detail.calculation = {
+                    price_ton: 0,
+                    price_meter: 0,
+                    price_document: 0,
+                    minimum_charge: 0,
+                    minimum_charge_calculation_id: 0,
+                };
             }
 
             ctrl.senderItemCalculateAll();
@@ -673,12 +683,14 @@
                 ctrl.input.total.harga += parseFloat(i.total ? i.total.harga : 0 || 0);
                 ctrl.input.total.cost += parseFloat(i.total ? i.total.cost : 0 || 0);
 
-                // total_price_document += ctrl.input.tagih_di !== 'sender' ? ctrl.detail.calculation.price_document : parseInt(i.detail.price_document | 0);
+                // price document sender
+                total_price_document += ctrl.input.tagih_di === 'sender' ? parseInt(i.detail.price_document || 0) : 0;
             });
 
-            total_price_document = ctrl.detail.calculation.price_document;
-
             if (ctrl.input.tagih_di !== 'sender') {
+
+                // price document recipient
+                total_price_document = ctrl.detail.calculation.price_document;
 
                 if (minimum_charge_calculation_id === 1 || minimum_charge_calculation_id === 3) {
 
