@@ -95,7 +95,7 @@ class ShipBreakoutExports implements FromView, WithEvents
                 ON tr_bapb_sender.bapb_sender_id = tr_bapb_sender_item.bapb_sender_id
                 AND tr_bapb_sender_item.deleted_at IS NULL
             WHERE tr_bapb.ship_id = $this->shipId
-            AND tr_bapb.bapb_id = 1469
+            AND tr_bapb.tagih_jkt IS TRUE
             ORDER BY  tr_bapb.bapb_no;
         ");
     }

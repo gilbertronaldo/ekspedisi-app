@@ -16,15 +16,19 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
  * Class BapbExport
+ *
  * @package App\Exports
  */
 class BapbExport implements FromView, WithEvents
 {
     private $noVoyage;
+    private $noContainer;
 
-    public function __construct($noVoyage)
+    public function __construct($noVoyage, $noContainer)
     {
         $this->noVoyage = preg_replace('/\s+/', '', $noVoyage);
+        $this->noContainer = preg_replace('/\s+/', '', $noContainer);
+//        dd($this->noVoyage, $this->noContainer);
     }
 
     /**
@@ -32,16 +36,16 @@ class BapbExport implements FromView, WithEvents
      */
     public function view(): View
     {
-        $header = $this->getHeader($this->noVoyage);
+        $header = $this->getHeader($this->noVoyage, $this->noContainer);
         $input = [
             'header' => $header,
-            'items' => $this->getItems($this->noVoyage)
+            'items'  => $this->getItems($this->noVoyage, $this->noContainer),
         ];
 
         return view('bapb.excel.bapb', $input);
     }
 
-    private function getHeader($noVoyage)
+    private function getHeader($noVoyage, $noContainer)
     {
         $get = DB::SELECT("
             SELECT UPPER(CONCAT(A.no_container_1, ' ', A.no_container_2)) as no_container, A.no_seal,
@@ -61,17 +65,18 @@ class BapbExport implements FromView, WithEvents
               AND D.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
             AND B.no_voyage = '$noVoyage'
+            AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
             GROUP BY no_container, A.no_seal, B.no_voyage, B.ship_name, B.sailing_date, destination
         ");
 
         if (empty($get)) {
-            return null;
+            throw new \Exception('no container');
         }
 
         return $get[0];
     }
 
-    private function getItems($noVoyage)
+    private function getItems($noVoyage, $noContainer)
     {
         $get = DB::SELECT("
             SELECT A.bapb_no,
@@ -102,6 +107,7 @@ class BapbExport implements FromView, WithEvents
               AND E.deleted_at IS NULL
             WHERE A.deleted_at IS NULL
             AND X.no_voyage = '$noVoyage'
+            AND UPPER(CONCAT(A.no_container_1, A.no_container_2)) ILIKE '$noContainer'
             GROUP BY A.bapb_no, C.entry_date, B.recipient_name, D.sender_name,
                      C.kemasan, C.description, C.price, C.dimensi, C.berat
             ORDER BY A.bapb_no
@@ -116,7 +122,7 @@ class BapbExport implements FromView, WithEvents
     {
         return [
             // Handle by a closure.
-            BeforeExport::class => function (BeforeExport $event) {
+            BeforeExport::class  => function (BeforeExport $event) {
                 $event->writer->getProperties()->setCreator('SRSM');
             },
 
@@ -127,8 +133,8 @@ class BapbExport implements FromView, WithEvents
                 $event->getSheet()->getDelegate()->getPageSetup()
                     ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE)
                     ->setPaperSize(PageSetup::PAPERSIZE_A4)
-                    ->setHorizontalCentered(TRUE)
-                    ->setVerticalCentered(FALSE);
+                    ->setHorizontalCentered(true)
+                    ->setVerticalCentered(false);
 
                 Sheet::macro('styleCells', function (Sheet $sheet, string $cellRange, array $style) {
                     $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($style);
@@ -141,19 +147,19 @@ class BapbExport implements FromView, WithEvents
                         'borders' => [
                             'allBorders' => [
                                 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                'color' => ['argb' => '000000'],
+                                'color'       => ['argb' => '000000'],
                             ],
-                        ]
+                        ],
                     ]
                 );
                 $event->sheet->styleCells(
                     'A8:I8',
                     [
-                        'font' => [
+                        'font'    => [
                             'bold' => true,
                         ],
-                        'fill' => [
-                            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                        'fill'    => [
+                            'fillType'   => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                             'startColor' => [
                                 'argb' => '25cad0',
                             ],
@@ -161,9 +167,9 @@ class BapbExport implements FromView, WithEvents
                         'borders' => [
                             'allBorders' => [
                                 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                'color' => ['argb' => '000000'],
+                                'color'       => ['argb' => '000000'],
                             ],
-                        ]
+                        ],
                     ]
                 );
             },

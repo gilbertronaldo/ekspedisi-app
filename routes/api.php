@@ -148,7 +148,7 @@ Route::group(
               'id',
               '[0-9]+'
             );
-            Route::get('/export/{noContainer}', 'BapbController@exportExcel');
+            Route::get('/export/{noVoyage}/{noContainer}', 'BapbController@exportExcel');
         }
       );
 

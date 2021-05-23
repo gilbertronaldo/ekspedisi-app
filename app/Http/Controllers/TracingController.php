@@ -40,7 +40,7 @@ class TracingController extends Controller
                 ->where('no_container_2', '=', $param['no_container_2'])
                 ->first();
 
-            if ($tracing) {
+            if ($tracing && $tracing->attachments) {
                 $attachments = [];
                 foreach ($tracing->attachments as $idx => $attachment) {
                     $attachments[] = [
