@@ -299,7 +299,7 @@
                     <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;">
                         @if ($bapb->show_price)
                             <span>Rp. <span
-                                    style="color: white;"></span>{{ number_format(($bapb->harga) - $bapb->total_price_document, 0, ".", ".") }}</span>
+                                    style="color: white;"></span>{{ number_format(($bapb->harga), 0, ".", ".") }}</span>
                         @endif
                     </td>
                 </tr>
@@ -421,7 +421,7 @@
                             @endif
                             @if($bapb->tagih_di != 'recipient')
                                 <span>Rp. <span
-                                        style="color: white;"></span>{{ number_format(($bapb->harga + $bapb->cost) - $bapb->total_price_document, 0, ".", ".") }}</span>
+                                        style="color: white;"></span>{{ number_format(($bapb->harga + $bapb->cost), 0, ".", ".") }}</span>
                             @endif
                         @endif
                     </td>

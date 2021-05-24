@@ -288,9 +288,9 @@ class InvoiceController extends Controller
                     $i->senders = implode(", ", json_decode($i->senders));
                     $i->costs = json_decode($i->costs);
 
-                    if ($i->tagih_di != 'recipient') {
-                        $i->harga += $i->price_document;
-                    }
+//                    if ($i->tagih_di != 'recipient') {
+//                        $i->harga += $i->price_document;
+//                    }
                 }
             );
 
