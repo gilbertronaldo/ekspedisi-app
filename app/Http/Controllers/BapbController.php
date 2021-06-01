@@ -465,10 +465,10 @@ class BapbController extends Controller
                     $sender->items->each(
                         function ($item) use ($bapb, $sender) {
                             $item->price_ton = (($bapb->tagih_di == 'recipient')
-                                ? $bapb->recipient->price_ton : $sender->price_ton);
+                                ? $bapb->recipient->price_ton : $sender->sender->price_ton);
                             $item->price_meter = (($bapb->tagih_di == 'recipient')
                                 ? $bapb->recipient->price_meter
-                                : $sender->price_meter);
+                                : $sender->sender->price_meter);
                         }
                     );
                 }
