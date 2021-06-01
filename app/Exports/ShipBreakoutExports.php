@@ -66,10 +66,11 @@ class ShipBreakoutExports implements FromView, WithEvents
                 tr_bapb.harga AS total,
                 ms_recipient.recipient_name_bapb,
                 ms_sender.sender_name_bapb,
-                tr_bapb_sender_item.koli,
-                round(CAST(tr_bapb_sender_item.panjang *  tr_bapb_sender_item.lebar *  tr_bapb_sender_item.tinggi * tr_bapb_sender_item.koli AS numeric) / 1000000, 3) AS dimensi,
-                tr_bapb_sender_item.berat,
-                tr_bapb_sender_item.price,
+                SUM(tr_bapb_sender_item.koli) AS koli,
+                SUM(round(CAST(tr_bapb_sender_item.panjang *  tr_bapb_sender_item.lebar *  tr_bapb_sender_item.tinggi * tr_bapb_sender_item.koli AS numeric) / 1000000, 3)) AS dimensi,
+                -- tr_bapb_sender.dimensi,
+                SUM(tr_bapb_sender_item.berat) AS berat,
+                SUM(tr_bapb_sender_item.price) AS price,
                    CASE WHEN tr_bapb.tagih_di = 'sender'
                        THEN   ms_sender.price_meter
                        ELSE ms_recipient.price_meter
@@ -91,11 +92,26 @@ class ShipBreakoutExports implements FromView, WithEvents
             INNER JOIN ms_sender
                 ON tr_bapb_sender.sender_id = ms_sender.sender_id
                 AND ms_sender.deleted_at IS NULL
-            INNER JOIN tr_bapb_sender_item
+            LEFT JOIN tr_bapb_sender_item
                 ON tr_bapb_sender.bapb_sender_id = tr_bapb_sender_item.bapb_sender_id
                 AND tr_bapb_sender_item.deleted_at IS NULL
             WHERE tr_bapb.ship_id = $this->shipId
             AND tr_bapb.tagih_jkt IS TRUE
+            GROUP BY   ms_ship.no_voyage,
+                tr_bapb.no_container_1,
+                 tr_bapb.no_container_2,
+                tr_bapb.bapb_no,
+                tr_bapb.harga,
+                ms_recipient.recipient_name_bapb,
+                ms_sender.sender_name_bapb,
+                      tr_bapb_sender.dimensi,
+                tr_bapb_sender.berat,
+                tr_bapb_sender.price,
+                     tr_bapb.tagih_di,
+                     ms_sender.price_meter,
+                     ms_recipient.price_meter,
+                     ms_sender.price_ton,
+                     ms_recipient.price_ton
             ORDER BY  tr_bapb.bapb_no;
         ");
     }

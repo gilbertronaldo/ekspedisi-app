@@ -77,6 +77,7 @@ Route::group(
         function ()
         {
             Route::get('/', 'ShipController@all');
+            Route::get('/breakout', 'ShipController@breakout');
             Route::get('/search', 'ShipController@search');
             Route::get('/{id}', 'ShipController@get')->where('id', '[0-9]+');
             Route::post('/', 'ShipController@store');

@@ -53,6 +53,48 @@ class ShipController extends Controller
         return datatables()->of($ships)->toJson();
     }
 
+    public function breakout(Request $request)
+    {
+        $query = TrBapb::query()
+            ->select([
+                'ms_ship.ship_id',
+                'ms_ship.no_voyage',
+                'ms_ship.ship_name',
+                'ms_ship.ship_description',
+                DB::raw("to_char(ms_ship.sailing_date, 'dd FMMonth yyyy') as sailing_date"),
+                'ms_ship.city_id_from',
+                DB::raw('city_from.city_code AS city_code_from'),
+                'ms_ship.city_id_to',
+                DB::RAW('city_to.city_code AS city_code_to'),
+            ])
+            ->join('ms_ship', static function (JoinClause $clause) {
+                $clause->on('ms_ship.ship_id', '=', 'tr_bapb.ship_id');
+                $clause->whereNull('ms_ship.deleted_at');
+            })
+            ->join('ms_city AS city_from', static function (JoinClause $clause) {
+                $clause->on('ms_ship.city_id_from', '=', 'city_from.city_id');
+            })
+            ->join('ms_city AS city_to', static function (JoinClause $clause) {
+                $clause->on('ms_ship.city_id_from', '=', 'city_to.city_id');
+            })
+            ->groupBy([
+                'ms_ship.ship_id',
+                'ms_ship.no_voyage',
+                'ms_ship.ship_name',
+                'ms_ship.ship_description',
+                'ms_ship.sailing_date',
+                'ms_ship.city_id_from',
+                'ms_ship.city_id_to',
+                'city_from.city_code',
+                'city_to.city_code',
+            ])
+            ->whereRaw('tr_bapb.tagih_jkt IS TRUE')
+            ->whereNull('tr_bapb.deleted_at')
+            ->toSql();
+
+        return datatables()->of(DB::TABLE(DB::RAW("(" . $query . ") AS X")))->toJson();
+    }
+
     public function get($id = -99)
     {
         try {
@@ -281,9 +323,9 @@ class ShipController extends Controller
                     DB::raw('SUM(tr_bapb_sender_item.koli) AS koli'),
                 ])
                 ->join('tr_bapb_sender', static function (JoinClause $clause) {
-                $clause->on('tr_bapb_sender.bapb_id', '=', 'tr_bapb.bapb_id');
-                $clause->whereNull('tr_bapb_sender.deleted_at');
-            })
+                    $clause->on('tr_bapb_sender.bapb_id', '=', 'tr_bapb.bapb_id');
+                    $clause->whereNull('tr_bapb_sender.deleted_at');
+                })
                 ->join('ms_sender', static function (JoinClause $clause) {
                     $clause->on('ms_sender.sender_id', '=', 'tr_bapb_sender.sender_id');
                     $clause->whereNull('ms_sender.deleted_at');
@@ -342,7 +384,7 @@ class ShipController extends Controller
             foreach ($items as $item) {
                 $item->bapb_sender_item_name = json_decode($item->bapb_sender_item_name);
                 $item->bapb_sender_item_name = array_filter($item->bapb_sender_item_name, static function ($i) {
-                    return !is_null($i);
+                    return ! is_null($i);
                 });
                 $item->bapb_sender_item_name = implode(", ", $item->bapb_sender_item_name);
             }

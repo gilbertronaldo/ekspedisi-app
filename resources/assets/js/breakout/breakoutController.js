@@ -36,7 +36,7 @@
         ;
         vm.dtOptions = DTOptionsBuilder.newOptions()
             .withOption('ajax', {
-                url: '/api/ship/',
+                url: '/api/ship/breakout',
                 type: 'GET',
                 'beforeSend': function (request) {
                     request.setRequestHeader("Authorization", 'Bearer ' + $localStorage.currentUser.access_token);
