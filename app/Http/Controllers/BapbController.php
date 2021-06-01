@@ -482,17 +482,19 @@ class BapbController extends Controller
                 }
             );
 
-            $bapb->total_price += $bapb->total_price_document;
-
             if ($bapb->tagih_di == 'recipient') {
+                $bapb->total_price += $bapb->total_price_document;
                 $bapb->terbilang = $this->terbilang($bapb->harga + $bapb->cost);
             } else {
-                $bapb->terbilang = $this->terbilang(($bapb->harga + $bapb->cost) - $bapb->total_price_document);
+                $bapb->total_price += $bapb->senders[0]->sender->price_document;
+                $bapb->terbilang = $this->terbilang(($bapb->harga + $bapb->cost));
             }
 
-            $bapb->kena_min_charge = $bapb->tagih_di == 'recipient'
-                && $bapb->total_price != ($bapb->harga
-                    + $bapb->cost);
+            if ($bapb->tagih_di == 'recipient') {
+                $bapb->kena_min_charge = ($bapb->total_price !== ($bapb->harga + $bapb->cost));
+            } else {
+                $bapb->kena_min_charge = ($bapb->total_price !== ($bapb->harga + $bapb->cost));
+            }
 
             if ($bapb->squeeze) {
                 $bapb->berat = $this->berat / 1000;

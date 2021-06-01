@@ -339,7 +339,7 @@
                                     @if($bapb->tagih_di != 'recipient')
                                         <span style="font-weight: normal;font-size: 14px;">
                                         Minimal Charge =
-                                        Rp. {{ number_format($bapb->senders[0]->minimum_charge, 0, ".", ".") }}
+                                        Rp. {{ number_format($bapb->senders[0]->sender->minimum_charge, 0, ".", ".") }}
                                     </span>
                                     @endif
                                 @else
@@ -355,7 +355,7 @@
                                         <span style="font-weight: normal;font-size: 14px;">
 
                                         Minimal Charge
-                                        = {{ number_format($bapb->senders[0]->minimum_charge / 1000, 3, ",", ".") }}
+                                        = {{ number_format($bapb->senders[0]->sender->minimum_charge / 1000, 3, ",", ".") }}
                                         ton/m3
                                 </span>
                                     @endif
@@ -397,7 +397,7 @@
                             @if( $bapb->tagih_di != 'recipient')
                                 <span>
                                 Rp.<span
-                                        style="color: white;"></span>{{ number_format($bapb->senders[0]->price_document, 0, ".", ".") }}
+                                        style="color: white;"></span>{{ number_format($bapb->senders[0]->sender->price_document, 0, ".", ".") }}
                                 </span>
                             @endif
                         @endif
