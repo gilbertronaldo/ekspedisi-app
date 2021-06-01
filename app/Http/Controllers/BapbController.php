@@ -491,9 +491,22 @@ class BapbController extends Controller
             }
 
             if ($bapb->tagih_di == 'recipient') {
-                $bapb->kena_min_charge = ($bapb->total_price !== ($bapb->harga + $bapb->cost));
+                $bapb->kena_min_charge = ($bapb->total_price != ($bapb->harga + $bapb->cost));
             } else {
-                $bapb->kena_min_charge = ($bapb->total_price !== ($bapb->harga + $bapb->cost));
+
+                $realPrice = $bapb->senders[0]->items->reduce(
+                    function ($i, $j) {
+                        return $i + $j->price;
+                    }
+                );
+
+                $realCost = $bapb->senders[0]->costs->reduce(
+                    function ($i, $j) {
+                        return $i + $j->price;
+                    }
+                );
+
+                $bapb->kena_min_charge = ($bapb->total_price != ($realPrice + $realCost));
             }
 
             if ($bapb->squeeze) {

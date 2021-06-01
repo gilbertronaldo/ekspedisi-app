@@ -329,21 +329,14 @@
                     <td colspan="3">
                         @if(!$bapb->full_container)
                             @if($bapb->kena_min_charge || $bapb->show_price)
-                                @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
-                                    @if($bapb->tagih_di == 'recipient')
+
+                                @if($bapb->tagih_di == 'recipient')
+                                    @if($bapb->recipient->minimum_charge_calculation_id != 1 && $bapb->recipient->minimum_charge_calculation_id != 3)
                                         <span style="font-weight: normal;font-size: 14px;">
                                         Minimal Charge =
                                         Rp. {{ number_format($bapb->recipient->minimum_charge, 0, ".", ".") }}
                                     </span>
-                                    @endif
-                                    @if($bapb->tagih_di != 'recipient')
-                                        <span style="font-weight: normal;font-size: 14px;">
-                                        Minimal Charge =
-                                        Rp. {{ number_format($bapb->senders[0]->sender->minimum_charge, 0, ".", ".") }}
-                                    </span>
-                                    @endif
-                                @else
-                                    @if($bapb->tagih_di == 'recipient')
+                                    @else
                                         <span style="font-weight: normal;font-size: 14px;">
 
                                         Minimal Charge
@@ -351,13 +344,18 @@
                                         ton/m3
                                 </span>
                                     @endif
-                                    @if($bapb->tagih_di != 'recipient')
+                                @else
+                                    @if($bapb->senders[0]->sender->minimum_charge_calculation_id != 1 && $bapb->senders[0]->sender->minimum_charge_calculation_id != 3)
+                                        <span style="font-weight: normal;font-size: 14px;">
+                                        Minimal Charge =
+                                        Rp. {{ number_format($bapb->senders[0]->sender->minimum_charge, 0, ".", ".") }}
+                                    </span>
+                                    @else
                                         <span style="font-weight: normal;font-size: 14px;">
 
                                         Minimal Charge
                                         = {{ number_format($bapb->senders[0]->sender->minimum_charge / 1000, 3, ",", ".") }}
                                         ton/m3
-                                </span>
                                     @endif
                                 @endif
 
