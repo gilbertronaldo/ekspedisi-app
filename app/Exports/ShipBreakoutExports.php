@@ -67,10 +67,12 @@ class ShipBreakoutExports implements FromView, WithEvents
                 ms_recipient.recipient_name_bapb,
                 ms_sender.sender_name_bapb,
                 SUM(tr_bapb_sender_item.koli) AS koli,
-                SUM(round(CAST(tr_bapb_sender_item.panjang *  tr_bapb_sender_item.lebar *  tr_bapb_sender_item.tinggi * tr_bapb_sender_item.koli AS numeric) / 1000000, 3)) AS dimensi,
-                -- tr_bapb_sender.dimensi,
-                SUM(tr_bapb_sender_item.berat) AS berat,
-                SUM(tr_bapb_sender_item.price) AS price,
+                tr_bapb_sender.dimensi,
+                tr_bapb_sender.berat,
+                tr_bapb_sender.price,
+                -- SUM(round(CAST(tr_bapb_sender_item.panjang *  tr_bapb_sender_item.lebar *  tr_bapb_sender_item.tinggi * tr_bapb_sender_item.koli AS numeric) / 1000000, 3)) AS dimensi,
+                -- SUM(tr_bapb_sender_item.berat) AS berat,
+                -- SUM(tr_bapb_sender_item.price) AS price,
                    CASE WHEN tr_bapb.tagih_di = 'sender'
                        THEN   ms_sender.price_meter
                        ELSE ms_recipient.price_meter
@@ -104,7 +106,7 @@ class ShipBreakoutExports implements FromView, WithEvents
                 tr_bapb.harga,
                 ms_recipient.recipient_name_bapb,
                 ms_sender.sender_name_bapb,
-                      tr_bapb_sender.dimensi,
+              tr_bapb_sender.dimensi,
                 tr_bapb_sender.berat,
                 tr_bapb_sender.price,
                      tr_bapb.tagih_di,
