@@ -213,13 +213,14 @@ class InvoiceController extends Controller
             $bapb = DB::select(
                 "
           SELECT A.invoice_id, A.invoice_no, A.is_pph,
-                 C.bapb_id, C.bapb_no, C.tagih_di, H.recipient_id, G.sender_id, H.recipient_name_bapb,
+                 C.bapb_id, C.bapb_no, C.tagih_di, H.recipient_id, H.recipient_name_bapb,
                  COALESCE(C.harga,0) AS harga,
                  COALESCE(C.cost,0) AS cost,
                  H.price_document,
                  UPPER(C.no_container_2) as no_container,
                  CONCAT(E.city_code) as destination,
                  to_char(D.sailing_date, 'dd/mm/yyyy') as sailing_date,
+                 json_agg(DISTINCT G.sender_id) AS sender_ids,
                  JSON_AGG(DISTINCT G.sender_name_bapb) AS senders,
                  case when count(I) = 0
                      then '[]'
@@ -257,7 +258,7 @@ class InvoiceController extends Controller
                    C.no_container_1, C.no_container_2,
                    E.city_code, E.city_name,
                    D.sailing_date,
-                   H.recipient_id, G.sender_id, H.recipient_name_bapb
+                   H.recipient_id, H.recipient_name_bapb
         "
             );
 
@@ -270,9 +271,12 @@ class InvoiceController extends Controller
 
             $sender = null;
             if (! empty($bapb)) {
-                $sender = MsSender::with('city')->findOrFail(
-                    $bapb[0]->sender_id
-                );
+                $senderIds = json_decode($bapb[0]->sender_ids);
+                if (!empty($senderIds)) {
+                    $sender = MsSender::with('city')->findOrFail(
+                        $senderIds[0]
+                    );
+                }
             }
 
             if (is_null($recipient)) {
