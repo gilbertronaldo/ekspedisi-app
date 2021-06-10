@@ -434,7 +434,7 @@ class BapbController extends Controller
                                STRING_AGG(B.bapb_sender_item_name, ', ') AS bapb_sender_item_name,
                                SUM(B.price) AS price,
                                SUM(B.berat * B.koli) AS berat,
-                               SUM((B.panjang * B.lebar * B.tinggi) * B.koli) AS dimensi
+                               trunc(((SUM((B.panjang * B.lebar * B.tinggi) * B.koli)) / 1000000::numeric), 3) AS dimensi
                         FROM tr_bapb_sender A
                         INNER JOIN tr_bapb_sender_item B
                             ON A.bapb_sender_id = B.bapb_sender_id
@@ -511,7 +511,7 @@ class BapbController extends Controller
 
             if ($bapb->squeeze) {
                 $bapb->berat = $this->berat / 1000;
-                $bapb->dimensi = $this->dimensi / 1000000;
+                $bapb->dimensi = $this->dimensi;
             }
 
             $fullContainer = $bapb->full_container_data;

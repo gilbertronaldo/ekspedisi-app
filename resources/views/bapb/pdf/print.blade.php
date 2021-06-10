@@ -256,7 +256,7 @@
                                             <span>
                                                     <span
                                                         style="color: white;"></span>
-                                                    {{ number_format(($item->dimensi / 1000000), 3, ",", ".") }}
+                                                    {{ number_format(($item->dimensi), 3, ",", ".") }}
                                                 </span>
                                             <span> M<sup>3</sup></span>
                                         @endif
