@@ -204,7 +204,7 @@
                                     <span>{{ $item->bapb_sender_item_name }}</span>
                                     @if($bapb->show_calculation)
                                         <br>
-                                        @if(!is_null($item->berat))
+                                        @if(!is_null($item->berat) && ($item->berat !== 0))
                                             <span style="font-size: 0.9em">
                                                     ({!! number_format(($item->berat / 1000), 3, ",", ".") . '<span class="t-small"> ton</span>' !!}) (<span
                                                     class="t-small">Rp. </span>{!! number_format($item->price_ton, 0, ".", ".") !!} / <span
@@ -228,7 +228,7 @@
                                 <td class="table-bordered-body-td" style="margin: 0;padding: 2px 5px;"
                                     width="15%">
                                     @if($bapb->show_calculation)
-                                        @if(!is_null($item->berat))
+                                        @if(!is_null($item->berat) && ($item->berat !== 0))
                                             <span>
                                                     <span
                                                         style="color: white;"></span>
@@ -245,7 +245,7 @@
                                         @endif
                                     @endif
                                     @if(!$bapb->show_calculation && $bapb->squeeze)
-                                        @if(!is_null($item->berat))
+                                        @if(!is_null($item->berat) && ($item->berat !== 0))
                                             <span>
                                                     <span
                                                         style="color: white;"></span>
