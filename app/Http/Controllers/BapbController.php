@@ -249,7 +249,7 @@ class BapbController extends Controller
                     $bapbSender->entry_date = isset($sender['entry_date'])
                         ? Carbon::parse($sender['entry_date']) : null;
                     $bapbSender->price = isset($sender['total_price'])
-                        ? $sender['total_price'] : 0;
+                        ? (int)$sender['total_price'] : 0;
                     $bapbSender->dimensi = $sender['total_dimensi'];
                     $bapbSender->berat = $sender['total_berat'];
                     $bapbSender->save();
