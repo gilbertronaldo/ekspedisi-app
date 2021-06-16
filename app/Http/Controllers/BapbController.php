@@ -274,7 +274,7 @@ class BapbController extends Controller
                         $bapbSenderItem->berat = $item['berat'];
                         $bapbSenderItem->price
                             = isset($item['price'])
-                            ? $item['price'] : 0;
+                            ? (int)$item['price'] : 0;
                         $bapbSenderItem->save();
 
                         $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
@@ -292,7 +292,7 @@ class BapbController extends Controller
                             = $bapbSender->bapb_sender_id;
                         $bapbSenderCost->bapb_sender_cost_name
                             = $cost['bapb_sender_cost_name'];
-                        $bapbSenderCost->price = $cost['price'];
+                        $bapbSenderCost->price = (int)$cost['price'];
                         $bapbSenderCost->save();
 
                         $unDeletedCost[] = $bapbSenderCost->bapb_sender_cost_id;
