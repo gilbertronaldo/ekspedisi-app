@@ -249,7 +249,7 @@ class BapbController extends Controller
                     $bapbSender->entry_date = isset($sender['entry_date'])
                         ? Carbon::parse($sender['entry_date']) : null;
                     $bapbSender->price = isset($sender['total_price'])
-                        ? (int)$sender['total_price'] : 0;
+                        ? round($sender['total_price']) : 0;
                     $bapbSender->dimensi = $sender['total_dimensi'];
                     $bapbSender->berat = $sender['total_berat'];
                     $bapbSender->save();
@@ -274,7 +274,7 @@ class BapbController extends Controller
                         $bapbSenderItem->berat = $item['berat'];
                         $bapbSenderItem->price
                             = isset($item['price'])
-                            ? (int)$item['price'] : 0;
+                            ? round($item['price']) : 0;
                         $bapbSenderItem->save();
 
                         $unDeletedItem[] = $bapbSenderItem->bapb_sender_item_id;
@@ -292,7 +292,7 @@ class BapbController extends Controller
                             = $bapbSender->bapb_sender_id;
                         $bapbSenderCost->bapb_sender_cost_name
                             = $cost['bapb_sender_cost_name'];
-                        $bapbSenderCost->price = (int)$cost['price'];
+                        $bapbSenderCost->price = round($cost['price']);
                         $bapbSenderCost->save();
 
                         $unDeletedCost[] = $bapbSenderCost->bapb_sender_cost_id;
